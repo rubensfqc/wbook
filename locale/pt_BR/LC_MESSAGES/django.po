@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wbook365 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-26 15:30+0100\n"
+"POT-Creation-Date: 2026-03-26 16:23+0100\n"
 "PO-Revision-Date: 2026-03-26 00:00+0000\n"
 "Last-Translator: wbook365 Team\n"
 "Language-Team: Portuguese (Brazil)\n"
@@ -85,7 +85,7 @@ msgstr "Portal do Paciente"
 
 #: .\accounts\templates\accounts\doctor_login.html:85
 msgid "Sign in to book"
-msgstr "Entre para agendar"
+msgstr "Faça login para agendar"
 
 #: .\accounts\templates\accounts\doctor_login.html:87
 msgid "Registered patients get instant appointment confirmation."
@@ -121,7 +121,7 @@ msgstr "para lhe registrar"
 #: .\accounts\templates\accounts\login.html:6
 #: .\website\templates\website\base.html:111
 msgid "Login"
-msgstr "Entrar"
+msgstr "Login"
 
 #: .\accounts\templates\accounts\login.html:38
 msgid "Medical appointment scheduling"
@@ -137,7 +137,7 @@ msgstr "seu@email.com"
 
 #: .\accounts\templates\accounts\login.html:60
 msgid "New doctor?"
-msgstr ""
+msgstr "Novo doutor(a)?"
 
 #: .\accounts\templates\accounts\login.html:60
 #, fuzzy
@@ -368,7 +368,6 @@ msgstr "Gerencie"
 #: .\booking\templates\booking\operator\patients.html:3
 #: .\website\templates\website\home.html:123
 #: .\website\templates\website\home.html:140
-#| msgid "Patient"
 msgid "Patients"
 msgstr "Paciente"
 
@@ -376,7 +375,6 @@ msgstr "Paciente"
 # blocked periods
 # ──────────────────────────────────────────────────────────────────────────────
 #: .\booking\templates\booking\base_doctor.html:58
-#| msgid "Block Time Periods"
 msgid "Block Time"
 msgstr "Bloquear Períodos"
 
@@ -386,7 +384,6 @@ msgid "Leads"
 msgstr "Leads"
 
 #: .\booking\templates\booking\base_doctor.html:64
-#| msgid "Save Settings"
 msgid "Settings"
 msgstr "Configurações"
 
@@ -396,7 +393,6 @@ msgid "Schedule"
 msgstr "Agenda"
 
 #: .\booking\templates\booking\base_doctor.html:69
-#| msgid "Save Profile"
 msgid "Profile"
 msgstr "Salvar Perfil"
 
@@ -429,7 +425,6 @@ msgid "Doctors"
 msgstr "Médicos"
 
 #: .\booking\templates\booking\base_operator.html:37
-#| msgid "Confirm"
 msgid "Config"
 msgstr "Configurar"
 
@@ -498,7 +493,6 @@ msgstr "Ações"
 
 #: .\booking\templates\booking\doctor\appointments.html:24
 #: .\booking\templates\booking\operator\appointments.html:17
-#| msgid "Register"
 msgid "Registered"
 msgstr "Cadastrar"
 
@@ -538,7 +532,6 @@ msgstr "Bloquear Períodos"
 # blocked periods
 # ──────────────────────────────────────────────────────────────────────────────
 #: .\booking\templates\booking\doctor\blocked_periods.html:8
-#| msgid "Block Time Periods"
 msgid "Add Block Period"
 msgstr "Bloquear Períodos"
 
@@ -546,7 +539,6 @@ msgstr "Bloquear Períodos"
 # blocked periods
 # ──────────────────────────────────────────────────────────────────────────────
 #: .\booking\templates\booking\doctor\blocked_periods.html:18
-#| msgid "Block Time Periods"
 msgid "Block Period"
 msgstr "Bloquear Períodos"
 
@@ -567,12 +559,10 @@ msgstr "Nenhum período bloqueado"
 # trial expired
 # ──────────────────────────────────────────────────────────────────────────────
 #: .\booking\templates\booking\doctor\dashboard.html:8
-#| msgid "Trial Expired"
 msgid "Trial expires in"
 msgstr "Período de Teste Encerrado"
 
 #: .\booking\templates\booking\doctor\dashboard.html:8
-#| msgid "Contact Support"
 msgid "Contact support to extend."
 msgstr "Contatar Suporte"
 
@@ -597,7 +587,6 @@ msgid "day"
 msgstr "dia"
 
 #: .\booking\templates\booking\doctor\dashboard.html:31
-#| msgid "No appointments found"
 msgid "appointments today"
 msgstr "Nenhuma consulta encontrada"
 
@@ -631,7 +620,6 @@ msgid "Upcoming Appointments"
 msgstr "Próximas Consultas"
 
 #: .\booking\templates\booking\doctor\dashboard.html:59
-#| msgid "Reschedule"
 msgid "Next scheduled"
 msgstr "Próximo agendado"
 
@@ -642,15 +630,15 @@ msgstr "Nenhuma consulta agendada"
 
 #: .\booking\templates\booking\doctor\leads.html:9
 msgid "Walk-in visitors who filled in their details on your booking page."
-msgstr "Pacientes sem registro que preencheram seus dados na sua página de agendamentos."
+msgstr ""
+"Pacientes sem registro que preencheram seus dados na sua página de "
+"agendamentos."
 
 #: .\booking\templates\booking\doctor\leads.html:38
-#| msgid "Leads"
 msgid "Lead"
 msgstr "Lead"
 
 #: .\booking\templates\booking\doctor\leads.html:39
-#| msgid "Contacted"
 msgid "Contact"
 msgstr "Contactado"
 
@@ -684,7 +672,6 @@ msgid "Share your booking page to start receiving them."
 msgstr "Compartilhe sua página de agendamentos para começar a recebê-las."
 
 #: .\booking\templates\booking\doctor\leads.html:126
-#| msgid "Back to booking page"
 msgid "View your booking page"
 msgstr "Voltar para agendamento"
 
@@ -705,7 +692,6 @@ msgid "Appointment History"
 msgstr "Histórico de Consultas"
 
 #: .\booking\templates\booking\doctor\patient_detail.html:39
-#| msgid "No appointments"
 msgid "No appointments yet"
 msgstr "Nenhuma consulta ainda"
 
@@ -1071,7 +1057,9 @@ msgstr "Consultas Anteriores"
 
 #: .\booking\templates\booking\public\booking_page.html:374
 msgid "Walk-in requests are pending until the doctor confirms."
-msgstr "Os pedidos de consulta de pacientes sem registro prévio ficarão pendentes até a confirmação do médico."
+msgstr ""
+"Os pedidos de consulta de pacientes sem registro prévio ficarão pendentes "
+"até a confirmação do médico."
 
 #: .\booking\templates\booking\public\confirmation.html:6
 msgid "Appointment Requested"
@@ -2537,10 +2525,8 @@ msgstr ""
 "único painel profissional."
 
 #: .\website\templates\website\base.html:110
-#, fuzzy
-#| msgid "Sign In"
 msgid "Sign Up"
-msgstr "Entrar"
+msgstr "Registrar-se"
 
 #: .\website\templates\website\base.html:169
 #, python-format
@@ -2554,14 +2540,16 @@ msgstr ""
 "    "
 
 #: .\website\templates\website\home.html:8
+#, fuzzy
+#| msgid ""
+#| "doctor appointment scheduling, medical booking software, patient portal, "
+#| "clinic management, no-show reduction."
 msgid ""
 "doctor appointment scheduling, medical booking software, patient portal, "
-"clinic management, no-show reduction, agendamento médico online, software "
-"para médicos, portal do paciente, gestão de consultas"
+"clinic management, no-show reduction"
 msgstr ""
-"agendamento de consultas médicas, software de agendamento médico, portal do "
-"paciente, gestão de clínicas, redução de faltas, agendamento médico online, "
-"software para médicos, gestão de consultas"
+"agendamento de consultas, software de agendamento médico, portal do "
+"paciente, gestão de clínicas, redução de faltas."
 
 #: .\website\templates\website\home.html:13
 #: .\website\templates\website\home.html:16
@@ -2581,10 +2569,8 @@ msgid "See how it works"
 msgstr "Veja como funciona"
 
 #: .\website\templates\website\home.html:38
-#, fuzzy
-#| msgid "Default trial duration for new doctors."
 msgid "Smart Solutions for Modern Doctors"
-msgstr "Duração padrão do período de teste para novos médicos."
+msgstr "Solução inteligente para doutoras e doutores modernos"
 
 #: .\website\templates\website\home.html:41
 msgid ""
@@ -2659,9 +2645,9 @@ msgid ""
 "patients and blocked periods in one intelligent panel. Stay in control of "
 "your calendar without lifting the phone."
 msgstr ""
-"Acesse seu painel médico privado para gerenciar todas as suas consultas, "
-"pacientes e períodos bloqueados em um único painel inteligente. Mantenha o "
-"controle do seu calendário sem precisar atender o telefone."
+"Acesse seu painel privado para gerenciar todas as suas consultas, pacientes "
+"e períodos bloqueados em um único painel inteligente. Mantenha o controle do "
+"seu calendário sem precisar atender o telefone."
 
 #: .\website\templates\website\home.html:145
 msgid "Upcoming"
