@@ -12,6 +12,7 @@ from booking.forms import (
 from accounts.models import Seller
 import secrets
 import string
+from django.utils.translation import gettext as _
 
 
 def doctor_required(view_func):
@@ -180,17 +181,28 @@ def patient_invite(request):
         # Send credentials by email
         from django.core.mail import send_mail
         from django.conf import settings as djsettings
-        login_url = request.build_absolute_uri(f'/book/{doctor.user.slug}/')
+        login_url = request.build_absolute_uri(f'/accounts/login/{doctor.user.slug}/')
         send_mail(
-            'Your wbook365 patient account',
-            (f'Hello {user.name},\n\nYour doctor has created an account for you.\n'
-             f'Login URL: {login_url}\nEmail: {user.email}\nPassword: {raw_pass}\n\n'
-             f'Please change your password after logging in.'),
-            djsettings.DEFAULT_FROM_EMAIL,
-            [user.email],
-            fail_silently=True,
+                    _('Your patient account for Dr. %(doctor)s') % {'doctor': doctor.user.name},
+                    (f'Hello {user.name},\n\n'
+                    f'Your doctor has created an account for you.\n'
+                    f'Login URL: {login_url}\n'
+                    f'Email: {user.email}\n'
+                    f'Password: {raw_pass}\n\n'
+                    f'Please change your password after logging in.'),
+                    djsettings.DEFAULT_FROM_EMAIL,
+                    [user.email],
+                    fail_silently=True,
         )
-        messages.success(request, _('Patient %(name)s invited. Credentials sent to %(email)s.') % {'name': user.name, 'email': user.email})
+
+        messages.success(
+                    request, 
+                    # Usamos o marcador %()s para que a ordem das palavras possa mudar na tradução
+                    _('Patient %(name)s invited. Credentials sent to %(email)s.') % {
+                        'name': user.name, 
+                        'email': user.email
+                    }
+        )
         return redirect('doctor_patients')
     return render(request, 'booking/doctor/patient_invite.html', {'form': form, 'doctor': doctor})
 

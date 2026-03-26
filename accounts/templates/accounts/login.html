@@ -57,6 +57,9 @@
         <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2.5 rounded-xl transition mt-2">{% trans "Sign In" %}</button>
       </form>
       <p class="text-center text-sm text-gray-500 mt-6">
+        <a href="{% url 'home' %}" class="text-teal-600 hover:underline font-medium">{% trans "Back to home page" %}</a>
+      </p>
+      <p class="text-center text-sm text-gray-500 mt-6">
         {% trans "New doctor?" %} <a href="{% url 'register' %}" class="text-teal-600 hover:underline font-medium">{% trans "Create an account" %}</a>
       </p>
     </div>

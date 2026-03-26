@@ -15,8 +15,8 @@
     {% if doctor.specialty %}<p class="text-sm text-gray-400 mt-1">{{ doctor.specialty }}</p>{% endif %}
   </div>
   <div class="mt-4 md:mt-0 flex gap-3">
-    <a href="{% url 'patient_invite' %}" class="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition shadow-sm"><i class="fas fa-user-plus text-xs"></i> Invite Patient</a>
-    <a href="{% url 'doctor_appointments' %}" class="inline-flex items-center gap-2 bg-white border border-gray-200 hover:border-teal-300 text-gray-700 text-sm font-semibold px-4 py-2.5 rounded-xl transition shadow-sm"><i class="fas fa-calendar text-xs text-teal-400"></i> Calendar</a>
+    <a href="{% url 'patient_invite' %}" class="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition shadow-sm"><i class="fas fa-user-plus text-xs"></i> {% trans "Invite Patient" %}</a>
+    <a href="{% url 'doctor_appointments' %}" class="inline-flex items-center gap-2 bg-white border border-gray-200 hover:border-teal-300 text-gray-700 text-sm font-semibold px-4 py-2.5 rounded-xl transition shadow-sm"><i class="fas fa-calendar text-xs text-teal-400"></i> {% trans "Calendar" %}</a>
   </div>
 </div>
 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">

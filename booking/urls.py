@@ -19,7 +19,7 @@ from booking.views import (
 
 urlpatterns = [
     # ── root redirect ────────────────────────────────────────────────────────
-    path('',              dashboard_redirect, name='dashboard_redirect'),
+    path('dashboard/',    dashboard_redirect, name='dashboard_redirect'),
     path('dashboard/',    dashboard_redirect, name='dashboard'),
 
     # ── public booking ───────────────────────────────────────────────────────
