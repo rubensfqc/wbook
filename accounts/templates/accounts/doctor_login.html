@@ -84,7 +84,7 @@
         <div class="mb-6">
           <h2 class="text-xl font-bold text-gray-800">{% trans "Sign in to book" %}</h2>
           <p class="text-sm text-gray-400 mt-1">
-            Registered patients get instant appointment confirmation.
+            {% trans "Registered patients get instant appointment confirmation." %}
           </p>
         </div>
 
@@ -131,7 +131,7 @@
           <button type="submit"
                   class="w-full bg-teal-600 hover:bg-teal-700 active:bg-teal-800 text-white font-semibold py-2.5 rounded-xl transition mt-1 flex items-center justify-center gap-2">
             <i class="fas fa-right-to-bracket text-sm"></i>
-            Sign In
+            {% trans "Sign In" %}
           </button>
         </form>
 
@@ -140,10 +140,10 @@
           <a href="{% url 'public_booking' slug=doctor.user.slug %}"
              class="inline-flex items-center gap-1.5 text-sm text-teal-600 hover:text-teal-700 hover:underline font-medium">
             <i class="fas fa-arrow-left text-xs"></i>
-            Back to booking page
+            {% trans "Back to booking page" %}
           </a>
           <p class="text-xs text-gray-400">
-            Don't have an account? Ask Dr. {{ doctor.user.name|truncatewords:1 }} to register you.
+            {% trans "Don't have an account? Ask Dr. " %}{{ doctor.user.name|truncatewords:1 }} {% trans "to register you." %}
           </p>
         </div>
 
