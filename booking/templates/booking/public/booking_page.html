@@ -1,119 +1,380 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Book with Dr. {{ doctor.user.name }} — wbook365</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>body{font-family:'Inter',sans-serif;}</style>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .step-indicator.active  { background: #0d9488; color: #fff; border-color: #0d9488; }
+    .step-indicator.done    { background: #ccfbf1; color: #0d9488; border-color: #99f6e4; }
+    .step-indicator.pending { background: #fff; color: #9ca3af; border-color: #e5e7eb; }
+    .slot-btn.selected      { background: #0d9488 !important; color: #fff !important; border-color: #0d9488 !important; }
+    input:focus, textarea:focus { outline: none; border-color: #0d9488; box-shadow: 0 0 0 3px rgba(13,148,136,.1); }
+    .fade-in { animation: fadeIn .25s ease; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+  </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-slate-50 to-teal-50">
+<body class="min-h-screen bg-gradient-to-br from-slate-50 to-teal-50 pb-16">
+
+  <!-- Toast messages (e.g. slot taken error on re-render) -->
   {% if messages %}
   <div class="fixed top-5 right-5 z-50 space-y-3">
     {% for message in messages %}
-    <div class="flex items-center gap-3 w-80 p-4 bg-white rounded-xl shadow-xl border-l-4 {% if message.tags == 'success' %}border-teal-500{% else %}border-red-400{% endif %}">
+    <div class="flex items-center gap-3 w-80 p-4 bg-white rounded-xl shadow-xl border-l-4
+                {% if message.tags == 'success' %}border-teal-500{% else %}border-red-400{% endif %}">
       <div class="flex-1 text-sm text-gray-700">{{ message }}</div>
-      <button onclick="this.parentElement.remove()" class="text-gray-300 hover:text-gray-500 text-lg">&times;</button>
+      <button onclick="this.parentElement.remove()" class="text-gray-300 hover:text-gray-500 text-lg leading-none">&times;</button>
     </div>
     {% endfor %}
   </div>
   {% endif %}
-  <div class="max-w-2xl mx-auto px-4 py-12">
-    <!-- Doctor header -->
+
+  <div class="max-w-xl mx-auto px-4 py-10">
+
+    <!-- ── Doctor card ──────────────────────────────────────────────── -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
       <div class="flex items-center gap-4">
         {% if doctor.logo %}
-        <img src="{{ doctor.logo.url }}" alt="{{ doctor.clinic_name }}" class="w-16 h-16 rounded-2xl object-cover">
+          <img src="{{ doctor.logo.url }}" alt="{{ doctor.clinic_name }}"
+               class="w-16 h-16 rounded-2xl object-cover flex-shrink-0">
         {% else %}
-        <div class="w-16 h-16 rounded-2xl bg-teal-100 flex items-center justify-center"><i class="fas fa-stethoscope text-teal-500 text-2xl"></i></div>
+          <div class="w-16 h-16 rounded-2xl bg-teal-100 flex items-center justify-center flex-shrink-0">
+            <i class="fas fa-stethoscope text-teal-500 text-2xl"></i>
+          </div>
         {% endif %}
-        <div>
-          <h1 class="text-2xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">Dr. {{ doctor.user.name }}</h1>
-          {% if doctor.specialty %}<p class="text-teal-600 font-medium">{{ doctor.specialty }}</p>{% endif %}
-          {% if doctor.clinic_name %}<p class="text-sm text-gray-400"><i class="fas fa-building mr-1"></i>{{ doctor.clinic_name }}</p>{% endif %}
+        <div class="min-w-0">
+          <h1 class="text-2xl font-bold text-gray-900 truncate"
+              style="font-family:'DM Serif Display',serif;">Dr. {{ doctor.user.name }}</h1>
+          {% if doctor.specialty %}
+            <p class="text-teal-600 font-medium text-sm">{{ doctor.specialty }}</p>
+          {% endif %}
+          {% if doctor.clinic_name %}
+            <p class="text-xs text-gray-400 mt-0.5">
+              <i class="fas fa-building mr-1"></i>{{ doctor.clinic_name }}
+            </p>
+          {% endif %}
         </div>
       </div>
-      {% if doctor.bio %}<p class="text-sm text-gray-500 mt-4 leading-relaxed">{{ doctor.bio }}</p>{% endif %}
+      {% if doctor.bio %}
+        <p class="text-sm text-gray-500 mt-4 leading-relaxed border-t border-gray-50 pt-4">{{ doctor.bio }}</p>
+      {% endif %}
     </div>
 
-    <h2 class="text-xl font-bold text-gray-800 mb-4">Select a Time Slot</h2>
-
-    {% if slots_by_day %}
-    <!-- Step 1: pick slot -->
-    <div id="step-slots" class="space-y-4">
-      {% for day in slots_by_day %}
-      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-        <h3 class="font-semibold text-gray-800 mb-3">{{ day.date|date:"l, d F" }}</h3>
-        <div class="flex flex-wrap gap-2">
-          {% for slot in day.slots %}
-          <button type="button"
-            data-slot="{{ slot|date:'Y-m-d'}}T{{ slot|time:'H:i' }}"
-            data-label="{{ day.date|date:'l, d M' }} at {{ slot|time:'H:i' }}"
-            onclick="selectSlot(this)"
-            class="slot-btn px-4 py-2 rounded-xl text-sm font-semibold border border-teal-200 text-teal-700 bg-teal-50 hover:bg-teal-600 hover:text-white hover:border-teal-600 transition">
-            {{ slot|time:"H:i" }}
-          </button>
-          {% endfor %}
-        </div>
+    <!-- ── Step indicator ───────────────────────────────────────────── -->
+    <div class="flex items-center gap-3 mb-8">
+      <div id="ind-1" class="step-indicator active w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all">1</div>
+      <div class="flex-1 h-px bg-gray-200" id="line-1"></div>
+      <div id="ind-2" class="step-indicator pending w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all">2</div>
+      <div class="text-xs text-gray-400 hidden" id="step-labels">
       </div>
-      {% endfor %}
+    </div>
+    <div class="flex justify-between -mt-6 mb-8 px-0.5">
+      <span class="text-xs font-medium text-gray-500">Your details</span>
+      <span class="text-xs font-medium text-gray-400">Choose a slot</span>
     </div>
 
-    <!-- Step 2: fill in details -->
-    <div id="step-form" class="hidden mt-6">
+    <!-- ════════════════════════════════════════════════════════════════
+         STEP 1 — Personal details
+    ═════════════════════════════════════════════════════════════════ -->
+    <div id="step1" class="fade-in">
       <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-        <h3 class="font-bold text-gray-800 mb-1">Your Details</h3>
-        <p id="selected-slot-label" class="text-sm text-teal-600 font-medium mb-4"></p>
-        <form method="post" class="space-y-4">
-          {% csrf_token %}
-          <input type="hidden" name="slot" id="slot-input">
-          {% for field in form %}
+        <h2 class="text-lg font-bold text-gray-800 mb-1">Your details</h2>
+        <p class="text-sm text-gray-400 mb-6">Fill in your information so the doctor knows who you are.</p>
+
+        <div class="space-y-4" id="details-form">
+
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">{{ field.label }}</label>
-            <input type="{{ field.field.widget.input_type }}" name="{{ field.html_name }}" value="{{ field.value|default:'' }}"
-              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 {% if field.errors %}border-red-400{% endif %}">
-            {% for e in field.errors %}<p class="text-red-500 text-xs mt-1">{{ e }}</p>{% endfor %}
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+              Full Name <span class="text-red-400">*</span>
+            </label>
+            <input id="f-name" type="text" placeholder="Jane Smith"
+                   value="{{ form.name.value|default:'' }}"
+                   class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm transition">
+            <p id="err-name" class="text-red-500 text-xs mt-1 hidden">Please enter your full name.</p>
+            {% for e in form.name.errors %}
+              <p class="text-red-500 text-xs mt-1">{{ e }}</p>
+            {% endfor %}
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+              Email address <span class="text-red-400">*</span>
+            </label>
+            <input id="f-email" type="email" placeholder="jane@example.com"
+                   value="{{ form.email.value|default:'' }}"
+                   class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm transition">
+            <p id="err-email" class="text-red-500 text-xs mt-1 hidden">Please enter a valid email address.</p>
+            {% for e in form.email.errors %}
+              <p class="text-red-500 text-xs mt-1">{{ e }}</p>
+            {% endfor %}
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Phone <span class="text-gray-400 font-normal">(optional)</span></label>
+            <input id="f-phone" type="tel" placeholder="+1 555 000 0000"
+                   value="{{ form.phone.value|default:'' }}"
+                   class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm transition">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Reason for visit <span class="text-gray-400 font-normal">(optional)</span></label>
+            <textarea id="f-notes" rows="3" placeholder="Briefly describe your symptoms or the reason for this appointment..."
+                      class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm transition resize-none">{{ form.notes.value|default:'' }}</textarea>
+          </div>
+
+          <button type="button" onclick="goToStep2()"
+                  class="w-full bg-teal-600 hover:bg-teal-700 active:bg-teal-800 text-white font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2">
+            Next: Choose a time slot
+            <i class="fas fa-arrow-right text-sm"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sign-in hint -->
+      {% if not request.user.is_authenticated %}
+      <p class="text-center text-xs text-gray-400 mt-5">
+        Already a registered patient?
+        <a href="{% url 'login' %}" class="text-teal-600 hover:underline font-medium">Sign in for instant confirmation</a>
+      </p>
+      {% elif request.user.is_patient %}
+      <p class="text-center text-xs text-gray-400 mt-5">
+        <a href="{% url 'patient_book' %}" class="text-teal-600 hover:underline font-medium">Use your patient portal instead →</a>
+      </p>
+      {% endif %}
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════════
+         STEP 2 — Slot selection
+    ═════════════════════════════════════════════════════════════════ -->
+    <div id="step2" class="hidden fade-in">
+
+      <!-- Summary of entered details -->
+      <div class="bg-teal-50 border border-teal-100 rounded-xl px-4 py-3 flex items-center justify-between mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0">
+            <i class="fas fa-user-check text-teal-600 text-sm"></i>
+          </div>
+          <div>
+            <p id="summary-name"  class="text-sm font-semibold text-gray-800"></p>
+            <p id="summary-email" class="text-xs text-gray-500"></p>
+          </div>
+        </div>
+        <button onclick="goToStep1()" class="text-xs text-teal-600 hover:underline font-medium flex-shrink-0">Edit</button>
+      </div>
+
+      <h2 class="text-lg font-bold text-gray-800 mb-4">Choose a time slot</h2>
+
+      {% if slots_by_day %}
+        <div class="space-y-4" id="slot-grid">
+          {% for day in slots_by_day %}
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+            <h3 class="font-semibold text-gray-800 mb-3 text-sm">
+              <i class="fas fa-calendar-day text-teal-400 mr-1.5"></i>
+              {{ day.date|date:"l, d F" }}
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              {% for slot in day.slots %}
+              <button type="button"
+                data-slot="{{ slot|date:'Y-m-d' }}T{{ slot|time:'H:i' }}"
+                data-label="{{ day.date|date:'l, d M' }} at {{ slot|time:'H:i' }}"
+                onclick="selectSlot(this)"
+                class="slot-btn px-4 py-2 rounded-xl text-sm font-semibold border border-teal-200 text-teal-700 bg-teal-50 hover:bg-teal-600 hover:text-white hover:border-teal-600 transition">
+                {{ slot|time:"H:i" }}
+              </button>
+              {% endfor %}
+            </div>
           </div>
           {% endfor %}
-          <div class="flex gap-3">
-            <button type="submit" class="flex-1 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 rounded-xl transition">Request Appointment</button>
-            <button type="button" onclick="backToSlots()" class="bg-white border border-gray-200 text-gray-600 font-semibold px-5 py-3 rounded-xl hover:border-gray-300 transition">Back</button>
+        </div>
+
+        <!-- Confirm panel (hidden until slot picked) -->
+        <div id="confirm-panel" class="hidden mt-6 fade-in">
+          <div class="bg-white rounded-2xl border border-teal-200 shadow-sm p-6">
+            <h3 class="font-bold text-gray-800 mb-1">Confirm your appointment</h3>
+            <p class="text-sm text-gray-400 mb-4">Please review and submit your request.</p>
+
+            <div class="bg-slate-50 rounded-xl p-4 mb-5 space-y-2 text-sm">
+              <div class="flex gap-2">
+                <i class="fas fa-user text-gray-300 w-4 mt-0.5"></i>
+                <span id="confirm-name"  class="text-gray-700 font-medium"></span>
+              </div>
+              <div class="flex gap-2">
+                <i class="fas fa-envelope text-gray-300 w-4 mt-0.5"></i>
+                <span id="confirm-email" class="text-gray-500"></span>
+              </div>
+              <div class="flex gap-2" id="confirm-phone-row">
+                <i class="fas fa-phone text-gray-300 w-4 mt-0.5"></i>
+                <span id="confirm-phone" class="text-gray-500"></span>
+              </div>
+              <div class="flex gap-2 pt-1 border-t border-gray-100 mt-1">
+                <i class="fas fa-clock text-teal-400 w-4 mt-0.5"></i>
+                <span id="confirm-slot" class="text-teal-600 font-semibold"></span>
+              </div>
+            </div>
+
+            <form method="post" id="booking-form">
+              {% csrf_token %}
+              <input type="hidden" name="name"  id="h-name">
+              <input type="hidden" name="email" id="h-email">
+              <input type="hidden" name="phone" id="h-phone">
+              <input type="hidden" name="notes" id="h-notes">
+              <input type="hidden" name="slot"  id="h-slot">
+              <div class="flex gap-3">
+                <button type="submit"
+                        class="flex-1 bg-teal-600 hover:bg-teal-700 active:bg-teal-800 text-white font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2">
+                  <i class="fas fa-paper-plane text-sm"></i>
+                  Request Appointment
+                </button>
+                <button type="button" onclick="clearSlot()"
+                        class="bg-white border border-gray-200 hover:border-gray-300 text-gray-600 font-semibold px-5 py-3 rounded-xl transition">
+                  Change
+                </button>
+              </div>
+              <p class="text-xs text-gray-400 text-center mt-3">
+                <i class="fas fa-info-circle mr-1"></i>
+                Unregistered requests are pending until confirmed by the doctor.
+              </p>
+            </form>
           </div>
-        </form>
-      </div>
+        </div>
+
+      {% else %}
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-10 text-center">
+          <i class="fas fa-calendar-xmark text-4xl text-gray-200 mb-4 block"></i>
+          <p class="text-gray-500 font-medium">No available slots in the next 14 days.</p>
+          <p class="text-gray-400 text-sm mt-1">Please check back later or contact the clinic directly.</p>
+        </div>
+      {% endif %}
+
+      <button onclick="goToStep1()"
+              class="mt-5 flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-600 transition">
+        <i class="fas fa-arrow-left text-xs"></i> Back to your details
+      </button>
     </div>
 
-    {% if request.user.is_authenticated and request.user.is_patient %}
-    <p class="text-center text-sm text-gray-500 mt-6">
-      <a href="{% url 'patient_book' %}" class="text-teal-600 hover:underline">Use your patient portal instead →</a>
-    </p>
-    {% else %}
-    <p class="text-center text-sm text-gray-500 mt-6">
-      Already a registered patient? <a href="{% url 'login' %}" class="text-teal-600 hover:underline">Sign in for automatic confirmation</a>
-    </p>
-    {% endif %}
+  </div><!-- /max-w-xl -->
 
-    {% else %}
-    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 text-center">
-      <i class="fas fa-calendar-xmark text-3xl text-gray-200 mb-3 block"></i>
-      <p class="text-gray-400">No available slots in the next 14 days.</p>
-    </div>
-    {% endif %}
-  </div>
   <script>
+    // ── State ────────────────────────────────────────────────────────────────
+    let patientData = { name:'', email:'', phone:'', notes:'' };
+
+    // ── Validation helpers ───────────────────────────────────────────────────
+    function showErr(id, show) {
+      document.getElementById(id).classList.toggle('hidden', !show);
+    }
+
+    function validateStep1() {
+      const name  = document.getElementById('f-name').value.trim();
+      const email = document.getElementById('f-email').value.trim();
+      let ok = true;
+      if (!name)  { showErr('err-name',  true);  ok = false; }
+      else          showErr('err-name',  false);
+      if (!email || !email.includes('@')) { showErr('err-email', true);  ok = false; }
+      else                                  showErr('err-email', false);
+      return ok;
+    }
+
+    // ── Step navigation ──────────────────────────────────────────────────────
+    function goToStep2() {
+      if (!validateStep1()) return;
+
+      patientData.name  = document.getElementById('f-name').value.trim();
+      patientData.email = document.getElementById('f-email').value.trim();
+      patientData.phone = document.getElementById('f-phone').value.trim();
+      patientData.notes = document.getElementById('f-notes').value.trim();
+
+      // Update summary bar
+      document.getElementById('summary-name').textContent  = patientData.name;
+      document.getElementById('summary-email').textContent = patientData.email;
+
+      // Step indicator
+      document.getElementById('ind-1').className = 'step-indicator done w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all';
+      document.getElementById('ind-1').innerHTML  = '<i class="fas fa-check text-xs"></i>';
+      document.getElementById('ind-2').className = 'step-indicator active w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all';
+
+      document.getElementById('step1').classList.add('hidden');
+      document.getElementById('step2').classList.remove('hidden');
+      document.getElementById('step2').classList.add('fade-in');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goToStep1() {
+      // Reset slot selection
+      clearSlot();
+
+      document.getElementById('ind-1').className = 'step-indicator active w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all';
+      document.getElementById('ind-1').innerHTML  = '1';
+      document.getElementById('ind-2').className = 'step-indicator pending w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all';
+      document.getElementById('ind-2').innerHTML  = '2';
+
+      document.getElementById('step2').classList.add('hidden');
+      document.getElementById('step1').classList.remove('hidden');
+      document.getElementById('step1').classList.add('fade-in');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ── Slot selection ───────────────────────────────────────────────────────
     function selectSlot(btn) {
-      document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('bg-teal-600','text-white','border-teal-600'));
-      btn.classList.add('bg-teal-600','text-white','border-teal-600');
-      document.getElementById('slot-input').value = btn.dataset.slot;
-      document.getElementById('selected-slot-label').textContent = btn.dataset.label;
-      document.getElementById('step-form').classList.remove('hidden');
-      document.getElementById('step-form').scrollIntoView({behavior:'smooth'});
+      // Deselect all
+      document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+      // Select this one
+      btn.classList.add('selected');
+
+      const slot  = btn.dataset.slot;
+      const label = btn.dataset.label;
+
+      // Fill hidden fields
+      document.getElementById('h-name').value  = patientData.name;
+      document.getElementById('h-email').value = patientData.email;
+      document.getElementById('h-phone').value = patientData.phone;
+      document.getElementById('h-notes').value = patientData.notes;
+      document.getElementById('h-slot').value  = slot;
+
+      // Fill confirm panel
+      document.getElementById('confirm-name').textContent  = patientData.name;
+      document.getElementById('confirm-email').textContent = patientData.email;
+      document.getElementById('confirm-slot').textContent  = label;
+
+      const phoneRow = document.getElementById('confirm-phone-row');
+      if (patientData.phone) {
+        document.getElementById('confirm-phone').textContent = patientData.phone;
+        phoneRow.classList.remove('hidden');
+      } else {
+        phoneRow.classList.add('hidden');
+      }
+
+      // Show confirm panel
+      const panel = document.getElementById('confirm-panel');
+      panel.classList.remove('hidden');
+      panel.classList.add('fade-in');
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
-    function backToSlots() {
-      document.getElementById('step-form').classList.add('hidden');
-      document.getElementById('slot-input').value = '';
+
+    function clearSlot() {
+      document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+      document.getElementById('confirm-panel').classList.add('hidden');
+      document.getElementById('h-slot').value = '';
     }
+
+    // ── If form was re-rendered with errors, jump straight to step2 ──────────
+    {% if form.errors or selected_slot %}
+      // Pre-fill patient data from POSTed values and go to step2
+      document.getElementById('f-name').value  = "{{ form.name.value|default:''|escapejs }}";
+      document.getElementById('f-email').value = "{{ form.email.value|default:''|escapejs }}";
+      document.getElementById('f-phone').value = "{{ form.phone.value|default:''|escapejs }}";
+      document.getElementById('f-notes').value = "{{ form.notes.value|default:''|escapejs }}";
+      goToStep2();
+      {% if selected_slot %}
+        // Re-select the previously chosen slot button
+        document.querySelectorAll('.slot-btn').forEach(btn => {
+          if (btn.dataset.slot === "{{ selected_slot|escapejs }}") selectSlot(btn);
+        });
+      {% endif %}
+    {% endif %}
   </script>
 </body>
 </html>
