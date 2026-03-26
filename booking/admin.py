@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (
     PlatformSettings, DoctorProfile, PatientProfile,
-    OperatorProfile, BlockedPeriod, Appointment,
+    OperatorProfile, BlockedPeriod, Appointment, Lead,
 )
 
 
@@ -41,3 +41,12 @@ class AppointmentAdmin(admin.ModelAdmin):
     list_filter   = ('status',)
     search_fields = ('patient_name', 'patient_email', 'patient_user__email')
     date_hierarchy = 'start_time'
+
+
+@admin.register(Lead)
+class LeadAdmin(admin.ModelAdmin):
+    list_display  = ('name', 'email', 'phone', 'doctor', 'status', 'is_converted', 'created_at')
+    list_filter   = ('status', 'doctor')
+    search_fields = ('name', 'email', 'phone')
+    readonly_fields = ('created_at', 'updated_at', 'appointment')
+    date_hierarchy = 'created_at'

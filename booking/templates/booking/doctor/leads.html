@@ -1,0 +1,134 @@
+{% extends "booking/base_doctor.html" %}
+{% block title %}Leads — wbook365{% endblock %}
+{% block content %}
+<div class="flex items-center justify-between mb-8">
+  <div>
+    <p class="text-xs font-semibold uppercase tracking-widest text-teal-500 mb-1">Doctor Portal</p>
+    <h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">Leads</h1>
+    <p class="text-sm text-gray-400 mt-1">Walk-in visitors who filled in their details on your booking page.</p>
+  </div>
+</div>
+
+<!-- KPI strip -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+  <a href="?" class="bg-white rounded-2xl border {% if not status_filter %}border-teal-300 ring-1 ring-teal-200{% else %}border-gray-100{% endif %} p-4 shadow-sm hover:-translate-y-0.5 transition text-center">
+    <p class="text-3xl font-bold text-gray-900">{{ counts.new }}</p>
+    <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mt-1">New</p>
+  </a>
+  <a href="?status=CONTACTED" class="bg-white rounded-2xl border {% if status_filter == 'CONTACTED' %}border-blue-300 ring-1 ring-blue-200{% else %}border-gray-100{% endif %} p-4 shadow-sm hover:-translate-y-0.5 transition text-center">
+    <p class="text-3xl font-bold text-blue-600">{{ counts.contacted }}</p>
+    <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mt-1">Contacted</p>
+  </a>
+  <a href="?status=CONVERTED" class="bg-white rounded-2xl border {% if status_filter == 'CONVERTED' %}border-teal-300 ring-1 ring-teal-200{% else %}border-gray-100{% endif %} p-4 shadow-sm hover:-translate-y-0.5 transition text-center">
+    <p class="text-3xl font-bold text-teal-600">{{ counts.converted }}</p>
+    <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mt-1">Converted</p>
+  </a>
+  <a href="?status=LOST" class="bg-white rounded-2xl border {% if status_filter == 'LOST' %}border-red-200 ring-1 ring-red-100{% else %}border-gray-100{% endif %} p-4 shadow-sm hover:-translate-y-0.5 transition text-center">
+    <p class="text-3xl font-bold text-red-400">{{ counts.lost }}</p>
+    <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mt-1">Lost</p>
+  </a>
+</div>
+
+<!-- Table -->
+<div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+  <table class="w-full text-sm">
+    <thead class="bg-slate-50 text-xs text-gray-400 uppercase tracking-wider">
+      <tr>
+        <th class="px-6 py-3 text-left">Lead</th>
+        <th class="px-4 py-3 text-left">Contact</th>
+        <th class="px-4 py-3 text-left">Reason for visit</th>
+        <th class="px-4 py-3 text-center">Status</th>
+        <th class="px-4 py-3 text-center">Received</th>
+        <th class="px-4 py-3 text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-50">
+      {% for lead in leads %}
+      <tr class="hover:bg-slate-50 transition">
+
+        <!-- Name -->
+        <td class="px-6 py-4">
+          <p class="font-semibold text-gray-900">{{ lead.name }}</p>
+          {% if lead.appointment %}
+          <a href="{% url 'doctor_appointments' %}"
+             class="inline-flex items-center gap-1 text-xs text-teal-600 hover:underline mt-0.5">
+            <i class="fas fa-calendar-check text-[10px]"></i> Has appointment
+          </a>
+          {% endif %}
+        </td>
+
+        <!-- Contact -->
+        <td class="px-4 py-4">
+          <p class="text-gray-700">{{ lead.email }}</p>
+          {% if lead.phone %}
+          <p class="text-xs text-gray-400 mt-0.5"><i class="fas fa-phone text-[10px] mr-1"></i>{{ lead.phone }}</p>
+          {% endif %}
+        </td>
+
+        <!-- Notes -->
+        <td class="px-4 py-4 max-w-xs">
+          <p class="text-gray-500 text-xs leading-relaxed line-clamp-2">{{ lead.notes|default:"—" }}</p>
+        </td>
+
+        <!-- Status badge -->
+        <td class="px-4 py-4 text-center">
+          {% if lead.status == 'NEW' %}
+            <span class="inline-block px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">New</span>
+          {% elif lead.status == 'CONTACTED' %}
+            <span class="inline-block px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">Contacted</span>
+          {% elif lead.status == 'CONVERTED' %}
+            <span class="inline-block px-2.5 py-1 rounded-full text-xs font-semibold bg-teal-100 text-teal-700">Converted</span>
+          {% elif lead.status == 'LOST' %}
+            <span class="inline-block px-2.5 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-500">Lost</span>
+          {% endif %}
+        </td>
+
+        <!-- Date -->
+        <td class="px-4 py-4 text-center text-xs text-gray-400">
+          {{ lead.created_at|date:"d M Y" }}<br>
+          <span class="text-gray-300">{{ lead.created_at|time:"H:i" }}</span>
+        </td>
+
+        <!-- Status change -->
+        <td class="px-4 py-4 text-center">
+          {% if lead.status != 'CONVERTED' %}
+          <form method="post" action="{% url 'lead_update_status' lead.pk %}" class="inline-flex items-center gap-2">
+            {% csrf_token %}
+            <select name="status"
+                    class="text-xs border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none focus:border-teal-400">
+              {% for val, label in status_choices %}
+                {% if val != 'CONVERTED' %}
+                <option value="{{ val }}" {% if lead.status == val %}selected{% endif %}>{{ label }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+            <button type="submit"
+                    class="text-xs bg-teal-600 hover:bg-teal-700 text-white font-semibold px-3 py-1.5 rounded-lg transition">
+              Save
+            </button>
+          </form>
+          {% else %}
+          <span class="text-xs text-gray-300">—</span>
+          {% endif %}
+        </td>
+
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" class="text-center py-16 text-gray-400 text-sm">
+          <i class="fas fa-user-clock text-3xl text-gray-200 mb-3 block"></i>
+          No leads yet. Share your booking page to start receiving them.
+          <div class="mt-4">
+            <a href="{% url 'public_booking' slug=doctor.user.slug %}" target="_blank"
+               class="inline-flex items-center gap-2 text-teal-600 hover:underline font-medium text-sm">
+              <i class="fas fa-external-link-alt text-xs"></i>
+              View your booking page →
+            </a>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

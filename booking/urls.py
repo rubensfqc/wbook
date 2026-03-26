@@ -1,12 +1,13 @@
 from django.urls import path
 from booking.views import (
     # public
-    dashboard_redirect, public_booking, booking_confirmation,
+    dashboard_redirect, public_booking, booking_confirmation, capture_lead,
     # doctor
     doctor_dashboard, doctor_appointments, appointment_action, appointment_note,
     doctor_schedule_settings, blocked_periods, blocked_period_delete,
     doctor_patients, patient_invite, patient_detail, patient_remove,
     doctor_profile_settings, trial_expired,
+    doctor_leads, lead_update_status,
     # patient
     patient_dashboard, patient_book, patient_appointments,
     patient_cancel, patient_reschedule,
@@ -24,6 +25,7 @@ urlpatterns = [
     # ── public booking ───────────────────────────────────────────────────────
     path('book/<slug:slug>/',         public_booking,      name='public_booking'),
     path('book/<slug:slug>/done/',    booking_confirmation, name='booking_confirmation'),
+    path('book/<slug:slug>/lead/',    capture_lead,         name='capture_lead'),
     path('trial-expired/',            trial_expired,        name='trial_expired'),
 
     # ── doctor portal ────────────────────────────────────────────────────────
@@ -39,6 +41,10 @@ urlpatterns = [
     path('doctor/patients/<int:pk>/',         patient_detail,           name='patient_detail'),
     path('doctor/patients/<int:pk>/remove/',  patient_remove,           name='patient_remove'),
     path('doctor/profile/',                   doctor_profile_settings,  name='doctor_profile_settings'),
+
+    # ── leads ────────────────────────────────────────────────────────────────
+    path('doctor/leads/',                     doctor_leads,             name='doctor_leads'),
+    path('doctor/leads/<int:pk>/status/',     lead_update_status,       name='lead_update_status'),
 
     # ── patient portal ───────────────────────────────────────────────────────
     path('patient/',                        patient_dashboard,    name='patient_dashboard'),

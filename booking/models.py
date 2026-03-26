@@ -204,6 +204,53 @@ class BlockedPeriod(models.Model):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Lead  (walk-in visitor who filled Step 1 of the public booking page)
+# ─────────────────────────────────────────────────────────────────────────────
+
+class Lead(models.Model):
+    class Status(models.TextChoices):
+        NEW        = 'NEW',        _('New')
+        CONTACTED  = 'CONTACTED',  _('Contacted')
+        CONVERTED  = 'CONVERTED',  _('Converted')   # became an Appointment
+        LOST       = 'LOST',       _('Lost')
+
+    doctor     = models.ForeignKey(
+        DoctorProfile, on_delete=models.CASCADE, related_name='leads'
+    )
+
+    # Walk-in identity — captured at Step 1
+    name       = models.CharField(max_length=150)
+    email      = models.EmailField()
+    phone      = models.CharField(max_length=30, blank=True)
+    notes      = models.TextField(blank=True, help_text=_('Reason for visit entered by the patient.'))
+
+    status     = models.CharField(
+        max_length=20, choices=Status.choices, default=Status.NEW
+    )
+
+    # Set when the lead books a slot and converts to an appointment
+    appointment = models.OneToOneField(
+        'Appointment',
+        on_delete=models.SET_NULL,
+        null=True, blank=True,
+        related_name='lead',
+    )
+
+    created_at  = models.DateTimeField(auto_now_add=True)
+    updated_at  = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'Lead: {self.name} <{self.email}> -> {self.doctor} [{self.status}]'
+
+    @property
+    def is_converted(self):
+        return self.status == self.Status.CONVERTED
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Appointment
 # ─────────────────────────────────────────────────────────────────────────────
 

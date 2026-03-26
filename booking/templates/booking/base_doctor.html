@@ -57,6 +57,9 @@
       <a href="{% url 'blocked_periods' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition {% if 'blocked' in request.resolver_match.url_name %}bg-slate-800 text-white{% endif %}">
         <i class="fas fa-ban w-4 text-center text-slate-500"></i> Block Time
       </a>
+      <a href="{% url 'doctor_leads' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition {% if 'lead' in request.resolver_match.url_name %}bg-slate-800 text-white{% endif %}">
+        <i class="fas fa-user-clock w-4 text-center text-slate-500"></i> Leads
+      </a>
 
       <p class="px-3 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">Settings</p>
       <a href="{% url 'doctor_schedule_settings' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition {% if 'schedule' in request.resolver_match.url_name %}bg-slate-800 text-white{% endif %}">

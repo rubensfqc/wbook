@@ -218,11 +218,12 @@
 
             <form method="post" id="booking-form">
               {% csrf_token %}
-              <input type="hidden" name="name"  id="h-name">
-              <input type="hidden" name="email" id="h-email">
-              <input type="hidden" name="phone" id="h-phone">
-              <input type="hidden" name="notes" id="h-notes">
-              <input type="hidden" name="slot"  id="h-slot">
+              <input type="hidden" name="name"    id="h-name">
+              <input type="hidden" name="email"   id="h-email">
+              <input type="hidden" name="phone"   id="h-phone">
+              <input type="hidden" name="notes"   id="h-notes">
+              <input type="hidden" name="slot"    id="h-slot">
+              <input type="hidden" name="lead_id" id="h-lead-id">
               <div class="flex gap-3">
                 <button type="submit"
                         class="flex-1 bg-teal-600 hover:bg-teal-700 active:bg-teal-800 text-white font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2">
@@ -261,6 +262,13 @@
   <script>
     // ── State ────────────────────────────────────────────────────────────────
     let patientData = { name:'', email:'', phone:'', notes:'' };
+    let capturedLeadId = null;
+
+    // ── CSRF helper ──────────────────────────────────────────────────────────
+    function getCookie(name) {
+      const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+      return v ? v.pop() : '';
+    }
 
     // ── Validation helpers ───────────────────────────────────────────────────
     function showErr(id, show) {
@@ -287,6 +295,46 @@
       patientData.phone = document.getElementById('f-phone').value.trim();
       patientData.notes = document.getElementById('f-notes').value.trim();
 
+      // ── Fire AJAX to save lead BEFORE showing step 2 ──────────────────────
+      const nextBtn = document.querySelector('#step1 button[onclick]');
+      if (nextBtn) { nextBtn.disabled = true; nextBtn.textContent = 'Saving…'; }
+
+      fetch("{% url 'capture_lead' slug=doctor.user.slug %}", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: new URLSearchParams({
+          name:  patientData.name,
+          email: patientData.email,
+          phone: patientData.phone,
+          notes: patientData.notes,
+        }),
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data.ok) {
+          capturedLeadId = data.lead_id;
+          // inject lead_id into the booking form hidden field
+          document.getElementById('h-lead-id').value = capturedLeadId;
+        }
+        // Advance regardless (lead saved or not — don't block the user)
+        _showStep2();
+      })
+      .catch(() => {
+        // Network error: still advance — appointment will fallback to email match
+        _showStep2();
+      })
+      .finally(() => {
+        if (nextBtn) {
+          nextBtn.disabled = false;
+          nextBtn.innerHTML = 'Next: Choose a time slot <i class="fas fa-arrow-right text-sm"></i>';
+        }
+      });
+    }
+
+    function _showStep2() {
       // Update summary bar
       document.getElementById('summary-name').textContent  = patientData.name;
       document.getElementById('summary-email').textContent = patientData.email;

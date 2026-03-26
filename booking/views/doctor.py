@@ -249,3 +249,42 @@ def doctor_profile_settings(request):
 
 def trial_expired(request):
     return render(request, 'booking/trial_expired.html')
+
+
+# ── Leads ─────────────────────────────────────────────────────────────────────
+
+@doctor_required
+def doctor_leads(request):
+    doctor = request.user.doctor_profile
+    status_filter = request.GET.get('status', '')
+    qs = doctor.leads.all().order_by('-created_at')
+    if status_filter:
+        qs = qs.filter(status=status_filter)
+
+    from booking.models import Lead
+    return render(request, 'booking/doctor/leads.html', {
+        'doctor': doctor,
+        'leads': qs,
+        'status_filter': status_filter,
+        'status_choices': Lead.Status.choices,
+        'counts': {
+            'new':       doctor.leads.filter(status='NEW').count(),
+            'contacted': doctor.leads.filter(status='CONTACTED').count(),
+            'converted': doctor.leads.filter(status='CONVERTED').count(),
+            'lost':      doctor.leads.filter(status='LOST').count(),
+        },
+    })
+
+
+@doctor_required
+def lead_update_status(request, pk):
+    doctor = request.user.doctor_profile
+    from booking.models import Lead
+    lead   = get_object_or_404(Lead, pk=pk, doctor=doctor)
+    if request.method == 'POST':
+        new_status = request.POST.get('status')
+        if new_status in Lead.Status.values:
+            lead.status = new_status
+            lead.save()
+            messages.success(request, f'Lead status updated to {lead.get_status_display()}.')
+    return redirect('doctor_leads')
