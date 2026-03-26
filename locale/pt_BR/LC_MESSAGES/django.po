@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wbook365 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-26 12:18+0100\n"
+"POT-Creation-Date: 2026-03-26 12:20+0100\n"
 "PO-Revision-Date: 2026-03-26 00:00+0000\n"
 "Last-Translator: wbook365 Team\n"
 "Language-Team: Portuguese (Brazil)\n"
@@ -67,6 +67,10 @@ msgstr "Portal do Paciente"
 msgid "Sign in to book"
 msgstr "Entre para agendar"
 
+#: .\accounts\templates\accounts\doctor_login.html:87
+msgid "Registered patients get instant appointment confirmation."
+msgstr "Pacientes registrados pelo médico recebem confirmação automática do sua consulta."
+
 #: .\accounts\templates\accounts\doctor_login.html:95
 #: .\veenv\Lib\site-packages\django\db\models\fields\__init__.py:1915
 msgid "Email address"
@@ -75,6 +79,24 @@ msgstr "Endereço de e-mail"
 #: .\accounts\templates\accounts\doctor_login.html:112
 msgid "Password"
 msgstr "Senha"
+
+#: .\accounts\templates\accounts\doctor_login.html:134
+#: .\accounts\templates\accounts\login.html:57
+msgid "Sign In"
+msgstr "Entrar"
+
+#: .\accounts\templates\accounts\doctor_login.html:143
+msgid "Back to booking page"
+msgstr "Voltar para agendamento"
+
+#: .\accounts\templates\accounts\doctor_login.html:146
+#| msgid "Already have an account?"
+msgid "Don't have an account? Ask Dr. "
+msgstr "Não tem uma conta ainda? Peça ao Dr(a)."
+
+#: .\accounts\templates\accounts\doctor_login.html:146
+msgid "to register you."
+msgstr "para lhe registrar"
 
 # ──────────────────────────────────────────────────────────────────────────────
 # accounts / auth
@@ -94,10 +116,6 @@ msgstr "Entre na sua conta"
 #: .\accounts\templates\accounts\login.html:49
 msgid "your@email.com"
 msgstr "seu@email.com"
-
-#: .\accounts\templates\accounts\login.html:57
-msgid "Sign In"
-msgstr "Entrar"
 
 #: .\accounts\templates\accounts\register.html:6
 msgid "Register"
