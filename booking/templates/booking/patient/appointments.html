@@ -16,10 +16,10 @@
       <tr class="hover:bg-slate-50 transition">
         <td class="px-6 py-3 font-medium text-gray-900">{{ apt.start_time|date:"l, d M Y" }}<br><span class="text-xs text-gray-400">{{ apt.start_time|time:"H:i" }} – {{ apt.end_time|time:"H:i" }}</span></td>
         <td class="px-4 py-3 text-center">
-          {% if apt.status == 'PENDING' %}<span class="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-semibold">Pending</span>
-          {% elif apt.status == 'CONFIRMED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-teal-100 text-teal-700 font-semibold">Confirmed</span>
-          {% elif apt.status == 'CANCELLED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 font-semibold">{% trans "Cancel" %}led</span>
-          {% elif apt.status == 'COMPLETED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-semibold">Completed</span>
+          {% if apt.status == 'PENDING' %}<span class="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-semibold">{% trans "Pending" %}</span>
+          {% elif apt.status == 'CONFIRMED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-teal-100 text-teal-700 font-semibold">{% trans "Confirmed" %}</span>
+          {% elif apt.status == 'CANCELLED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 font-semibold">{% trans "Cancelled" %}</span>
+          {% elif apt.status == 'COMPLETED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-semibold">{% trans "Completed" %}</span>
           {% else %}<span class="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-600 font-semibold">{{ apt.get_status_display }}</span>{% endif %}
         </td>
         <td class="px-4 py-3 text-center">
@@ -32,7 +32,7 @@
         </td>
       </tr>
       {% empty %}
-      <tr><td colspan="3" class="text-center py-12 text-gray-400 text-sm">No appointments. <a href="{% url 'patient_book' %}" class="text-teal-600 hover:underline">Book one →</a></td></tr>
+      <tr><td colspan="3" class="text-center py-12 text-gray-400 text-sm">{% trans "No appointments." %} <a href="{% url 'patient_book' %}" class="text-teal-600 hover:underline">{% trans "Book one →" %}</a></td></tr>
       {% endfor %}
     </tbody>
   </table>

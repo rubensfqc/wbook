@@ -1,12 +1,12 @@
 {% extends "booking/base_operator.html" %}
 {% load i18n %}
-{% block title %}All Appointments — wbook365{% endblock %}
+{% block title %}{% trans "All Appointments" %}{% endblock %}
 {% block content %}
 <div class="mb-8"><p class="text-xs font-semibold uppercase tracking-widest text-violet-500 mb-1">{% trans "Operator Portal" %}</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">{% trans "All Appointments" %}</h1></div>
 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
   <table class="w-full text-sm">
     <thead class="bg-slate-50 text-xs text-gray-400 uppercase tracking-wider">
-      <tr><th class="px-6 py-3 text-left">{% trans "Patient" %}</th><th class="px-4 py-3 text-left">{% trans "Doctor" %}</th><th class="px-4 py-3 text-left">{% trans "Date" %}</th><th class="px-4 py-3 text-center">Type</th><th class="px-4 py-3 text-center">{% trans "Status" %}</th></tr>
+      <tr><th class="px-6 py-3 text-left">{% trans "Patient" %}</th><th class="px-4 py-3 text-left">{% trans "Doctor" %}</th><th class="px-4 py-3 text-left">{% trans "Date" %}</th><th class="px-4 py-3 text-center">{% trans "Type" %}</th><th class="px-4 py-3 text-center">{% trans "Status" %}</th></tr>
     </thead>
     <tbody class="divide-y divide-gray-50">
       {% for apt in appointments %}
@@ -14,11 +14,11 @@
         <td class="px-6 py-3 font-medium text-gray-900">{{ apt.display_name }}</td>
         <td class="px-4 py-3 text-gray-600">Dr. {{ apt.doctor.user.name|default:apt.doctor.user.email }}</td>
         <td class="px-4 py-3 text-gray-600 text-xs">{{ apt.start_time|date:"d M Y H:i" }}</td>
-        <td class="px-4 py-3 text-center">{% if apt.is_registered %}<span class="text-xs px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 font-semibold">Registered</span>{% else %}<span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-semibold">Walk-in</span>{% endif %}</td>
+        <td class="px-4 py-3 text-center">{% if apt.is_registered %}<span class="text-xs px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 font-semibold">{% trans "Registered" %}</span>{% else %}<span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-semibold">{% trans "Walk-in" %}</span>{% endif %}</td>
         <td class="px-4 py-3 text-center">
-          {% if apt.status == 'PENDING' %}<span class="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-semibold">Pending</span>
-          {% elif apt.status == 'CONFIRMED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-teal-100 text-teal-700 font-semibold">Confirmed</span>
-          {% elif apt.status == 'COMPLETED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-semibold">Completed</span>
+          {% if apt.status == 'PENDING' %}<span class="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-semibold">{% trans "Pending" %}</span>
+          {% elif apt.status == 'CONFIRMED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-teal-100 text-teal-700 font-semibold">{% trans "Confirmed" %}</span>
+          {% elif apt.status == 'COMPLETED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-semibold">{% trans "Completed" %}</span>
           {% else %}<span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 font-semibold">{{ apt.get_status_display }}</span>{% endif %}
         </td>
       </tr>

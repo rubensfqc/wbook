@@ -1,8 +1,8 @@
 {% extends "booking/base_operator.html" %}
 {% load i18n %}
-{% block title %}{{ action }} Doctor — wbook365{% endblock %}
+{% block title %}{{ action }} {% trans "Doctor" %}{% endblock %}
 {% block content %}
-<div class="mb-8"><a href="{% url 'operator_doctors' %}" class="text-sm text-violet-600 hover:underline">{% trans "← Doctors" %}</a><h1 class="text-2xl font-bold text-gray-900 mt-2">{{ action }} Doctor</h1></div>
+<div class="mb-8"><a href="{% url 'operator_doctors' %}" class="text-sm text-violet-600 hover:underline">{% trans "← Doctors" %}</a><h1 class="text-2xl font-bold text-gray-900 mt-2">{{ action }} {% trans "Doctor" %}</h1></div>
 <form method="post" class="max-w-lg space-y-4">
   {% csrf_token %}
   {% for field in form %}

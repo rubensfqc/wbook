@@ -1,6 +1,6 @@
 {% extends "booking/base_operator.html" %}
 {% load i18n %}
-{% block title %}Platform Settings — wbook365{% endblock %}
+{% block title %}{% trans "Platform Settings" %}{% endblock %}
 {% block content %}
 <div class="mb-8"><p class="text-xs font-semibold uppercase tracking-widest text-violet-500 mb-1">{% trans "Operator Portal" %}</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">{% trans "Platform Settings" %}</h1></div>
 <form method="post" class="max-w-lg space-y-4">
@@ -13,7 +13,7 @@
     {% if field.help_text %}<p class="text-gray-400 text-xs mt-1">{{ field.help_text }}</p>{% endif %}
   </div>
   {% endfor %}
-  <button type="submit" class="bg-violet-600 hover:bg-violet-700 text-white font-semibold px-6 py-2.5 rounded-xl transition">Save Settings</button>
+  <button type="submit" class="bg-violet-600 hover:bg-violet-700 text-white font-semibold px-6 py-2.5 rounded-xl transition">{% trans "Save Settings" %}</button>
 </form>
 <style>input[type=text],input[type=email],input[type=number],select{width:100%;border:1px solid #e5e7eb;border-radius:0.75rem;padding:0.5rem 0.75rem;font-size:0.875rem;outline:none;}input:focus,select:focus{border-color:#7c3aed;}</style>
 {% endblock %}

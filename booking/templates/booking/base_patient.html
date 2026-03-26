@@ -3,7 +3,7 @@
 <html lang="{% get_current_language as LANGUAGE_CODE %}{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Patient Portal — wbook365{% endblock %}</title>
+  <title>{% block title %}{% trans "Patient Portal" %}{% endblock %}</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -21,20 +21,20 @@
     </div>
     <nav class="flex-1 px-3 py-5 space-y-0.5">
       <a href="{% url 'patient_dashboard' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-teal-200 hover:bg-teal-800 hover:text-white transition {% if request.resolver_match.url_name == 'patient_dashboard' %}bg-teal-800 text-white{% endif %}">
-        <i class="fas fa-house w-4 text-center text-teal-500"></i> Home
+        <i class="fas fa-house w-4 text-center text-teal-500"></i> {% trans "Home" %}
       </a>
       <a href="{% url 'patient_book' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-teal-200 hover:bg-teal-800 hover:text-white transition {% if request.resolver_match.url_name == 'patient_book' %}bg-teal-800 text-white{% endif %}">
-        <i class="fas fa-calendar-plus w-4 text-center text-teal-500"></i> Book Appointment
+        <i class="fas fa-calendar-plus w-4 text-center text-teal-500"></i> {% trans "Book Appointment" %}
       </a>
       <a href="{% url 'patient_appointments' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-teal-200 hover:bg-teal-800 hover:text-white transition {% if request.resolver_match.url_name == 'patient_appointments' %}bg-teal-800 text-white{% endif %}">
-        <i class="fas fa-calendar-check w-4 text-center text-teal-500"></i> My Appointments
+        <i class="fas fa-calendar-check w-4 text-center text-teal-500"></i> {% trans "My Appointments" %}
       </a>
     </nav>
     <div class="px-3 py-4 border-t border-teal-800">
       <p class="px-3 text-xs text-teal-600 mb-2 truncate">{{ user.email }}</p>
       <form action="{% url 'logout' %}" method="post">{% csrf_token %}
         <button type="submit" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-red-400 hover:bg-red-900/20 transition">
-          <i class="fas fa-right-from-bracket w-4"></i> Logout
+          <i class="fas fa-right-from-bracket w-4"></i> {% trans "Logout" %}
         </button>
       </form>
     </div>
@@ -42,7 +42,7 @@
     <div class="px-3 pb-2 pt-1">
       {% get_current_language as CURRENT_LANG %}
       <div class="flex items-center gap-1 px-2">
-        <span class="text-[10px] uppercase tracking-widest text-slate-500 mr-1">Lang</span>
+        <span class="text-[10px] uppercase tracking-widest text-slate-500 mr-1">{% trans "Lang" %}</span>
         <form action="{% url 'set_language' %}" method="post" class="inline">
           {% csrf_token %}
           <input type="hidden" name="next" value="{{ request.path }}">

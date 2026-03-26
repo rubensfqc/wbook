@@ -3,7 +3,7 @@
 <html lang="{% get_current_language as LANGUAGE_CODE %}{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Operator — wbook365{% endblock %}</title>
+  <title>{% block title %}{% trans "Operator" %}% endblock %}</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -20,30 +20,30 @@
       <p class="text-xs text-slate-500 mt-0.5 uppercase tracking-widest">{% trans "Operator Portal" %}</p>
     </div>
     <nav class="flex-1 px-3 py-5 space-y-0.5">
-      <p class="px-3 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">Overview</p>
+      <p class="px-3 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">{% trans "Overview" %}</p>
       <a href="{% url 'operator_dashboard' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition {% if request.resolver_match.url_name == 'operator_dashboard' %}bg-slate-800 text-white{% endif %}">
-        <i class="fas fa-gauge-high w-4 text-center text-slate-500"></i> Dashboard
+        <i class="fas fa-gauge-high w-4 text-center text-slate-500"></i> {% trans "Dashboard" %}
       </a>
-      <p class="px-3 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">Manage</p>
+      <p class="px-3 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">{% trans "Manage" %}</p>
       <a href="{% url 'operator_doctors' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition {% if 'doctor' in request.resolver_match.url_name %}bg-slate-800 text-white{% endif %}">
-        <i class="fas fa-user-md w-4 text-center text-slate-500"></i> Doctors
+        <i class="fas fa-user-md w-4 text-center text-slate-500"></i> {% trans "Doctors" %}
       </a>
       <a href="{% url 'operator_patients' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition {% if request.resolver_match.url_name == 'operator_patients' %}bg-slate-800 text-white{% endif %}">
-        <i class="fas fa-users w-4 text-center text-slate-500"></i> Patients
+        <i class="fas fa-users w-4 text-center text-slate-500"></i> {% trans "Patients" %}
       </a>
       <a href="{% url 'operator_appointments' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition {% if request.resolver_match.url_name == 'operator_appointments' %}bg-slate-800 text-white{% endif %}">
-        <i class="fas fa-calendar-check w-4 text-center text-slate-500"></i> Appointments
+        <i class="fas fa-calendar-check w-4 text-center text-slate-500"></i> {% trans "Appointments" %}
       </a>
-      <p class="px-3 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">Config</p>
+      <p class="px-3 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">{% trans "Config" %}</p>
       <a href="{% url 'operator_platform_settings' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition {% if 'settings' in request.resolver_match.url_name %}bg-slate-800 text-white{% endif %}">
-        <i class="fas fa-sliders w-4 text-center text-slate-500"></i> Platform Settings
+        <i class="fas fa-sliders w-4 text-center text-slate-500"></i> {% trans "Platform Settings" %}
       </a>
     </nav>
     <div class="px-3 py-4 border-t border-slate-800">
       <p class="px-3 text-xs text-slate-500 mb-2 truncate">{{ user.email }}</p>
       <form action="{% url 'logout' %}" method="post">{% csrf_token %}
         <button type="submit" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-red-400 hover:bg-red-900/20 transition">
-          <i class="fas fa-right-from-bracket w-4"></i> Logout
+          <i class="fas fa-right-from-bracket w-4"></i> {% trans "Logout" %}
         </button>
       </form>
     </div>
@@ -51,7 +51,7 @@
     <div class="px-3 pb-2 pt-1">
       {% get_current_language as CURRENT_LANG %}
       <div class="flex items-center gap-1 px-2">
-        <span class="text-[10px] uppercase tracking-widest text-slate-500 mr-1">Lang</span>
+        <span class="text-[10px] uppercase tracking-widest text-slate-500 mr-1">{% trans "Lang" %}</span>
         <form action="{% url 'set_language' %}" method="post" class="inline">
           {% csrf_token %}
           <input type="hidden" name="next" value="{{ request.path }}">

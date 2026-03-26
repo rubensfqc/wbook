@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book with Dr. {{ doctor.user.name }} — wbook365</title>
+  <title>{% trans "Book with Dr. " %}{{ doctor.user.name }}</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -163,9 +163,9 @@
       <div id="si3" class="si-pending w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all flex-shrink-0">3</div>
     </div>
     <div class="flex justify-between mb-8 px-0.5">
-      <span class="text-xs font-medium text-gray-500">Your details</span>
-      <span class="text-xs font-medium text-gray-400 text-center">Choose a slot</span>
-      <span class="text-xs font-medium text-gray-400">Confirm</span>
+      <span class="text-xs font-medium text-gray-500">{% trans "Your details" %}</span>
+      <span class="text-xs font-medium text-gray-400 text-center">{% trans "Choose a slot" %}</span>
+      <span class="text-xs font-medium text-gray-400">{% trans "Confirm" %}</span>
     </div>
 
     <!-- ════════════════════════════════════════════════════════════════════
@@ -173,32 +173,32 @@
     ═════════════════════════════════════════════════════════════════════ -->
     <div id="step1" class="fade-in">
       <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-        <h2 class="text-lg font-bold text-gray-800 mb-1">Your details</h2>
+        <h2 class="text-lg font-bold text-gray-800 mb-1">{% trans "Your details" %}</h2>
         <p class="text-sm text-gray-400 mb-6">
-          Tell us who you are so the doctor knows you're coming.
+          {% trans "Tell us who you are so the doctor knows you're coming." %}
         </p>
         <div class="space-y-4">
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">
-              Full Name <span class="text-red-400">*</span>
+              {% trans "Full Name" %} <span class="text-red-400">*</span>
             </label>
             <input id="f-name" type="text" placeholder="Jane Smith"
                    value="{{ form.name.value|default:'' }}"
                    class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm">
-            <p id="err-name" class="text-red-500 text-xs mt-1 hidden">Please enter your full name.</p>
+            <p id="err-name" class="text-red-500 text-xs mt-1 hidden">{% trans "Please enter your full name." %}</p>
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">
-              Email address <span class="text-red-400">*</span>
+              {% trans "Email address" %} <span class="text-red-400">*</span>
             </label>
             <input id="f-email" type="email" placeholder="jane@example.com"
                    value="{{ form.email.value|default:'' }}"
                    class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm">
-            <p id="err-email" class="text-red-500 text-xs mt-1 hidden">Please enter a valid email address.</p>
+            <p id="err-email" class="text-red-500 text-xs mt-1 hidden">{% trans "Please enter a valid email address." %}</p>
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">
-              Phone <span class="text-gray-400 font-normal">(optional)</span>
+              {% trans "Phone" %} <span class="text-gray-400 font-normal">(optional)</span>
             </label>
             <input id="f-phone" type="tel" placeholder="+1 555 000 0000"
                    value="{{ form.phone.value|default:'' }}"
@@ -206,7 +206,7 @@
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">
-              Reason for visit <span class="text-gray-400 font-normal">(optional)</span>
+              {% trans "Reason for visit" %} <span class="text-gray-400 font-normal">(optional)</span>
             </label>
             <textarea id="f-notes" rows="3"
                       placeholder="Briefly describe your symptoms or the reason for your appointment..."
@@ -214,22 +214,22 @@
           </div>
           <button type="button" onclick="goToStep2()" id="btn-next"
                   class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2">
-            Next: Choose a time slot
+            {% trans "Next: Choose a time slot" %}
             <i class="fas fa-arrow-right text-sm"></i>
           </button>
         </div>
       </div>
       {% if not request.user.is_authenticated %}
       <p class="text-center text-xs text-gray-400 mt-4">
-        Already a registered patient?
+        {% trans "Already a registered patient?" %}
         <a href="{% url 'doctor_login' slug=doctor.user.slug %}" class="text-teal-600 hover:underline font-medium">
-          Sign in for instant confirmation
+          {% trans "Sign in for instant confirmation" %}
         </a>
       </p>
       {% elif request.user.is_patient %}
       <p class="text-center text-xs text-gray-400 mt-4">
         <a href="{% url 'patient_book' %}" class="text-teal-600 hover:underline font-medium">
-          Use your patient portal instead →
+          {% trans "Use your patient portal instead →" %}
         </a>
       </p>
       {% endif %}
@@ -252,10 +252,10 @@
           </div>
         </div>
         <button onclick="goToStep1()"
-                class="text-xs text-teal-600 hover:underline font-medium flex-shrink-0">Edit</button>
+                class="text-xs text-teal-600 hover:underline font-medium flex-shrink-0">{% trans "Edit" %}</button>
       </div>
 
-      <h2 class="text-lg font-bold text-gray-800 mb-4">Choose a date</h2>
+      <h2 class="text-lg font-bold text-gray-800 mb-4">{% trans "Choose a date" %}</h2>
 
       <!-- Calendar widget -->
       <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-4">
@@ -287,15 +287,15 @@
         <div class="flex items-center gap-4 mt-4 pt-3 border-t border-gray-50">
           <span class="flex items-center gap-1.5 text-xs text-gray-400">
             <span class="w-3 h-3 rounded bg-teal-50 border border-teal-200 inline-block"></span>
-            Available
+            {% trans "Available" %}
           </span>
           <span class="flex items-center gap-1.5 text-xs text-gray-400">
             <span class="w-3 h-3 rounded bg-gray-100 inline-block"></span>
-            Unavailable
+            {% trans "Unavailable" %}
           </span>
           <span class="flex items-center gap-1.5 text-xs text-gray-400">
             <span class="w-3 h-3 rounded bg-teal-500 inline-block"></span>
-            Selected
+            {% trans "Selected" %}
           </span>
         </div>
       </div>
@@ -314,7 +314,7 @@
 
       <button onclick="goToStep1()"
               class="flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-600 transition mt-1">
-        <i class="fas fa-arrow-left text-xs"></i> Back to your details
+        <i class="fas fa-arrow-left text-xs"></i> {% trans "Back to your details" %}
       </button>
     </div>
 
@@ -323,8 +323,8 @@
     ═════════════════════════════════════════════════════════════════════ -->
     <div id="step3" class="hidden fade-in">
       <div class="bg-white rounded-2xl border border-teal-200 shadow-sm p-6">
-        <h2 class="text-lg font-bold text-gray-800 mb-1">Confirm your appointment</h2>
-        <p class="text-sm text-gray-400 mb-5">Review the details below and submit your request.</p>
+        <h2 class="text-lg font-bold text-gray-800 mb-1">{% trans "Confirm your appointment" %}</h2>
+        <p class="text-sm text-gray-400 mb-5">{% trans "Review the details below and submit your request." %}</p>
 
         <div class="bg-slate-50 rounded-xl p-4 mb-5 space-y-2.5 text-sm">
           <div class="flex items-start gap-2.5">
@@ -362,16 +362,16 @@
             <button type="submit"
                     class="flex-1 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2">
               <i class="fas fa-paper-plane text-sm"></i>
-              Request Appointment
+              {% trans "Request Appointment" %}
             </button>
             <button type="button" onclick="goToStep2(true)"
                     class="bg-white border border-gray-200 hover:border-gray-300 text-gray-600 font-semibold px-5 py-3 rounded-xl transition">
-              Change
+              {% trans "Change" %}
             </button>
           </div>
           <p class="text-xs text-gray-400 text-center mt-3">
             <i class="fas fa-info-circle mr-1"></i>
-            Walk-in requests are pending until the doctor confirms.
+            {% trans "Walk-in requests are pending until the doctor confirms." %}
           </p>
         </form>
       </div>

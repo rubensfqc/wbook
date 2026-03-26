@@ -40,33 +40,33 @@
 
     <!-- Nav -->
     <nav class="flex-1 px-3 py-5 space-y-0.5">
-      <p class="px-3 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">Overview</p>
+      <p class="px-3 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">{% trans "Overview" %}</p>
       <a href="{% url 'doctor_dashboard' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition {% if request.resolver_match.url_name == 'doctor_dashboard' %}bg-slate-800 text-white{% endif %}">
-        <i class="fas fa-gauge-high w-4 text-center text-slate-500"></i> Dashboard
+        <i class="fas fa-gauge-high w-4 text-center text-slate-500"></i> {% trans "Dashboard" %}
       </a>
 
-      <p class="px-3 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">Appointments</p>
+      <p class="px-3 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">{% trans "Appointments" %}</p>
       <a href="{% url 'doctor_appointments' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition {% if 'appointment' in request.resolver_match.url_name %}bg-slate-800 text-white{% endif %}">
-        <i class="fas fa-calendar-check w-4 text-center text-slate-500"></i> Calendar
+        <i class="fas fa-calendar-check w-4 text-center text-slate-500"></i> {% trans "Calendar" %}
       </a>
 
-      <p class="px-3 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">Manage</p>
+      <p class="px-3 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">{% trans "Manage" %}</p>
       <a href="{% url 'doctor_patients' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition {% if 'patient' in request.resolver_match.url_name %}bg-slate-800 text-white{% endif %}">
-        <i class="fas fa-users w-4 text-center text-slate-500"></i> Patients
+        <i class="fas fa-users w-4 text-center text-slate-500"></i> {% trans "Patients" %}
       </a>
       <a href="{% url 'blocked_periods' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition {% if 'blocked' in request.resolver_match.url_name %}bg-slate-800 text-white{% endif %}">
-        <i class="fas fa-ban w-4 text-center text-slate-500"></i> Block Time
+        <i class="fas fa-ban w-4 text-center text-slate-500"></i> {% trans "Block Time" %}
       </a>
       <a href="{% url 'doctor_leads' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition {% if 'lead' in request.resolver_match.url_name %}bg-slate-800 text-white{% endif %}">
-        <i class="fas fa-user-clock w-4 text-center text-slate-500"></i> Leads
+        <i class="fas fa-user-clock w-4 text-center text-slate-500"></i> {% trans "Leads" %}
       </a>
 
-      <p class="px-3 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">Settings</p>
+      <p class="px-3 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">{% trans "Settings" %}</p>
       <a href="{% url 'doctor_schedule_settings' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition {% if 'schedule' in request.resolver_match.url_name %}bg-slate-800 text-white{% endif %}">
-        <i class="fas fa-clock w-4 text-center text-slate-500"></i> Schedule
+        <i class="fas fa-clock w-4 text-center text-slate-500"></i> {% trans "Schedule" %}
       </a>
       <a href="{% url 'doctor_profile_settings' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition {% if 'profile' in request.resolver_match.url_name %}bg-slate-800 text-white{% endif %}">
-        <i class="fas fa-sliders w-4 text-center text-slate-500"></i> Profile
+        <i class="fas fa-sliders w-4 text-center text-slate-500"></i> {% trans "Profile" %}
       </a>
     </nav>
 
@@ -76,7 +76,7 @@
       <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-red-400 hover:bg-red-900/20 transition">
-          <i class="fas fa-right-from-bracket w-4 text-center"></i> Logout
+          <i class="fas fa-right-from-bracket w-4 text-center"></i> {% trans "Logout" %}
         </button>
       </form>
       <p class="px-3 mt-4 text-[10px] text-slate-600 text-center">wbook365 v{{ APP_VERSION }}</p>
@@ -85,7 +85,7 @@
     <div class="px-3 pb-2 pt-1">
       {% get_current_language as CURRENT_LANG %}
       <div class="flex items-center gap-1 px-2">
-        <span class="text-[10px] uppercase tracking-widest text-slate-500 mr-1">Lang</span>
+        <span class="text-[10px] uppercase tracking-widest text-slate-500 mr-1">{% trans "Lang" %}</span>
         <form action="{% url 'set_language' %}" method="post" class="inline">
           {% csrf_token %}
           <input type="hidden" name="next" value="{{ request.path }}">

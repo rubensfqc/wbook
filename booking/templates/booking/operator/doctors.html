@@ -1,15 +1,15 @@
 {% extends "booking/base_operator.html" %}
 {% load i18n %}
-{% block title %}Doctors — wbook365{% endblock %}
+{% block title %}{% trans "Doctors" %}{% endblock %}
 {% block content %}
 <div class="flex items-center justify-between mb-8">
   <div><p class="text-xs font-semibold uppercase tracking-widest text-violet-500 mb-1">{% trans "Operator Portal" %}</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">{% trans "Doctors" %}</h1></div>
-  <a href="{% url 'operator_doctor_add' %}" class="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition"><i class="fas fa-plus text-xs"></i> Add Doctor</a>
+  <a href="{% url 'operator_doctor_add' %}" class="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition"><i class="fas fa-plus text-xs"></i> {% trans "Add Doctor" }</a>
 </div>
 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
   <table class="w-full text-sm">
     <thead class="bg-slate-50 text-xs text-gray-400 uppercase tracking-wider">
-      <tr><th class="px-6 py-3 text-left">Doctor</th><th class="px-4 py-3 text-left">Clinic</th><th class="px-4 py-3 text-center">Patients</th><th class="px-4 py-3 text-center">{% trans "Trial" %}</th><th class="px-4 py-3 text-center">Status</th><th class="px-4 py-3 text-center">Actions</th></tr>
+      <tr><th class="px-6 py-3 text-left">{% trans "Doctor" %}</th><th class="px-4 py-3 text-left">{% trans "Clinic" %}</th><th class="px-4 py-3 text-center">{% trans "Patients" %}</th><th class="px-4 py-3 text-center">{% trans "Trial" %}</th><th class="px-4 py-3 text-center">{% trans "Status" %}</th><th class="px-4 py-3 text-center">{% trans "Actions" %}</th></tr>
     </thead>
     <tbody class="divide-y divide-gray-50">
       {% for doc in doctors %}
@@ -27,7 +27,7 @@
         </td>
       </tr>
       {% empty %}
-      <tr><td colspan="6" class="text-center py-12 text-gray-400 text-sm">No doctors. <a href="{% url 'operator_doctor_add' %}" class="text-violet-600 hover:underline">Add one →</a></td></tr>
+      <tr><td colspan="6" class="text-center py-12 text-gray-400 text-sm">{% trans "No doctors." %} <a href="{% url 'operator_doctor_add' %}" class="text-violet-600 hover:underline">{% trans "Add one →" %}</a></td></tr>
       {% endfor %}
     </tbody>
   </table>

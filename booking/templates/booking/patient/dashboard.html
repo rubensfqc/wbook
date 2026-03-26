@@ -21,7 +21,7 @@
         <a href="{% url 'patient_cancel' apt.pk %}" class="text-xs text-red-500 hover:underline">{% trans "Cancel" %}</a>
       </div>
       {% empty %}
-      <p class="text-sm text-gray-400 text-center py-6">{% trans "No upcoming appointments" %}. <a href="{% url 'patient_book' %}" class="text-teal-600 hover:underline">Book one →</a></p>
+      <p class="text-sm text-gray-400 text-center py-6">{% trans "No upcoming appointments" %}. <a href="{% url 'patient_book' %}" class="text-teal-600 hover:underline">{% trans "Book one →" %}</a></p>
       {% endfor %}
     </div>
   </div>
@@ -42,5 +42,5 @@
     </div>
   </div>
 </div>
-<a href="{% url 'patient_book' %}" class="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-xl transition shadow-sm"><i class="fas fa-calendar-plus"></i> Book New Appointment</a>
+<a href="{% url 'patient_book' %}" class="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-xl transition shadow-sm"><i class="fas fa-calendar-plus"></i> {% trans "Book New Appointment" %}</a>
 {% endblock %}

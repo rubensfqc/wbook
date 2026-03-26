@@ -1,19 +1,19 @@
 {% extends "booking/base_operator.html" %}
 {% load i18n %}
-{% block title %}Patients — wbook365{% endblock %}
+{% block title %}{% trans "Patients" %}{% endblock %}
 {% block content %}
 <div class="mb-8"><p class="text-xs font-semibold uppercase tracking-widest text-violet-500 mb-1">{% trans "Operator Portal" %}</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">{% trans "All Patients" %}</h1></div>
 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
   <table class="w-full text-sm">
     <thead class="bg-slate-50 text-xs text-gray-400 uppercase tracking-wider">
-      <tr><th class="px-6 py-3 text-left">Patient</th><th class="px-4 py-3 text-left">Doctor</th><th class="px-4 py-3 text-center">Status</th><th class="px-4 py-3 text-center">Joined</th></tr>
+      <tr><th class="px-6 py-3 text-left">{% trans "Patient" %}</th><th class="px-4 py-3 text-left">{% trans "Doctor" %}</th><th class="px-4 py-3 text-center">{% trans "Status" %}</th><th class="px-4 py-3 text-center">{% trans "Joined" %}</th></tr>
     </thead>
     <tbody class="divide-y divide-gray-50">
       {% for p in patients %}
       <tr class="hover:bg-slate-50 transition">
         <td class="px-6 py-3"><p class="font-medium text-gray-900">{{ p.user.name|default:p.user.email }}</p><p class="text-xs text-gray-400">{{ p.user.email }}</p></td>
         <td class="px-4 py-3 text-gray-600">Dr. {{ p.doctor.user.name|default:p.doctor.user.email }}</td>
-        <td class="px-4 py-3 text-center">{% if p.is_active %}<span class="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-semibold">Active</span>{% else %}<span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 font-semibold">Inactive</span>{% endif %}</td>
+        <td class="px-4 py-3 text-center">{% if p.is_active %}<span class="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-semibold">{% trans "Active" %}</span>{% else %}<span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 font-semibold">{% trans "Inactive" %}</span>{% endif %}</td>
         <td class="px-4 py-3 text-center text-gray-400 text-xs">{{ p.created_at|date:"d M Y" }}</td>
       </tr>
       {% empty %}

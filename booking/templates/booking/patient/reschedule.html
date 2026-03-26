@@ -1,6 +1,6 @@
 {% extends "booking/base_patient.html" %}
 {% load i18n %}
-{% block title %}{% trans "Reschedule" %} — wbook365{% endblock %}
+{% block title %}{% trans "Reschedule" %}{% endblock %}
 {% block content %}
 <style>
 body{font-family:"Inter",sans-serif;}
@@ -19,12 +19,12 @@ body{font-family:"Inter",sans-serif;}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <div class="mb-8">
-  <a href="{% url 'patient_appointments' %}" class="text-sm text-teal-600 hover:underline">&larr; My Appointments</a>
-  <h1 class="text-2xl font-bold text-gray-900 mt-2">{% trans "Reschedule" %} Appointment</h1>
+  <a href="{% url 'patient_appointments' %}" class="text-sm text-teal-600 hover:underline">&larr; {% trans "My Appointments" %}</a>
+  <h1 class="text-2xl font-bold text-gray-900 mt-2">{% trans "Reschedule Appointment" %}</h1>
   <p class="text-sm text-gray-400">Current: {{ apt.start_time|date:"d M Y &middot; H:i" }}</p>
 </div>
 <div class="max-w-xl">
-  <h2 class="text-base font-semibold text-gray-700 mb-4">Choose a new date</h2>
+  <h2 class="text-base font-semibold text-gray-700 mb-4">{% trans "Choose a new date" %}</h2>
         <!-- Calendar widget -->
         <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-4">
           <div class="flex items-center justify-between mb-4">
@@ -33,19 +33,19 @@ body{font-family:"Inter",sans-serif;}
             <button type="button" onclick="nextMonth()" class="w-8 h-8 rounded-lg hover:bg-gray-100 flex items-center justify-center transition text-gray-500"><i class="fas fa-chevron-right text-xs"></i></button>
           </div>
           <div class="grid grid-cols-7 gap-1 mb-1">
-            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">Su</div>
-            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">Mo</div>
-            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">Tu</div>
-            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">We</div>
-            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">Th</div>
-            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">Fr</div>
-            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">Sa</div>
+            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">{% trans "Su" %}</div>
+            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">{% trans "Mo" %}</div>
+            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">{% trans "Tu" %}</div>
+            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">{% trans "We" %}</div>
+            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">{% trans "Th" %}</div>
+            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">{% trans "Fr" %}</div>
+            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">{% trans "Sa" %}</div>
           </div>
           <div id="cal-grid" class="grid grid-cols-7 gap-1"></div>
           <div class="flex items-center gap-4 mt-4 pt-3 border-t border-gray-50">
-            <span class="flex items-center gap-1.5 text-xs text-gray-400"><span class="w-3 h-3 rounded bg-teal-50 border border-teal-200 inline-block"></span>Available</span>
-            <span class="flex items-center gap-1.5 text-xs text-gray-400"><span class="w-3 h-3 rounded bg-gray-100 inline-block"></span>Unavailable</span>
-            <span class="flex items-center gap-1.5 text-xs text-gray-400"><span class="w-3 h-3 rounded bg-teal-500 inline-block"></span>Selected</span>
+            <span class="flex items-center gap-1.5 text-xs text-gray-400"><span class="w-3 h-3 rounded bg-teal-50 border border-teal-200 inline-block"></span>{% trans "Available" %}</span>
+            <span class="flex items-center gap-1.5 text-xs text-gray-400"><span class="w-3 h-3 rounded bg-gray-100 inline-block"></span>{% trans "Unavailable" %}</span>
+            <span class="flex items-center gap-1.5 text-xs text-gray-400"><span class="w-3 h-3 rounded bg-teal-500 inline-block"></span>{% trans "Selected" %}</span>
           </div>
         </div>
         <!-- Slot panel -->
