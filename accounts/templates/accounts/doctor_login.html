@@ -14,6 +14,29 @@
   </style>
 </head>
 <body class="min-h-screen flex flex-col bg-gradient-to-br from-slate-900 via-teal-950 to-slate-900">
+  <!-- Language Switcher -->
+  <div class="fixed top-4 right-4 z-50 flex items-center gap-1">
+    {% get_current_language as CURRENT_LANG %}
+    <form action="{% url 'set_language' %}" method="post" class="inline">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.path }}">
+      <input type="hidden" name="language" value="pt-br">
+      <button type="submit"
+        class="text-xs px-2.5 py-1 rounded-lg font-medium transition {% if CURRENT_LANG == 'pt-br' %}bg-teal-600 text-white{% else %}bg-white/10 text-white/60 hover:bg-white/20 hover:text-white{% endif %}">
+        PT
+      </button>
+    </form>
+    <form action="{% url 'set_language' %}" method="post" class="inline">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.path }}">
+      <input type="hidden" name="language" value="en">
+      <button type="submit"
+        class="text-xs px-2.5 py-1 rounded-lg font-medium transition {% if CURRENT_LANG == 'en' %}bg-teal-600 text-white{% else %}bg-white/10 text-white/60 hover:bg-white/20 hover:text-white{% endif %}">
+        EN
+      </button>
+    </form>
+  </div>
+
 
   <!-- Full-height layout: doctor branding top, form centre -->
   <div class="flex-1 flex flex-col items-center justify-center px-4 py-12">

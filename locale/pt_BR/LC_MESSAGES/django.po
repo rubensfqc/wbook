@@ -1,0 +1,599 @@
+# Brazilian Portuguese translations for wbook365
+# Copyright (C) 2026 wbook365
+# This file is distributed under the same license as the wbook365 package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: wbook365 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-26 00:00+0000\n"
+"PO-Revision-Date: 2026-03-26 00:00+0000\n"
+"Last-Translator: wbook365 Team\n"
+"Language-Team: Portuguese (Brazil)\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# accounts / auth
+# ──────────────────────────────────────────────────────────────────────────────
+
+msgid "Login"
+msgstr "Entrar"
+
+msgid "Medical appointment scheduling"
+msgstr "Agendamento de consultas médicas"
+
+msgid "Sign in to your account"
+msgstr "Entre na sua conta"
+
+msgid "your@email.com"
+msgstr "seu@email.com"
+
+msgid "Sign In"
+msgstr "Entrar"
+
+msgid "New doctor?"
+msgstr "Novo médico?"
+
+msgid "Create an account"
+msgstr "Criar uma conta"
+
+msgid "Register"
+msgstr "Cadastrar"
+
+msgid "Create your doctor account"
+msgstr "Crie sua conta de médico"
+
+msgid "Doctor Registration"
+msgstr "Cadastro de Médico"
+
+msgid "Create Account"
+msgstr "Criar Conta"
+
+msgid "Already have an account?"
+msgstr "Já tem uma conta?"
+
+msgid "Sign in"
+msgstr "Entrar"
+
+msgid "Patient Portal"
+msgstr "Portal do Paciente"
+
+msgid "Sign in to book"
+msgstr "Entre para agendar"
+
+msgid "Email address"
+msgstr "Endereço de e-mail"
+
+msgid "Password"
+msgstr "Senha"
+
+msgid "Welcome! Your doctor account has been created."
+msgstr "Bem-vindo! Sua conta de médico foi criada."
+
+# ──────────────────────────────────────────────────────────────────────────────
+# forms
+# ──────────────────────────────────────────────────────────────────────────────
+
+msgid "Full Name"
+msgstr "Nome Completo"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Working Days"
+msgstr "Dias de Trabalho"
+
+msgid "Notes"
+msgstr "Observações"
+
+msgid "A user with this email already exists."
+msgstr "Já existe um usuário com este e-mail."
+
+msgid "Default trial duration for new doctors."
+msgstr "Duração padrão do período de teste para novos médicos."
+
+msgid "Duration of each appointment slot in minutes."
+msgstr "Duração de cada slot de consulta em minutos."
+
+msgid "Max slots shown to patients per day."
+msgstr "Máximo de slots exibidos por dia para os pacientes."
+
+msgid "List of weekday numbers (0=Mon … 6=Sun)."
+msgstr "Lista de números de dias da semana (0=Seg … 6=Dom)."
+
+msgid "Monday"
+msgstr "Segunda-feira"
+
+msgid "Tuesday"
+msgstr "Terça-feira"
+
+msgid "Wednesday"
+msgstr "Quarta-feira"
+
+msgid "Thursday"
+msgstr "Quinta-feira"
+
+msgid "Friday"
+msgstr "Sexta-feira"
+
+msgid "Saturday"
+msgstr "Sábado"
+
+msgid "Sunday"
+msgstr "Domingo"
+
+msgid "Platform Settings"
+msgstr "Configurações da Plataforma"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# navigation / layout
+# ──────────────────────────────────────────────────────────────────────────────
+
+msgid "Doctor Portal"
+msgstr "Portal do Médico"
+
+msgid "Operator Portal"
+msgstr "Portal do Operador"
+
+msgid "Home"
+msgstr "Início"
+
+msgid "Dashboard"
+msgstr "Painel"
+
+msgid "Appointments"
+msgstr "Consultas"
+
+msgid "Patients"
+msgstr "Pacientes"
+
+msgid "Schedule"
+msgstr "Agenda"
+
+msgid "Leads"
+msgstr "Leads"
+
+msgid "Block Time"
+msgstr "Bloquear Horário"
+
+msgid "Settings"
+msgstr "Configurações"
+
+msgid "Logout"
+msgstr "Sair"
+
+msgid "Doctors"
+msgstr "Médicos"
+
+msgid "Book Appointment"
+msgstr "Agendar Consulta"
+
+msgid "My Appointments"
+msgstr "Minhas Consultas"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# doctor dashboard
+# ──────────────────────────────────────────────────────────────────────────────
+
+msgid "Trial expires in"
+msgstr "Período de teste expira em"
+
+msgid "day"
+msgstr "dia"
+
+msgid "days"
+msgstr "dias"
+
+msgid "Upgrade now"
+msgstr "Fazer upgrade agora"
+
+msgid "Today's Appointments"
+msgstr "Consultas de Hoje"
+
+msgid "Pending Requests"
+msgstr "Solicitações Pendentes"
+
+msgid "Total Patients"
+msgstr "Total de Pacientes"
+
+msgid "Upcoming Appointments"
+msgstr "Próximas Consultas"
+
+msgid "No upcoming appointments"
+msgstr "Nenhuma consulta agendada"
+
+msgid "View all"
+msgstr "Ver todas"
+
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgid "Reject"
+msgstr "Rejeitar"
+
+msgid "Complete"
+msgstr "Concluir"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# doctor appointments
+# ──────────────────────────────────────────────────────────────────────────────
+
+msgid "Filter by status"
+msgstr "Filtrar por status"
+
+msgid "All Statuses"
+msgstr "Todos os Status"
+
+msgid "No appointments found"
+msgstr "Nenhuma consulta encontrada"
+
+msgid "Patient"
+msgstr "Paciente"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Actions"
+msgstr "Ações"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# doctor patients
+# ──────────────────────────────────────────────────────────────────────────────
+
+msgid "My Patients"
+msgstr "Meus Pacientes"
+
+msgid "Invite Patient"
+msgstr "Convidar Paciente"
+
+msgid "No patients yet"
+msgstr "Nenhum paciente cadastrado"
+
+msgid "View"
+msgstr "Visualizar"
+
+msgid "Deactivate"
+msgstr "Desativar"
+
+msgid "Active"
+msgstr "Ativo"
+
+msgid "Inactive"
+msgstr "Inativo"
+
+msgid "The patient will receive login credentials by email."
+msgstr "O paciente receberá as credenciais de acesso por e-mail."
+
+msgid "Send Invite"
+msgstr "Enviar Convite"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "← Patients"
+msgstr "← Pacientes"
+
+msgid "Save Changes"
+msgstr "Salvar Alterações"
+
+msgid "Appointment History"
+msgstr "Histórico de Consultas"
+
+msgid "No appointments"
+msgstr "Nenhuma consulta"
+
+msgid "Deactivate Patient"
+msgstr "Desativar Paciente"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# doctor appointments note
+# ──────────────────────────────────────────────────────────────────────────────
+
+msgid "← Appointments"
+msgstr "← Consultas"
+
+msgid "Save Notes"
+msgstr "Salvar Observações"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# blocked periods
+# ──────────────────────────────────────────────────────────────────────────────
+
+msgid "Block Time Periods"
+msgstr "Bloquear Períodos"
+
+msgid "Add Block"
+msgstr "Adicionar Bloqueio"
+
+msgid "No blocked periods"
+msgstr "Nenhum período bloqueado"
+
+msgid "Remove"
+msgstr "Remover"
+
+msgid "Blocked Periods"
+msgstr "Períodos Bloqueados"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# schedule / profile settings
+# ──────────────────────────────────────────────────────────────────────────────
+
+msgid "Schedule Settings"
+msgstr "Configurações de Agenda"
+
+msgid "Profile Settings"
+msgstr "Configurações de Perfil"
+
+msgid "Save Settings"
+msgstr "Salvar Configurações"
+
+msgid "Save Profile"
+msgstr "Salvar Perfil"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# leads
+# ──────────────────────────────────────────────────────────────────────────────
+
+msgid "New"
+msgstr "Novo"
+
+msgid "Contacted"
+msgstr "Contactado"
+
+msgid "Converted"
+msgstr "Convertido"
+
+msgid "Lost"
+msgstr "Perdido"
+
+msgid "No leads yet"
+msgstr "Nenhum lead ainda"
+
+msgid "Update Status"
+msgstr "Atualizar Status"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# patient portal
+# ──────────────────────────────────────────────────────────────────────────────
+
+msgid "Past Appointments"
+msgstr "Consultas Anteriores"
+
+msgid "No past appointments"
+msgstr "Nenhuma consulta anterior"
+
+msgid "Reschedule"
+msgstr "Reagendar"
+
+msgid "Your Doctor"
+msgstr "Seu Médico"
+
+msgid "No appointments yet"
+msgstr "Nenhuma consulta ainda"
+
+msgid "Select a date"
+msgstr "Selecione uma data"
+
+msgid "Select a time slot"
+msgstr "Selecione um horário"
+
+msgid "Additional notes"
+msgstr "Observações adicionais"
+
+msgid "Confirm Booking"
+msgstr "Confirmar Agendamento"
+
+msgid "No available dates"
+msgstr "Nenhuma data disponível"
+
+msgid "Notes (optional)"
+msgstr "Observações (opcional)"
+
+msgid "Select a new date"
+msgstr "Selecione uma nova data"
+
+msgid "Confirm Reschedule"
+msgstr "Confirmar Reagendamento"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# public booking
+# ──────────────────────────────────────────────────────────────────────────────
+
+msgid "Book an Appointment"
+msgstr "Agendar uma Consulta"
+
+msgid "Your Name"
+msgstr "Seu Nome"
+
+msgid "Your Email"
+msgstr "Seu E-mail"
+
+msgid "Phone (optional)"
+msgstr "Telefone (opcional)"
+
+msgid "Select a time"
+msgstr "Selecione um horário"
+
+msgid "Request Appointment"
+msgstr "Solicitar Consulta"
+
+msgid "No available slots"
+msgstr "Nenhum horário disponível"
+
+msgid "Appointment Requested"
+msgstr "Consulta Solicitada"
+
+msgid "Your request has been submitted"
+msgstr "Sua solicitação foi enviada"
+
+msgid "You will receive a confirmation email"
+msgstr "Você receberá um e-mail de confirmação"
+
+msgid "Back to Booking"
+msgstr "Voltar ao Agendamento"
+
+msgid "Thank you"
+msgstr "Obrigado"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# trial expired
+# ──────────────────────────────────────────────────────────────────────────────
+
+msgid "Trial Expired"
+msgstr "Período de Teste Encerrado"
+
+msgid "Your trial period has ended"
+msgstr "Seu período de teste terminou"
+
+msgid "Please contact support"
+msgstr "Por favor, entre em contato com o suporte"
+
+msgid "Contact Support"
+msgstr "Contatar Suporte"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# operator portal
+# ──────────────────────────────────────────────────────────────────────────────
+
+msgid "On Trial"
+msgstr "Em Teste"
+
+msgid "Suspended"
+msgstr "Suspenso"
+
+msgid "Total Appointments"
+msgstr "Total de Consultas"
+
+msgid "Recent Doctors"
+msgstr "Médicos Recentes"
+
+msgid "View all doctors"
+msgstr "Ver todos os médicos"
+
+msgid "Add Doctor"
+msgstr "Adicionar Médico"
+
+msgid "No doctors yet"
+msgstr "Nenhum médico cadastrado"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Delete"
+msgstr "Excluir"
+
+msgid "Trial"
+msgstr "Teste"
+
+msgid "Expired"
+msgstr "Expirado"
+
+msgid "All Patients"
+msgstr "Todos os Pacientes"
+
+msgid "No patients yet"
+msgstr "Nenhum paciente cadastrado"
+
+msgid "All Appointments"
+msgstr "Todas as Consultas"
+
+msgid "Doctor"
+msgstr "Médico"
+
+msgid "← Doctors"
+msgstr "← Médicos"
+
+msgid "Save"
+msgstr "Salvar"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# flash messages (views)
+# ──────────────────────────────────────────────────────────────────────────────
+
+msgid "Appointment confirmed."
+msgstr "Consulta confirmada."
+
+msgid "Appointment rejected."
+msgstr "Consulta rejeitada."
+
+msgid "Appointment marked as completed."
+msgstr "Consulta marcada como concluída."
+
+msgid "Notes saved."
+msgstr "Observações salvas."
+
+msgid "Schedule settings updated."
+msgstr "Configurações de agenda atualizadas."
+
+msgid "Period blocked."
+msgstr "Período bloqueado."
+
+msgid "Block removed."
+msgstr "Bloqueio removido."
+
+msgid "Patient %(name)s invited. Credentials sent to %(email)s."
+msgstr "Paciente %(name)s convidado. Credenciais enviadas para %(email)s."
+
+msgid "Patient updated."
+msgstr "Paciente atualizado."
+
+msgid "Patient deactivated."
+msgstr "Paciente desativado."
+
+msgid "Profile updated."
+msgstr "Perfil atualizado."
+
+msgid "Lead status updated to %(status)s."
+msgstr "Status do lead atualizado para %(status)s."
+
+msgid "Doctor %(name)s created. Temp password: %(pass)s"
+msgstr "Médico %(name)s criado. Senha temporária: %(pass)s"
+
+msgid "Doctor updated."
+msgstr "Médico atualizado."
+
+msgid "Doctor removed."
+msgstr "Médico removido."
+
+msgid "Platform settings updated."
+msgstr "Configurações da plataforma atualizadas."
+
+msgid "That slot was just taken. Please choose another."
+msgstr "Este horário acabou de ser reservado. Por favor, escolha outro."
+
+msgid "Appointment confirmed!"
+msgstr "Consulta confirmada!"
+
+msgid "Cancellation window has passed."
+msgstr "O prazo para cancelamento já expirou."
+
+msgid "Appointment cancelled."
+msgstr "Consulta cancelada."
+
+msgid "Rescheduling window has passed."
+msgstr "O prazo para reagendamento já expirou."
+
+msgid "Slot taken. Choose another."
+msgstr "Horário ocupado. Escolha outro."
+
+msgid "Appointment rescheduled!"
+msgstr "Consulta reagendada!"
+
+msgid "Your appointment request was submitted! You will receive an email once confirmed."
+msgstr "Sua solicitação de consulta foi enviada! Você receberá um e-mail quando for confirmada."
+
+msgid "Doctor access only."
+msgstr "Acesso restrito a médicos."
+
+msgid "Operator access only."
+msgstr "Acesso restrito a operadores."
+
+msgid "Patient access only."
+msgstr "Acesso restrito a pacientes."
