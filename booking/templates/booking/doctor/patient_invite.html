@@ -1,7 +1,8 @@
 {% extends "booking/base_doctor.html" %}
+{% load i18n %}
 {% block title %}Invite Patient — wbook365{% endblock %}
 {% block content %}
-<div class="mb-8"><p class="text-xs font-semibold uppercase tracking-widest text-teal-500 mb-1">Doctor Portal</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">Invite Patient</h1><p class="text-sm text-gray-400 mt-1">The patient will receive login credentials by email.</p></div>
+<div class="mb-8"><p class="text-xs font-semibold uppercase tracking-widest text-teal-500 mb-1">{% trans "Doctor Portal" %}</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">{% trans "Invite Patient" %}</h1><p class="text-sm text-gray-400 mt-1">{% trans "The patient will receive login credentials by email." %}</p></div>
 <form method="post" class="max-w-lg space-y-4">
   {% csrf_token %}
   {% for field in form %}
@@ -12,8 +13,8 @@
   </div>
   {% endfor %}
   <div class="flex gap-3">
-    <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-2.5 rounded-xl transition">Send Invite</button>
-    <a href="{% url 'doctor_patients' %}" class="bg-white border border-gray-200 text-gray-600 font-semibold px-6 py-2.5 rounded-xl hover:border-gray-300 transition">Cancel</a>
+    <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-2.5 rounded-xl transition">{% trans "Send Invite" %}</button>
+    <a href="{% url 'doctor_patients' %}" class="bg-white border border-gray-200 text-gray-600 font-semibold px-6 py-2.5 rounded-xl hover:border-gray-300 transition">{% trans "Cancel" %}</a>
   </div>
 </form>
 <style>input[type=text],input[type=email],textarea{width:100%;border:1px solid #e5e7eb;border-radius:0.75rem;padding:0.5rem 0.75rem;font-size:0.875rem;outline:none;}input:focus,textarea:focus{border-color:#14b8a6;}</style>

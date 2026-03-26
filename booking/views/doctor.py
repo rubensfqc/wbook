@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseForbidden
+from django.utils.translation import gettext_lazy as _
 from booking.models import DoctorProfile, PatientProfile, Appointment, BlockedPeriod
 from booking.forms import (
     DoctorProfileForm, WorkingDaysForm, PatientInviteForm,
@@ -17,7 +18,7 @@ def doctor_required(view_func):
     @login_required
     def wrapper(request, *args, **kwargs):
         if not request.user.is_doctor:
-            return HttpResponseForbidden('Doctor access only.')
+            return HttpResponseForbidden(_('Doctor access only.'))
         return view_func(request, *args, **kwargs)
     return wrapper
 
@@ -72,13 +73,13 @@ def appointment_action(request, pk, action):
     apt    = get_object_or_404(Appointment, pk=pk, doctor=doctor)
     if action == 'confirm':
         apt.status = Appointment.Status.CONFIRMED
-        messages.success(request, 'Appointment confirmed.')
+        messages.success(request, _('Appointment confirmed.'))
     elif action == 'reject':
         apt.status = Appointment.Status.REJECTED
-        messages.warning(request, 'Appointment rejected.')
+        messages.warning(request, _('Appointment rejected.'))
     elif action == 'complete':
         apt.status = Appointment.Status.COMPLETED
-        messages.success(request, 'Appointment marked as completed.')
+        messages.success(request, _('Appointment marked as completed.'))
     apt.save()
     return redirect('doctor_appointments')
 
@@ -90,7 +91,7 @@ def appointment_note(request, pk):
     form   = AppointmentNoteForm(request.POST or None, instance=apt)
     if request.method == 'POST' and form.is_valid():
         form.save()
-        messages.success(request, 'Notes saved.')
+        messages.success(request, _('Notes saved.'))
         return redirect('doctor_appointments')
     return render(request, 'booking/doctor/appointment_note.html', {'apt': apt, 'form': form})
 
@@ -110,7 +111,7 @@ def doctor_schedule_settings(request):
             profile = profile_form.save(commit=False)
             profile.working_days = [int(d) for d in working_days_form.cleaned_data['working_days']]
             profile.save()
-            messages.success(request, 'Schedule settings updated.')
+            messages.success(request, _('Schedule settings updated.'))
             return redirect('doctor_schedule_settings')
 
     return render(request, 'booking/doctor/schedule_settings.html', {
@@ -131,7 +132,7 @@ def blocked_periods(request):
         bp = form.save(commit=False)
         bp.doctor = doctor
         bp.save()
-        messages.success(request, 'Period blocked.')
+        messages.success(request, _('Period blocked.'))
         return redirect('blocked_periods')
     return render(request, 'booking/doctor/blocked_periods.html', {
         'doctor': doctor, 'periods': periods, 'form': form,
@@ -144,7 +145,7 @@ def blocked_period_delete(request, pk):
     bp = get_object_or_404(BlockedPeriod, pk=pk, doctor=doctor)
     if request.method == 'POST':
         bp.delete()
-        messages.success(request, 'Block removed.')
+        messages.success(request, _('Block removed.'))
     return redirect('blocked_periods')
 
 
@@ -189,7 +190,7 @@ def patient_invite(request):
             [user.email],
             fail_silently=True,
         )
-        messages.success(request, f'Patient {user.name} invited. Credentials sent to {user.email}.')
+        messages.success(request, _('Patient %(name)s invited. Credentials sent to %(email)s.') % {'name': user.name, 'email': user.email})
         return redirect('doctor_patients')
     return render(request, 'booking/doctor/patient_invite.html', {'form': form, 'doctor': doctor})
 
@@ -208,7 +209,7 @@ def patient_detail(request, pk):
     )
     if request.method == 'POST' and form.is_valid():
         form.save()
-        messages.success(request, 'Patient updated.')
+        messages.success(request, _('Patient updated.'))
         return redirect('patient_detail', pk=pk)
     return render(request, 'booking/doctor/patient_detail.html', {
         'profile': profile, 'appointments': apts, 'form': form, 'doctor': doctor,
@@ -222,7 +223,7 @@ def patient_remove(request, pk):
     if request.method == 'POST':
         profile.is_active = False
         profile.save()
-        messages.warning(request, 'Patient deactivated.')
+        messages.warning(request, _('Patient deactivated.'))
     return redirect('doctor_patients')
 
 
@@ -238,7 +239,7 @@ def doctor_profile_settings(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, 'Profile updated.')
+            messages.success(request, _('Profile updated.'))
             return redirect('doctor_profile_settings')
     return render(request, 'booking/doctor/profile_settings.html', {
         'doctor': doctor, 'user_form': user_form, 'profile_form': profile_form,
@@ -286,5 +287,5 @@ def lead_update_status(request, pk):
         if new_status in Lead.Status.values:
             lead.status = new_status
             lead.save()
-            messages.success(request, f'Lead status updated to {lead.get_status_display()}.')
+            messages.success(request, _('Lead status updated to %(status)s.') % {'status': lead.get_status_display()})
     return redirect('doctor_leads')

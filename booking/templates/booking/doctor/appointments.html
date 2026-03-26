@@ -1,8 +1,9 @@
 {% extends "booking/base_doctor.html" %}
+{% load i18n %}
 {% block title %}Appointments — wbook365{% endblock %}
 {% block content %}
 <div class="flex items-center justify-between mb-8">
-  <div><p class="text-xs font-semibold uppercase tracking-widest text-teal-500 mb-1">Doctor Portal</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">Appointments</h1></div>
+  <div><p class="text-xs font-semibold uppercase tracking-widest text-teal-500 mb-1">{% trans "Doctor Portal" %}</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">{% trans "Appointments" %}</h1></div>
 </div>
 <div class="flex gap-2 mb-6 flex-wrap">
   <a href="?" class="px-3 py-1.5 rounded-full text-xs font-semibold border {% if not status_filter %}bg-teal-600 text-white border-teal-600{% else %}bg-white text-gray-600 border-gray-200 hover:border-teal-300{% endif %}">All</a>
@@ -13,7 +14,7 @@
 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
   <table class="w-full text-sm">
     <thead class="bg-slate-50 text-xs text-gray-400 uppercase tracking-wider">
-      <tr><th class="px-6 py-3 text-left">Patient</th><th class="px-4 py-3 text-left">Date & Time</th><th class="px-4 py-3 text-center">Type</th><th class="px-4 py-3 text-center">Status</th><th class="px-4 py-3 text-center">Actions</th></tr>
+      <tr><th class="px-6 py-3 text-left">{% trans "Patient" %}</th><th class="px-4 py-3 text-left">{% trans "Date" %} & Time</th><th class="px-4 py-3 text-center">Type</th><th class="px-4 py-3 text-center">{% trans "Status" %}</th><th class="px-4 py-3 text-center">{% trans "Actions" %}</th></tr>
     </thead>
     <tbody class="divide-y divide-gray-50">
       {% for apt in appointments %}
@@ -23,8 +24,8 @@
         <td class="px-4 py-3 text-center">{% if apt.is_registered %}<span class="text-xs px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 font-semibold">Registered</span>{% else %}<span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-semibold">Walk-in</span>{% endif %}</td>
         <td class="px-4 py-3 text-center">
           {% if apt.status == 'PENDING' %}<span class="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-semibold">Pending</span>
-          {% elif apt.status == 'CONFIRMED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-teal-100 text-teal-700 font-semibold">Confirmed</span>
-          {% elif apt.status == 'REJECTED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-600 font-semibold">Rejected</span>
+          {% elif apt.status == 'CONFIRMED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-teal-100 text-teal-700 font-semibold">{% trans "Confirm" %}ed</span>
+          {% elif apt.status == 'REJECTED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-600 font-semibold">{% trans "Reject" %}ed</span>
           {% elif apt.status == 'CANCELLED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 font-semibold">Cancelled</span>
           {% elif apt.status == 'COMPLETED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-semibold">Done</span>
           {% endif %}
@@ -32,17 +33,17 @@
         <td class="px-4 py-3 text-center">
           <div class="flex justify-center gap-2">
             {% if apt.status == 'PENDING' %}
-            <a href="{% url 'appointment_action' apt.pk 'confirm' %}" class="text-xs text-teal-600 hover:underline">Confirm</a>
-            <a href="{% url 'appointment_action' apt.pk 'reject' %}" class="text-xs text-red-500 hover:underline">Reject</a>
+            <a href="{% url 'appointment_action' apt.pk 'confirm' %}" class="text-xs text-teal-600 hover:underline">{% trans "Confirm" %}</a>
+            <a href="{% url 'appointment_action' apt.pk 'reject' %}" class="text-xs text-red-500 hover:underline">{% trans "Reject" %}</a>
             {% elif apt.status == 'CONFIRMED' %}
-            <a href="{% url 'appointment_action' apt.pk 'complete' %}" class="text-xs text-green-600 hover:underline">Complete</a>
+            <a href="{% url 'appointment_action' apt.pk 'complete' %}" class="text-xs text-green-600 hover:underline">{% trans "Complete" %}</a>
             {% endif %}
-            <a href="{% url 'appointment_note' apt.pk %}" class="text-xs text-gray-500 hover:underline">Notes</a>
+            <a href="{% url 'appointment_note' apt.pk %}" class="text-xs text-gray-500 hover:underline">{% trans "Notes" %}</a>
           </div>
         </td>
       </tr>
       {% empty %}
-      <tr><td colspan="5" class="text-center py-12 text-gray-400 text-sm">No appointments found.</td></tr>
+      <tr><td colspan="5" class="text-center py-12 text-gray-400 text-sm">{% trans "No appointments found" %}.</td></tr>
       {% endfor %}
     </tbody>
   </table>

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
+from django.utils.translation import gettext_lazy as _
 from .forms import DoctorRegistrationForm, LoginForm
 
 
@@ -25,7 +26,7 @@ def register(request):
     if request.method == 'POST' and form.is_valid():
         user = form.save()
         login(request, user)
-        messages.success(request, 'Welcome! Your doctor account has been created.')
+        messages.success(request, _('Welcome! Your doctor account has been created.'))
         return redirect('doctor_dashboard')
     return render(request, 'accounts/register.html', {'form': form})
 

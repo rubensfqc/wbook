@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.views.decorators.http import require_POST
 
 from booking.models import DoctorProfile, Appointment, BlockedPeriod, PatientProfile, Lead
+from django.utils.translation import gettext_lazy as _
 from booking.forms import PublicBookingForm
 from accounts.models import Seller
 
@@ -161,7 +162,7 @@ def public_booking(request, slug):
         ).exists()
 
         if conflict:
-            messages.error(request, 'That slot was just taken. Please choose another.')
+            messages.error(request, _('That slot was just taken. Please choose another.'))
         else:
             apt = Appointment.objects.create(
                 doctor=doctor,
@@ -182,10 +183,7 @@ def public_booking(request, slug):
                     status__in=[Lead.Status.NEW, Lead.Status.CONTACTED],
                 ).update(status=Lead.Status.CONVERTED, appointment=apt)
 
-            messages.success(
-                request,
-                'Your appointment request was submitted! You will receive an email once confirmed.',
-            )
+            messages.success(request, _('Your appointment request was submitted! You will receive an email once confirmed.'))
             return redirect('booking_confirmation', slug=slug)
 
     import json

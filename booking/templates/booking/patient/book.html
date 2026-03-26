@@ -1,5 +1,6 @@
 {% extends "booking/base_patient.html" %}
-{% block title %}Book Appointment — wbook365{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Book Appointment" %} — wbook365{% endblock %}
 {% block content %}
 <style>
 body{font-family:"Inter",sans-serif;}
@@ -19,11 +20,11 @@ body{font-family:"Inter",sans-serif;}
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <div class="mb-8">
   <p class="text-xs font-semibold uppercase tracking-widest text-teal-400 mb-1">Patient Portal</p>
-  <h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">Book Appointment</h1>
+  <h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">{% trans "Book Appointment" %}</h1>
   <p class="text-sm text-gray-400 mt-1">Dr. {{ doctor.user.name }}{% if doctor.specialty %} &middot; {{ doctor.specialty }}{% endif %}</p>
 </div>
 <div class="max-w-xl">
-  <h2 class="text-base font-semibold text-gray-700 mb-4">Select a date</h2>
+  <h2 class="text-base font-semibold text-gray-700 mb-4">{% trans "Select a date" %}</h2>
         <!-- Calendar widget -->
         <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-4">
           <div class="flex items-center justify-between mb-4">

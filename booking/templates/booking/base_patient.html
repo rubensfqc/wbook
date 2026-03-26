@@ -1,6 +1,6 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{% get_current_language as LANGUAGE_CODE %}{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Patient Portal — wbook365{% endblock %}</title>
@@ -17,7 +17,7 @@
   <aside id="sidebar" class="hidden md:flex flex-col w-60 bg-teal-900 min-h-screen sticky top-0 text-white z-50">
     <div class="px-6 py-7 border-b border-teal-800 flex flex-col items-center">
       <p class="text-base font-bold tracking-tight">wbook<span class="text-teal-400">365</span></p>
-      <p class="text-xs text-teal-600 mt-0.5 uppercase tracking-widest">Patient Portal</p>
+      <p class="text-xs text-teal-600 mt-0.5 uppercase tracking-widest">{% trans "Patient Portal" %}</p>
     </div>
     <nav class="flex-1 px-3 py-5 space-y-0.5">
       <a href="{% url 'patient_dashboard' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-teal-200 hover:bg-teal-800 hover:text-white transition {% if request.resolver_match.url_name == 'patient_dashboard' %}bg-teal-800 text-white{% endif %}">

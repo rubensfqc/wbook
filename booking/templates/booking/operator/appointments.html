@@ -1,11 +1,12 @@
 {% extends "booking/base_operator.html" %}
+{% load i18n %}
 {% block title %}All Appointments — wbook365{% endblock %}
 {% block content %}
-<div class="mb-8"><p class="text-xs font-semibold uppercase tracking-widest text-violet-500 mb-1">Operator Portal</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">All Appointments</h1></div>
+<div class="mb-8"><p class="text-xs font-semibold uppercase tracking-widest text-violet-500 mb-1">{% trans "Operator Portal" %}</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">{% trans "All Appointments" %}</h1></div>
 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
   <table class="w-full text-sm">
     <thead class="bg-slate-50 text-xs text-gray-400 uppercase tracking-wider">
-      <tr><th class="px-6 py-3 text-left">Patient</th><th class="px-4 py-3 text-left">Doctor</th><th class="px-4 py-3 text-left">Date</th><th class="px-4 py-3 text-center">Type</th><th class="px-4 py-3 text-center">Status</th></tr>
+      <tr><th class="px-6 py-3 text-left">{% trans "Patient" %}</th><th class="px-4 py-3 text-left">{% trans "Doctor" %}</th><th class="px-4 py-3 text-left">{% trans "Date" %}</th><th class="px-4 py-3 text-center">Type</th><th class="px-4 py-3 text-center">{% trans "Status" %}</th></tr>
     </thead>
     <tbody class="divide-y divide-gray-50">
       {% for apt in appointments %}
@@ -22,7 +23,7 @@
         </td>
       </tr>
       {% empty %}
-      <tr><td colspan="5" class="text-center py-12 text-gray-400 text-sm">No appointments yet.</td></tr>
+      <tr><td colspan="5" class="text-center py-12 text-gray-400 text-sm">{% trans "No appointments" %} yet.</td></tr>
       {% endfor %}
     </tbody>
   </table>

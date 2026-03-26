@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseForbidden
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from booking.models import DoctorProfile, PatientProfile, Appointment, BlockedPeriod
 
@@ -14,7 +15,7 @@ def patient_required(view_func):
     @login_required
     def wrapper(request, *args, **kwargs):
         if not request.user.is_patient:
-            return HttpResponseForbidden('Patient access only.')
+            return HttpResponseForbidden(_('Patient access only.'))
         return view_func(request, *args, **kwargs)
     return wrapper
 
@@ -97,7 +98,7 @@ def patient_book(request):
             status__in=[Appointment.Status.CONFIRMED, Appointment.Status.PENDING],
         ).exists()
         if conflict:
-            messages.error(request, 'That slot was just taken. Please choose another.')
+            messages.error(request, _('That slot was just taken. Please choose another.'))
         else:
             Appointment.objects.create(
                 doctor=doctor,
@@ -107,7 +108,7 @@ def patient_book(request):
                 notes=request.POST.get('notes', ''),
                 status=Appointment.Status.CONFIRMED,
             )
-            messages.success(request, 'Appointment confirmed!')
+            messages.success(request, _('Appointment confirmed!'))
             return redirect('patient_appointments')
 
     return render(request, 'booking/patient/book.html', {
@@ -131,12 +132,12 @@ def patient_appointments(request):
 def patient_cancel(request, pk):
     apt = get_object_or_404(Appointment, pk=pk, patient_user=request.user)
     if not apt.can_cancel():
-        messages.error(request, 'Cancellation window has passed.')
+        messages.error(request, _('Cancellation window has passed.'))
         return redirect('patient_appointments')
     if request.method == 'POST':
         apt.status = Appointment.Status.CANCELLED
         apt.save()
-        messages.success(request, 'Appointment cancelled.')
+        messages.success(request, _('Appointment cancelled.'))
     return redirect('patient_appointments')
 
 
@@ -147,7 +148,7 @@ def patient_reschedule(request, pk):
     doctor  = profile.doctor
 
     if not apt.can_cancel():
-        messages.error(request, 'Rescheduling window has passed.')
+        messages.error(request, _('Rescheduling window has passed.'))
         return redirect('patient_appointments')
 
     available_dates, slots_json = _build_patient_calendar(doctor, days=90)
@@ -161,7 +162,7 @@ def patient_reschedule(request, pk):
             status__in=[Appointment.Status.CONFIRMED, Appointment.Status.PENDING],
         ).exclude(pk=apt.pk).exists()
         if conflict:
-            messages.error(request, 'Slot taken. Choose another.')
+            messages.error(request, _('Slot taken. Choose another.'))
         else:
             apt.status = Appointment.Status.CANCELLED
             apt.save()
@@ -173,7 +174,7 @@ def patient_reschedule(request, pk):
                 notes=apt.notes,
                 status=Appointment.Status.CONFIRMED,
             )
-            messages.success(request, 'Appointment rescheduled!')
+            messages.success(request, _('Appointment rescheduled!'))
             return redirect('patient_appointments')
 
     return render(request, 'booking/patient/reschedule.html', {

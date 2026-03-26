@@ -1,5 +1,6 @@
+{% load i18n %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{% get_current_language as LANGUAGE_CODE %}{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +37,7 @@
         {% endif %}
 
         <div class="min-w-0">
-          <p class="text-xs font-semibold uppercase tracking-widest text-teal-400 mb-0.5">Patient Portal</p>
+          <p class="text-xs font-semibold uppercase tracking-widest text-teal-400 mb-0.5">{% trans "Patient Portal" %}</p>
           <h1 class="text-lg font-bold text-white leading-tight truncate"
               style="font-family:'DM Serif Display',serif;">
             Dr. {{ doctor.user.name }}
@@ -58,7 +59,7 @@
       <div class="bg-white rounded-2xl shadow-2xl p-8">
 
         <div class="mb-6">
-          <h2 class="text-xl font-bold text-gray-800">Sign in to book</h2>
+          <h2 class="text-xl font-bold text-gray-800">{% trans "Sign in to book" %}</h2>
           <p class="text-sm text-gray-400 mt-1">
             Registered patients get instant appointment confirmation.
           </p>
@@ -68,7 +69,7 @@
           {% csrf_token %}
 
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Email address</label>
+            <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Email address" %}</label>
             <div class="relative">
               <i class="fas fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-300 text-sm"></i>
               <input type="email"
@@ -85,7 +86,7 @@
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Password" %}</label>
             <div class="relative">
               <i class="fas fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-300 text-sm"></i>
               <input type="password"

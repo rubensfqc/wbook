@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseForbidden
+from django.utils.translation import gettext_lazy as _
 from booking.models import DoctorProfile, PatientProfile, Appointment, PlatformSettings
 from accounts.models import Seller
 from booking.forms import OperatorDoctorForm
@@ -12,7 +13,7 @@ def operator_required(view_func):
     @login_required
     def wrapper(request, *args, **kwargs):
         if not request.user.is_operator:
-            return HttpResponseForbidden('Operator access only.')
+            return HttpResponseForbidden(_('Operator access only.'))
         return view_func(request, *args, **kwargs)
     return wrapper
 
@@ -66,7 +67,7 @@ def operator_doctor_add(request):
         profile.clinic_name = cd.get('clinic_name', '')
         profile.trial_days = cd.get('trial_days', 14)
         profile.save()
-        messages.success(request, f'Doctor {user.name} created. Temp password: {raw_pass}')
+        messages.success(request, _('Doctor %(name)s created. Temp password: %(pass)s') % {'name': user.name, 'pass': raw_pass})
         return redirect('operator_doctors')
     return render(request, 'booking/operator/doctor_form.html', {'form': form, 'action': 'Add'})
 
@@ -87,7 +88,7 @@ def operator_doctor_edit(request, pk):
             profile.user.set_password(cd['password'])
         profile.user.save()
         form.save()
-        messages.success(request, 'Doctor updated.')
+        messages.success(request, _('Doctor updated.'))
         return redirect('operator_doctors')
     return render(request, 'booking/operator/doctor_form.html', {'form': form, 'action': 'Edit', 'profile': profile})
 
@@ -97,7 +98,7 @@ def operator_doctor_delete(request, pk):
     profile = get_object_or_404(DoctorProfile, pk=pk)
     if request.method == 'POST':
         profile.user.delete()
-        messages.success(request, 'Doctor removed.')
+        messages.success(request, _('Doctor removed.'))
     return redirect('operator_doctors')
 
 
@@ -126,6 +127,6 @@ def operator_platform_settings(request):
     form = PlatformForm(request.POST or None, instance=platform)
     if request.method == 'POST' and form.is_valid():
         form.save()
-        messages.success(request, 'Platform settings updated.')
+        messages.success(request, _('Platform settings updated.'))
         return redirect('operator_platform_settings')
     return render(request, 'booking/operator/platform_settings.html', {'form': form, 'platform': platform})

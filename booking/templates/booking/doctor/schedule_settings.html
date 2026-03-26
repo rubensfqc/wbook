@@ -1,7 +1,8 @@
 {% extends "booking/base_doctor.html" %}
+{% load i18n %}
 {% block title %}Schedule Settings — wbook365{% endblock %}
 {% block content %}
-<div class="mb-8"><p class="text-xs font-semibold uppercase tracking-widest text-teal-500 mb-1">Doctor Portal</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">Schedule Settings</h1></div>
+<div class="mb-8"><p class="text-xs font-semibold uppercase tracking-widest text-teal-500 mb-1">{% trans "Doctor Portal" %}</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">{% trans "Schedule Settings" %}</h1></div>
 <form method="post" enctype="multipart/form-data" class="space-y-6 max-w-2xl">
   {% csrf_token %}
   <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
@@ -28,7 +29,7 @@
       {% endfor %}
     </div>
   </div>
-  <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-2.5 rounded-xl transition">Save Settings</button>
+  <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-2.5 rounded-xl transition">{% trans "Save Settings" %}</button>
 </form>
 <style>
   input[type=text],input[type=number],input[type=time],select,textarea{width:100%;border:1px solid #e5e7eb;border-radius:0.75rem;padding:0.5rem 0.75rem;font-size:0.875rem;outline:none;}

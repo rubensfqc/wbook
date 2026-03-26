@@ -1,16 +1,16 @@
 {% extends "booking/base_doctor.html" %}
-{% load humanize %}
-{% block title %}Doctor Dashboard — wbook365{% endblock %}
+{% load humanize i18n %}
+{% block title %}Doctor {% trans "Dashboard" %} — wbook365{% endblock %}
 {% block content %}
 {% if doctor.days_remaining is not None and doctor.days_remaining <= 7 %}
 <div class="mb-6 flex items-center gap-3 rounded-xl border px-5 py-3 {% if doctor.days_remaining <= 3 %}bg-red-50 border-red-200 text-red-700{% else %}bg-amber-50 border-amber-200 text-amber-700{% endif %}">
   <i class="fas fa-clock"></i>
-  <p class="text-sm font-medium">Trial expires in <strong>{{ doctor.days_remaining }} day{{ doctor.days_remaining|pluralize }}</strong>. Contact support to extend.</p>
+    <p class="text-sm font-medium">Trial expires in <strong>{{ doctor.days_remaining }} day{{ doctor.days_remaining|pluralize }}</strong>. Contact support to extend.</p>
 </div>
 {% endif %}
 <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
   <div>
-    <p class="text-xs font-semibold uppercase tracking-widest text-teal-500 mb-1">Doctor Portal</p>
+    <p class="text-xs font-semibold uppercase tracking-widest text-teal-500 mb-1">{% trans "Doctor Portal" %}</p>
     <h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">Welcome, Dr. {{ doctor.user.name }} 👋</h1>
     {% if doctor.specialty %}<p class="text-sm text-gray-400 mt-1">{{ doctor.specialty }}</p>{% endif %}
   </div>
@@ -23,12 +23,12 @@
   <div class="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm hover:-translate-y-0.5 transition">
     <div class="flex items-center justify-between mb-3"><p class="text-xs font-semibold uppercase tracking-widest text-gray-400">Patients</p><div class="w-8 h-8 rounded-full bg-teal-50 flex items-center justify-center"><i class="fas fa-users text-teal-400 text-xs"></i></div></div>
     <p class="text-4xl font-bold text-gray-900">{{ total_patients }}</p>
-    <a href="{% url 'doctor_patients' %}" class="text-xs text-teal-500 hover:underline mt-1 inline-block">View all →</a>
+    <a href="{% url 'doctor_patients' %}" class="text-xs text-teal-500 hover:underline mt-1 inline-block">{% trans "View all" %} →</a>
   </div>
   <div class="bg-teal-600 rounded-2xl p-5 shadow-sm hover:-translate-y-0.5 transition">
-    <div class="flex items-center justify-between mb-3"><p class="text-xs font-semibold uppercase tracking-widest text-teal-200">Today</p><div class="w-8 h-8 rounded-full bg-teal-500 flex items-center justify-center"><i class="fas fa-calendar-day text-teal-100 text-xs"></i></div></div>
+    <div class="flex items-center justify-between mb-3"><p class="text-xs font-semibold uppercase tracking-widest text-teal-200">To{% trans "day" %}</p><div class="w-8 h-8 rounded-full bg-teal-500 flex items-center justify-center"><i class="fas fa-calendar-{% trans "day" %} text-teal-100 text-xs"></i></div></div>
     <p class="text-4xl font-bold text-white">{{ today_appointments }}</p>
-    <p class="text-xs text-teal-200 mt-1">appointments today</p>
+    <p class="text-xs text-teal-200 mt-1">appointments to{% trans "day" %}</p>
   </div>
   <div class="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm hover:-translate-y-0.5 transition">
     <div class="flex items-center justify-between mb-3"><p class="text-xs font-semibold uppercase tracking-widest text-gray-400">Pending</p><div class="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center"><i class="fas fa-hourglass-half text-amber-400 text-xs"></i></div></div>
@@ -56,7 +56,7 @@
 </div>
 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
   <div class="flex items-center justify-between mb-4">
-    <div><h2 class="font-bold text-gray-800">Upcoming Appointments</h2><p class="text-xs text-gray-400">Next scheduled</p></div>
+    <div><h2 class="font-bold text-gray-800">{% trans "Upcoming Appointments" %}</h2><p class="text-xs text-gray-400">Next scheduled</p></div>
     <a href="{% url 'doctor_appointments' %}" class="text-xs text-teal-500 hover:underline">All →</a>
   </div>
   <div class="space-y-3">
@@ -70,14 +70,14 @@
       <div class="flex items-center gap-2">
         {% if apt.status == 'PENDING' %}
           <span class="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-semibold">Pending</span>
-          <a href="{% url 'appointment_action' apt.pk 'confirm' %}" class="text-xs text-teal-600 hover:underline">Confirm</a>
+          <a href="{% url 'appointment_action' apt.pk 'confirm' %}" class="text-xs text-teal-600 hover:underline">{% trans "Confirm" %}</a>
         {% else %}
-          <span class="text-xs px-2 py-0.5 rounded-full bg-teal-100 text-teal-700 font-semibold">Confirmed</span>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-teal-100 text-teal-700 font-semibold">{% trans "Confirm" %}ed</span>
         {% endif %}
       </div>
     </div>
     {% empty %}
-    <div class="text-center py-8 text-gray-400 text-sm"><i class="fas fa-calendar-xmark text-2xl mb-2 block"></i>No upcoming appointments.</div>
+    <div class="text-center py-8 text-gray-400 text-sm"><i class="fas fa-calendar-xmark text-2xl mb-2 block"></i>{% trans "No upcoming appointments" %}.</div>
     {% endfor %}
   </div>
 </div>

@@ -1,7 +1,8 @@
 {% extends "booking/base_operator.html" %}
+{% load i18n %}
 {% block title %}Patients — wbook365{% endblock %}
 {% block content %}
-<div class="mb-8"><p class="text-xs font-semibold uppercase tracking-widest text-violet-500 mb-1">Operator Portal</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">All Patients</h1></div>
+<div class="mb-8"><p class="text-xs font-semibold uppercase tracking-widest text-violet-500 mb-1">{% trans "Operator Portal" %}</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">{% trans "All Patients" %}</h1></div>
 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
   <table class="w-full text-sm">
     <thead class="bg-slate-50 text-xs text-gray-400 uppercase tracking-wider">
@@ -16,7 +17,7 @@
         <td class="px-4 py-3 text-center text-gray-400 text-xs">{{ p.created_at|date:"d M Y" }}</td>
       </tr>
       {% empty %}
-      <tr><td colspan="4" class="text-center py-12 text-gray-400 text-sm">No patients yet.</td></tr>
+      <tr><td colspan="4" class="text-center py-12 text-gray-400 text-sm">{% trans "No patients yet" %}.</td></tr>
       {% endfor %}
     </tbody>
   </table>

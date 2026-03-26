@@ -1,7 +1,8 @@
 {% extends "booking/base_doctor.html" %}
+{% load i18n %}
 {% block title %}Block Time — wbook365{% endblock %}
 {% block content %}
-<div class="mb-8"><p class="text-xs font-semibold uppercase tracking-widest text-teal-500 mb-1">Doctor Portal</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">Block Time Periods</h1></div>
+<div class="mb-8"><p class="text-xs font-semibold uppercase tracking-widest text-teal-500 mb-1">{% trans "Doctor Portal" %}</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">{% trans "Block Time Periods" %}</h1></div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
   <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
     <h2 class="font-bold text-gray-800 mb-4">Add Block Period</h2>
@@ -27,11 +28,11 @@
           {% if period.reason %}<p class="text-xs text-gray-400">{{ period.reason }}</p>{% endif %}
         </div>
         <form method="post" action="{% url 'blocked_period_delete' period.pk %}">
-          {% csrf_token %}<button type="submit" class="text-xs text-red-500 hover:underline">Remove</button>
+          {% csrf_token %}<button type="submit" class="text-xs text-red-500 hover:underline">{% trans "Remove" %}</button>
         </form>
       </div>
       {% empty %}
-      <p class="text-sm text-gray-400">No blocked periods.</p>
+      <p class="text-sm text-gray-400">{% trans "No blocked periods" %}.</p>
       {% endfor %}
     </div>
   </div>

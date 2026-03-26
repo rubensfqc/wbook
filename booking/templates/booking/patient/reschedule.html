@@ -1,5 +1,6 @@
 {% extends "booking/base_patient.html" %}
-{% block title %}Reschedule — wbook365{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Reschedule" %} — wbook365{% endblock %}
 {% block content %}
 <style>
 body{font-family:"Inter",sans-serif;}
@@ -19,7 +20,7 @@ body{font-family:"Inter",sans-serif;}
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <div class="mb-8">
   <a href="{% url 'patient_appointments' %}" class="text-sm text-teal-600 hover:underline">&larr; My Appointments</a>
-  <h1 class="text-2xl font-bold text-gray-900 mt-2">Reschedule Appointment</h1>
+  <h1 class="text-2xl font-bold text-gray-900 mt-2">{% trans "Reschedule" %} Appointment</h1>
   <p class="text-sm text-gray-400">Current: {{ apt.start_time|date:"d M Y &middot; H:i" }}</p>
 </div>
 <div class="max-w-xl">
