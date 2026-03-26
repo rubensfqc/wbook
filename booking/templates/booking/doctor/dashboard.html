@@ -5,7 +5,7 @@
 {% if doctor.days_remaining is not None and doctor.days_remaining <= 7 %}
 <div class="mb-6 flex items-center gap-3 rounded-xl border px-5 py-3 {% if doctor.days_remaining <= 3 %}bg-red-50 border-red-200 text-red-700{% else %}bg-amber-50 border-amber-200 text-amber-700{% endif %}">
   <i class="fas fa-clock"></i>
-  <p class="text-sm font-medium">{% trans "Trial expires in "}<strong>{{ doctor.days_remaining }} day{{ doctor.days_remaining|pluralize }}</strong>. {% trans "Contact support to extend." %}</p>
+  <p class="text-sm font-medium">{% trans "Trial expires in" %} <strong>{{ doctor.days_remaining }} day{{ doctor.days_remaining|pluralize }} </strong>. {% trans "Contact support to extend."%}</p>
 </div>
 {% endif %}
 <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
