@@ -114,7 +114,7 @@ DOCTORS_DATA = [
         bio           = ("Dr. Johnson has over 12 years of experience "
                          "in family medicine and preventive care."),
         slot_duration = 30,
-        slots_per_day = 8,
+        slots_per_day = 3,
         work_start    = time(8, 0),
         work_end      = time(17, 0),
         working_days  = [0, 1, 2, 3, 4],   # Mon-Fri

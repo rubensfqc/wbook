@@ -9,33 +9,96 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body { font-family: 'Inter', sans-serif; }
-    .step-indicator.active  { background: #0d9488; color: #fff; border-color: #0d9488; }
-    .step-indicator.done    { background: #ccfbf1; color: #0d9488; border-color: #99f6e4; }
-    .step-indicator.pending { background: #fff; color: #9ca3af; border-color: #e5e7eb; }
-    .slot-btn.selected      { background: #0d9488 !important; color: #fff !important; border-color: #0d9488 !important; }
-    input:focus, textarea:focus { outline: none; border-color: #0d9488; box-shadow: 0 0 0 3px rgba(13,148,136,.1); }
-    .fade-in { animation: fadeIn .25s ease; }
+
+    /* step indicator */
+    .si-active  { background:#0d9488; color:#fff; border-color:#0d9488; }
+    .si-done    { background:#ccfbf1; color:#0d9488; border-color:#99f6e4; }
+    .si-pending { background:#fff;    color:#9ca3af; border-color:#e5e7eb; }
+
+    /* calendar day cells */
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: default;
+      transition: background .15s, color .15s;
+      position: relative;
+    }
+    .cal-day.other-month { color: #d1d5db; }
+    .cal-day.past        { color: #d1d5db; }
+    .cal-day.today       { font-weight: 700; color: #0f766e; }
+    .cal-day.available {
+      background: #f0fdfa;
+      color: #0f766e;
+      cursor: pointer;
+      border: 1.5px solid #99f6e4;
+      font-weight: 600;
+    }
+    .cal-day.available:hover { background: #0d9488; color: #fff; border-color: #0d9488; }
+    .cal-day.available::after {
+      content: '';
+      position: absolute;
+      bottom: 3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px; height: 4px;
+      background: #0d9488;
+      border-radius: 50%;
+    }
+    .cal-day.available:hover::after { background: #fff; }
+    .cal-day.selected {
+      background: #0d9488 !important;
+      color: #fff !important;
+      border-color: #0d9488 !important;
+    }
+    .cal-day.selected::after { background: #fff !important; }
+    .cal-day.no-slots { color: #9ca3af; }
+
+    /* slot pills */
+    .slot-pill {
+      padding: .45rem 1rem;
+      border-radius: .75rem;
+      border: 1.5px solid #99f6e4;
+      background: #f0fdfa;
+      color: #0f766e;
+      font-size: .825rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    .slot-pill:hover   { background: #0d9488; color: #fff; border-color: #0d9488; }
+    .slot-pill.picked  { background: #0d9488 !important; color: #fff !important; border-color: #0d9488 !important; }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #0d9488;
+      box-shadow: 0 0 0 3px rgba(13,148,136,.1);
+    }
+    .fade-in { animation: fadeIn .2s ease; }
     @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
   </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-slate-50 to-teal-50 pb-16">
+<body class="min-h-screen bg-gradient-to-br from-slate-50 to-teal-50 pb-20">
 
-  <!-- Toast messages (e.g. slot taken error on re-render) -->
   {% if messages %}
   <div class="fixed top-5 right-5 z-50 space-y-3">
     {% for message in messages %}
     <div class="flex items-center gap-3 w-80 p-4 bg-white rounded-xl shadow-xl border-l-4
                 {% if message.tags == 'success' %}border-teal-500{% else %}border-red-400{% endif %}">
       <div class="flex-1 text-sm text-gray-700">{{ message }}</div>
-      <button onclick="this.parentElement.remove()" class="text-gray-300 hover:text-gray-500 text-lg leading-none">&times;</button>
+      <button onclick="this.parentElement.remove()" class="text-gray-300 hover:text-gray-500 text-lg">&times;</button>
     </div>
     {% endfor %}
   </div>
   {% endif %}
 
-  <div class="max-w-xl mx-auto px-4 py-10">
+  <div class="max-w-2xl mx-auto px-4 py-10">
 
-    <!-- ── Doctor card ──────────────────────────────────────────────── -->
+    <!-- ── Doctor card ─────────────────────────────────────────────────── -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
       <div class="flex items-center gap-4">
         {% if doctor.logo %}
@@ -47,8 +110,9 @@
           </div>
         {% endif %}
         <div class="min-w-0">
-          <h1 class="text-2xl font-bold text-gray-900 truncate"
-              style="font-family:'DM Serif Display',serif;">Dr. {{ doctor.user.name }}</h1>
+          <h1 class="text-2xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">
+            Dr. {{ doctor.user.name }}
+          </h1>
           {% if doctor.specialty %}
             <p class="text-teal-600 font-medium text-sm">{{ doctor.specialty }}</p>
           {% endif %}
@@ -60,369 +124,554 @@
         </div>
       </div>
       {% if doctor.bio %}
-        <p class="text-sm text-gray-500 mt-4 leading-relaxed border-t border-gray-50 pt-4">{{ doctor.bio }}</p>
+        <p class="text-sm text-gray-500 mt-4 leading-relaxed border-t border-gray-50 pt-4">
+          {{ doctor.bio }}
+        </p>
       {% endif %}
     </div>
 
-    <!-- ── Step indicator ───────────────────────────────────────────── -->
-    <div class="flex items-center gap-3 mb-8">
-      <div id="ind-1" class="step-indicator active w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all">1</div>
-      <div class="flex-1 h-px bg-gray-200" id="line-1"></div>
-      <div id="ind-2" class="step-indicator pending w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all">2</div>
-      <div class="text-xs text-gray-400 hidden" id="step-labels">
-      </div>
+    <!-- ── Step indicator ──────────────────────────────────────────────── -->
+    <div class="flex items-center gap-2 mb-2">
+      <div id="si1" class="si-active w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all flex-shrink-0">1</div>
+      <div class="flex-1 h-px bg-gray-200"></div>
+      <div id="si2" class="si-pending w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all flex-shrink-0">2</div>
+      <div class="flex-1 h-px bg-gray-200"></div>
+      <div id="si3" class="si-pending w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all flex-shrink-0">3</div>
     </div>
-    <div class="flex justify-between -mt-6 mb-8 px-0.5">
+    <div class="flex justify-between mb-8 px-0.5">
       <span class="text-xs font-medium text-gray-500">Your details</span>
-      <span class="text-xs font-medium text-gray-400">Choose a slot</span>
+      <span class="text-xs font-medium text-gray-400 text-center">Choose a slot</span>
+      <span class="text-xs font-medium text-gray-400">Confirm</span>
     </div>
 
-    <!-- ════════════════════════════════════════════════════════════════
+    <!-- ════════════════════════════════════════════════════════════════════
          STEP 1 — Personal details
-    ═════════════════════════════════════════════════════════════════ -->
+    ═════════════════════════════════════════════════════════════════════ -->
     <div id="step1" class="fade-in">
       <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
         <h2 class="text-lg font-bold text-gray-800 mb-1">Your details</h2>
-        <p class="text-sm text-gray-400 mb-6">Fill in your information so the doctor knows who you are.</p>
-
-        <div class="space-y-4" id="details-form">
-
+        <p class="text-sm text-gray-400 mb-6">
+          Tell us who you are so the doctor knows you're coming.
+        </p>
+        <div class="space-y-4">
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">
               Full Name <span class="text-red-400">*</span>
             </label>
             <input id="f-name" type="text" placeholder="Jane Smith"
                    value="{{ form.name.value|default:'' }}"
-                   class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm transition">
+                   class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm">
             <p id="err-name" class="text-red-500 text-xs mt-1 hidden">Please enter your full name.</p>
-            {% for e in form.name.errors %}
-              <p class="text-red-500 text-xs mt-1">{{ e }}</p>
-            {% endfor %}
           </div>
-
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">
               Email address <span class="text-red-400">*</span>
             </label>
             <input id="f-email" type="email" placeholder="jane@example.com"
                    value="{{ form.email.value|default:'' }}"
-                   class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm transition">
+                   class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm">
             <p id="err-email" class="text-red-500 text-xs mt-1 hidden">Please enter a valid email address.</p>
-            {% for e in form.email.errors %}
-              <p class="text-red-500 text-xs mt-1">{{ e }}</p>
-            {% endfor %}
           </div>
-
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Phone <span class="text-gray-400 font-normal">(optional)</span></label>
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+              Phone <span class="text-gray-400 font-normal">(optional)</span>
+            </label>
             <input id="f-phone" type="tel" placeholder="+1 555 000 0000"
                    value="{{ form.phone.value|default:'' }}"
-                   class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm transition">
+                   class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm">
           </div>
-
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Reason for visit <span class="text-gray-400 font-normal">(optional)</span></label>
-            <textarea id="f-notes" rows="3" placeholder="Briefly describe your symptoms or the reason for this appointment..."
-                      class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm transition resize-none">{{ form.notes.value|default:'' }}</textarea>
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+              Reason for visit <span class="text-gray-400 font-normal">(optional)</span>
+            </label>
+            <textarea id="f-notes" rows="3"
+                      placeholder="Briefly describe your symptoms or the reason for your appointment..."
+                      class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm resize-none">{{ form.notes.value|default:'' }}</textarea>
           </div>
-
-          <button type="button" onclick="goToStep2()"
-                  class="w-full bg-teal-600 hover:bg-teal-700 active:bg-teal-800 text-white font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2">
+          <button type="button" onclick="goToStep2()" id="btn-next"
+                  class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2">
             Next: Choose a time slot
             <i class="fas fa-arrow-right text-sm"></i>
           </button>
         </div>
       </div>
-
-      <!-- Sign-in hint -->
       {% if not request.user.is_authenticated %}
-      <p class="text-center text-xs text-gray-400 mt-5">
+      <p class="text-center text-xs text-gray-400 mt-4">
         Already a registered patient?
-        <a href="{% url 'login' %}" class="text-teal-600 hover:underline font-medium">Sign in for instant confirmation</a>
+        <a href="{% url 'login' %}" class="text-teal-600 hover:underline font-medium">
+          Sign in for instant confirmation
+        </a>
       </p>
       {% elif request.user.is_patient %}
-      <p class="text-center text-xs text-gray-400 mt-5">
-        <a href="{% url 'patient_book' %}" class="text-teal-600 hover:underline font-medium">Use your patient portal instead →</a>
+      <p class="text-center text-xs text-gray-400 mt-4">
+        <a href="{% url 'patient_book' %}" class="text-teal-600 hover:underline font-medium">
+          Use your patient portal instead →
+        </a>
       </p>
       {% endif %}
     </div>
 
-    <!-- ════════════════════════════════════════════════════════════════
-         STEP 2 — Slot selection
-    ═════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════════
+         STEP 2 — Calendar + slot picker
+    ═════════════════════════════════════════════════════════════════════ -->
     <div id="step2" class="hidden fade-in">
 
-      <!-- Summary of entered details -->
+      <!-- Patient summary bar -->
       <div class="bg-teal-50 border border-teal-100 rounded-xl px-4 py-3 flex items-center justify-between mb-6">
         <div class="flex items-center gap-3">
           <div class="w-9 h-9 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0">
             <i class="fas fa-user-check text-teal-600 text-sm"></i>
           </div>
           <div>
-            <p id="summary-name"  class="text-sm font-semibold text-gray-800"></p>
-            <p id="summary-email" class="text-xs text-gray-500"></p>
+            <p id="s2-name"  class="text-sm font-semibold text-gray-800"></p>
+            <p id="s2-email" class="text-xs text-gray-500"></p>
           </div>
         </div>
-        <button onclick="goToStep1()" class="text-xs text-teal-600 hover:underline font-medium flex-shrink-0">Edit</button>
+        <button onclick="goToStep1()"
+                class="text-xs text-teal-600 hover:underline font-medium flex-shrink-0">Edit</button>
       </div>
 
-      <h2 class="text-lg font-bold text-gray-800 mb-4">Choose a time slot</h2>
+      <h2 class="text-lg font-bold text-gray-800 mb-4">Choose a date</h2>
 
-      {% if slots_by_day %}
-        <div class="space-y-4" id="slot-grid">
-          {% for day in slots_by_day %}
-          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-            <h3 class="font-semibold text-gray-800 mb-3 text-sm">
-              <i class="fas fa-calendar-day text-teal-400 mr-1.5"></i>
-              {{ day.date|date:"l, d F" }}
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              {% for slot in day.slots %}
-              <button type="button"
-                data-slot="{{ slot|date:'Y-m-d' }}T{{ slot|time:'H:i' }}"
-                data-label="{{ day.date|date:'l, d M' }} at {{ slot|time:'H:i' }}"
-                onclick="selectSlot(this)"
-                class="slot-btn px-4 py-2 rounded-xl text-sm font-semibold border border-teal-200 text-teal-700 bg-teal-50 hover:bg-teal-600 hover:text-white hover:border-teal-600 transition">
-                {{ slot|time:"H:i" }}
-              </button>
-              {% endfor %}
-            </div>
-          </div>
+      <!-- Calendar widget -->
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-4">
+
+        <!-- Month nav -->
+        <div class="flex items-center justify-between mb-4">
+          <button onclick="prevMonth()"
+                  class="w-8 h-8 rounded-lg hover:bg-gray-100 flex items-center justify-center transition text-gray-500">
+            <i class="fas fa-chevron-left text-xs"></i>
+          </button>
+          <span id="cal-title" class="text-sm font-bold text-gray-800"></span>
+          <button onclick="nextMonth()"
+                  class="w-8 h-8 rounded-lg hover:bg-gray-100 flex items-center justify-center transition text-gray-500">
+            <i class="fas fa-chevron-right text-xs"></i>
+          </button>
+        </div>
+
+        <!-- Day-of-week headers -->
+        <div class="grid grid-cols-7 gap-1 mb-1">
+          {% for day in "SMTWTFS" %}
+          <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">{{ day }}</div>
           {% endfor %}
         </div>
 
-        <!-- Confirm panel (hidden until slot picked) -->
-        <div id="confirm-panel" class="hidden mt-6 fade-in">
-          <div class="bg-white rounded-2xl border border-teal-200 shadow-sm p-6">
-            <h3 class="font-bold text-gray-800 mb-1">Confirm your appointment</h3>
-            <p class="text-sm text-gray-400 mb-4">Please review and submit your request.</p>
+        <!-- Day cells (rendered by JS) -->
+        <div id="cal-grid" class="grid grid-cols-7 gap-1"></div>
 
-            <div class="bg-slate-50 rounded-xl p-4 mb-5 space-y-2 text-sm">
-              <div class="flex gap-2">
-                <i class="fas fa-user text-gray-300 w-4 mt-0.5"></i>
-                <span id="confirm-name"  class="text-gray-700 font-medium"></span>
-              </div>
-              <div class="flex gap-2">
-                <i class="fas fa-envelope text-gray-300 w-4 mt-0.5"></i>
-                <span id="confirm-email" class="text-gray-500"></span>
-              </div>
-              <div class="flex gap-2" id="confirm-phone-row">
-                <i class="fas fa-phone text-gray-300 w-4 mt-0.5"></i>
-                <span id="confirm-phone" class="text-gray-500"></span>
-              </div>
-              <div class="flex gap-2 pt-1 border-t border-gray-100 mt-1">
-                <i class="fas fa-clock text-teal-400 w-4 mt-0.5"></i>
-                <span id="confirm-slot" class="text-teal-600 font-semibold"></span>
-              </div>
-            </div>
-
-            <form method="post" id="booking-form">
-              {% csrf_token %}
-              <input type="hidden" name="name"    id="h-name">
-              <input type="hidden" name="email"   id="h-email">
-              <input type="hidden" name="phone"   id="h-phone">
-              <input type="hidden" name="notes"   id="h-notes">
-              <input type="hidden" name="slot"    id="h-slot">
-              <input type="hidden" name="lead_id" id="h-lead-id">
-              <div class="flex gap-3">
-                <button type="submit"
-                        class="flex-1 bg-teal-600 hover:bg-teal-700 active:bg-teal-800 text-white font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2">
-                  <i class="fas fa-paper-plane text-sm"></i>
-                  Request Appointment
-                </button>
-                <button type="button" onclick="clearSlot()"
-                        class="bg-white border border-gray-200 hover:border-gray-300 text-gray-600 font-semibold px-5 py-3 rounded-xl transition">
-                  Change
-                </button>
-              </div>
-              <p class="text-xs text-gray-400 text-center mt-3">
-                <i class="fas fa-info-circle mr-1"></i>
-                Unregistered requests are pending until confirmed by the doctor.
-              </p>
-            </form>
-          </div>
+        <!-- Legend -->
+        <div class="flex items-center gap-4 mt-4 pt-3 border-t border-gray-50">
+          <span class="flex items-center gap-1.5 text-xs text-gray-400">
+            <span class="w-3 h-3 rounded bg-teal-50 border border-teal-200 inline-block"></span>
+            Available
+          </span>
+          <span class="flex items-center gap-1.5 text-xs text-gray-400">
+            <span class="w-3 h-3 rounded bg-gray-100 inline-block"></span>
+            Unavailable
+          </span>
+          <span class="flex items-center gap-1.5 text-xs text-gray-400">
+            <span class="w-3 h-3 rounded bg-teal-500 inline-block"></span>
+            Selected
+          </span>
         </div>
+      </div>
 
-      {% else %}
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-10 text-center">
-          <i class="fas fa-calendar-xmark text-4xl text-gray-200 mb-4 block"></i>
-          <p class="text-gray-500 font-medium">No available slots in the next 14 days.</p>
-          <p class="text-gray-400 text-sm mt-1">Please check back later or contact the clinic directly.</p>
+      <!-- Slot panel (shown after picking a date) -->
+      <div id="slot-panel" class="hidden fade-in">
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-4">
+          <h3 class="text-sm font-bold text-gray-800 mb-1">
+            <i class="fas fa-calendar-day text-teal-400 mr-1.5"></i>
+            <span id="slot-date-label"></span>
+          </h3>
+          <p class="text-xs text-gray-400 mb-4" id="slot-subtext"></p>
+          <div id="slot-list" class="flex flex-wrap gap-2"></div>
         </div>
-      {% endif %}
+      </div>
 
       <button onclick="goToStep1()"
-              class="mt-5 flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-600 transition">
+              class="flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-600 transition mt-1">
         <i class="fas fa-arrow-left text-xs"></i> Back to your details
       </button>
     </div>
 
-  </div><!-- /max-w-xl -->
+    <!-- ════════════════════════════════════════════════════════════════════
+         STEP 3 — Confirm
+    ═════════════════════════════════════════════════════════════════════ -->
+    <div id="step3" class="hidden fade-in">
+      <div class="bg-white rounded-2xl border border-teal-200 shadow-sm p-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-1">Confirm your appointment</h2>
+        <p class="text-sm text-gray-400 mb-5">Review the details below and submit your request.</p>
 
-  <script>
-    // ── State ────────────────────────────────────────────────────────────────
-    let patientData = { name:'', email:'', phone:'', notes:'' };
-    let capturedLeadId = null;
+        <div class="bg-slate-50 rounded-xl p-4 mb-5 space-y-2.5 text-sm">
+          <div class="flex items-start gap-2.5">
+            <i class="fas fa-user text-gray-300 w-4 mt-0.5 flex-shrink-0"></i>
+            <span id="c-name"  class="text-gray-700 font-semibold"></span>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <i class="fas fa-envelope text-gray-300 w-4 mt-0.5 flex-shrink-0"></i>
+            <span id="c-email" class="text-gray-500"></span>
+          </div>
+          <div id="c-phone-row" class="flex items-start gap-2.5 hidden">
+            <i class="fas fa-phone text-gray-300 w-4 mt-0.5 flex-shrink-0"></i>
+            <span id="c-phone" class="text-gray-500"></span>
+          </div>
+          <div class="border-t border-gray-200 pt-2.5 flex items-start gap-2.5">
+            <i class="fas fa-stethoscope text-teal-400 w-4 mt-0.5 flex-shrink-0"></i>
+            <span class="text-gray-600">Dr. {{ doctor.user.name }}{% if doctor.specialty %} · {{ doctor.specialty }}{% endif %}</span>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <i class="fas fa-clock text-teal-400 w-4 mt-0.5 flex-shrink-0"></i>
+            <span id="c-slot" class="text-teal-700 font-bold"></span>
+          </div>
+        </div>
 
-    // ── CSRF helper ──────────────────────────────────────────────────────────
-    function getCookie(name) {
-      const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
-      return v ? v.pop() : '';
-    }
+        <form method="post" id="booking-form">
+          {% csrf_token %}
+          <input type="hidden" name="name"    id="h-name">
+          <input type="hidden" name="email"   id="h-email">
+          <input type="hidden" name="phone"   id="h-phone">
+          <input type="hidden" name="notes"   id="h-notes">
+          <input type="hidden" name="slot"    id="h-slot">
+          <input type="hidden" name="lead_id" id="h-lead-id">
 
-    // ── Validation helpers ───────────────────────────────────────────────────
-    function showErr(id, show) {
-      document.getElementById(id).classList.toggle('hidden', !show);
-    }
+          <div class="flex gap-3">
+            <button type="submit"
+                    class="flex-1 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2">
+              <i class="fas fa-paper-plane text-sm"></i>
+              Request Appointment
+            </button>
+            <button type="button" onclick="goToStep2(true)"
+                    class="bg-white border border-gray-200 hover:border-gray-300 text-gray-600 font-semibold px-5 py-3 rounded-xl transition">
+              Change
+            </button>
+          </div>
+          <p class="text-xs text-gray-400 text-center mt-3">
+            <i class="fas fa-info-circle mr-1"></i>
+            Walk-in requests are pending until the doctor confirms.
+          </p>
+        </form>
+      </div>
+    </div>
 
-    function validateStep1() {
-      const name  = document.getElementById('f-name').value.trim();
-      const email = document.getElementById('f-email').value.trim();
-      let ok = true;
-      if (!name)  { showErr('err-name',  true);  ok = false; }
-      else          showErr('err-name',  false);
-      if (!email || !email.includes('@')) { showErr('err-email', true);  ok = false; }
-      else                                  showErr('err-email', false);
-      return ok;
-    }
+  </div><!-- /max-w-2xl -->
 
-    // ── Step navigation ──────────────────────────────────────────────────────
-    function goToStep2() {
-      if (!validateStep1()) return;
+<script>
+// ── Data from Django ─────────────────────────────────────────────────────────
+const SLOTS_BY_DATE  = {{ slots_json|safe }};
+const AVAILABLE_DATES = new Set({{ available_dates|safe }});
 
-      patientData.name  = document.getElementById('f-name').value.trim();
-      patientData.email = document.getElementById('f-email').value.trim();
-      patientData.phone = document.getElementById('f-phone').value.trim();
-      patientData.notes = document.getElementById('f-notes').value.trim();
+// ── Patient state ────────────────────────────────────────────────────────────
+const patient = { name:'', email:'', phone:'', notes:'' };
+let capturedLeadId = null;
+let selectedDate   = null;   // ISO string e.g. '2026-04-10'
+let selectedSlot   = null;   // ISO datetime string e.g. '2026-04-10T09:00'
 
-      // ── Fire AJAX to save lead BEFORE showing step 2 ──────────────────────
-      const nextBtn = document.querySelector('#step1 button[onclick]');
-      if (nextBtn) { nextBtn.disabled = true; nextBtn.textContent = 'Saving…'; }
+// ── Calendar state ───────────────────────────────────────────────────────────
+const today = new Date();
+today.setHours(0,0,0,0);
+let calYear  = today.getFullYear();
+let calMonth = today.getMonth();  // 0-based
 
-      fetch("{% url 'capture_lead' slug=doctor.user.slug %}", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'X-CSRFToken': getCookie('csrftoken'),
-        },
-        body: new URLSearchParams({
-          name:  patientData.name,
-          email: patientData.email,
-          phone: patientData.phone,
-          notes: patientData.notes,
-        }),
-      })
-      .then(r => r.json())
-      .then(data => {
-        if (data.ok) {
-          capturedLeadId = data.lead_id;
-          // inject lead_id into the booking form hidden field
-          document.getElementById('h-lead-id').value = capturedLeadId;
-        }
-        // Advance regardless (lead saved or not — don't block the user)
-        _showStep2();
-      })
-      .catch(() => {
-        // Network error: still advance — appointment will fallback to email match
-        _showStep2();
-      })
-      .finally(() => {
-        if (nextBtn) {
-          nextBtn.disabled = false;
-          nextBtn.innerHTML = 'Next: Choose a time slot <i class="fas fa-arrow-right text-sm"></i>';
-        }
-      });
-    }
+const MONTH_NAMES = ['January','February','March','April','May','June',
+                     'July','August','September','October','November','December'];
 
-    function _showStep2() {
-      // Update summary bar
-      document.getElementById('summary-name').textContent  = patientData.name;
-      document.getElementById('summary-email').textContent = patientData.email;
+// ── Utilities ────────────────────────────────────────────────────────────────
+function toISO(y, m, d) {
+  return `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+}
+function fmtDate(iso) {
+  const [y,m,d] = iso.split('-').map(Number);
+  const dt = new Date(y, m-1, d);
+  return dt.toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long'});
+}
+function fmtSlotLabel(iso) {
+  // iso = '2026-04-10T09:00'
+  const [datePart, timePart] = iso.split('T');
+  return `${fmtDate(datePart)} at ${timePart}`;
+}
+function getCookie(name) {
+  const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+  return v ? v.pop() : '';
+}
+function showErr(id, show) {
+  document.getElementById(id).classList.toggle('hidden', !show);
+}
 
-      // Step indicator
-      document.getElementById('ind-1').className = 'step-indicator done w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all';
-      document.getElementById('ind-1').innerHTML  = '<i class="fas fa-check text-xs"></i>';
-      document.getElementById('ind-2').className = 'step-indicator active w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all';
+// ── Step indicator helpers ───────────────────────────────────────────────────
+function setSI(el, state) {
+  el.className = `${state} w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all flex-shrink-0`;
+}
+function showOnly(id) {
+  ['step1','step2','step3'].forEach(s => {
+    const el = document.getElementById(s);
+    el.classList.toggle('hidden', s !== id);
+    if (s === id) el.classList.add('fade-in');
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+}
 
-      document.getElementById('step1').classList.add('hidden');
-      document.getElementById('step2').classList.remove('hidden');
-      document.getElementById('step2').classList.add('fade-in');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+// ── STEP 1 ───────────────────────────────────────────────────────────────────
+function validateStep1() {
+  const name  = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  let ok = true;
+  if (!name)                    { showErr('err-name',  true);  ok = false; } else showErr('err-name',  false);
+  if (!email || !email.includes('@')) { showErr('err-email', true); ok = false; } else showErr('err-email', false);
+  return ok;
+}
 
-    function goToStep1() {
-      // Reset slot selection
-      clearSlot();
+function goToStep2(keepDate) {
+  if (!keepDate && !validateStep1()) return;
 
-      document.getElementById('ind-1').className = 'step-indicator active w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all';
-      document.getElementById('ind-1').innerHTML  = '1';
-      document.getElementById('ind-2').className = 'step-indicator pending w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all';
-      document.getElementById('ind-2').innerHTML  = '2';
+  if (!keepDate) {
+    patient.name  = document.getElementById('f-name').value.trim();
+    patient.email = document.getElementById('f-email').value.trim();
+    patient.phone = document.getElementById('f-phone').value.trim();
+    patient.notes = document.getElementById('f-notes').value.trim();
 
-      document.getElementById('step2').classList.add('hidden');
-      document.getElementById('step1').classList.remove('hidden');
-      document.getElementById('step1').classList.add('fade-in');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    // Populate summary
+    document.getElementById('s2-name').textContent  = patient.name;
+    document.getElementById('s2-email').textContent = patient.email;
 
-    // ── Slot selection ───────────────────────────────────────────────────────
-    function selectSlot(btn) {
-      // Deselect all
-      document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
-      // Select this one
-      btn.classList.add('selected');
+    // Fire AJAX to save lead
+    const btn = document.getElementById('btn-next');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin text-sm mr-2"></i>Saving…';
 
-      const slot  = btn.dataset.slot;
-      const label = btn.dataset.label;
-
-      // Fill hidden fields
-      document.getElementById('h-name').value  = patientData.name;
-      document.getElementById('h-email').value = patientData.email;
-      document.getElementById('h-phone').value = patientData.phone;
-      document.getElementById('h-notes').value = patientData.notes;
-      document.getElementById('h-slot').value  = slot;
-
-      // Fill confirm panel
-      document.getElementById('confirm-name').textContent  = patientData.name;
-      document.getElementById('confirm-email').textContent = patientData.email;
-      document.getElementById('confirm-slot').textContent  = label;
-
-      const phoneRow = document.getElementById('confirm-phone-row');
-      if (patientData.phone) {
-        document.getElementById('confirm-phone').textContent = patientData.phone;
-        phoneRow.classList.remove('hidden');
-      } else {
-        phoneRow.classList.add('hidden');
+    fetch("{% url 'capture_lead' slug=doctor.user.slug %}", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'X-CSRFToken':  getCookie('csrftoken'),
+      },
+      body: new URLSearchParams({
+        name:  patient.name,
+        email: patient.email,
+        phone: patient.phone,
+        notes: patient.notes,
+      }),
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data.ok) {
+        capturedLeadId = data.lead_id;
+        document.getElementById('h-lead-id').value = capturedLeadId;
       }
+    })
+    .catch(() => {})
+    .finally(() => {
+      btn.disabled = false;
+      btn.innerHTML = 'Next: Choose a time slot <i class="fas fa-arrow-right text-sm ml-1"></i>';
+    });
+  }
 
-      // Show confirm panel
-      const panel = document.getElementById('confirm-panel');
-      panel.classList.remove('hidden');
-      panel.classList.add('fade-in');
-      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
+  setSI(document.getElementById('si1'), 'si-done');
+  document.getElementById('si1').innerHTML = '<i class="fas fa-check text-xs"></i>';
+  setSI(document.getElementById('si2'), 'si-active');
+  document.getElementById('si2').textContent = '2';
+  setSI(document.getElementById('si3'), 'si-pending');
+  document.getElementById('si3').textContent = '3';
 
-    function clearSlot() {
-      document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
-      document.getElementById('confirm-panel').classList.add('hidden');
-      document.getElementById('h-slot').value = '';
-    }
+  // Clear slot selection when going back from step 3
+  if (keepDate) {
+    selectedSlot = null;
+    document.getElementById('slot-panel').classList.add('hidden');
+    // Re-render to clear pill selection
+    if (selectedDate) showSlotsForDate(selectedDate);
+  }
 
-    // ── If form was re-rendered with errors, jump straight to step2 ──────────
-    {% if form.errors or selected_slot %}
-      // Pre-fill patient data from POSTed values and go to step2
-      document.getElementById('f-name').value  = "{{ form.name.value|default:''|escapejs }}";
-      document.getElementById('f-email').value = "{{ form.email.value|default:''|escapejs }}";
-      document.getElementById('f-phone').value = "{{ form.phone.value|default:''|escapejs }}";
-      document.getElementById('f-notes').value = "{{ form.notes.value|default:''|escapejs }}";
-      goToStep2();
-      {% if selected_slot %}
-        // Re-select the previously chosen slot button
-        document.querySelectorAll('.slot-btn').forEach(btn => {
-          if (btn.dataset.slot === "{{ selected_slot|escapejs }}") selectSlot(btn);
-        });
-      {% endif %}
-    {% endif %}
-  </script>
+  showOnly('step2');
+  renderCalendar();
+}
+
+function goToStep1() {
+  setSI(document.getElementById('si1'), 'si-active');
+  document.getElementById('si1').textContent = '1';
+  setSI(document.getElementById('si2'), 'si-pending');
+  document.getElementById('si2').textContent = '2';
+  setSI(document.getElementById('si3'), 'si-pending');
+  document.getElementById('si3').textContent = '3';
+  showOnly('step1');
+}
+
+// ── Calendar rendering ───────────────────────────────────────────────────────
+function renderCalendar() {
+  document.getElementById('cal-title').textContent = `${MONTH_NAMES[calMonth]} ${calYear}`;
+
+  const grid  = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+
+  const first     = new Date(calYear, calMonth, 1);
+  const startDay  = first.getDay();   // 0=Sun
+  const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+  const prevDays    = new Date(calYear, calMonth, 0).getDate();
+
+  // Prev-month padding
+  for (let i = startDay - 1; i >= 0; i--) {
+    grid.appendChild(makeCell(prevDays - i, true, false, false, false, null));
+  }
+
+  // Current month
+  for (let d = 1; d <= daysInMonth; d++) {
+    const iso  = toISO(calYear, calMonth, d);
+    const dt   = new Date(calYear, calMonth, d);
+    const isPast      = dt < today;
+    const isToday     = dt.getTime() === today.getTime();
+    const isAvailable = !isPast && AVAILABLE_DATES.has(iso);
+    const isSelected  = iso === selectedDate;
+    grid.appendChild(makeCell(d, false, isPast, isToday, isAvailable, isSelected ? iso : null, iso));
+  }
+
+  // Next-month padding to fill the grid
+  const total = startDay + daysInMonth;
+  const remainder = total % 7 === 0 ? 0 : 7 - (total % 7);
+  for (let d = 1; d <= remainder; d++) {
+    grid.appendChild(makeCell(d, true, false, false, false, null));
+  }
+}
+
+function makeCell(day, otherMonth, isPast, isToday, isAvailable, isSelected, iso) {
+  const div = document.createElement('div');
+  div.className = 'cal-day';
+  div.textContent = day;
+
+  if (otherMonth)  { div.classList.add('other-month'); return div; }
+  if (isPast)      { div.classList.add('past');         return div; }
+  if (isAvailable) {
+    div.classList.add('available');
+    if (iso === selectedDate) div.classList.add('selected');
+    div.setAttribute('title', `${SLOTS_BY_DATE[iso]?.length ?? 0} slot(s) available`);
+    div.onclick = () => pickDate(iso);
+  } else {
+    div.classList.add('no-slots');
+    if (isToday) div.classList.add('today');
+  }
+  return div;
+}
+
+function prevMonth() {
+  if (calMonth === 0) { calMonth = 11; calYear--; }
+  else calMonth--;
+  renderCalendar();
+}
+function nextMonth() {
+  if (calMonth === 11) { calMonth = 0; calYear++; }
+  else calMonth++;
+  renderCalendar();
+}
+
+// ── Date pick & slot display ─────────────────────────────────────────────────
+function pickDate(iso) {
+  selectedDate = iso;
+  selectedSlot = null;
+  renderCalendar();
+  showSlotsForDate(iso);
+}
+
+function showSlotsForDate(iso) {
+  const panel = document.getElementById('slot-panel');
+  const list  = document.getElementById('slot-list');
+  const label = document.getElementById('slot-date-label');
+  const sub   = document.getElementById('slot-subtext');
+
+  list.innerHTML = '';
+  label.textContent = fmtDate(iso);
+
+  const slots = SLOTS_BY_DATE[iso];
+  if (!slots || slots.length === 0) {
+    sub.textContent = 'No slots available on this day.';
+    sub.className   = 'text-xs text-red-400 mb-4';
+    panel.classList.remove('hidden');
+    panel.classList.add('fade-in');
+    return;
+  }
+
+  sub.textContent = `${slots.length} slot${slots.length > 1 ? 's' : ''} available — select one below`;
+  sub.className   = 'text-xs text-gray-400 mb-4';
+
+  slots.forEach(time => {
+    const isoSlot = `${iso}T${time}`;
+    const btn = document.createElement('button');
+    btn.type      = 'button';
+    btn.className = 'slot-pill' + (isoSlot === selectedSlot ? ' picked' : '');
+    btn.textContent = time;
+    btn.title       = `${fmtDate(iso)} at ${time}`;
+    btn.onclick     = () => pickSlot(isoSlot, fmtSlotLabel(isoSlot));
+    list.appendChild(btn);
+  });
+
+  panel.classList.remove('hidden');
+  panel.classList.add('fade-in');
+  panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function pickSlot(isoSlot, label) {
+  selectedSlot = isoSlot;
+  // Highlight picked pill
+  document.querySelectorAll('.slot-pill').forEach(p => p.classList.remove('picked'));
+  event.currentTarget.classList.add('picked');
+  // Move to step 3
+  setTimeout(() => goToStep3(isoSlot, label), 200);
+}
+
+// ── STEP 3 ───────────────────────────────────────────────────────────────────
+function goToStep3(isoSlot, label) {
+  document.getElementById('c-name').textContent  = patient.name;
+  document.getElementById('c-email').textContent = patient.email;
+  document.getElementById('c-slot').textContent  = label;
+
+  const phoneRow = document.getElementById('c-phone-row');
+  if (patient.phone) {
+    document.getElementById('c-phone').textContent = patient.phone;
+    phoneRow.classList.remove('hidden');
+  } else {
+    phoneRow.classList.add('hidden');
+  }
+
+  // Fill hidden form fields
+  document.getElementById('h-name').value  = patient.name;
+  document.getElementById('h-email').value = patient.email;
+  document.getElementById('h-phone').value = patient.phone;
+  document.getElementById('h-notes').value = patient.notes;
+  document.getElementById('h-slot').value  = isoSlot;
+
+  setSI(document.getElementById('si2'), 'si-done');
+  document.getElementById('si2').innerHTML = '<i class="fas fa-check text-xs"></i>';
+  setSI(document.getElementById('si3'), 'si-active');
+  document.getElementById('si3').textContent = '3';
+
+  showOnly('step3');
+}
+
+// ── Error re-render: if server returned errors, jump back to step2 ────────────
+{% if form.errors or selected_slot %}
+document.getElementById('f-name').value  = "{{ form.name.value|default:''|escapejs }}";
+document.getElementById('f-email').value = "{{ form.email.value|default:''|escapejs }}";
+document.getElementById('f-phone').value = "{{ form.phone.value|default:''|escapejs }}";
+document.getElementById('f-notes').value = "{{ form.notes.value|default:''|escapejs }}";
+patient.name  = document.getElementById('f-name').value;
+patient.email = document.getElementById('f-email').value;
+patient.phone = document.getElementById('f-phone').value;
+patient.notes = document.getElementById('f-notes').value;
+document.getElementById('s2-name').textContent  = patient.name;
+document.getElementById('s2-email').textContent = patient.email;
+setSI(document.getElementById('si1'), 'si-done');
+document.getElementById('si1').innerHTML = '<i class="fas fa-check text-xs"></i>';
+setSI(document.getElementById('si2'), 'si-active');
+showOnly('step2');
+renderCalendar();
+{% if selected_slot %}
+// Re-select slot from POST
+const _preSlot = "{{ selected_slot|escapejs }}";
+const _preDate = _preSlot.split('T')[0];
+selectedDate = _preDate;
+renderCalendar();
+showSlotsForDate(_preDate);
+{% endif %}
+{% endif %}
+
+// Initial render (hidden but needed so data is ready for step2)
+renderCalendar();
+</script>
 </body>
 </html>

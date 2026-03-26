@@ -70,7 +70,7 @@ class DoctorProfile(models.Model):
         help_text=_('Duration of each appointment slot in minutes.'),
     )
     slots_visible_per_day = models.PositiveIntegerField(
-        default=8,
+        default=3,
         help_text=_('Max slots shown to patients per day.'),
     )
     work_start_time = models.TimeField(default=time(8, 0))
@@ -131,18 +131,46 @@ class DoctorProfile(models.Model):
     def __str__(self):
         return f'Dr. {self.user.name or self.user.email}'
 
-    def get_slots_for_date(self, target_date):
-        """Return list of naive datetimes for available slots on target_date."""
-        slots = []
+    def get_all_slots_for_date(self, target_date):
+        """
+        Return every theoretical slot for target_date (ignores taken/count).
+        Returns [] if the day is not a working day.
+        """
         if target_date.weekday() not in (self.working_days or [0, 1, 2, 3, 4]):
-            return slots
+            return []
+        slots   = []
         current = datetime.combine(target_date, self.work_start_time)
         end     = datetime.combine(target_date, self.work_end_time)
         delta   = timedelta(minutes=self.slot_duration_minutes)
         while current + delta <= end:
             slots.append(current)
             current += delta
-        return slots[:self.slots_visible_per_day]
+        return slots
+
+    def spread_slots(self, available_slots):
+        """
+        From a list of available (not-taken) slots, pick exactly
+        slots_visible_per_day entries spread evenly across the day.
+        e.g. 4 wanted from 16 available -> indices 0, 5, 10, 15
+        """
+        n    = self.slots_visible_per_day
+        pool = available_slots
+        if not pool:
+            return []
+        if len(pool) <= n:
+            return pool
+        step   = (len(pool) - 1) / (n - 1) if n > 1 else 0
+        chosen = [pool[round(i * step)] for i in range(n)]
+        seen, result = set(), []
+        for s in chosen:
+            if s not in seen:
+                seen.add(s)
+                result.append(s)
+        return result
+
+    def get_slots_for_date(self, target_date):
+        """Convenience: theoretical slots capped to slots_visible_per_day (no spread, no taken filter)."""
+        return self.get_all_slots_for_date(target_date)[:self.slots_visible_per_day]
 
 
 # ─────────────────────────────────────────────────────────────────────────────

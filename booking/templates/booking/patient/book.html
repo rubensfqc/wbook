@@ -1,33 +1,144 @@
 {% extends "booking/base_patient.html" %}
 {% block title %}Book Appointment — wbook365{% endblock %}
 {% block content %}
+<style>
+body{font-family:"Inter",sans-serif;}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:.5rem;font-size:.8rem;font-weight:500;cursor:default;transition:background .15s,color .15s;position:relative;}
+.cal-day.other-month,.cal-day.past{color:#d1d5db;}
+.cal-day.available{background:#f0fdfa;color:#0f766e;cursor:pointer;border:1.5px solid #99f6e4;font-weight:600;}
+.cal-day.available:hover{background:#0d9488;color:#fff;border-color:#0d9488;}
+.cal-day.available::after{content:"";position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:4px;height:4px;background:#0d9488;border-radius:50%;}
+.cal-day.available:hover::after{background:#fff;}
+.cal-day.selected{background:#0d9488!important;color:#fff!important;border-color:#0d9488!important;}
+.cal-day.selected::after{background:#fff!important;}
+.cal-day.no-slots{color:#9ca3af;}
+.slot-pill{padding:.45rem 1rem;border-radius:.75rem;border:1.5px solid #99f6e4;background:#f0fdfa;color:#0f766e;font-size:.825rem;font-weight:600;cursor:pointer;transition:background .15s,color .15s,border-color .15s;}
+.slot-pill:hover{background:#0d9488;color:#fff;border-color:#0d9488;}
+.fade-in{animation:fadeIn .2s ease;}@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <div class="mb-8">
   <p class="text-xs font-semibold uppercase tracking-widest text-teal-400 mb-1">Patient Portal</p>
   <h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">Book Appointment</h1>
-  <p class="text-sm text-gray-400 mt-1">Dr. {{ doctor.user.name }}{% if doctor.specialty %} · {{ doctor.specialty }}{% endif %}</p>
+  <p class="text-sm text-gray-400 mt-1">Dr. {{ doctor.user.name }}{% if doctor.specialty %} &middot; {{ doctor.specialty }}{% endif %}</p>
 </div>
-<form method="post">
-  {% csrf_token %}
-  <div class="space-y-4 mb-6">
-    {% for day in slots_by_day %}
-    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-      <h3 class="font-semibold text-gray-800 mb-3">{{ day.date|date:"l, d F" }}</h3>
-      <div class="flex flex-wrap gap-2">
-        {% for slot in day.slots %}
-        <button type="submit" name="slot" value="{{ slot|date:'Y-m-d'}}T{{ slot|time:'H:i' }}"
-          class="px-4 py-2 rounded-xl text-sm font-semibold border border-teal-200 text-teal-700 bg-teal-50 hover:bg-teal-600 hover:text-white hover:border-teal-600 transition">
-          {{ slot|time:"H:i" }}
-        </button>
-        {% endfor %}
-      </div>
-    </div>
-    {% empty %}
-    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 text-center">
-      <i class="fas fa-calendar-xmark text-3xl text-gray-200 mb-3 block"></i>
-      <p class="text-gray-400 text-sm">No available slots in the next 14 days.</p>
-    </div>
-    {% endfor %}
-  </div>
-  <input type="hidden" name="notes" value="">
-</form>
+<div class="max-w-xl">
+  <h2 class="text-base font-semibold text-gray-700 mb-4">Select a date</h2>
+        <!-- Calendar widget -->
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-4">
+          <div class="flex items-center justify-between mb-4">
+            <button type="button" onclick="prevMonth()" class="w-8 h-8 rounded-lg hover:bg-gray-100 flex items-center justify-center transition text-gray-500"><i class="fas fa-chevron-left text-xs"></i></button>
+            <span id="cal-title" class="text-sm font-bold text-gray-800"></span>
+            <button type="button" onclick="nextMonth()" class="w-8 h-8 rounded-lg hover:bg-gray-100 flex items-center justify-center transition text-gray-500"><i class="fas fa-chevron-right text-xs"></i></button>
+          </div>
+          <div class="grid grid-cols-7 gap-1 mb-1">
+            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">Su</div>
+            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">Mo</div>
+            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">Tu</div>
+            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">We</div>
+            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">Th</div>
+            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">Fr</div>
+            <div class="text-center text-[10px] font-semibold text-gray-400 uppercase py-1">Sa</div>
+          </div>
+          <div id="cal-grid" class="grid grid-cols-7 gap-1"></div>
+          <div class="flex items-center gap-4 mt-4 pt-3 border-t border-gray-50">
+            <span class="flex items-center gap-1.5 text-xs text-gray-400"><span class="w-3 h-3 rounded bg-teal-50 border border-teal-200 inline-block"></span>Available</span>
+            <span class="flex items-center gap-1.5 text-xs text-gray-400"><span class="w-3 h-3 rounded bg-gray-100 inline-block"></span>Unavailable</span>
+            <span class="flex items-center gap-1.5 text-xs text-gray-400"><span class="w-3 h-3 rounded bg-teal-500 inline-block"></span>Selected</span>
+          </div>
+        </div>
+        <!-- Slot panel -->
+        <div id="slot-panel" class="hidden fade-in">
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+            <h3 class="text-sm font-bold text-gray-800 mb-1"><i class="fas fa-calendar-day text-teal-400 mr-1.5"></i><span id="slot-date-label"></span></h3>
+            <p id="slot-subtext" class="text-xs text-gray-400 mb-4"></p>
+            <form method="post">
+              {% csrf_token %}
+              <div id="slot-list" class="flex flex-wrap gap-2"></div>
+              <input type="hidden" name="notes" value="">
+            </form>
+          </div>
+        </div>
+</div>
+
+<script>
+const SLOTS_BY_DATE   = {{ slots_json|safe }};
+const AVAILABLE_DATES = new Set({{ available_dates|safe }});
+
+const today = new Date(); today.setHours(0,0,0,0);
+let calYear  = today.getFullYear();
+let calMonth = today.getMonth();
+let selectedDate = null;
+let selectedSlot = null;
+const MONTH_NAMES = ["January","February","March","April","May","June",
+                     "July","August","September","October","November","December"];
+
+function toISO(y,m,d){return y+"-"+String(m+1).padStart(2,"0")+"-"+String(d).padStart(2,"0");}
+function fmtDate(iso){const[y,m,d]=iso.split("-").map(Number);return new Date(y,m-1,d).toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"});}
+function fmtLabel(iso){const[date,time]=iso.split("T");return fmtDate(date)+" at "+time;}
+
+function renderCalendar(){
+  document.getElementById("cal-title").textContent=MONTH_NAMES[calMonth]+" "+calYear;
+  const grid=document.getElementById("cal-grid");
+  grid.innerHTML="";
+  const first=new Date(calYear,calMonth,1);
+  const startDay=first.getDay();
+  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+  const prevDays=new Date(calYear,calMonth,0).getDate();
+  for(let i=startDay-1;i>=0;i--){const d=document.createElement("div");d.className="cal-day other-month";d.textContent=prevDays-i;grid.appendChild(d);}
+  for(let day=1;day<=daysInMonth;day++){
+    const iso=toISO(calYear,calMonth,day);
+    const dt=new Date(calYear,calMonth,day);
+    const isPast=dt<today;
+    const isAvail=!isPast&&AVAILABLE_DATES.has(iso);
+    const div=document.createElement("div");
+    div.className="cal-day";
+    div.textContent=day;
+    if(isPast){div.classList.add("past");}
+    else if(isAvail){
+      div.classList.add("available");
+      if(iso===selectedDate)div.classList.add("selected");
+      div.title=(SLOTS_BY_DATE[iso]?.length??0)+" slot(s)";
+      div.onclick=()=>pickDate(iso);
+    } else{div.classList.add("no-slots");}
+    grid.appendChild(div);
+  }
+  const total=startDay+daysInMonth;
+  const rem=total%7===0?0:7-(total%7);
+  for(let d=1;d<=rem;d++){const el=document.createElement("div");el.className="cal-day other-month";el.textContent=d;grid.appendChild(el);}
+}
+function prevMonth(){if(calMonth===0){calMonth=11;calYear--;}else calMonth--;renderCalendar();}
+function nextMonth(){if(calMonth===11){calMonth=0;calYear++;}else calMonth++;renderCalendar();}
+
+function pickDate(iso){
+  selectedDate=iso; selectedSlot=null;
+  renderCalendar();
+  const slots=SLOTS_BY_DATE[iso];
+  const panel=document.getElementById("slot-panel");
+  const list=document.getElementById("slot-list");
+  const label=document.getElementById("slot-date-label");
+  const sub=document.getElementById("slot-subtext");
+  list.innerHTML="";
+  label.textContent=fmtDate(iso);
+  if(!slots||slots.length===0){
+    sub.textContent="No slots available on this day.";
+    sub.className="text-xs text-red-400 mb-4";
+    panel.classList.remove("hidden"); return;
+  }
+  sub.textContent=slots.length+" slot"+(slots.length>1?"s":"")+" available";
+  sub.className="text-xs text-gray-400 mb-4";
+  slots.forEach(time=>{
+    const isoSlot=iso+"T"+time;
+    const btn=document.createElement("button");
+    btn.type="submit"; btn.name="slot"; btn.value=isoSlot;
+    btn.className="slot-pill";
+    btn.textContent=time;
+    btn.title=fmtDate(iso)+" at "+time;
+    list.appendChild(btn);
+  });
+  panel.classList.remove("hidden");
+  panel.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+renderCalendar();
+</script>
 {% endblock %}

@@ -4,15 +4,88 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.utils import timezone
 from django.views.decorators.http import require_POST
-from django.views.decorators.csrf import csrf_exempt
 
 from booking.models import DoctorProfile, Appointment, BlockedPeriod, PatientProfile, Lead
 from booking.forms import PublicBookingForm
 from accounts.models import Seller
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# Helpers
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _taken_set_for_day(doctor, d):
+    """Return set of naive datetimes already booked for doctor on date d."""
+    qs = Appointment.objects.filter(
+        doctor=doctor,
+        start_time__date=d,
+        status__in=[Appointment.Status.CONFIRMED, Appointment.Status.PENDING],
+    ).values_list('start_time', flat=True)
+    return {t.replace(tzinfo=None) if hasattr(t, 'tzinfo') else t for t in qs}
+
+
+def _available_slots_for_day(doctor, d, blocked_dates):
+    """
+    Return the spread list of available slots for a given date.
+    blocked_dates: set of date objects that are blocked.
+    Returns [] if the day is off or fully booked.
+    """
+    if d in blocked_dates:
+        return []
+    all_slots = doctor.get_all_slots_for_date(d)
+    if not all_slots:
+        return []
+    taken = _taken_set_for_day(doctor, d)
+    free  = [s for s in all_slots if s not in taken]
+    return doctor.spread_slots(free)
+
+
+def _build_calendar_data(doctor, days=90):
+    """
+    Build two structures for the calendar:
+      - available_dates : set of ISO date strings that have >= 1 free slot
+      - slots_by_date   : dict {ISO date str -> [naive datetime, ...]}
+    Covers today .. today + days.
+    """
+    today  = date.today()
+    blocks = BlockedPeriod.objects.filter(doctor=doctor)
+    blocked_dates = set()
+    for b in blocks:
+        d = b.start_date
+        while d <= b.end_date:
+            blocked_dates.add(d)
+            d += timedelta(days=1)
+
+    available_dates = set()
+    slots_by_date   = {}
+
+    for offset in range(days):
+        d     = today + timedelta(days=offset)
+        slots = _available_slots_for_day(doctor, d, blocked_dates)
+        if slots:
+            iso = d.isoformat()
+            available_dates.add(iso)
+            slots_by_date[iso] = slots
+
+    return available_dates, slots_by_date
+
+
+def _slots_to_json(slots_by_date):
+    """
+    Convert {date_str: [naive datetime, ...]} to
+             {date_str: ['HH:MM', ...]} for JSON embedding in the template.
+    """
+    return {
+        date_str: [s.strftime('%H:%M') for s in slots]
+        for date_str, slots in slots_by_date.items()
+    }
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Dashboard redirect
+# ─────────────────────────────────────────────────────────────────────────────
+
 def dashboard_redirect(request):
-    """Route authenticated users to their correct portal."""
     if not request.user.is_authenticated:
         return redirect('login')
     user = request.user
@@ -25,44 +98,12 @@ def dashboard_redirect(request):
     return redirect('login')
 
 
-# ── Slot availability helper ──────────────────────────────────────────────────
-
-def _build_slots(doctor):
-    """Return slots_by_day list for the next 14 days."""
-    today   = date.today()
-    blocked = BlockedPeriod.objects.filter(doctor=doctor)
-    result  = []
-    for offset in range(14):
-        d = today + timedelta(days=offset)
-        if any(b.contains(d) for b in blocked):
-            continue
-        raw = doctor.get_slots_for_date(d)
-        if not raw:
-            continue
-        taken = set(
-            Appointment.objects.filter(
-                doctor=doctor,
-                start_time__date=d,
-                status__in=[Appointment.Status.CONFIRMED, Appointment.Status.PENDING],
-            ).values_list('start_time', flat=True)
-        )
-        # compare naive vs naive
-        taken_naive = {t.replace(tzinfo=None) if hasattr(t, 'tzinfo') else t for t in taken}
-        free = [s for s in raw if s not in taken_naive]
-        if free:
-            result.append({'date': d, 'slots': free})
-    return result
-
-
-# ── AJAX: capture lead at Step 1 ─────────────────────────────────────────────
+# ─────────────────────────────────────────────────────────────────────────────
+# AJAX: capture lead at Step 1
+# ─────────────────────────────────────────────────────────────────────────────
 
 @require_POST
 def capture_lead(request, slug):
-    """
-    Called by the booking page when the patient clicks 'Next' (Step 1).
-    Creates or updates a Lead record immediately — before any slot is chosen.
-    Returns JSON with the lead_id so the frontend can pass it along at Step 2.
-    """
     doctor_user = get_object_or_404(Seller, slug=slug, role=Seller.Roles.DOCTOR)
     doctor      = get_object_or_404(DoctorProfile, user=doctor_user)
 
@@ -74,35 +115,25 @@ def capture_lead(request, slug):
     if not name or not email:
         return JsonResponse({'ok': False, 'error': 'Name and email are required.'}, status=400)
 
-    # Upsert: if the same email already has a NEW/CONTACTED lead for this doctor,
-    # update it instead of creating a duplicate.
     lead, created = Lead.objects.update_or_create(
         doctor=doctor,
         email=email,
         status__in=[Lead.Status.NEW, Lead.Status.CONTACTED],
-        defaults=dict(
-            name=name,
-            phone=phone,
-            notes=notes,
-            status=Lead.Status.NEW,
-        ),
+        defaults=dict(name=name, phone=phone, notes=notes, status=Lead.Status.NEW),
     )
 
-    return JsonResponse({
-        'ok':      True,
-        'lead_id': lead.pk,
-        'created': created,
-    })
+    return JsonResponse({'ok': True, 'lead_id': lead.pk, 'created': created})
 
 
-# ── Public booking page (GET + final POST) ────────────────────────────────────
+# ─────────────────────────────────────────────────────────────────────────────
+# Public booking page
+# ─────────────────────────────────────────────────────────────────────────────
 
 def public_booking(request, slug):
-    """Public booking page — accessible by anyone, no login required."""
     doctor_user = get_object_or_404(Seller, slug=slug, role=Seller.Roles.DOCTOR)
     doctor      = get_object_or_404(DoctorProfile, user=doctor_user)
 
-    # Registered patients of this doctor go straight to their portal
+    # Registered patients of this doctor go to their portal
     if request.user.is_authenticated and request.user.is_patient:
         try:
             if request.user.patient_profile.doctor == doctor:
@@ -110,7 +141,9 @@ def public_booking(request, slug):
         except Exception:
             pass
 
-    slots_by_day  = _build_slots(doctor)
+    available_dates, slots_by_date = _build_calendar_data(doctor, days=90)
+    slots_json = _slots_to_json(slots_by_date)
+
     form          = PublicBookingForm(request.POST or None)
     selected_slot = request.POST.get('slot') or request.GET.get('slot')
 
@@ -140,23 +173,14 @@ def public_booking(request, slug):
                 notes=cd.get('notes', ''),
                 status=Appointment.Status.PENDING,
             )
-
-            # Mark the matching lead as CONVERTED and link the appointment
             if lead_id:
                 Lead.objects.filter(pk=lead_id, doctor=doctor).update(
-                    status=Lead.Status.CONVERTED,
-                    appointment=apt,
-                )
+                    status=Lead.Status.CONVERTED, appointment=apt)
             else:
-                # Fallback: try to find by email if JS failed to pass lead_id
                 Lead.objects.filter(
-                    doctor=doctor,
-                    email=cd['email'],
+                    doctor=doctor, email=cd['email'],
                     status__in=[Lead.Status.NEW, Lead.Status.CONTACTED],
-                ).update(
-                    status=Lead.Status.CONVERTED,
-                    appointment=apt,
-                )
+                ).update(status=Lead.Status.CONVERTED, appointment=apt)
 
             messages.success(
                 request,
@@ -164,11 +188,13 @@ def public_booking(request, slug):
             )
             return redirect('booking_confirmation', slug=slug)
 
+    import json
     return render(request, 'booking/public/booking_page.html', {
-        'doctor':       doctor,
-        'slots_by_day': slots_by_day,
-        'form':         form,
-        'selected_slot': selected_slot,
+        'doctor':          doctor,
+        'available_dates': sorted(available_dates),
+        'slots_json':      json.dumps(slots_json),
+        'form':            form,
+        'selected_slot':   selected_slot,
     })
 
 
