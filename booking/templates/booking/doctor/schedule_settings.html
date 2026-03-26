@@ -1,12 +1,12 @@
 {% extends "booking/base_doctor.html" %}
 {% load i18n %}
-{% block title %}Schedule Settings — wbook365{% endblock %}
+{% block title %}{% trans "Schedule Settings" %}{% endblock %}
 {% block content %}
 <div class="mb-8"><p class="text-xs font-semibold uppercase tracking-widest text-teal-500 mb-1">{% trans "Doctor Portal" %}</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">{% trans "Schedule Settings" %}</h1></div>
 <form method="post" enctype="multipart/form-data" class="space-y-6 max-w-2xl">
   {% csrf_token %}
   <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-    <h2 class="font-bold text-gray-800 mb-4">Time & Duration</h2>
+    <h2 class="font-bold text-gray-800 mb-4">{% trans "Time & Duration" %}</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       {% for field in profile_form %}
       <div>
@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-    <h2 class="font-bold text-gray-800 mb-4">Working Days</h2>
+    <h2 class="font-bold text-gray-800 mb-4">{% trans "Working Days" %}</h2>
     <div class="flex flex-wrap gap-3">
       {% for choice in working_days_form.working_days %}
       <label class="flex items-center gap-2 cursor-pointer">

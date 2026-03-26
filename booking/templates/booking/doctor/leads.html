@@ -6,7 +6,7 @@
   <div>
     <p class="text-xs font-semibold uppercase tracking-widest text-teal-500 mb-1">{% trans "Doctor Portal" %}</p>
     <h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">{% trans "Leads" %}</h1>
-    <p class="text-sm text-gray-400 mt-1">Walk-in visitors who filled in their details on your booking page.</p>
+    <p class="text-sm text-gray-400 mt-1">{% trans "Walk-in visitors who filled in their details on your booking page." %}</p>
   </div>
 </div>
 
@@ -35,12 +35,12 @@
   <table class="w-full text-sm">
     <thead class="bg-slate-50 text-xs text-gray-400 uppercase tracking-wider">
       <tr>
-        <th class="px-6 py-3 text-left">Lead</th>
-        <th class="px-4 py-3 text-left">Contact</th>
-        <th class="px-4 py-3 text-left">Reason for visit</th>
-        <th class="px-4 py-3 text-center">Status</th>
-        <th class="px-4 py-3 text-center">Received</th>
-        <th class="px-4 py-3 text-center">Actions</th>
+        <th class="px-6 py-3 text-left">{% trans "Lead" %}</th>
+        <th class="px-4 py-3 text-left">{% trans "Contact" %}</th>
+        <th class="px-4 py-3 text-left">{% trans "Reason for visit" %}</th>
+        <th class="px-4 py-3 text-center">{% trans "Status" %}</th>
+        <th class="px-4 py-3 text-center">{% trans "Received" %}</th>
+        <th class="px-4 py-3 text-center">{% trans "Actions" %}</th>
       </tr>
     </thead>
     <tbody class="divide-y divide-gray-50">
@@ -53,7 +53,7 @@
           {% if lead.appointment %}
           <a href="{% url 'doctor_appointments' %}"
              class="inline-flex items-center gap-1 text-xs text-teal-600 hover:underline mt-0.5">
-            <i class="fas fa-calendar-check text-[10px]"></i> Has appointment
+            <i class="fas fa-calendar-check text-[10px]"></i> {% trans "Has appointment" %}
           </a>
           {% endif %}
         </td>
@@ -105,7 +105,7 @@
             </select>
             <button type="submit"
                     class="text-xs bg-teal-600 hover:bg-teal-700 text-white font-semibold px-3 py-1.5 rounded-lg transition">
-              Save
+              {% trans "Save" %}
             </button>
           </form>
           {% else %}
@@ -118,12 +118,12 @@
       <tr>
         <td colspan="6" class="text-center py-16 text-gray-400 text-sm">
           <i class="fas fa-user-clock text-3xl text-gray-200 mb-3 block"></i>
-          {% trans "No leads yet" %}. Share your booking page to start receiving them.
+          {% trans "No leads yet" %}. {% trans "Share your booking page to start receiving them." %}
           <div class="mt-4">
             <a href="{% url 'public_booking' slug=doctor.user.slug %}" target="_blank"
                class="inline-flex items-center gap-2 text-teal-600 hover:underline font-medium text-sm">
               <i class="fas fa-external-link-alt text-xs"></i>
-              View your booking page →
+              {% trans "View your booking page" %} →
             </a>
           </div>
         </td>

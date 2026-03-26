@@ -5,7 +5,7 @@
 <div class="mb-8"><p class="text-xs font-semibold uppercase tracking-widest text-teal-500 mb-1">{% trans "Doctor Portal" %}</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">{% trans "Block Time Periods" %}</h1></div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
   <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-    <h2 class="font-bold text-gray-800 mb-4">Add Block Period</h2>
+    <h2 class="font-bold text-gray-800 mb-4">{% trans "Add Block Period" %}</h2>
     <form method="post" class="space-y-4">
       {% csrf_token %}
       {% for field in form %}
@@ -15,11 +15,11 @@
         {% for e in field.errors %}<p class="text-red-500 text-xs mt-1">{{ e }}</p>{% endfor %}
       </div>
       {% endfor %}
-      <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-2.5 rounded-xl transition">Block Period</button>
+      <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-2.5 rounded-xl transition">{% trans "Block Period" %}</button>
     </form>
   </div>
   <div>
-    <h2 class="font-bold text-gray-800 mb-4">Existing Blocks</h2>
+    <h2 class="font-bold text-gray-800 mb-4">{% trans "Existing Blocks" %}</h2>
     <div class="space-y-3">
       {% for period in periods %}
       <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4 flex items-center justify-between">

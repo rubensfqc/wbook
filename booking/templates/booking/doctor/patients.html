@@ -1,15 +1,15 @@
 {% extends "booking/base_doctor.html" %}
 {% load i18n %}
-{% block title %}Patients — wbook365{% endblock %}
+{% block title %}{% trans "Patients" %}{% endblock %}
 {% block content %}
 <div class="flex items-center justify-between mb-8">
   <div><p class="text-xs font-semibold uppercase tracking-widest text-teal-500 mb-1">{% trans "Doctor Portal" %}</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">{% trans "My Patients" %}</h1></div>
-  <a href="{% url 'patient_invite' %}" class="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition"><i class="fas fa-user-plus text-xs"></i> Invite Patient</a>
+  <a href="{% url 'patient_invite' %}" class="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition"><i class="fas fa-user-plus text-xs"></i> {% trans "Invite Patient" %}</a>
 </div>
 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
   <table class="w-full text-sm">
     <thead class="bg-slate-50 text-xs text-gray-400 uppercase tracking-wider">
-      <tr><th class="px-6 py-3 text-left">Patient</th><th class="px-4 py-3 text-left">Email</th><th class="px-4 py-3 text-center">Status</th><th class="px-4 py-3 text-center">Joined</th><th class="px-4 py-3 text-center">Actions</th></tr>
+      <tr><th class="px-6 py-3 text-left">{% trans "Patient" %}</th><th class="px-4 py-3 text-left">{% trans "Email" %}</th><th class="px-4 py-3 text-center">{% trans "Status" %}</th><th class="px-4 py-3 text-center">{% trans "Joined" %}</th><th class="px-4 py-3 text-center">{% trans "Actions" %}</th></tr>
     </thead>
     <tbody class="divide-y divide-gray-50">
       {% for patient in patients %}
@@ -21,7 +21,7 @@
         <td class="px-4 py-3 text-center">
           <div class="flex justify-center gap-2">
             <a href="{% url 'patient_detail' patient.pk %}" class="text-xs text-teal-600 hover:underline">{% trans "View" %}</a>
-            <form method="post" action="{% url 'patient_remove' patient.pk %}">{% csrf_token %}<button type="submit" class="text-xs text-red-500 hover:underline" onclick="return confirm('{% trans "Deactivate" %} patient?')">Remove</button></form>
+            <form method="post" action="{% url 'patient_remove' patient.pk %}">{% csrf_token %}<button type="submit" class="text-xs text-red-500 hover:underline" onclick="return confirm('{% trans "Deactivate" %} patient?')">{% trans "Remove" %}</button></form>
           </div>
         </td>
       </tr>

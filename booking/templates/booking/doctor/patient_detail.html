@@ -1,6 +1,6 @@
 {% extends "booking/base_doctor.html" %}
 {% load i18n %}
-{% block title %}Patient Detail — wbook365{% endblock %}
+{% block title %}{% trans "Patient Detail" %}{% endblock %}
 {% block content %}
 <div class="mb-8 flex items-center gap-4">
   <a href="{% url 'doctor_patients' %}" class="text-sm text-teal-600 hover:underline">{% trans "← Patients" %}</a>
@@ -8,7 +8,7 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
   <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-    <h2 class="font-bold text-gray-800 mb-4">Edit Patient</h2>
+    <h2 class="font-bold text-gray-800 mb-4">{% trans "Edit Patient" %}</h2>
     <form method="post" class="space-y-4">
       {% csrf_token %}
       {% for field in form %}
@@ -18,7 +18,7 @@
         {% for e in field.errors %}<p class="text-red-500 text-xs mt-1">{{ e }}</p>{% endfor %}
       </div>
       {% endfor %}
-      <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-2.5 rounded-xl transition">Save</button>
+      <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-2.5 rounded-xl transition">{% trans "Save" %}</button>
     </form>
   </div>
   <div>
@@ -28,15 +28,15 @@
       <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
         <p class="text-sm font-semibold text-gray-800">{{ apt.start_time|date:"d M Y · H:i" }}</p>
         <div class="flex items-center gap-2 mt-1">
-          {% if apt.status == 'PENDING' %}<span class="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-semibold">Pending</span>
-          {% elif apt.status == 'CONFIRMED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-teal-100 text-teal-700 font-semibold">Confirmed</span>
-          {% elif apt.status == 'COMPLETED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-semibold">Completed</span>
+          {% if apt.status == 'PENDING' %}<span class="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-semibold">{% trans "Pending" %}</span>
+          {% elif apt.status == 'CONFIRMED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-teal-100 text-teal-700 font-semibold">{% trans "Confirmed" %}</span>
+          {% elif apt.status == 'COMPLETED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-semibold">{% trans "Completed" %}</span>
           {% else %}<span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 font-semibold">{{ apt.get_status_display }}</span>{% endif %}
           {% if apt.notes %}<p class="text-xs text-gray-500 ml-2 truncate">{{ apt.notes }}</p>{% endif %}
         </div>
       </div>
       {% empty %}
-      <p class="text-sm text-gray-400">{% trans "No appointments" %} yet.</p>
+      <p class="text-sm text-gray-400">{% trans "No appointments yet" %}.</p>
       {% endfor %}
     </div>
   </div>
