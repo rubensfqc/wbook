@@ -1,0 +1,45 @@
+{% extends "booking/base_patient.html" %}
+{% block title %}Patient Dashboard — wbook365{% endblock %}
+{% block content %}
+<div class="mb-8">
+  <p class="text-xs font-semibold uppercase tracking-widest text-teal-400 mb-1">Patient Portal</p>
+  <h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">Hello, {{ request.user.name }} 👋</h1>
+  <p class="text-sm text-gray-400 mt-1">Your doctor: Dr. {{ doctor.user.name }}</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+  <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+    <h2 class="font-bold text-gray-800 mb-4">Upcoming Appointments</h2>
+    <div class="space-y-3">
+      {% for apt in upcoming %}
+      <div class="flex items-center gap-3 p-3 rounded-xl border border-gray-100">
+        <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0"><i class="fas fa-calendar text-teal-500 text-sm"></i></div>
+        <div class="flex-1">
+          <p class="text-sm font-semibold text-gray-800">{{ apt.start_time|date:"D, d M · H:i" }}</p>
+          <span class="text-xs px-2 py-0.5 rounded-full {% if apt.status == 'CONFIRMED' %}bg-teal-100 text-teal-700{% else %}bg-amber-100 text-amber-700{% endif %} font-semibold">{{ apt.get_status_display }}</span>
+        </div>
+        <a href="{% url 'patient_cancel' apt.pk %}" class="text-xs text-red-500 hover:underline">Cancel</a>
+      </div>
+      {% empty %}
+      <p class="text-sm text-gray-400 text-center py-6">No upcoming appointments. <a href="{% url 'patient_book' %}" class="text-teal-600 hover:underline">Book one →</a></p>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+    <h2 class="font-bold text-gray-800 mb-4">Past Appointments</h2>
+    <div class="space-y-3">
+      {% for apt in past %}
+      <div class="flex items-center gap-3 p-3 rounded-xl border border-gray-100">
+        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0"><i class="fas fa-clock text-gray-400 text-sm"></i></div>
+        <div>
+          <p class="text-sm font-semibold text-gray-800">{{ apt.start_time|date:"D, d M · H:i" }}</p>
+          <span class="text-xs text-gray-400">{{ apt.get_status_display }}</span>
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-sm text-gray-400 text-center py-6">No past appointments.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<a href="{% url 'patient_book' %}" class="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-xl transition shadow-sm"><i class="fas fa-calendar-plus"></i> Book New Appointment</a>
+{% endblock %}

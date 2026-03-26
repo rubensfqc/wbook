@@ -1,0 +1,39 @@
+{% extends "booking/base_patient.html" %}
+{% block title %}My Appointments — wbook365{% endblock %}
+{% block content %}
+<div class="mb-8">
+  <p class="text-xs font-semibold uppercase tracking-widest text-teal-400 mb-1">Patient Portal</p>
+  <h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">My Appointments</h1>
+</div>
+<div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+  <table class="w-full text-sm">
+    <thead class="bg-slate-50 text-xs text-gray-400 uppercase tracking-wider">
+      <tr><th class="px-6 py-3 text-left">Date & Time</th><th class="px-4 py-3 text-center">Status</th><th class="px-4 py-3 text-center">Actions</th></tr>
+    </thead>
+    <tbody class="divide-y divide-gray-50">
+      {% for apt in appointments %}
+      <tr class="hover:bg-slate-50 transition">
+        <td class="px-6 py-3 font-medium text-gray-900">{{ apt.start_time|date:"l, d M Y" }}<br><span class="text-xs text-gray-400">{{ apt.start_time|time:"H:i" }} – {{ apt.end_time|time:"H:i" }}</span></td>
+        <td class="px-4 py-3 text-center">
+          {% if apt.status == 'PENDING' %}<span class="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-semibold">Pending</span>
+          {% elif apt.status == 'CONFIRMED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-teal-100 text-teal-700 font-semibold">Confirmed</span>
+          {% elif apt.status == 'CANCELLED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 font-semibold">Cancelled</span>
+          {% elif apt.status == 'COMPLETED' %}<span class="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-semibold">Completed</span>
+          {% else %}<span class="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-600 font-semibold">{{ apt.get_status_display }}</span>{% endif %}
+        </td>
+        <td class="px-4 py-3 text-center">
+          {% if apt.status in 'PENDING,CONFIRMED' %}
+          <div class="flex justify-center gap-3">
+            <a href="{% url 'patient_reschedule' apt.pk %}" class="text-xs text-teal-600 hover:underline">Reschedule</a>
+            <a href="{% url 'patient_cancel' apt.pk %}" class="text-xs text-red-500 hover:underline">Cancel</a>
+          </div>
+          {% else %}<span class="text-xs text-gray-300">—</span>{% endif %}
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="3" class="text-center py-12 text-gray-400 text-sm">No appointments. <a href="{% url 'patient_book' %}" class="text-teal-600 hover:underline">Book one →</a></td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

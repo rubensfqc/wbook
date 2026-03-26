@@ -1,0 +1,34 @@
+{% extends "booking/base_operator.html" %}
+{% block title %}Doctors — wbook365{% endblock %}
+{% block content %}
+<div class="flex items-center justify-between mb-8">
+  <div><p class="text-xs font-semibold uppercase tracking-widest text-violet-500 mb-1">Operator Portal</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">Doctors</h1></div>
+  <a href="{% url 'operator_doctor_add' %}" class="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition"><i class="fas fa-plus text-xs"></i> Add Doctor</a>
+</div>
+<div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+  <table class="w-full text-sm">
+    <thead class="bg-slate-50 text-xs text-gray-400 uppercase tracking-wider">
+      <tr><th class="px-6 py-3 text-left">Doctor</th><th class="px-4 py-3 text-left">Clinic</th><th class="px-4 py-3 text-center">Patients</th><th class="px-4 py-3 text-center">Trial</th><th class="px-4 py-3 text-center">Status</th><th class="px-4 py-3 text-center">Actions</th></tr>
+    </thead>
+    <tbody class="divide-y divide-gray-50">
+      {% for doc in doctors %}
+      <tr class="hover:bg-slate-50 transition">
+        <td class="px-6 py-3"><p class="font-medium text-gray-900">{{ doc.user.name|default:doc.user.email }}</p><p class="text-xs text-gray-400">{{ doc.user.email }}</p></td>
+        <td class="px-4 py-3 text-gray-500">{{ doc.clinic_name|default:"—" }}</td>
+        <td class="px-4 py-3 text-center font-semibold text-gray-700">{{ doc.patients.count }}</td>
+        <td class="px-4 py-3 text-center text-xs text-gray-500">{{ doc.trial_expires_on|date:"d M Y"|default:"—" }}</td>
+        <td class="px-4 py-3 text-center">{% if doc.is_suspended %}<span class="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-600 font-semibold">Suspended</span>{% elif doc.trial_is_active %}<span class="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-semibold">Active</span>{% else %}<span class="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-semibold">Expired</span>{% endif %}</td>
+        <td class="px-4 py-3 text-center">
+          <div class="flex justify-center gap-2">
+            <a href="{% url 'operator_doctor_edit' doc.pk %}" class="text-xs text-violet-600 hover:underline">Edit</a>
+            <form method="post" action="{% url 'operator_doctor_delete' doc.pk %}">{% csrf_token %}<button type="submit" class="text-xs text-red-500 hover:underline" onclick="return confirm('Delete this doctor and all their data?')">Delete</button></form>
+          </div>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6" class="text-center py-12 text-gray-400 text-sm">No doctors. <a href="{% url 'operator_doctor_add' %}" class="text-violet-600 hover:underline">Add one →</a></td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

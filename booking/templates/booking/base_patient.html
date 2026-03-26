@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Patient Portal — wbook365{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>body{font-family:'Inter',sans-serif;}</style>
+</head>
+<body class="bg-slate-50 text-gray-900 md:flex">
+  <div class="bg-teal-800 text-white p-4 flex justify-between items-center md:hidden">
+    <span class="text-sm font-bold">wbook<span class="text-teal-300">365</span></span>
+    <button id="mobile-menu-button" class="p-2 hover:bg-teal-700 rounded"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg></button>
+  </div>
+  <aside id="sidebar" class="hidden md:flex flex-col w-60 bg-teal-900 min-h-screen sticky top-0 text-white z-50">
+    <div class="px-6 py-7 border-b border-teal-800 flex flex-col items-center">
+      <p class="text-base font-bold tracking-tight">wbook<span class="text-teal-400">365</span></p>
+      <p class="text-xs text-teal-600 mt-0.5 uppercase tracking-widest">Patient Portal</p>
+    </div>
+    <nav class="flex-1 px-3 py-5 space-y-0.5">
+      <a href="{% url 'patient_dashboard' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-teal-200 hover:bg-teal-800 hover:text-white transition {% if request.resolver_match.url_name == 'patient_dashboard' %}bg-teal-800 text-white{% endif %}">
+        <i class="fas fa-house w-4 text-center text-teal-500"></i> Home
+      </a>
+      <a href="{% url 'patient_book' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-teal-200 hover:bg-teal-800 hover:text-white transition {% if request.resolver_match.url_name == 'patient_book' %}bg-teal-800 text-white{% endif %}">
+        <i class="fas fa-calendar-plus w-4 text-center text-teal-500"></i> Book Appointment
+      </a>
+      <a href="{% url 'patient_appointments' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-teal-200 hover:bg-teal-800 hover:text-white transition {% if request.resolver_match.url_name == 'patient_appointments' %}bg-teal-800 text-white{% endif %}">
+        <i class="fas fa-calendar-check w-4 text-center text-teal-500"></i> My Appointments
+      </a>
+    </nav>
+    <div class="px-3 py-4 border-t border-teal-800">
+      <p class="px-3 text-xs text-teal-600 mb-2 truncate">{{ user.email }}</p>
+      <form action="{% url 'logout' %}" method="post">{% csrf_token %}
+        <button type="submit" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-red-400 hover:bg-red-900/20 transition">
+          <i class="fas fa-right-from-bracket w-4"></i> Logout
+        </button>
+      </form>
+    </div>
+  </aside>
+  {% if messages %}
+  <div class="fixed top-5 right-5 z-50 space-y-3">
+    {% for message in messages %}
+    <div id="toast-{{ forloop.counter }}" class="flex items-center gap-3 w-80 p-4 bg-white rounded-xl shadow-xl border-l-4 {% if message.tags == 'success' %}border-teal-500{% elif message.tags == 'warning' %}border-amber-400{% else %}border-red-400{% endif %}">
+      <div class="flex-1 text-sm text-gray-700">{{ message }}</div>
+      <button onclick="this.parentElement.remove()" class="text-gray-300 hover:text-gray-500 text-lg">&times;</button>
+    </div>
+    <script>setTimeout(()=>{const t=document.getElementById('toast-{{ forloop.counter }}');if(t){t.style.opacity='0';t.style.transition='opacity .4s';setTimeout(()=>t.remove(),400);}},4500);</script>
+    {% endfor %}
+  </div>
+  {% endif %}
+  <main class="flex-1 p-5 md:p-8 overflow-x-hidden">{% block content %}{% endblock %}</main>
+  <script>const btn=document.getElementById('mobile-menu-button');const sidebar=document.getElementById('sidebar');btn?.addEventListener('click',()=>{sidebar.classList.toggle('hidden');sidebar.classList.toggle('fixed');sidebar.classList.toggle('inset-y-0');sidebar.classList.toggle('left-0');});</script>
+</body></html>

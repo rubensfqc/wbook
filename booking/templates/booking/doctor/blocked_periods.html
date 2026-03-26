@@ -1,0 +1,40 @@
+{% extends "booking/base_doctor.html" %}
+{% block title %}Block Time — wbook365{% endblock %}
+{% block content %}
+<div class="mb-8"><p class="text-xs font-semibold uppercase tracking-widest text-teal-500 mb-1">Doctor Portal</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">Block Time Periods</h1></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+    <h2 class="font-bold text-gray-800 mb-4">Add Block Period</h2>
+    <form method="post" class="space-y-4">
+      {% csrf_token %}
+      {% for field in form %}
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">{{ field.label }}</label>
+        {{ field }}
+        {% for e in field.errors %}<p class="text-red-500 text-xs mt-1">{{ e }}</p>{% endfor %}
+      </div>
+      {% endfor %}
+      <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-2.5 rounded-xl transition">Block Period</button>
+    </form>
+  </div>
+  <div>
+    <h2 class="font-bold text-gray-800 mb-4">Existing Blocks</h2>
+    <div class="space-y-3">
+      {% for period in periods %}
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4 flex items-center justify-between">
+        <div>
+          <p class="text-sm font-semibold text-gray-800">{{ period.start_date|date:"d M Y" }} – {{ period.end_date|date:"d M Y" }}</p>
+          {% if period.reason %}<p class="text-xs text-gray-400">{{ period.reason }}</p>{% endif %}
+        </div>
+        <form method="post" action="{% url 'blocked_period_delete' period.pk %}">
+          {% csrf_token %}<button type="submit" class="text-xs text-red-500 hover:underline">Remove</button>
+        </form>
+      </div>
+      {% empty %}
+      <p class="text-sm text-gray-400">No blocked periods.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<style>input[type=text],input[type=date],textarea{width:100%;border:1px solid #e5e7eb;border-radius:0.75rem;padding:0.5rem 0.75rem;font-size:0.875rem;outline:none;}input:focus,textarea:focus{border-color:#14b8a6;}</style>
+{% endblock %}

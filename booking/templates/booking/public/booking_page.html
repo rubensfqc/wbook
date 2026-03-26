@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book with Dr. {{ doctor.user.name }} — wbook365</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>body{font-family:'Inter',sans-serif;}</style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-50 to-teal-50">
+  {% if messages %}
+  <div class="fixed top-5 right-5 z-50 space-y-3">
+    {% for message in messages %}
+    <div class="flex items-center gap-3 w-80 p-4 bg-white rounded-xl shadow-xl border-l-4 {% if message.tags == 'success' %}border-teal-500{% else %}border-red-400{% endif %}">
+      <div class="flex-1 text-sm text-gray-700">{{ message }}</div>
+      <button onclick="this.parentElement.remove()" class="text-gray-300 hover:text-gray-500 text-lg">&times;</button>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  <div class="max-w-2xl mx-auto px-4 py-12">
+    <!-- Doctor header -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
+      <div class="flex items-center gap-4">
+        {% if doctor.logo %}
+        <img src="{{ doctor.logo.url }}" alt="{{ doctor.clinic_name }}" class="w-16 h-16 rounded-2xl object-cover">
+        {% else %}
+        <div class="w-16 h-16 rounded-2xl bg-teal-100 flex items-center justify-center"><i class="fas fa-stethoscope text-teal-500 text-2xl"></i></div>
+        {% endif %}
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">Dr. {{ doctor.user.name }}</h1>
+          {% if doctor.specialty %}<p class="text-teal-600 font-medium">{{ doctor.specialty }}</p>{% endif %}
+          {% if doctor.clinic_name %}<p class="text-sm text-gray-400"><i class="fas fa-building mr-1"></i>{{ doctor.clinic_name }}</p>{% endif %}
+        </div>
+      </div>
+      {% if doctor.bio %}<p class="text-sm text-gray-500 mt-4 leading-relaxed">{{ doctor.bio }}</p>{% endif %}
+    </div>
+
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Select a Time Slot</h2>
+
+    {% if slots_by_day %}
+    <!-- Step 1: pick slot -->
+    <div id="step-slots" class="space-y-4">
+      {% for day in slots_by_day %}
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+        <h3 class="font-semibold text-gray-800 mb-3">{{ day.date|date:"l, d F" }}</h3>
+        <div class="flex flex-wrap gap-2">
+          {% for slot in day.slots %}
+          <button type="button"
+            data-slot="{{ slot|date:'Y-m-d'}}T{{ slot|time:'H:i' }}"
+            data-label="{{ day.date|date:'l, d M' }} at {{ slot|time:'H:i' }}"
+            onclick="selectSlot(this)"
+            class="slot-btn px-4 py-2 rounded-xl text-sm font-semibold border border-teal-200 text-teal-700 bg-teal-50 hover:bg-teal-600 hover:text-white hover:border-teal-600 transition">
+            {{ slot|time:"H:i" }}
+          </button>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Step 2: fill in details -->
+    <div id="step-form" class="hidden mt-6">
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+        <h3 class="font-bold text-gray-800 mb-1">Your Details</h3>
+        <p id="selected-slot-label" class="text-sm text-teal-600 font-medium mb-4"></p>
+        <form method="post" class="space-y-4">
+          {% csrf_token %}
+          <input type="hidden" name="slot" id="slot-input">
+          {% for field in form %}
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">{{ field.label }}</label>
+            <input type="{{ field.field.widget.input_type }}" name="{{ field.html_name }}" value="{{ field.value|default:'' }}"
+              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 {% if field.errors %}border-red-400{% endif %}">
+            {% for e in field.errors %}<p class="text-red-500 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+          {% endfor %}
+          <div class="flex gap-3">
+            <button type="submit" class="flex-1 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 rounded-xl transition">Request Appointment</button>
+            <button type="button" onclick="backToSlots()" class="bg-white border border-gray-200 text-gray-600 font-semibold px-5 py-3 rounded-xl hover:border-gray-300 transition">Back</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    {% if request.user.is_authenticated and request.user.is_patient %}
+    <p class="text-center text-sm text-gray-500 mt-6">
+      <a href="{% url 'patient_book' %}" class="text-teal-600 hover:underline">Use your patient portal instead →</a>
+    </p>
+    {% else %}
+    <p class="text-center text-sm text-gray-500 mt-6">
+      Already a registered patient? <a href="{% url 'login' %}" class="text-teal-600 hover:underline">Sign in for automatic confirmation</a>
+    </p>
+    {% endif %}
+
+    {% else %}
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 text-center">
+      <i class="fas fa-calendar-xmark text-3xl text-gray-200 mb-3 block"></i>
+      <p class="text-gray-400">No available slots in the next 14 days.</p>
+    </div>
+    {% endif %}
+  </div>
+  <script>
+    function selectSlot(btn) {
+      document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('bg-teal-600','text-white','border-teal-600'));
+      btn.classList.add('bg-teal-600','text-white','border-teal-600');
+      document.getElementById('slot-input').value = btn.dataset.slot;
+      document.getElementById('selected-slot-label').textContent = btn.dataset.label;
+      document.getElementById('step-form').classList.remove('hidden');
+      document.getElementById('step-form').scrollIntoView({behavior:'smooth'});
+    }
+    function backToSlots() {
+      document.getElementById('step-form').classList.add('hidden');
+      document.getElementById('slot-input').value = '';
+    }
+  </script>
+</body>
+</html>

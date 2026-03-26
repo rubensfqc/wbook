@@ -1,0 +1,37 @@
+{% extends "booking/base_doctor.html" %}
+{% block title %}Schedule Settings — wbook365{% endblock %}
+{% block content %}
+<div class="mb-8"><p class="text-xs font-semibold uppercase tracking-widest text-teal-500 mb-1">Doctor Portal</p><h1 class="text-3xl font-bold text-gray-900" style="font-family:'DM Serif Display',serif;">Schedule Settings</h1></div>
+<form method="post" enctype="multipart/form-data" class="space-y-6 max-w-2xl">
+  {% csrf_token %}
+  <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+    <h2 class="font-bold text-gray-800 mb-4">Time & Duration</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {% for field in profile_form %}
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">{{ field.label }}</label>
+        {{ field }}
+        {% for e in field.errors %}<p class="text-red-500 text-xs mt-1">{{ e }}</p>{% endfor %}
+        {% if field.help_text %}<p class="text-gray-400 text-xs mt-1">{{ field.help_text }}</p>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+    <h2 class="font-bold text-gray-800 mb-4">Working Days</h2>
+    <div class="flex flex-wrap gap-3">
+      {% for choice in working_days_form.working_days %}
+      <label class="flex items-center gap-2 cursor-pointer">
+        {{ choice.tag }}
+        <span class="text-sm text-gray-700">{{ choice.choice_label }}</span>
+      </label>
+      {% endfor %}
+    </div>
+  </div>
+  <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-2.5 rounded-xl transition">Save Settings</button>
+</form>
+<style>
+  input[type=text],input[type=number],input[type=time],select,textarea{width:100%;border:1px solid #e5e7eb;border-radius:0.75rem;padding:0.5rem 0.75rem;font-size:0.875rem;outline:none;}
+  input[type=text]:focus,input[type=number]:focus,input[type=time]:focus,select:focus,textarea:focus{border-color:#14b8a6;box-shadow:0 0 0 2px rgba(20,184,166,.15);}
+</style>
+{% endblock %}

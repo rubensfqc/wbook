@@ -1,0 +1,29 @@
+{% extends "booking/base_patient.html" %}
+{% block title %}Reschedule — wbook365{% endblock %}
+{% block content %}
+<div class="mb-8">
+  <a href="{% url 'patient_appointments' %}" class="text-sm text-teal-600 hover:underline">← My Appointments</a>
+  <h1 class="text-2xl font-bold text-gray-900 mt-2">Reschedule Appointment</h1>
+  <p class="text-sm text-gray-400">Current: {{ apt.start_time|date:"d M Y · H:i" }}</p>
+</div>
+<form method="post">
+  {% csrf_token %}
+  <div class="space-y-4 mb-6">
+    {% for day in slots_by_day %}
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+      <h3 class="font-semibold text-gray-800 mb-3">{{ day.date|date:"l, d F" }}</h3>
+      <div class="flex flex-wrap gap-2">
+        {% for slot in day.slots %}
+        <button type="submit" name="slot" value="{{ slot|date:'Y-m-d'}}T{{ slot|time:'H:i' }}"
+          class="px-4 py-2 rounded-xl text-sm font-semibold border border-teal-200 text-teal-700 bg-teal-50 hover:bg-teal-600 hover:text-white hover:border-teal-600 transition">
+          {{ slot|time:"H:i" }}
+        </button>
+        {% endfor %}
+      </div>
+    </div>
+    {% empty %}
+    <p class="text-gray-400 text-sm text-center py-8">No available slots found.</p>
+    {% endfor %}
+  </div>
+</form>
+{% endblock %}

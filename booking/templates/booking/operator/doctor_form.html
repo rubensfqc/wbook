@@ -1,0 +1,21 @@
+{% extends "booking/base_operator.html" %}
+{% block title %}{{ action }} Doctor — wbook365{% endblock %}
+{% block content %}
+<div class="mb-8"><a href="{% url 'operator_doctors' %}" class="text-sm text-violet-600 hover:underline">← Doctors</a><h1 class="text-2xl font-bold text-gray-900 mt-2">{{ action }} Doctor</h1></div>
+<form method="post" class="max-w-lg space-y-4">
+  {% csrf_token %}
+  {% for field in form %}
+  <div>
+    <label class="block text-sm font-medium text-gray-700 mb-1">{{ field.label }}</label>
+    {{ field }}
+    {% for e in field.errors %}<p class="text-red-500 text-xs mt-1">{{ e }}</p>{% endfor %}
+    {% if field.help_text %}<p class="text-gray-400 text-xs mt-1">{{ field.help_text }}</p>{% endif %}
+  </div>
+  {% endfor %}
+  <div class="flex gap-3 pt-2">
+    <button type="submit" class="bg-violet-600 hover:bg-violet-700 text-white font-semibold px-6 py-2.5 rounded-xl transition">{{ action }}</button>
+    <a href="{% url 'operator_doctors' %}" class="bg-white border border-gray-200 text-gray-600 font-semibold px-6 py-2.5 rounded-xl hover:border-gray-300 transition">Cancel</a>
+  </div>
+</form>
+<style>input[type=text],input[type=email],input[type=password],input[type=number],select,textarea{width:100%;border:1px solid #e5e7eb;border-radius:0.75rem;padding:0.5rem 0.75rem;font-size:0.875rem;outline:none;}input:focus,select:focus,textarea:focus{border-color:#7c3aed;}</style>
+{% endblock %}
