@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — Dr. {{ doctor.user.name }}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    input:focus { outline: none; border-color: #0d9488; box-shadow: 0 0 0 3px rgba(13,148,136,.12); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-slate-900 via-teal-950 to-slate-900">
+
+  <!-- Full-height layout: doctor branding top, form centre -->
+  <div class="flex-1 flex flex-col items-center justify-center px-4 py-12">
+
+    <!-- ── Doctor identity card ─────────────────────────────────────── -->
+    <div class="w-full max-w-sm mb-6">
+      <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-5 flex items-center gap-4">
+
+        <!-- Logo or initials -->
+        {% if doctor.logo %}
+          <img src="{{ doctor.logo.url }}"
+               alt="{{ doctor.user.name }}"
+               class="w-16 h-16 rounded-xl object-cover flex-shrink-0 ring-2 ring-white/20">
+        {% else %}
+          <div class="w-16 h-16 rounded-xl bg-teal-500/20 border border-teal-400/30 flex items-center justify-center flex-shrink-0">
+            <span class="text-2xl font-bold text-teal-300"
+                  style="font-family:'DM Serif Display',serif;">
+              {{ doctor.user.name|first|upper }}
+            </span>
+          </div>
+        {% endif %}
+
+        <div class="min-w-0">
+          <p class="text-xs font-semibold uppercase tracking-widest text-teal-400 mb-0.5">Patient Portal</p>
+          <h1 class="text-lg font-bold text-white leading-tight truncate"
+              style="font-family:'DM Serif Display',serif;">
+            Dr. {{ doctor.user.name }}
+          </h1>
+          {% if doctor.specialty %}
+            <p class="text-sm text-slate-300 truncate">{{ doctor.specialty }}</p>
+          {% endif %}
+          {% if doctor.clinic_name %}
+            <p class="text-xs text-slate-500 mt-0.5 truncate">
+              <i class="fas fa-building mr-1"></i>{{ doctor.clinic_name }}
+            </p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Login form card ──────────────────────────────────────────── -->
+    <div class="w-full max-w-sm">
+      <div class="bg-white rounded-2xl shadow-2xl p-8">
+
+        <div class="mb-6">
+          <h2 class="text-xl font-bold text-gray-800">Sign in to book</h2>
+          <p class="text-sm text-gray-400 mt-1">
+            Registered patients get instant appointment confirmation.
+          </p>
+        </div>
+
+        <form method="post" class="space-y-4">
+          {% csrf_token %}
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Email address</label>
+            <div class="relative">
+              <i class="fas fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-300 text-sm"></i>
+              <input type="email"
+                     name="{{ form.username.html_name }}"
+                     value="{{ form.username.value|default:'' }}"
+                     placeholder="your@email.com"
+                     autocomplete="email"
+                     class="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-2.5 text-sm transition
+                            {% if form.username.errors %}border-red-400 bg-red-50{% endif %}">
+            </div>
+            {% for error in form.username.errors %}
+              <p class="text-red-500 text-xs mt-1">{{ error }}</p>
+            {% endfor %}
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <div class="relative">
+              <i class="fas fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-300 text-sm"></i>
+              <input type="password"
+                     name="{{ form.password.html_name }}"
+                     placeholder="••••••••"
+                     autocomplete="current-password"
+                     class="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-2.5 text-sm transition
+                            {% if form.password.errors %}border-red-400 bg-red-50{% endif %}">
+            </div>
+          </div>
+
+          {% if form.non_field_errors %}
+          <div class="flex items-center gap-2 bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-600">
+            <i class="fas fa-circle-exclamation flex-shrink-0"></i>
+            <span>{{ form.non_field_errors|join:" " }}</span>
+          </div>
+          {% endif %}
+
+          <button type="submit"
+                  class="w-full bg-teal-600 hover:bg-teal-700 active:bg-teal-800 text-white font-semibold py-2.5 rounded-xl transition mt-1 flex items-center justify-center gap-2">
+            <i class="fas fa-right-to-bracket text-sm"></i>
+            Sign In
+          </button>
+        </form>
+
+        <!-- Back to booking page -->
+        <div class="mt-5 pt-5 border-t border-gray-100 text-center space-y-2">
+          <a href="{% url 'public_booking' slug=doctor.user.slug %}"
+             class="inline-flex items-center gap-1.5 text-sm text-teal-600 hover:text-teal-700 hover:underline font-medium">
+            <i class="fas fa-arrow-left text-xs"></i>
+            Back to booking page
+          </a>
+          <p class="text-xs text-gray-400">
+            Don't have an account? Ask Dr. {{ doctor.user.name|truncatewords:1 }} to register you.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Platform badge -->
+      <p class="text-center text-xs text-slate-600 mt-5">
+        Powered by
+        <a href="/" class="text-slate-400 hover:text-slate-300 transition font-medium">wbook365</a>
+      </p>
+    </div>
+
+  </div>
+</body>
+</html>
