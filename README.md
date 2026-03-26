@@ -44,13 +44,39 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
+## Translation to portuguese
+
+`python manage.py makemessages -l pt_BR`
+
+`python manage.py compilemessages`
+
+
 ## Demo Accounts (after seeding)
 
-| Role     | Email                    | Password   |
-|----------|--------------------------|------------|
-| Operator | operator@wbook365.com    | admin123   |
-| Doctor   | doctor@wbook365.com      | doctor123  |
-| Patient  | patient@wbook365.com     | patient123 |
+PORTALS
+- Operator  ->  http://localhost:8000/operator/
+- Doctor    ->  http://localhost:8000/doctor/
+- Patient   ->  http://localhost:8000/patient/
+
+### CREDENTIALS
+
+| Email | Password | Role |
+| :--- | :--- | :--- |
+| operator@wbook365.com | admin123 | Operator |
+| dr.sarah@wbook365.com | doctor123 | Doctor |
+| dr.marcos@wbook365.com | doctor123 | Doctor |
+| dr.aisha@wbook365.com | doctor123 | Doctor |
+| alice@example.com | patient123 | Patient |
+| bob@example.com | patient123 | Patient |
+| carol@example.com | patient123 | Patient |
+| david@example.com | patient123 | Patient |
+| emily@example.com | patient123 | Patient |
+
+### PUBLIC BOOKING PAGES (no login required)
+
+* [Dr. Sarah Johnson](http://localhost:8000/book/drsarah/)
+* [Dr. Marcos Oliveira](http://localhost:8000/book/drmarcos/)
+* [Dr. Aisha Patel](http://localhost:8000/book/draisha/)
 
 ## URL Map
 

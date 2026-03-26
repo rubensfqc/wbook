@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'accounts',
     'booking',
+    'website',
 ]
 
 MIDDLEWARE = [

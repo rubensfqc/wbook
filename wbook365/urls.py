@@ -7,5 +7,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('i18n/', include('django.conf.urls.i18n')),   # provides {% url 'set_language' %}
     path('accounts/', include('accounts.urls')),
-    path('', include('booking.urls')),
+    path('', include('website.urls')),          # public homepage at /
+    path('', include('booking.urls')),          # app at /doctor/, /patient/, etc.
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
