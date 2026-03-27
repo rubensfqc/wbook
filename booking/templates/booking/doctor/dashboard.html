@@ -72,7 +72,7 @@
           <span class="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-semibold">Pending</span>
           <a href="{% url 'appointment_action' apt.pk 'confirm' %}" class="text-xs text-teal-600 hover:underline">{% trans "Confirm" %}</a>
         {% else %}
-          <span class="text-xs px-2 py-0.5 rounded-full bg-teal-100 text-teal-700 font-semibold">{% trans "Confirm" %}ed</span>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-teal-100 text-teal-700 font-semibold">{% trans "Confirm" %}</span>
         {% endif %}
       </div>
     </div>
