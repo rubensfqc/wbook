@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wbook365 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-26 17:33+0100\n"
+"POT-Creation-Date: 2026-03-26 17:39+0100\n"
 "PO-Revision-Date: 2026-03-26 00:00+0000\n"
 "Last-Translator: wbook365 Team\n"
 "Language-Team: Portuguese (Brazil)\n"
@@ -1154,24 +1154,42 @@ msgstr "Bloqueio removido."
 msgid "Your patient account for Dr. %(doctor)s"
 msgstr "Sua conta de paciente para o Dr(a). %(doctor)"
 
-#: .\booking\views\doctor.py:201
+#: .\booking\views\doctor.py:188
+#, python-format
+msgid ""
+"Hello %(name)s,\n"
+"\n"
+"Your doctor has created an account for you.\n"
+"Login URL: %(login_url)s\n"
+"Email: %(email)s\n"
+"Password: %(password)s\n"
+"\n"
+"Please change your password after logging in."
+msgstr "Olá %(name)s,\n\n"
+"Seu médico criou uma conta para você.\n"
+"URL de acesso: %(login_url)s\n"
+"E-mail: %(email)s\n"
+"Senha: %(password)s\n\n"
+"Por favor, altere sua senha após o primeiro acesso."
+
+#: .\booking\views\doctor.py:208
 #, python-format
 msgid "Patient %(name)s invited. Credentials sent to %(email)s."
 msgstr "Paciente %(name)s convidado. Credenciais enviadas para %(email)s."
 
-#: .\booking\views\doctor.py:224
+#: .\booking\views\doctor.py:231
 msgid "Patient updated."
 msgstr "Paciente atualizado."
 
-#: .\booking\views\doctor.py:238
+#: .\booking\views\doctor.py:245
 msgid "Patient deactivated."
 msgstr "Paciente desativado."
 
-#: .\booking\views\doctor.py:254
+#: .\booking\views\doctor.py:261
 msgid "Profile updated."
 msgstr "Perfil atualizado."
 
-#: .\booking\views\doctor.py:302
+#: .\booking\views\doctor.py:309
 #, python-format
 msgid "Lead status updated to %(status)s."
 msgstr "Status do lead atualizado para %(status)s."
@@ -2722,3 +2740,49 @@ msgstr "Não é necessário cartão de crédito."
 msgid "Medical scheduling made simple — for doctors who care about their time."
 msgstr ""
 "Agendamento médico simplificado — para médicos que valorizam seu tempo."
+
+
+msgid "Appointment Confirmed"
+msgstr "Consulta Confirmada"
+
+msgid ""
+"Hello %(name)s,\n\n"
+"Your appointment with %(doctor)s is confirmed for %(datetime)s.\n\n"
+"Thank you!"
+msgstr ""
+"Olá %(name)s,\n\n"
+"Sua consulta com %(doctor)s está confirmada para %(datetime)s.\n\n"
+"Obrigado!"
+
+msgid "Appointment Request Received"
+msgstr "Solicitação de Consulta Recebida"
+
+msgid ""
+"Hello %(name)s,\n\n"
+"We received your appointment request with %(doctor)s for %(datetime)s.\n"
+"You will be notified once it is confirmed.\n\nThank you!"
+msgstr ""
+"Olá %(name)s,\n\n"
+"Recebemos sua solicitação de consulta com %(doctor)s para %(datetime)s.\n"
+"Você será notificado assim que for confirmada.\n\nObrigado!"
+
+msgid ""
+"Hello %(name)s,\n\n"
+"Your appointment with %(doctor)s on %(datetime)s has been confirmed!\n\n"
+"See you soon."
+msgstr ""
+"Olá %(name)s,\n\n"
+"Sua consulta com %(doctor)s em %(datetime)s foi confirmada!\n\n"
+"Até breve."
+
+msgid "Appointment Not Available"
+msgstr "Consulta Não Disponível"
+
+msgid ""
+"Hello %(name)s,\n\n"
+"Unfortunately your appointment request for %(datetime)s could not be confirmed.\n"
+"Please book another slot.\n\nThank you."
+msgstr ""
+"Olá %(name)s,\n\n"
+"Infelizmente sua solicitação de consulta para %(datetime)s não pôde ser confirmada.\n"
+"Por favor, escolha outro horário.\n\nObrigado."

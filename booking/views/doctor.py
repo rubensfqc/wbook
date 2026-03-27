@@ -183,16 +183,23 @@ def patient_invite(request):
         from django.conf import settings as djsettings
         login_url = request.build_absolute_uri(f'/accounts/login/{doctor.user.slug}/')
         send_mail(
-                    _('Your patient account for Dr. %(doctor)s') % {'doctor': doctor.user.name},
-                    (f'Hello {user.name},\n\n'
-                    f'Your doctor has created an account for you.\n'
-                    f'Login URL: {login_url}\n'
-                    f'Email: {user.email}\n'
-                    f'Password: {raw_pass}\n\n'
-                    f'Please change your password after logging in.'),
-                    djsettings.DEFAULT_FROM_EMAIL,
-                    [user.email],
-                    fail_silently=True,
+            _('Your patient account for Dr. %(doctor)s') % {'doctor': doctor.user.name},
+            
+            _('Hello %(name)s,\n\n'
+            'Your doctor has created an account for you.\n'
+            'Login URL: %(login_url)s\n'
+            'Email: %(email)s\n'
+            'Password: %(password)s\n\n'
+            'Please change your password after logging in.') % {
+                'name':      user.name,
+                'login_url': login_url,
+                'email':     user.email,
+                'password':  raw_pass,
+            },
+            
+            djsettings.DEFAULT_FROM_EMAIL,
+            [user.email],
+            fail_silently=True,
         )
 
         messages.success(
