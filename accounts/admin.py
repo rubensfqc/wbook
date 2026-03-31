@@ -10,9 +10,16 @@ class SellerAdmin(UserAdmin):
     search_fields = ('email', 'name', 'username')
     ordering      = ('-date_joined',)
 
-    fieldsets = UserAdmin.fieldsets + (
-        ('wbook365', {'fields': ('role', 'name', 'phone_number', 'address', 'profile_picture', 'slug')}),
+    fieldsets = (
+        (None,               {'fields': ('username', 'password')}),
+        ('Informações pessoais', {'fields': ('name', 'email', 'phone_number', 'address', 'profile_picture', 'slug')}),
+        ('wbook365',         {'fields': ('role',)}),
+        ('Permissões',       {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        ('Datas importantes',{'fields': ('last_login', 'date_joined')}),
     )
-    add_fieldsets = UserAdmin.add_fieldsets + (
-        ('wbook365', {'fields': ('role', 'name', 'email')}),
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields':  ('username', 'email', 'name', 'role', 'password1', 'password2'),
+        }),
     )
