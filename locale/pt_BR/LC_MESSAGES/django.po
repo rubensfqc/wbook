@@ -1,6 +1,6 @@
-# Brazilian Portuguese translations for wbook365
-# Copyright (C) 2026 wbook365
-# This file is distributed under the same license as the wbook365 package.
+# Brazilian Portuguese translations for wbook
+# Copyright (C) 2026 wbook
+# This file is distributed under the same license as the wbook package.
 #
 msgid ""
 msgstr ""
@@ -1139,7 +1139,7 @@ msgstr "Confira os detalhes abaixo e envie sua solicitação."
 # ──────────────────────────────────────────────────────────────────────────────
 #: .\booking\templates\booking\public\booking_page.html:365
 msgid "Request Appointment"
-msgstr "Consultas Anteriores"
+msgstr "Solicitar Consulta"
 
 #: .\booking\templates\booking\public\booking_page.html:374
 msgid "Walk-in requests are pending until the doctor confirms."
@@ -1180,7 +1180,7 @@ msgid "Your free trial has ended"
 msgstr "Seu período de teste gratuito terminou"
 
 #: .\booking\templates\booking\trial_expired.html:18
-msgid "Please contact support to continue using wbook365."
+msgid "Please contact support to continue using wbook."
 msgstr "Por favor, entre em contato com o suporte"
 
 #: .\booking\templates\booking\trial_expired.html:19
@@ -2603,17 +2603,17 @@ msgstr "Conecte-se, obtenha ajuda ou contribua"
 #: .\website\templates\website\base.html:6
 #: .\website\templates\website\base.html:18
 #: .\website\templates\website\home.html:4
-msgid "wbook365 – Smart Appointment Scheduling for Doctors"
-msgstr "wbook365 – Agendamento Inteligente de Consultas para Médicos"
+msgid "wbook – Smart Appointment Scheduling for Doctors"
+msgstr "wbook – Agendamento Inteligente de Consultas para Médicos"
 
 #: .\website\templates\website\base.html:12
 #: .\website\templates\website\home.html:7
 msgid ""
-"wbook365 helps doctors manage appointments, patients and schedules from one "
+"wbook helps doctors manage appointments, patients and schedules from one "
 "professional dashboard. Reduce no-shows, streamline bookings and grow your "
 "practice."
 msgstr ""
-"O wbook365 ajuda médicos a gerenciarem consultas, pacientes e agendas em um "
+"O wbook ajuda médicos a gerenciarem consultas, pacientes e agendas em um "
 "único painel profissional. Reduza faltas, agilize agendamentos e faça seu "
 "consultório crescer."
 
@@ -2631,10 +2631,10 @@ msgstr ""
 #: .\website\templates\website\home.html:14
 #: .\website\templates\website\home.html:17
 msgid ""
-"wbook365 helps doctors manage appointments, patients and schedules from one "
+"wbook helps doctors manage appointments, patients and schedules from one "
 "professional dashboard."
 msgstr ""
-"O wbook365 ajuda médicos a gerenciarem consultas, pacientes e agendas em um "
+"O wbook ajuda médicos a gerenciarem consultas, pacientes e agendas em um "
 "único painel profissional."
 
 #: .\website\templates\website\base.html:110
@@ -2666,8 +2666,8 @@ msgstr ""
 
 #: .\website\templates\website\home.html:13
 #: .\website\templates\website\home.html:16
-msgid "wbook365 – Stop Chasing Calls, Start Healing"
-msgstr "wbook365 – Pare de correr atrás de ligações, foque no cuidado"
+msgid "wbook – Stop Chasing Calls, Start Healing"
+msgstr "wbook – Pare de correr atrás de ligações, foque no cuidado"
 
 #: .\website\templates\website\home.html:25
 msgid "Stop Chasing appointments, Start Healing"
@@ -2730,10 +2730,10 @@ msgstr "Aprovado por Clínicas"
 
 #: .\website\templates\website\home.html:80
 msgid ""
-"wbook365 cut my no-show rate in half within the first month. My receptionist "
+"wbook cut my no-show rate in half within the first month. My receptionist "
 "can finally breathe."
 msgstr ""
-"O wbook365 reduziu minha taxa de faltas pela metade logo no primeiro mês. "
+"O wbook reduziu minha taxa de faltas pela metade logo no primeiro mês. "
 "Minha recepcionista finalmente pode respirar aliviada."
 
 #: .\website\templates\website\home.html:85

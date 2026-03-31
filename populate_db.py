@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Seed the wbook365 database with demo data.
+Seed the wbook database with demo data.
 
 Run directly from your project root (next to manage.py):
     python populate_db.py
@@ -73,18 +73,18 @@ def make_apt(doctor, patient_user, d, hour, status, notes="", doctor_notes=""):
 
 print("\n-- Platform Settings -------------------------------------------")
 platform = PlatformSettings.get_solo()
-platform.platform_name     = "wbook365"
+platform.platform_name     = "wbook"
 platform.default_trial_days = 30
-platform.support_email     = "support@wbook365.com"
+platform.support_email     = "support@wbook.com"
 platform.save()
-print("  platform_name=wbook365  trial_days=30")
+print("  platform_name=wbook  trial_days=30")
 
 
 # -- 1. Operator ---------------------------------------------------------------
 
 print("\n-- Operator ----------------------------------------------------")
 op_user, _ = create_user(
-    email="operator@wbook365.com",
+    email="operator@wbook.com",
     username="operator",
     name="Platform Operator",
     role=Seller.Roles.OPERATOR,
@@ -104,7 +104,7 @@ print("\n-- Doctors (3) -------------------------------------------------")
 
 DOCTORS_DATA = [
     dict(
-        email         = "dr.sarah@wbook365.com",
+        email         = "dr.sarah@wbook.com",
         username      = "drsarah",
         name          = "Sarah Johnson",
         password      = "doctor123",
@@ -122,7 +122,7 @@ DOCTORS_DATA = [
         reminder_h    = 24,
     ),
     dict(
-        email         = "dr.marcos@wbook365.com",
+        email         = "dr.marcos@wbook.com",
         username      = "drmarcos",
         name          = "Marcos Oliveira",
         password      = "doctor123",
@@ -140,7 +140,7 @@ DOCTORS_DATA = [
         reminder_h    = 48,
     ),
     dict(
-        email         = "dr.aisha@wbook365.com",
+        email         = "dr.aisha@wbook.com",
         username      = "draisha",
         name          = "Aisha Patel",
         password      = "doctor123",
@@ -391,10 +391,10 @@ print("  CREDENTIALS")
 print("  {:<35s} {:15s} {}".format("Email", "Password", "Role"))
 print("  " + "-" * 60)
 credentials = [
-    ("operator@wbook365.com",  "admin123",   "Operator"),
-    ("dr.sarah@wbook365.com",  "doctor123",  "Doctor"),
-    ("dr.marcos@wbook365.com", "doctor123",  "Doctor"),
-    ("dr.aisha@wbook365.com",  "doctor123",  "Doctor"),
+    ("operator@wbook.com",  "admin123",   "Operator"),
+    ("dr.sarah@wbook.com",  "doctor123",  "Doctor"),
+    ("dr.marcos@wbook.com", "doctor123",  "Doctor"),
+    ("dr.aisha@wbook.com",  "doctor123",  "Doctor"),
     ("alice@example.com",      "patient123", "Patient"),
     ("bob@example.com",        "patient123", "Patient"),
     ("carol@example.com",      "patient123", "Patient"),

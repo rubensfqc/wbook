@@ -3,20 +3,20 @@
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
-    <title>{% block title %}{% trans "wbook365 – Smart Appointment Scheduling for Doctors" %}{% endblock %}</title>
+    <title>{% block title %}{% trans "wbook – Smart Appointment Scheduling for Doctors" %}{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% block meta %}
-    <meta name="description" content="{% trans "wbook365 helps doctors manage appointments, patients and schedules from one professional dashboard. Reduce no-shows, streamline bookings and grow your practice." %}">
+    <meta name="description" content="{% trans "wbook helps doctors manage appointments, patients and schedules from one professional dashboard. Reduce no-shows, streamline bookings and grow your practice." %}">
     <meta name="keywords" content="{% trans "doctor appointment scheduling, medical booking software, patient portal, clinic management, schedule management, agendamento médico, software para médicos, portal do paciente" %}">
     <meta name="author" content="wbook365">
     <meta name="robots" content="index, follow">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="wbook365">
-    <meta property="og:title" content="{% trans "wbook365 – Smart Appointment Scheduling for Doctors" %}">
-    <meta property="og:description" content="{% trans "wbook365 helps doctors manage appointments, patients and schedules from one professional dashboard." %}">
+    <meta property="og:title" content="{% trans "wbook – Smart Appointment Scheduling for Doctors" %}">
+    <meta property="og:description" content="{% trans "wbook helps doctors manage appointments, patients and schedules from one professional dashboard." %}">
     {% endblock %}
 
     <style>
@@ -101,7 +101,7 @@
     <!-- Logo / Brand -->
     <a href="{% url 'home' %}" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit;">
         <span style="font-size:22px; font-weight:800; letter-spacing:-0.5px; color:#0f172a;">
-            wbook<span style="color:#0d9488;">365</span>
+            wbook
         </span>
     </a>
 
@@ -166,7 +166,7 @@
 
 <!-- ── Footer ──────────────────────────────────────────────────────────────── -->
 <footer>
-    {% blocktrans with year=year|default:2026 name=company_name|default:"wbook365" %}
+    {% blocktrans with year=year|default:2026 name=company_name|default:"wbook" %}
         &copy; {{ year }} {{ name }}. All rights reserved.
     {% endblocktrans %}
 </footer>

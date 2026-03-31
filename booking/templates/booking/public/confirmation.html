@@ -18,7 +18,7 @@
       <p class="text-gray-500 text-sm mb-6">{% trans "Your appointment request with Dr. " %}{{ doctor.user.name }} {% trans "has been submitted" %}. {% trans "You will receive a confirmation email" %} {% trans "once approved" %}.</p>
       <a href="{% url 'public_booking' slug=doctor.user.slug %}" class="inline-block bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-xl transition">{% trans "Book Another" %}</a>
     </div>
-    <p class="text-center text-xs text-gray-400 mt-4">Powered by wbook365</p>
+    <p class="text-center text-xs text-gray-400 mt-4">Powered by wbook</p>
   </div>
 </body>
 </html>

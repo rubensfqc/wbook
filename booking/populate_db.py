@@ -11,14 +11,14 @@ from booking.models import PlatformSettings, DoctorProfile, PatientProfile, Oper
 
 # Platform
 platform = PlatformSettings.get_solo()
-platform.platform_name = 'wbook365'
+platform.platform_name = 'wbook'
 platform.default_trial_days = 30
 platform.save()
 print('Platform settings ready.')
 
 # Operator
 op_user, _ = Seller.objects.get_or_create(
-    email='operator@wbook365.com',
+    email='operator@wbook.com',
     defaults=dict(username='operator', name='Platform Operator', role=Seller.Roles.OPERATOR, is_staff=True),
 )
 op_user.set_password('admin123')
@@ -28,7 +28,7 @@ print(f'Operator: {op_user.email} / admin123')
 
 # Doctor
 doc_user, _ = Seller.objects.get_or_create(
-    email='doctor@wbook365.com',
+    email='doctor@wbook.com',
     defaults=dict(username='drsarah', name='Sarah Johnson', role=Seller.Roles.DOCTOR),
 )
 doc_user.set_password('doctor123')
@@ -44,7 +44,7 @@ print(f'Doctor: {doc_user.email} / doctor123 | booking URL: /book/{doc_user.slug
 
 # Patient (registered)
 pat_user, _ = Seller.objects.get_or_create(
-    email='patient@wbook365.com',
+    email='patient@wbook.com',
     defaults=dict(username='johnpatient', name='John Patient', role=Seller.Roles.PATIENT),
 )
 pat_user.set_password('patient123')

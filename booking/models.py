@@ -15,8 +15,8 @@ class PlatformSettings(models.Model):
         default=14,
         help_text=_('Default trial duration for new doctors.'),
     )
-    platform_name = models.CharField(max_length=100, default='wbook365')
-    support_email = models.EmailField(default='support@wbook365.com')
+    platform_name = models.CharField(max_length=100, default='wbook')
+    support_email = models.EmailField(default='support@wbook.com')
 
     class Meta:
         verbose_name = _('Platform Settings')

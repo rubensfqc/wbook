@@ -1,11 +1,11 @@
-# wbook365 — Doctor Appointment SaaS
+# wbook — Doctor Appointment SaaS
 
 A Django 4.x multi-tenant appointment booking system.
 
 ## Architecture
 
 ```
-wbook365/
+wbook/
 ├── accounts/          # Custom AbstractUser (Seller) with Doctor/Patient/Operator roles
 ├── booking/           # Core domain: DoctorProfile, PatientProfile, Appointment, etc.
 │   ├── views/
@@ -21,7 +21,7 @@ wbook365/
 │       ├── patient/
 │       ├── operator/
 │       └── public/
-└── wbook365/          # Project settings & root URLs
+└── wbook/          # Project settings & root URLs
 ```
 
 ## Quick Start
@@ -62,10 +62,10 @@ PORTALS
 
 | Email | Password | Role |
 | :--- | :--- | :--- |
-| operator@wbook365.com | admin123 | Operator |
-| dr.sarah@wbook365.com | doctor123 | Doctor |
-| dr.marcos@wbook365.com | doctor123 | Doctor |
-| dr.aisha@wbook365.com | doctor123 | Doctor |
+| operator@wbook.com | admin123 | Operator |
+| dr.sarah@wbook.com | doctor123 | Doctor |
+| dr.marcos@wbook.com | doctor123 | Doctor |
+| dr.aisha@wbook.com | doctor123 | Doctor |
 | alice@example.com | patient123 | Patient |
 | bob@example.com | patient123 | Patient |
 | carol@example.com | patient123 | Patient |

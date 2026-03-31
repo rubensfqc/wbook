@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}wbook365{% endblock %}</title>
+  <title>{% block title %}wbook{% endblock %}</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,7 +14,7 @@
 
   <!-- Mobile top bar -->
   <div class="bg-slate-900 text-white p-4 flex justify-between items-center md:hidden">
-    <span class="text-sm font-bold">wbook<span class="text-teal-400">365</span></span>
+    <span class="text-sm font-bold">wbook</span>
     <button id="mobile-menu-button" class="p-2 hover:bg-slate-800 rounded">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
@@ -29,7 +29,7 @@
       {% if user.doctor_profile.logo %}
         <img src="{{ user.doctor_profile.logo.url }}" alt="{{ user.doctor_profile.clinic_name }}" class="h-10 w-auto mb-2 object-contain">
       {% else %}
-        <p class="text-base font-bold tracking-tight">wbook<span class="text-teal-400">365</span></p>
+        <p class="text-base font-bold tracking-tight">wbook</p>
       {% endif %}
       {% if user.doctor_profile.clinic_name %}
         <p class="text-xs text-slate-500 mt-0.5 text-center">{{ user.doctor_profile.clinic_name }}</p>
@@ -79,7 +79,7 @@
           <i class="fas fa-right-from-bracket w-4 text-center"></i> {% trans "Logout" %}
         </button>
       </form>
-      <p class="px-3 mt-4 text-[10px] text-slate-600 text-center">wbook365 v{{ APP_VERSION }}</p>
+      <p class="px-3 mt-4 text-[10px] text-slate-600 text-center">wbook v{{ APP_VERSION }}</p>
     </div>
     <!-- Language Switcher -->
     <div class="px-3 pb-2 pt-1">

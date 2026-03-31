@@ -1,6 +1,6 @@
 {% extends "booking/base_doctor.html" %}
 {% load humanize i18n %}
-{% block title %}Doctor {% trans "Dashboard" %} — wbook365{% endblock %}
+{% block title %}Doctor {% trans "Dashboard" %} — wbook{% endblock %}
 {% block content %}
 {% if doctor.days_remaining is not None and doctor.days_remaining <= 7 %}
 <div class="mb-6 flex items-center gap-3 rounded-xl border px-5 py-3 {% if doctor.days_remaining <= 3 %}bg-red-50 border-red-200 text-red-700{% else %}bg-amber-50 border-amber-200 text-amber-700{% endif %}">

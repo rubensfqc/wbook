@@ -1,6 +1,6 @@
 {% extends "booking/base_doctor.html" %}
 {% load i18n %}
-{% block title %}Appointment Notes — wbook365{% endblock %}
+{% block title %}Appointment Notes — wbook{% endblock %}
 {% block content %}
 <div class="mb-8"><a href="{% url 'doctor_appointments' %}" class="text-sm text-teal-600 hover:underline">{% trans "← Appointments" %}</a><h1 class="text-2xl font-bold text-gray-900 mt-2">Notes for {{ apt.display_name }}</h1><p class="text-sm text-gray-400">{{ apt.start_time|date:"d M Y · H:i" }}</p></div>
 <form method="post" class="max-w-lg">

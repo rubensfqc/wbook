@@ -103,6 +103,6 @@ LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 # Email (configure for production)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'noreply@wbook365.com'
+DEFAULT_FROM_EMAIL = 'noreply@wbook.com'
 
 APP_VERSION = '1.0.0'

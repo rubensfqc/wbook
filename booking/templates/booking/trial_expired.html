@@ -15,8 +15,8 @@
         <i class="fas fa-lock text-amber-500 text-2xl"></i>
       </div>
       <h1 class="text-2xl font-bold text-gray-900 mb-2" style="font-family:'DM Serif Display',serif;">{% trans "Trial Expired" %}</h1>
-      <p class="text-gray-500 text-sm mb-6">{% trans "Your free trial has ended" %}. {% trans "Please contact support to continue using wbook365." %}</p>
-      <a href="mailto:support@wbook365.com" class="inline-block bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-xl transition mb-3">{% trans "Contact Support" %}</a>
+      <p class="text-gray-500 text-sm mb-6">{% trans "Your free trial has ended" %}. {% trans "Please contact support to continue using wbook." %}</p>
+      <a href="mailto:support@wbook.com" class="inline-block bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-xl transition mb-3">{% trans "Contact Support" %}</a>
       <br>
       <form action="/accounts/logout/" method="post" class="inline">{% csrf_token %}<button type="submit" class="text-sm text-gray-400 hover:text-gray-600 mt-2">{% trans "Sign out" %}</button></form>
     </div>

@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 class Seller(AbstractUser):
     """
-    Base user for wbook365.
+    Base user for wbook.
     Doctors, Patients and Operators all share this user table.
     The profile model (DoctorProfile / PatientProfile / OperatorProfile)
     holds the role-specific data.
