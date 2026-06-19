@@ -395,6 +395,96 @@ msgstr ""
 "\n"
 "Obrigado."
 
+#: .\booking\signals.py
+msgid "New Appointment Confirmed"
+msgstr "Nova Consulta Confirmada"
+
+#: .\booking\signals.py
+#, python-format
+msgid ""
+"Hello %(doctor)s,\n"
+"\n"
+"A new appointment has just been booked and confirmed.\n"
+"\n"
+"Patient: %(name)s\n"
+"Date/time: %(datetime)s\n"
+"\n"
+"You can view it in your dashboard."
+msgstr ""
+"Olá %(doctor)s,\n"
+"\n"
+"Uma nova consulta foi agendada e confirmada.\n"
+"\n"
+"Paciente: %(name)s\n"
+"Data/horário: %(datetime)s\n"
+"\n"
+"Você pode visualizá-la no seu painel."
+
+#: .\booking\signals.py
+msgid "New Appointment Request"
+msgstr "Nova Solicitação de Consulta"
+
+#: .\booking\signals.py
+#, python-format
+msgid ""
+"Hello %(doctor)s,\n"
+"\n"
+"You have a new appointment request awaiting your confirmation.\n"
+"\n"
+"Patient: %(name)s\n"
+"Date/time: %(datetime)s\n"
+"\n"
+"Please review it in your dashboard."
+msgstr ""
+"Olá %(doctor)s,\n"
+"\n"
+"Você tem uma nova solicitação de consulta aguardando sua confirmação.\n"
+"\n"
+"Paciente: %(name)s\n"
+"Data/horário: %(datetime)s\n"
+"\n"
+"Por favor, revise no seu painel."
+
+#: .\booking\signals.py
+msgid "Appointment Cancelled"
+msgstr "Consulta Cancelada"
+
+#: .\booking\signals.py
+#, python-format
+msgid ""
+"Hello %(name)s,\n"
+"\n"
+"Your appointment with %(doctor)s on %(datetime)s has been cancelled.\n"
+"\n"
+"You can book a new slot anytime."
+msgstr ""
+"Olá %(name)s,\n"
+"\n"
+"Sua consulta com %(doctor)s em %(datetime)s foi cancelada.\n"
+"\n"
+"Você pode agendar um novo horário quando quiser."
+
+#: .\booking\signals.py
+#, python-format
+msgid ""
+"Hello %(doctor)s,\n"
+"\n"
+"An appointment has been cancelled.\n"
+"\n"
+"Patient: %(name)s\n"
+"Date/time: %(datetime)s\n"
+"\n"
+"This slot is now free on your calendar."
+msgstr ""
+"Olá %(doctor)s,\n"
+"\n"
+"Uma consulta foi cancelada.\n"
+"\n"
+"Paciente: %(name)s\n"
+"Data/horário: %(datetime)s\n"
+"\n"
+"Esse horário está livre na sua agenda novamente."
+
 # ──────────────────────────────────────────────────────────────────────────────
 # navigation / layout
 # ──────────────────────────────────────────────────────────────────────────────
