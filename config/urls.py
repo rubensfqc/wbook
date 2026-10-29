@@ -8,7 +8,7 @@ from django.urls import include, path
 
 from apps.agenda import views_public as agenda_public
 from apps.core.views import set_language
-from apps.website.views import SITEMAPS, robots
+from apps.website.views import SITEMAPS, favicon, robots
 
 feed_patterns = ([path("<uuid:token>.ics", agenda_public.feed, name="feed")], "agenda_feed")
 
@@ -23,6 +23,7 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     path("idioma/", set_language, name="set_language"),
     path("robots.txt", robots),
+    path("favicon.ico", favicon),
     path("sitemap.xml", sitemap, {"sitemaps": SITEMAPS}, name="sitemap"),
     path("conta/", include("apps.accounts.urls")),
     path("app/", include(app_patterns)),

@@ -66,6 +66,14 @@ def privacy(request):
     return render(request, "website/privacy.html")
 
 
+def favicon(request):
+    """Browsers and crawlers ask for /favicon.ico directly; point them at the (hashed) static file."""
+    from django.shortcuts import redirect
+    from django.templatetags.static import static
+
+    return redirect(static("img/favicon.ico"))
+
+
 def robots(request):
     from django.conf import settings
 

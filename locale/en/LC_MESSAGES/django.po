@@ -1757,6 +1757,10 @@ msgstr "Timeline"
 msgid "Link de pagamento: %(l)s"
 msgstr "Payment link: %(l)s"
 
+#: apps/core/models.py
+msgid "Link de uma foto de odontologia (horizontal, ~1920px). Em branco, o topo fica com a cor da marca."
+msgstr "Link to a dentistry photo (landscape, ~1920px). Leave blank to use the brand colour."
+
 #: templates/accounts/set_password.html templates/accounts/verify_email.html
 msgid "Link expirado ou inválido"
 msgstr "Expired or invalid link"
@@ -3753,8 +3757,8 @@ msgid "foto de capa"
 msgstr "cover photo"
 
 #: apps/core/models.py
-msgid "foto de capa da home (URL)"
-msgstr "home page cover photo (URL)"
+msgid "foto de fundo do topo da home"
+msgstr "home page hero background photo"
 
 #: apps/clinic/models.py
 msgid "fuso horário"

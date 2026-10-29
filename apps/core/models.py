@@ -2,6 +2,9 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+# Free photo (Unsplash License) by Ozkan Guner: https://unsplash.com/photos/AQG6C_xYEpA
+DEFAULT_HERO_IMAGE = "https://images.unsplash.com/photo-1643660527071-52e37cf7c7ea?auto=format&fit=crop&w=1920&q=70"
+
 
 class PlatformSettings(models.Model):
     """Singleton (pk=1) edited by operators at /operador/configuracoes/."""
@@ -9,7 +12,10 @@ class PlatformSettings(models.Model):
     default_trial_days = models.PositiveIntegerField(_("dias de teste padrão"), default=14)
     contact_email = models.EmailField(_("e-mail de contato"), blank=True)
     contact_whatsapp = models.CharField(_("WhatsApp de contato"), max_length=30, blank=True)
-    home_hero_image_url = models.URLField(_("foto de capa da home (URL)"), blank=True)
+    home_hero_image_url = models.URLField(
+        _("foto de fundo do topo da home"), max_length=500, blank=True, default=DEFAULT_HERO_IMAGE,
+        help_text=_("Link de uma foto de odontologia (horizontal, ~1920px). Em branco, o topo fica com a cor da marca."),
+    )
     instagram_url = models.URLField(_("Instagram"), blank=True)
 
     alert_email = models.EmailField(_("e-mail principal dos alertas"), blank=True)
