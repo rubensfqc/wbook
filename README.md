@@ -1,121 +1,102 @@
-# wbook — Doctor Appointment SaaS
+# wbook
 
-A Django 4.x multi-tenant appointment booking system.
+Plataforma para dentistas: **página pública com agenda online**, **agendamento direto pelo paciente**,
+**orçamentos com registro de acesso** e **portal do paciente** (tratamentos, documentos em PDF, fotos antes/depois e faturas).
 
-## Architecture
+Django 6 · Python 3.13 · Tailwind (compilado) · HTMX · PDF.js · PythonAnywhere (SQLite + arquivos locais no MVP).
+Endereço: **https://www.wbook.com.br** · Idiomas: português (padrão) e inglês.
 
-```
-wbook/
-├── accounts/          # Custom AbstractUser (Seller) with Doctor/Patient/Operator roles
-├── booking/           # Core domain: DoctorProfile, PatientProfile, Appointment, etc.
-│   ├── views/
-│   │   ├── doctor.py   # Doctor portal views
-│   │   ├── patient.py  # Patient portal views
-│   │   ├── operator.py # Operator portal views
-│   │   └── public.py   # Public booking page + routing
-│   └── templates/booking/
-│       ├── base_doctor.html
-│       ├── base_patient.html
-│       ├── base_operator.html
-│       ├── doctor/
-│       ├── patient/
-│       ├── operator/
-│       └── public/
-└── wbook/          # Project settings & root URLs
-```
+## Rodando localmente (Windows)
 
-## Quick Start
-
-```bash
-# 1. Install dependencies
-pip install Django>=4.2 Pillow
-
-# 2. Run migrations
-python manage.py makemigrations accounts booking
+```powershell
+cd C:\LocalData\wbook
+py -3.13 -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements-dev.txt
+copy .env.example .env
 python manage.py migrate
-
-# 3. Seed demo data
-python manage.py shell < booking/populate_db.py
-
-# 4. (Optional) Create superuser
-python manage.py createsuperuser
-
-# 5. Run
+python manage.py seed_demo --password 'Demo!2026x'
 python manage.py runserver
 ```
 
-## Translation to portuguese
+Abra:
+- http://localhost:8000/clinica-sorriso/ — página pública de uma das clínicas demo (agenda com horários livres)
+- http://localhost:8000/conta/entrar/ — `ana@sorriso.example` (dentista), `maria@paciente.example` (paciente),
+  `carla@wbook.example` (operador). Senha: a que você passou em `--password`.
 
-`python manage.py makemessages -l pt_BR`
+Veja `seed/README.md` para todos os logins e a situação de cada clínica demo.
 
-`python manage.py compilemessages`
+E-mails aparecem no terminal (backend de console) enquanto `DEBUG=True`.
 
+> Use Python 3.13. O Python 3.14 quebra o Django nos templates (`Context.__copy__`).
 
-## Demo Accounts (after seeding)
+## Testes e qualidade
 
-PORTALS
-- Operator  ->  http://localhost:8000/operator/
-- Doctor    ->  http://localhost:8000/doctor/
-- Patient   ->  http://localhost:8000/patient/
+```bash
+python manage.py test
+ruff check .
+```
 
-### CREDENTIALS
+## CSS
 
-| Email | Password | Role |
-| :--- | :--- | :--- |
-| operator@wbook.com | admin123 | Operator |
-| dr.sarah@wbook.com | doctor123 | Doctor |
-| dr.marcos@wbook.com | doctor123 | Doctor |
-| dr.aisha@wbook.com | doctor123 | Doctor |
-| alice@example.com | patient123 | Patient |
-| bob@example.com | patient123 | Patient |
-| carol@example.com | patient123 | Patient |
-| david@example.com | patient123 | Patient |
-| emily@example.com | patient123 | Patient |
+O CSS já vem compilado em `static/css/app.css`. Só recompile se mudar templates ou classes:
 
-### PUBLIC BOOKING PAGES (no login required)
+```bash
+npm install
+npm run build:css          # ou npm run watch:css durante o desenvolvimento
+```
 
-* [Dr. Sarah Johnson](http://localhost:8000/book/drsarah/)
-* [Dr. Marcos Oliveira](http://localhost:8000/book/drmarcos/)
-* [Dr. Aisha Patel](http://localhost:8000/book/draisha/)
+## Traduções (inglês)
 
-## URL Map
+Os textos-fonte estão em português. A tradução para inglês fica em `locale/en/LC_MESSAGES/django.po`:
 
-| Portal   | URL prefix         | Description                        |
-|----------|--------------------|------------------------------------|
-| Public   | `/book/<slug>/`    | Doctor's public booking page       |
-| Doctor   | `/doctor/`         | Doctor dashboard & management      |
-| Patient  | `/patient/`        | Patient dashboard & self-booking   |
-| Operator | `/operator/`       | SaaS platform management           |
-| Auth     | `/accounts/login/` | Login (email-based)                |
-| Admin    | `/admin/`          | Django admin panel                 |
+```bash
+python scripts/makemessages_py.py     # extrai os textos para o .po (não precisa do GNU gettext)
+python scripts/compile_messages.py    # gera o .mo
+```
 
-## Key Features
+Faça commit do `.po` e do `.mo`.
 
-### Doctor Portal
-- Dashboard with KPIs (patients, today's appointments, pending requests, booking URL)
-- Appointment calendar with confirm / reject / complete / notes actions
-- Schedule settings: slot duration, slots visible per day, working hours, working days
-- Block time periods (vacations, etc.)
-- Patient management: invite (sends credentials by email), view history, deactivate
-- Public booking URL per doctor: `http://yourdomain.com/book/<doctor-slug>/`
+## Tarefas agendadas
 
-### Patient Portal
-- Registered patients: appointments auto-confirmed upon booking
-- View upcoming & past appointments
-- Cancel (respects doctor's 24/48h cancellation window)
-- Reschedule
+Lembretes 24 h antes e expiração de pedidos pendentes (48 h):
 
-### Public Booking (unregistered)
-- Browse available slots for any doctor via their unique URL
-- Submit appointment request → status: PENDING (doctor must confirm)
-- Email confirmation sent on request and on doctor action
+```bash
+python manage.py agenda_tick
+```
 
-### Operator Portal
-- Dashboard: total doctors, trial stats, total patients & appointments
-- Add / edit / delete doctors, set trial duration, suspend accounts
-- View all patients and all appointments platform-wide
-- Platform settings (default trial days, platform name, support email)
+## Backup, migração e edição em massa
 
-## Email Notifications
-Set `EMAIL_BACKEND` in `settings.py` for production. Currently uses console backend.
-Emails sent on: appointment request, confirmation, rejection, and patient invite.
+Operador → **Exportar / importar** (`/operador/dados/`): baixa tudo (ou só alguns dentistas) como ZIP de planilhas CSV + arquivos,
+ou um TOML único, e importa de volta com prévia antes de gravar. O dentista também baixa a lista de pacientes (CSV/Excel) e um
+backup da própria clínica em `/app/exportar/`.
+
+```bash
+python manage.py export_data -o backup.zip
+python manage.py export_data --dentist clinica-sorriso -o sorriso.zip
+python manage.py import_data backup.zip --dry-run
+python manage.py import_data backup.zip
+```
+
+## Deploy
+
+Veja `docs/ai/08-deployment.md` (PythonAnywhere, conta `plat4user`: teste `wbook_tst` em `plat4user.pythonanywhere.com`
+e produção `wbook_prd` em `www.wbook.com.br`; e-mail via `wbook@gmail.com`). O `.env` nunca vai para o git.
+
+Atualização de uma versão (sempre em teste primeiro, depois produção):
+
+```bash
+cd ~/wbook_<env>/wbook && workon wbook_<env>   # <env> = tst ou prd
+git pull
+pip install -r requirements-prod.txt
+python manage.py migrate
+python manage.py collectstatic --noinput
+```
+
+(O arquivo `.mo` das traduções vai compilado no git; não precisa de `compilemessages` no servidor.)
+
+Depois: aba **Web** do PythonAnywhere → **Reload**. Nunca rode `makemigrations` no servidor.
+
+## Para agentes de IA
+
+Comece por `AGENTS.md`.

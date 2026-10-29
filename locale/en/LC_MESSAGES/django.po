@@ -1,0 +1,4313 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apps/clinic/services.py
+#, python-format
+msgid "%(d)s convidou você para o portal do paciente"
+msgstr "%(d)s invited you to the patient portal"
+
+#: templates/emails/patient_invite.html
+#, python-format
+msgid "%(d)s convidou você para o portal do paciente. Lá você agenda consultas, acompanha seus tratamentos e vê documentos e faturas."
+msgstr "%(d)s invited you to the patient portal. There you can book appointments, follow your treatments and see documents and invoices."
+
+#: templates/emails/quote_sent.html
+#, python-format
+msgid "%(d)s preparou seu orçamento."
+msgstr "%(d)s prepared your quote."
+
+#: apps/quotes/views.py
+#, python-format
+msgid "%(n)s abriu seu orçamento"
+msgstr "%(n)s opened your quote"
+
+#: apps/quotes/views.py
+#, python-format
+msgid "%(n)s aceitou o orçamento"
+msgstr "%(n)s accepted the quote"
+
+#: apps/agenda/notify.py
+#, python-format
+msgid "%(n)s agendou uma consulta"
+msgstr "%(n)s booked an appointment"
+
+#: apps/clinic/views_dentist.py
+#, python-format
+msgid "%(n)s arquivo(s) adicionado(s)"
+msgstr "%(n)s file(s) added"
+
+#: apps/clinic/views_dentist.py
+#, python-format
+msgid "%(n)s arquivo(s) enviado(s)."
+msgstr "%(n)s file(s) uploaded."
+
+#: apps/agenda/notify.py
+#, python-format
+msgid "%(n)s cancelou a consulta"
+msgstr "%(n)s cancelled the appointment"
+
+#: templates/operator/data_report.html
+#, python-format
+msgid "%(n)s erro — nada foi gravado."
+msgid_plural "%(n)s erros — nada foi gravado."
+msgstr[0] "%(n)s error — nothing was saved."
+msgstr[1] "%(n)s errors — nothing was saved."
+
+#: templates/agenda/calendar.html
+#, python-format
+msgid "%(n)s pedido aguardando sua confirmação"
+msgid_plural "%(n)s pedidos aguardando sua confirmação"
+msgstr[0] "%(n)s request waiting for your confirmation"
+msgstr[1] "%(n)s requests waiting for your confirmation"
+
+#: apps/quotes/views.py
+#, python-format
+msgid "%(n)s recusou o orçamento"
+msgstr "%(n)s declined the quote"
+
+#: apps/agenda/notify.py
+#, python-format
+msgid "%(n)s remarcou a consulta"
+msgstr "%(n)s rescheduled the appointment"
+
+#: apps/clinic/views_patient.py
+#, python-format
+msgid "%(p)s avisou que pagou a fatura %(n)s"
+msgstr "%(p)s says they paid invoice %(n)s"
+
+#: apps/agenda/calendar_links.py
+#, python-format
+msgid "%(status)s: %(type)s com %(dentist)s"
+msgstr "%(status)s: %(type)s with %(dentist)s"
+
+#: apps/quotes/views.py
+#, python-format
+msgid "%(t)s (cópia)"
+msgstr "%(t)s (copy)"
+
+#: templates/quotes/detail.html
+#, python-format
+msgid "%(t)s após o envio"
+msgstr "%(t)s after sending"
+
+#: apps/agenda/calendar_links.py
+#, python-format
+msgid "%(weekday)s, %(date)s, das %(start)s às %(end)s"
+msgstr "%(weekday)s, %(date)s, from %(start)s to %(end)s"
+
+#: templates/patient/dashboard.html
+#, python-format
+msgid "+ %(n)s outra consulta marcada"
+msgid_plural "+ %(n)s outras consultas marcadas"
+msgstr[0] "+ %(n)s more appointment booked"
+msgstr[1] "+ %(n)s more appointments booked"
+
+#: apps/agenda/models.py
+msgid "12 horas"
+msgstr "12 hours"
+
+#: apps/agenda/models.py
+msgid "24 horas"
+msgstr "24 hours"
+
+#: apps/agenda/models.py
+msgid "48 horas"
+msgstr "48 hours"
+
+#: apps/agenda/models.py
+msgid "72 horas"
+msgstr "72 hours"
+
+#: templates/emails/quote_first_view.html
+#, python-format
+msgid "<strong>%(n)s</strong> abriu o orçamento “%(t)s”."
+msgstr "<strong>%(n)s</strong> opened the quote “%(t)s”."
+
+#: templates/emails/quote_response.html
+#, python-format
+msgid "<strong>%(n)s</strong> aceitou o orçamento “%(t)s”."
+msgstr "<strong>%(n)s</strong> accepted the quote “%(t)s”."
+
+#: templates/emails/booking_new_dentist.html
+#, python-format
+msgid "<strong>%(n)s</strong> agendou uma consulta pelo portal."
+msgstr "<strong>%(n)s</strong> booked an appointment in the portal."
+
+#: templates/emails/booking_changed_dentist.html
+#, python-format
+msgid "<strong>%(n)s</strong> cancelou a consulta."
+msgstr "<strong>%(n)s</strong> cancelled the appointment."
+
+#: templates/emails/dentist_treatment_message.html
+#, python-format
+msgid "<strong>%(n)s</strong> escreveu no tratamento <strong>%(t)s</strong>:"
+msgstr "<strong>%(n)s</strong> wrote on the treatment <strong>%(t)s</strong>:"
+
+#: templates/emails/booking_request_dentist.html
+#, python-format
+msgid "<strong>%(n)s</strong> pediu uma consulta pela sua página."
+msgstr "<strong>%(n)s</strong> requested an appointment on your page."
+
+#: templates/emails/late_cancel_dentist.html
+#, python-format
+msgid "<strong>%(n)s</strong> quer cancelar uma consulta que está em cima da hora (dentro do seu prazo de cancelamento)."
+msgstr "<strong>%(n)s</strong> wants to cancel an appointment at short notice (inside your cancellation window)."
+
+#: templates/emails/quote_response.html
+#, python-format
+msgid "<strong>%(n)s</strong> recusou o orçamento “%(t)s”."
+msgstr "<strong>%(n)s</strong> declined the quote “%(t)s”."
+
+#: templates/emails/booking_changed_dentist.html
+#, python-format
+msgid "<strong>%(n)s</strong> remarcou a consulta."
+msgstr "<strong>%(n)s</strong> rescheduled the appointment."
+
+#: templates/emails/invoice_patient_paid.html
+#, python-format
+msgid "<strong>%(p)s</strong> avisou que pagou a fatura %(n)s."
+msgstr "<strong>%(p)s</strong> says they paid invoice %(n)s."
+
+#: apps/clinic/views_patient.py
+msgid "A agenda online ainda não está aberta. Fale com a clínica."
+msgstr "Online booking isn't open yet. Please contact the clinic."
+
+#: templates/agenda/public_thanks.html
+msgid "A clínica vai confirmar seu horário por e-mail."
+msgstr "The clinic will confirm your time by e-mail."
+
+#: apps/clinic/photos.py
+#, python-format
+msgid "A foto passa do limite de %(mb)s MB."
+msgstr "The photo is over the %(mb)s MB limit."
+
+#: apps/core/files.py
+msgid "A imagem passa do limite de 5 MB."
+msgstr "The image is over the 5 MB limit."
+
+#: templates/clinic/dashboard.html
+msgid "A receber"
+msgstr "To receive"
+
+#: templates/components/pdf_viewer.html
+msgid "Abrir"
+msgstr "Open"
+
+#: templates/emails/late_cancel_dentist.html
+msgid "Abrir consulta"
+msgstr "Open appointment"
+
+#: templates/emails/lead_new_dentist.html
+msgid "Abrir lead"
+msgstr "Open lead"
+
+#: templates/emails/patient_treatment_activity.html
+msgid "Abrir no portal"
+msgstr "Open in the portal"
+
+#: templates/emails/quote_response.html
+msgid "Abrir orçamento"
+msgstr "Open quote"
+
+#: templates/emails/booking_request_dentist.html
+msgid "Abrir pedido"
+msgstr "Open request"
+
+#: templates/accounts/consent.html
+msgid "Aceitar e continuar"
+msgstr "Accept and continue"
+
+#: templates/quotes/public.html
+msgid "Aceitar orçamento"
+msgstr "Accept quote"
+
+#: apps/quotes/models.py
+msgid "Aceito"
+msgstr "Accepted"
+
+#: templates/quotes/detail.html
+#, python-format
+msgid "Aceito em %(w)s"
+msgstr "Accepted on %(w)s"
+
+#: templates/operator/dentist_edit.html
+msgid "Acesso"
+msgstr "Access"
+
+#: templates/operator/dashboard.html
+msgid "Acesso acabando (7 dias)"
+msgstr "Access ending (7 days)"
+
+#: templates/operator/dentist_edit.html templates/operator/dentist_list.html
+msgid "Acesso até"
+msgstr "Access until"
+
+#: apps/operator/views.py
+#, python-format
+msgid "Acesso liberado até %(d)s."
+msgstr "Access granted until %(d)s."
+
+#: templates/landing/_lead_follow.html
+msgid "Acompanhamento"
+msgstr "Follow-up"
+
+#: templates/agenda/public_thanks.html templates/emails/booking_request_received.html
+msgid "Acompanhar meu pedido"
+msgstr "Track my request"
+
+#: templates/landing/editor.html
+msgid "Adicionar"
+msgstr "Add"
+
+#: templates/quotes/form.html
+msgid "Adicionar item"
+msgstr "Add item"
+
+#: templates/components/add_to_calendar.html templates/emails/_calendar_links.html
+msgid "Adicionar à agenda"
+msgstr "Add to calendar"
+
+#: apps/agenda/calendar_links.py
+#, python-format
+msgid "Adicionar à agenda: %(url)s"
+msgstr "Add to calendar: %(url)s"
+
+#: templates/agenda/calendar.html templates/agenda/detail.html templates/layouts/dentist.html
+msgid "Agenda"
+msgstr "Calendar"
+
+#: templates/website/home.html
+msgid "Agenda online"
+msgstr "Online booking"
+
+#: templates/landing/public.html
+msgid "Agenda online por"
+msgstr "Online booking by"
+
+#: templates/base.html
+msgid "Agenda online, portal do paciente e orçamentos para dentistas."
+msgstr "Online booking, patient portal and quotes for dentists."
+
+#: templates/website/home.html
+msgid "Agenda que não parece vazia"
+msgstr "A calendar that never looks empty"
+
+#: apps/agenda/views_dentist.py
+msgid "Agenda salva."
+msgstr "Calendar saved."
+
+#: apps/landing/models.py
+msgid "Agendamento online"
+msgstr "Online booking"
+
+#: templates/operator/dashboard.html
+msgid "Agendamentos (7 dias)"
+msgstr "Bookings (7 days)"
+
+#: templates/landing/public.html templates/layouts/patient.html templates/patient/appointments.html templates/patient/book.html templates/patient/dashboard.html
+msgid "Agendar"
+msgstr "Book"
+
+#: templates/patient/dashboard.html
+msgid "Agendar agora"
+msgstr "Book now"
+
+#: templates/patient/book.html
+msgid "Agendar consulta"
+msgstr "Book an appointment"
+
+#: templates/landing/public.html
+msgid "Agendar pelo portal"
+msgstr "Book in the portal"
+
+#: templates/landing/public.html templates/website/home.html
+msgid "Agende sua consulta"
+msgstr "Book your appointment"
+
+#: apps/clinic/services.py
+msgid "Agende sua consulta online"
+msgstr "Book your appointment online"
+
+#: templates/patient/appointment.html
+msgid "Aguardando a confirmação da clínica. Você recebe um e-mail quando for confirmado."
+msgstr "Waiting for the clinic to confirm. You'll get an e-mail once it's confirmed."
+
+#: apps/agenda/models.py
+msgid "Aguardando confirmação"
+msgstr "Awaiting confirmation"
+
+#: templates/clinic/settings.html templates/operator/settings.html
+msgid "Alertas por e-mail"
+msgstr "E-mail alerts"
+
+#: templates/patient/book.html
+msgid "Algo que a clínica deve saber? (opcional)"
+msgstr "Anything the clinic should know? (optional)"
+
+#: templates/accounts/change_password.html templates/clinic/settings.html templates/patient/settings.html
+msgid "Alterar senha"
+msgstr "Change password"
+
+#: apps/agenda/forms.py
+msgid "Anotação interna"
+msgstr "Internal note"
+
+#: apps/clinic/views_export.py
+msgid "Anotações"
+msgstr "Notes"
+
+#: templates/clinic/patient_detail.html
+msgid "Anotações internas"
+msgstr "Internal notes"
+
+#: templates/components/pagination.html
+msgid "Anterior"
+msgstr "Previous"
+
+#: apps/clinic/models.py
+msgid "Antes"
+msgstr "Before"
+
+#: templates/operator/dentist_delete.html
+msgid "Apagar definitivamente"
+msgstr "Delete permanently"
+
+#: templates/operator/dentist_delete.html templates/operator/dentist_edit.html
+msgid "Apagar dentista"
+msgstr "Delete dentist"
+
+#: templates/clinic/patient_delete.html
+msgid "Apagar também os registros clínicos (não pode ser desfeito)"
+msgstr "Also delete the clinical records (cannot be undone)"
+
+#: templates/components/add_to_calendar.html
+msgid "Apple / outros (.ics)"
+msgstr "Apple / others (.ics)"
+
+#: templates/agenda/_detail_panel.html templates/agenda/calendar.html templates/clinic/dashboard.html
+msgid "Aprovar"
+msgstr "Approve"
+
+#: templates/accounts/consent.html
+#, python-format
+msgid "Aqui você agenda consultas, acompanha seus tratamentos e vê documentos, fotos e faturas que %(d)s compartilhar com você."
+msgstr "Here you book appointments, follow your treatments and see the documents, photos and invoices %(d)s shares with you."
+
+#: apps/operator/forms.py
+msgid "Arquivo (.zip ou .toml)"
+msgstr "File (.zip or .toml)"
+
+#: templates/agenda/export.html
+msgid "Arquivo de calendário (.ics)"
+msgstr "Calendar file (.ics)"
+
+#: apps/clinic/views_dentist.py
+msgid "Arquivo removido."
+msgstr "File removed."
+
+#: templates/clinic/expired.html templates/website/plans.html
+msgid "Assinar"
+msgstr "Subscribe"
+
+#: templates/clinic/expired.html
+msgid "Assinatura"
+msgstr "Subscription"
+
+#: templates/agenda/sync.html
+msgid "Assine sua agenda do wbook no calendário que você já usa. Novas consultas e mudanças aparecem sozinhas (sentido único: wbook → calendário)."
+msgstr "Subscribe to your wbook calendar in the calendar you already use. New appointments and changes appear on their own (one way: wbook → calendar)."
+
+#: templates/layouts/operator.html templates/operator/activity.html
+msgid "Atividade"
+msgstr "Activity"
+
+#: templates/clinic/dashboard.html
+msgid "Atividade nos orçamentos"
+msgstr "Quote activity"
+
+#: templates/agenda/settings.html
+msgid "Ativo"
+msgstr "Active"
+
+#: templates/operator/data_report.html
+msgid "Atualizadas"
+msgstr "Updated"
+
+#: templates/clinic/treatment_detail.html
+msgid "Atualizar"
+msgstr "Update"
+
+#: templates/quotes/detail.html
+msgid "Atualizar valor do tratamento"
+msgstr "Update treatment value"
+
+#: templates/agenda/export.html
+msgid "Até"
+msgstr "To"
+
+#: apps/agenda/forms.py
+msgid "Autorizo o consultório a usar estes dados para entrar em contato e agendar minha consulta."
+msgstr "I allow the practice to use this information to contact me and book my appointment."
+
+#: apps/landing/forms.py
+msgid "Autorizo o consultório a usar estes dados para entrar em contato."
+msgstr "I allow the practice to use this information to contact me."
+
+#: apps/accounts/forms.py
+msgid "Autorizo o uso dos meus dados de saúde (fotos, exames e anotações do tratamento) pelo meu dentista para o meu atendimento."
+msgstr "I allow my dentist to use my health data (photos, exams and treatment notes) for my care."
+
+#: apps/agenda/views_public.py apps/clinic/views_patient.py
+msgid "Avisamos a clínica. Ligue para confirmar o cancelamento."
+msgstr "We told the clinic. Call to confirm the cancellation."
+
+#: templates/components/late_cancel_box.html
+msgid "Avisar a clínica"
+msgstr "Notify the clinic"
+
+#: templates/operator/data_report.html
+msgid "Avisos"
+msgstr "Warnings"
+
+#: templates/quotes/detail.html
+msgid "Ações"
+msgstr "Actions"
+
+#: templates/clinic/exports.html
+msgid "Backup completo da clínica"
+msgstr "Full clinic backup"
+
+#: templates/components/pdf_viewer.html
+msgid "Baixar"
+msgstr "Download"
+
+#: templates/clinic/exports.html
+msgid "Baixar backup (.zip)"
+msgstr "Download backup (.zip)"
+
+#: templates/clinic/patient_delete.html
+msgid "Baixar dados do paciente"
+msgstr "Download patient data"
+
+#: templates/clinic/patient_detail.html
+msgid "Baixar dados do paciente (LGPD)"
+msgstr "Download patient data (LGPD)"
+
+#: templates/operator/data.html
+msgid "Baixar exportação"
+msgstr "Download export"
+
+#: templates/operator/activity.html
+msgid "Baixar log"
+msgstr "Download log"
+
+#: templates/patient/my_data.html
+msgid "Baixar meus dados (.zip)"
+msgstr "Download my data (.zip)"
+
+#: templates/patient/appointments.html
+msgid "Baixar todas (.ics)"
+msgstr "Download all (.ics)"
+
+#: templates/patient/my_data.html
+msgid "Baixe uma cópia dos seus dados: cadastro, consultas, tratamentos, mensagens, faturas e os arquivos que a clínica compartilhou com você."
+msgstr "Download a copy of your data: profile, appointments, treatments, messages, invoices and the files the clinic shared with you."
+
+#: templates/accounts/consent.html
+msgid "Bem-vindo ao seu portal"
+msgstr "Welcome to your portal"
+
+#: apps/operator/views.py
+msgid "Bem-vindo ao wbook — defina sua senha"
+msgstr "Welcome to wbook — set your password"
+
+#: templates/agenda/blocks.html templates/agenda/calendar.html
+msgid "Bloquear"
+msgstr "Block"
+
+#: templates/agenda/blocks.html templates/agenda/settings.html
+msgid "Bloquear horários"
+msgstr "Block times"
+
+#: apps/agenda/views_dentist.py
+msgid "Bloqueio removido."
+msgstr "Block removed."
+
+#: templates/agenda/blocks.html
+msgid "Bloqueios"
+msgstr "Blocks"
+
+#: templates/clinic/patient_list.html templates/landing/lead_list.html templates/operator/dentist_list.html templates/operator/platform_leads.html
+msgid "Buscar"
+msgstr "Search"
+
+#: templates/clinic/patient_list.html
+msgid "Buscar por nome, e-mail ou WhatsApp"
+msgstr "Search by name, e-mail or WhatsApp"
+
+#: apps/clinic/forms.py apps/clinic/models.py apps/clinic/views_export.py
+msgid "CPF"
+msgstr "CPF"
+
+#: apps/accounts/forms.py apps/clinic/models.py
+msgid "CRO"
+msgstr "CRO"
+
+#: templates/operator/settings.html
+msgid "Cada alerta vai para o e-mail principal (em branco = e-mail de contato) e, se preenchido, também para o segundo e-mail."
+msgstr "Each alert goes to the primary e-mail (blank = contact e-mail) and, if filled in, also to the second e-mail."
+
+#: templates/clinic/patient_form.html
+msgid "Cadastrar"
+msgstr "Register"
+
+#: templates/agenda/_detail_panel.html templates/landing/lead_detail.html templates/quotes/detail.html
+msgid "Cadastrar como paciente"
+msgstr "Register as patient"
+
+#: apps/quotes/views.py
+msgid "Cadastre o paciente primeiro."
+msgstr "Register the patient first."
+
+#: templates/clinic/patient_list.html
+msgid "Cadastre um paciente ou converta um lead."
+msgstr "Register a patient or convert a lead."
+
+#: templates/clinic/treatment_form.html
+msgid "Cadastre um paciente primeiro"
+msgstr "Register a patient first"
+
+#: apps/landing/models.py
+msgid "Cadastro manual"
+msgstr "Added manually"
+
+#: apps/agenda/models.py apps/clinic/models.py
+msgid "Cancelada"
+msgstr "Cancelled"
+
+#: apps/clinic/models.py
+msgid "Cancelado"
+msgstr "Cancelled"
+
+#: templates/agenda/create.html templates/clinic/invoice_detail.html templates/clinic/invoice_form.html templates/clinic/patient_delete.html templates/clinic/patient_edit.html templates/clinic/patient_fo
+msgid "Cancelar"
+msgstr "Cancel"
+
+#: templates/agenda/_detail_panel.html templates/agenda/public_status.html templates/patient/appointment.html
+msgid "Cancelar consulta"
+msgstr "Cancel appointment"
+
+#: templates/agenda/public_status.html templates/patient/appointment.html
+msgid "Cancelar esta consulta?"
+msgstr "Cancel this appointment?"
+
+#: templates/agenda/_detail_panel.html
+msgid "Cancelar esta consulta? O paciente será avisado."
+msgstr "Cancel this appointment? The patient will be notified."
+
+#: templates/clinic/invoice_detail.html
+msgid "Cancelar esta fatura?"
+msgstr "Cancel this invoice?"
+
+#: templates/operator/activity.html
+msgid "Categoria"
+msgstr "Category"
+
+#: templates/emails/invoice_new.html templates/patient/invoice.html
+msgid "Chave PIX"
+msgstr "PIX key"
+
+#: apps/clinic/invoice_pdf.py
+#, python-format
+msgid "Chave PIX: %(k)s"
+msgstr "PIX key: %(k)s"
+
+#: apps/accounts/forms.py apps/operator/forms.py templates/operator/dentist_list.html
+msgid "Cidade"
+msgstr "City"
+
+#: templates/accounts/verify_email.html
+msgid "Clique no botão para ativar sua conta e entrar."
+msgstr "Click the button to activate your account and sign in."
+
+#: templates/agenda/calendar.html
+msgid "Clique num horário vazio para marcar. Tracejado = aguardando confirmação · borda vermelha = paciente pediu cancelamento."
+msgstr "Click an empty slot to book. Dashed = awaiting confirmation · red border = patient asked to cancel."
+
+#: templates/website/privacy.html
+msgid "Coletamos os dados que você informa ao pedir uma consulta ou usar o portal: nome, e-mail, WhatsApp, horários de consulta e, no portal, informações do tratamento que o seu dentista registrar."
+msgstr "We collect the data you provide when requesting an appointment or using the portal: name, e-mail, WhatsApp, appointment times and, in the portal, the treatment information your dentist records."
+
+#: templates/operator/dashboard.html
+msgid "Com acesso"
+msgstr "With access"
+
+#: templates/quotes/public.html
+msgid "Comentário (opcional)"
+msgstr "Comment (optional)"
+
+#: templates/website/home.html templates/website/plans.html
+msgid "Começar teste grátis"
+msgstr "Start free trial"
+
+#: apps/clinic/invoice_pdf.py
+msgid "Como pagar"
+msgstr "How to pay"
+
+#: templates/components/photo_gallery.html
+msgid "Comparar antes e depois"
+msgstr "Compare before and after"
+
+#: apps/clinic/forms.py
+msgid "Compartilhar com o paciente"
+msgstr "Share with the patient"
+
+#: templates/components/photo_gallery.html
+msgid "Compartilhar fase"
+msgstr "Share phase"
+
+#: apps/clinic/views_dentist.py
+msgid "Complete seu perfil e envie o logo"
+msgstr "Complete your profile and upload your logo"
+
+#: apps/clinic/models.py
+msgid "Concluído"
+msgstr "Completed"
+
+#: templates/quotes/public.html
+msgid "Condições de pagamento"
+msgstr "Payment terms"
+
+#: templates/emails/invoice_patient_paid.html
+msgid "Conferir e marcar como paga"
+msgstr "Check and mark as paid"
+
+#: templates/layouts/dentist.html
+msgid "Configurar"
+msgstr "Set up"
+
+#: templates/clinic/expired.html templates/clinic/settings.html templates/layouts/dentist.html templates/layouts/operator.html templates/operator/settings.html
+msgid "Configurações"
+msgstr "Settings"
+
+#: templates/operator/settings.html
+msgid "Configurações da plataforma"
+msgstr "Platform settings"
+
+#: apps/clinic/views_dentist.py apps/operator/views.py
+msgid "Configurações salvas."
+msgstr "Settings saved."
+
+#: apps/agenda/views_dentist.py
+msgid "Confira os campos destacados."
+msgstr "Please check the highlighted fields."
+
+#: apps/landing/views.py
+msgid "Confira os campos do formulário de contato."
+msgstr "Please check the contact form fields."
+
+#: apps/website/views.py
+msgid "Confira os campos do formulário."
+msgstr "Please check the form fields."
+
+#: templates/accounts/password_reset_done.html
+msgid "Confira seu e-mail"
+msgstr "Check your e-mail"
+
+#: apps/agenda/views_public.py
+msgid "Confira seus dados: "
+msgstr "Please check your details: "
+
+#: apps/agenda/models.py
+msgid "Confirmada"
+msgstr "Confirmed"
+
+#: templates/patient/book.html
+msgid "Confirmar agendamento"
+msgstr "Confirm booking"
+
+#: templates/accounts/verify_email.html
+msgid "Confirmar e entrar"
+msgstr "Confirm and sign in"
+
+#: templates/operator/data_report.html
+msgid "Confirmar e gravar"
+msgstr "Confirm and save"
+
+#: templates/accounts/verify_email.html templates/emails/verify_email.html
+msgid "Confirmar e-mail"
+msgstr "Confirm e-mail"
+
+#: templates/patient/book.html
+msgid "Confirmar novo horário"
+msgstr "Confirm new time"
+
+#: templates/confirm_delete.html
+msgid "Confirmar remoção"
+msgstr "Confirm removal"
+
+#: templates/accounts/verify_email.html
+msgid "Confirmar seu e-mail"
+msgstr "Confirm your e-mail"
+
+#: templates/clinic/settings.html
+msgid "Confirmações de agendamento, remarcações e cancelamentos são sempre enviadas."
+msgstr "Booking confirmations, reschedules and cancellations are always sent."
+
+#: templates/patient/settings.html
+msgid "Confirmações e mudanças de consulta são sempre enviadas."
+msgstr "Appointment confirmations and changes are always sent."
+
+#: templates/accounts/verify_email_sent.html
+msgid "Confirme seu e-mail"
+msgstr "Confirm your e-mail"
+
+#: templates/emails/verify_email.html
+msgid "Confirme seu e-mail para ativar sua conta no wbook."
+msgstr "Confirm your e-mail to activate your wbook account."
+
+#: apps/accounts/views.py
+msgid "Confirme seu e-mail — wbook"
+msgstr "Confirm your e-mail — wbook"
+
+#: templates/accounts/consent.html
+msgid "Consentimento"
+msgstr "Consent"
+
+#: templates/agenda/detail.html templates/patient/appointment.html
+msgid "Consulta"
+msgstr "Appointment"
+
+#: apps/agenda/notify.py
+msgid "Consulta cancelada"
+msgstr "Appointment cancelled"
+
+#: apps/agenda/views_public.py apps/clinic/views_patient.py
+msgid "Consulta cancelada."
+msgstr "Appointment cancelled."
+
+#: apps/agenda/views_dentist.py
+msgid "Consulta cancelada. O paciente foi avisado."
+msgstr "Appointment cancelled. The patient was notified."
+
+#: apps/agenda/calendar_links.py
+msgid "Consulta confirmada"
+msgstr "Appointment confirmed"
+
+#: templates/website/home.html
+msgid "Consulta confirmada — adicionada à sua agenda"
+msgstr "Appointment confirmed — added to your calendar"
+
+#: apps/clinic/views_patient.py
+msgid "Consulta confirmada!"
+msgstr "Appointment confirmed!"
+
+#: apps/agenda/views_dentist.py
+msgid "Consulta confirmada. O paciente foi avisado."
+msgstr "Appointment confirmed. The patient was notified."
+
+#: apps/agenda/notify.py
+#, python-format
+msgid "Consulta confirmada: %(w)s"
+msgstr "Appointment confirmed: %(w)s"
+
+#: apps/agenda/views_dentist.py
+msgid "Consulta mantida."
+msgstr "Appointment kept."
+
+#: apps/landing/models.py
+msgid "Consulta marcada"
+msgstr "Appointment booked"
+
+#: apps/agenda/views_dentist.py
+msgid "Consulta marcada como realizada."
+msgstr "Appointment marked as done."
+
+#: apps/agenda/views_dentist.py
+msgid "Consulta marcada."
+msgstr "Appointment booked."
+
+#: apps/clinic/views_patient.py
+msgid "Consulta remarcada."
+msgstr "Appointment rescheduled."
+
+#: apps/agenda/views_dentist.py
+msgid "Consulta remarcada. O paciente foi avisado."
+msgstr "Appointment rescheduled. The patient was notified."
+
+#: apps/agenda/notify.py
+#, python-format
+msgid "Consulta remarcada: %(w)s"
+msgstr "Appointment rescheduled: %(w)s"
+
+#: apps/agenda/calendar_links.py
+msgid "Consulta solicitada"
+msgstr "Appointment requested"
+
+#: templates/clinic/exports.html templates/clinic/patient_detail.html templates/layouts/patient.html templates/patient/appointments.html
+msgid "Consultas"
+msgstr "Appointments"
+
+#: templates/clinic/dashboard.html
+msgid "Consultas por semana"
+msgstr "Appointments per week"
+
+#: apps/operator/forms.py templates/operator/dentist_list.html templates/operator/platform_leads.html
+msgid "Consultório"
+msgstr "Practice"
+
+#: templates/patient/settings.html
+msgid "Conta"
+msgstr "Account"
+
+#: templates/clinic/expired.html
+msgid "Conta suspensa"
+msgstr "Account suspended"
+
+#: apps/landing/models.py
+msgid "Contatado"
+msgstr "Contacted"
+
+#: templates/clinic/patient_list.html templates/operator/platform_leads.html
+msgid "Contato"
+msgstr "Contact"
+
+#: templates/website/privacy.html
+msgid "Contato do encarregado:"
+msgstr "Data protection officer:"
+
+#: apps/landing/models.py
+msgid "Contato pela página"
+msgstr "Contact via page"
+
+#: templates/clinic/patient_form.html
+#, python-format
+msgid "Convertendo o lead <strong>%(n)s</strong> em paciente. Os pedidos de consulta dele passam para o portal."
+msgstr "Converting the lead <strong>%(n)s</strong> into a patient. Their appointment requests move to the portal."
+
+#: apps/clinic/views_export.py
+msgid "Convidado em"
+msgstr "Invited on"
+
+#: apps/clinic/views_dentist.py
+msgid "Convide seu primeiro paciente"
+msgstr "Invite your first patient"
+
+#: apps/clinic/views_dentist.py
+msgid "Convite enviado."
+msgstr "Invitation sent."
+
+#: apps/clinic/views_dentist.py
+#, python-format
+msgid "Convite reenviado para %(e)s."
+msgstr "Invitation resent to %(e)s."
+
+#: templates/agenda/sync.html templates/quotes/detail.html
+msgid "Copiado!"
+msgstr "Copied!"
+
+#: templates/quotes/detail.html
+msgid "Copiar link"
+msgstr "Copy link"
+
+#: templates/agenda/settings.html
+msgid "Cor"
+msgstr "Colour"
+
+#: templates/clinic/treatment_form.html
+#, python-format
+msgid "Criando a partir do orçamento <strong>%(q)s</strong>."
+msgstr "Creating from the quote <strong>%(q)s</strong>."
+
+#: templates/operator/dentist_add.html
+msgid "Criar"
+msgstr "Create"
+
+#: templates/accounts/register.html
+msgid "Criar conta"
+msgstr "Create account"
+
+#: templates/accounts/register.html
+msgid "Criar conta de dentista"
+msgstr "Create dentist account"
+
+#: templates/clinic/invoice_form.html
+msgid "Criar fatura"
+msgstr "Create invoice"
+
+#: templates/emails/patient_invite.html
+msgid "Criar minha senha"
+msgstr "Create my password"
+
+#: templates/quotes/detail.html
+msgid "Criar tratamento a partir do orçamento"
+msgstr "Create treatment from quote"
+
+#: templates/clinic/invoice_list.html
+msgid "Crie faturas a partir de um tratamento."
+msgstr "Create invoices from a treatment."
+
+#: templates/accounts/register.html
+msgid "Crie sua conta"
+msgstr "Create your account"
+
+#: apps/quotes/views.py
+msgid "Cópia criada como rascunho."
+msgstr "Copy created as a draft."
+
+#: templates/clinic/patient_detail.html
+msgid "Dados"
+msgstr "Details"
+
+#: apps/operator/views.py
+msgid "Dados salvos."
+msgstr "Details saved."
+
+#: apps/clinic/forms.py apps/clinic/views_export.py templates/landing/lead_list.html templates/operator/platform_leads.html
+msgid "Data"
+msgstr "Date"
+
+#: apps/clinic/forms.py apps/clinic/views_export.py
+msgid "Data de nascimento"
+msgstr "Date of birth"
+
+#: templates/agenda/export.html
+msgid "De"
+msgstr "From"
+
+#: apps/clinic/views_dentist.py
+msgid "Defina seus horários e tipos de consulta"
+msgstr "Set your hours and appointment types"
+
+#: templates/accounts/set_password.html
+msgid "Defina sua senha"
+msgstr "Set your password"
+
+#: templates/emails/dentist_welcome_set_password.html
+msgid "Defina sua senha para entrar e configurar sua agenda online."
+msgstr "Set your password to sign in and set up your online booking."
+
+#: apps/accounts/forms.py
+msgid "Defina uma nova senha — wbook"
+msgstr "Set a new password — wbook"
+
+#: templates/emails/password_reset.html
+msgid "Definir nova senha"
+msgstr "Set new password"
+
+#: templates/accounts/set_password.html templates/emails/dentist_welcome_set_password.html
+msgid "Definir senha"
+msgstr "Set password"
+
+#: apps/clinic/forms.py templates/quotes/public.html
+msgid "Dente / região"
+msgstr "Tooth / region"
+
+#: apps/accounts/models.py apps/agenda/models.py
+msgid "Dentista"
+msgstr "Dentist"
+
+#: apps/operator/views.py
+msgid "Dentista apagado."
+msgstr "Dentist deleted."
+
+#: apps/operator/views.py
+msgid "Dentista criado. Enviamos o e-mail para definir a senha."
+msgstr "Dentist created. We sent the set-password e-mail."
+
+#: apps/operator/views.py
+msgid "Dentista reativado."
+msgstr "Dentist reactivated."
+
+#: apps/operator/views.py
+msgid "Dentista suspenso."
+msgstr "Dentist suspended."
+
+#: apps/operator/forms.py templates/layouts/operator.html templates/operator/dashboard.html templates/operator/dentist_edit.html templates/operator/dentist_list.html
+msgid "Dentistas"
+msgstr "Dentists"
+
+#: templates/accounts/login.html
+msgid "Dentistas e pacientes entram por aqui."
+msgstr "Dentists and patients sign in here."
+
+#: templates/operator/platform_leads.html
+msgid "Dentistas interessados"
+msgstr "Interested dentists"
+
+#: apps/clinic/models.py
+msgid "Depois"
+msgstr "After"
+
+#: templates/clinic/expired.html
+msgid "Depois do pagamento, liberamos o acesso em até um dia útil."
+msgstr "After payment, we grant access within one business day."
+
+#: templates/quotes/detail.html
+msgid "Desativar link"
+msgstr "Disable link"
+
+#: apps/clinic/views_export.py templates/clinic/invoice_list.html
+msgid "Descrição"
+msgstr "Description"
+
+#: apps/clinic/views_export.py
+msgid "Destinatário"
+msgstr "Recipient"
+
+#: templates/components/late_cancel_box.html
+msgid "Detalhes (opcional)"
+msgstr "Details (optional)"
+
+#: templates/agenda/calendar.html templates/agenda/settings.html
+msgid "Dia"
+msgstr "Day"
+
+#: apps/operator/forms.py
+msgid "Dias de teste"
+msgstr "Trial days"
+
+#: templates/clinic/invoice_form.html
+msgid "Dica: cadastre sua chave PIX ou link de pagamento em Configurações para aparecer na fatura."
+msgstr "Tip: add your PIX key or payment link in Settings so it shows on the invoice."
+
+#: templates/operator/dentist_delete.html
+#, python-format
+msgid "Digite <code>%(s)s</code> para confirmar"
+msgstr "Type <code>%(s)s</code> to confirm"
+
+#: apps/operator/views.py
+msgid "Digite o endereço exato para confirmar."
+msgstr "Type the exact address to confirm."
+
+#: templates/quotes/detail.html
+msgid "Dispositivo"
+msgstr "Device"
+
+#: apps/clinic/models.py
+msgid "Documento PDF"
+msgstr "PDF document"
+
+#: templates/quotes/public.html
+msgid "Documento do orçamento"
+msgstr "Quote document"
+
+#: templates/clinic/treatment_detail.html templates/patient/treatment.html
+msgid "Documentos"
+msgstr "Documents"
+
+#: apps/agenda/models.py
+msgid "Domingo"
+msgstr "Sunday"
+
+#: templates/quotes/detail.html
+msgid "Duplicar"
+msgstr "Duplicate"
+
+#: apps/clinic/models.py
+msgid "Durante"
+msgstr "During"
+
+#: templates/agenda/settings.html
+msgid "Duração"
+msgstr "Duration"
+
+#: templates/agenda/settings.html
+msgid "Duração e intervalo em minutos. “Visitantes” = pode ser pedido por quem ainda não é paciente. O preço só aparece na página se “Mostrar preços” também estiver ligado em Minha página."
+msgstr "Duration and buffer in minutes. “Visitors” = can be requested by people who aren't patients yet. The price only shows on the page if “Show prices” is also on in My page."
+
+#: apps/accounts/forms.py apps/agenda/forms.py apps/clinic/forms.py apps/clinic/views_export.py apps/landing/forms.py apps/operator/forms.py templates/clinic/patient_detail.html templates/operator/dentis
+msgid "E-mail"
+msgstr "E-mail"
+
+#: apps/accounts/views.py
+msgid "E-mail confirmado. Bem-vindo ao wbook!"
+msgstr "E-mail confirmed. Welcome to wbook!"
+
+#: templates/accounts/verify_email.html
+msgid "E-mail já confirmado"
+msgstr "E-mail already confirmed"
+
+#: apps/accounts/forms.py
+msgid "E-mail ou usuário"
+msgstr "E-mail or username"
+
+#: apps/accounts/forms.py
+msgid "E-mail/usuário ou senha incorretos."
+msgstr "Wrong e-mail/username or password."
+
+#: templates/patient/settings.html
+msgid "E-mails"
+msgstr "E-mails"
+
+#: templates/clinic/patient_detail.html
+msgid "Editar"
+msgstr "Edit"
+
+#: templates/quotes/form.html
+msgid "Editar orçamento"
+msgstr "Edit quote"
+
+#: templates/clinic/patient_edit.html
+msgid "Editar paciente"
+msgstr "Edit patient"
+
+#: templates/landing/public.html
+msgid "Editar página"
+msgstr "Edit page"
+
+#: templates/clinic/treatment_form.html
+msgid "Editar tratamento"
+msgstr "Edit treatment"
+
+#: apps/clinic/models.py
+msgid "Em aberto"
+msgstr "Open"
+
+#: apps/clinic/models.py
+msgid "Em andamento"
+msgstr "In progress"
+
+#: templates/website/home.html
+msgid "Em dias sem agendamento, mostre só 4 horários espalhados. Você vê tudo; o paciente vê o essencial."
+msgstr "On days with no bookings, show only 4 spread-out times. You see everything; patients see the essentials."
+
+#: templates/operator/dashboard.html templates/operator/dentist_list.html
+msgid "Em teste"
+msgstr "On trial"
+
+#: apps/clinic/invoice_pdf.py apps/clinic/views_export.py
+msgid "Emissão"
+msgstr "Issued"
+
+#: apps/operator/forms.py
+msgid "Endereço da página"
+msgstr "Page address"
+
+#: apps/accounts/forms.py
+msgid "Endereço da sua página"
+msgstr "Your page address"
+
+#: templates/accounts/login.html templates/accounts/register.html templates/accounts/verify_email.html templates/layouts/public.html
+msgid "Entrar"
+msgstr "Sign in"
+
+#: apps/clinic/views_export.py
+msgid "Entrou no portal"
+msgstr "Joined the portal"
+
+#: apps/quotes/models.py
+msgid "Enviado"
+msgstr "Sent"
+
+#: apps/clinic/views_export.py
+msgid "Enviado em"
+msgstr "Sent on"
+
+#: templates/emails/base.html
+msgid "Enviado pelo wbook"
+msgstr "Sent by wbook"
+
+#: templates/accounts/verify_email_sent.html
+msgid "Enviamos um link de confirmação para o seu e-mail."
+msgstr "We sent a confirmation link to your e-mail."
+
+#: templates/accounts/verify_email_sent.html
+#, python-format
+msgid "Enviamos um link para <strong>%(email)s</strong>. Abra o e-mail e clique em “Confirmar”."
+msgstr "We sent a link to <strong>%(email)s</strong>. Open the e-mail and click “Confirm”."
+
+#: templates/clinic/invoice_detail.html templates/clinic/treatment_detail.html templates/website/home.html
+msgid "Enviar"
+msgstr "Send"
+
+#: apps/clinic/forms.py
+msgid "Enviar convite para o portal do paciente agora"
+msgstr "Send the patient portal invitation now"
+
+#: templates/accounts/password_reset.html
+msgid "Enviar link"
+msgstr "Send link"
+
+#: templates/landing/public.html
+msgid "Enviar mensagem"
+msgstr "Send message"
+
+#: templates/components/add_to_calendar.html
+msgid "Enviar pelo WhatsApp"
+msgstr "Send via WhatsApp"
+
+#: templates/quotes/detail.html
+msgid "Enviar por e-mail"
+msgstr "Send by e-mail"
+
+#: apps/clinic/forms.py
+msgid "Enviar por e-mail ao paciente"
+msgstr "E-mail it to the patient"
+
+#: templates/clinic/treatment_detail.html
+msgid "Envie PDFs e fotos (JPG, PNG, HEIC). Vários arquivos de uma vez. Fotos chegam ocultas do paciente, a menos que você marque “compartilhar”."
+msgstr "Upload PDFs and photos (JPG, PNG, HEIC), several at once. Photos arrive hidden from the patient unless you tick “share”."
+
+#: templates/website/home.html
+msgid "Envie o orçamento como página. Saiba quando abriu, quanto tempo leu, se viu o PDF — e receba o aceite online."
+msgstr "Send the quote as a web page. Know when it was opened, how long it was read, whether the PDF was viewed — and get the acceptance online."
+
+#: apps/core/files.py
+msgid "Envie um arquivo PDF."
+msgstr "Please upload a PDF file."
+
+#: templates/quotes/list.html
+msgid "Envie um orçamento como página web e veja quando o paciente abriu, quanto tempo leu e se viu o PDF."
+msgstr "Send a quote as a web page and see when the patient opened it, how long they read it and whether they viewed the PDF."
+
+#: templates/operator/data_report.html
+msgid "Erros"
+msgstr "Errors"
+
+#: templates/landing/public.html
+msgid "Escolha o tipo e um horário livre. A clínica confirma por e-mail."
+msgstr "Choose the type and a free time. The clinic confirms by e-mail."
+
+#: apps/operator/views.py
+msgid "Escolha um arquivo."
+msgstr "Choose a file."
+
+#: apps/agenda/views_public.py apps/clinic/views_patient.py
+msgid "Escolha um horário."
+msgstr "Choose a time."
+
+#: apps/landing/views.py
+msgid "Escolha uma imagem."
+msgstr "Choose an image."
+
+#: templates/accounts/login.html templates/accounts/password_reset.html templates/accounts/set_password.html
+msgid "Esqueci minha senha"
+msgstr "Forgot my password"
+
+#: apps/agenda/services.py
+msgid "Esta consulta não pode mais ser cancelada."
+msgstr "This appointment can no longer be cancelled."
+
+#: apps/agenda/services.py
+msgid "Esta consulta não pode mais ser remarcada."
+msgstr "This appointment can no longer be rescheduled."
+
+#: apps/accounts/forms.py
+msgid "Esta conta ainda não foi ativada. Confira seu e-mail."
+msgstr "This account hasn't been activated yet. Check your e-mail."
+
+#: apps/accounts/views.py
+msgid "Esta conta não pertence a este consultório. Use a página de login geral."
+msgstr "This account doesn't belong to this practice. Use the general sign-in page."
+
+#: apps/accounts/forms.py apps/clinic/forms.py apps/operator/forms.py
+msgid "Estado"
+msgstr "State"
+
+#: apps/core/files.py
+msgid "Este arquivo não parece ser um PDF válido."
+msgstr "This file doesn't look like a valid PDF."
+
+#: apps/agenda/services.py
+msgid "Este consultório não está aceitando pedidos online no momento."
+msgstr "This practice isn't accepting online requests right now."
+
+#: apps/clinic/services.py
+msgid "Este e-mail já tem uma conta no wbook."
+msgstr "This e-mail already has a wbook account."
+
+#: apps/accounts/forms.py apps/operator/forms.py
+msgid "Este endereço já está em uso."
+msgstr "This address is already in use."
+
+#: apps/core/slugs.py
+msgid "Este endereço é reservado. Escolha outro."
+msgstr "This address is reserved. Choose another one."
+
+#: apps/agenda/services.py
+msgid "Este horário já está ocupado."
+msgstr "This time is already taken."
+
+#: apps/agenda/services.py
+msgid "Este horário não está mais disponível. Escolha outro."
+msgstr "This time is no longer available. Choose another one."
+
+#: templates/quotes/public.html
+msgid "Este orçamento expirou. Fale com a clínica para atualizar os valores."
+msgstr "This quote has expired. Contact the clinic to update the prices."
+
+#: templates/quotes/public_inactive.html
+msgid "Este orçamento não está mais disponível"
+msgstr "This quote is no longer available"
+
+#: apps/quotes/views.py
+msgid "Este orçamento não pode mais ser respondido. Fale com a clínica."
+msgstr "This quote can no longer be answered. Contact the clinic."
+
+#: apps/agenda/services.py
+msgid "Este pedido não está mais pendente."
+msgstr "This request is no longer pending."
+
+#: apps/clinic/forms.py
+msgid "Este usuário já está em uso."
+msgstr "This username is already in use."
+
+#: apps/clinic/models.py
+msgid "Evento"
+msgstr "Event"
+
+#: apps/accounts/forms.py
+msgid "Ex.: \"Dra. Ana Lima\""
+msgstr "E.g. \"Dr. Ana Lima\""
+
+#: templates/components/late_cancel_box.html
+msgid "Ex.: surgiu um imprevisto no trabalho"
+msgstr "E.g. something came up at work"
+
+#: templates/clinic/exports.html
+msgid "Excel com CPF completo"
+msgstr "Excel with full CPF"
+
+#: apps/agenda/models.py
+msgid "Expirada"
+msgstr "Expired"
+
+#: templates/operator/dentist_list.html
+msgid "Expirado"
+msgstr "Expired"
+
+#: templates/agenda/calendar.html templates/operator/data.html
+msgid "Exportar"
+msgstr "Export"
+
+#: templates/layouts/operator.html templates/operator/data.html
+msgid "Exportar / importar"
+msgstr "Export / import"
+
+#: templates/operator/data.html
+msgid "Exportar / importar dados"
+msgstr "Export / import data"
+
+#: templates/agenda/export.html
+msgid "Exportar agenda"
+msgstr "Export calendar"
+
+#: templates/clinic/exports.html templates/layouts/dentist.html
+msgid "Exportar dados"
+msgstr "Export data"
+
+#: templates/website/home.html
+msgid "Falar com a gente"
+msgstr "Talk to us"
+
+#: templates/components/late_cancel_box.html
+msgid "Fale com a clínica para cancelar"
+msgstr "Contact the clinic to cancel"
+
+#: templates/quotes/public_inactive.html
+msgid "Fale com a clínica para receber uma versão atualizada."
+msgstr "Contact the clinic to get an updated version."
+
+#: templates/website/home.html
+msgid "Fale com a gente"
+msgstr "Talk to us"
+
+#: apps/agenda/views_dentist.py
+msgid "Falta registrada."
+msgstr "No-show recorded."
+
+#: templates/components/late_cancel_box.html
+#, python-format
+msgid "Faltando menos de %(h)s hora para a consulta, o cancelamento é feito diretamente com a clínica."
+msgid_plural "Faltando menos de %(h)s horas para a consulta, o cancelamento é feito diretamente com a clínica."
+msgstr[0] "With less than %(h)s hour to go, cancellation is done directly with the clinic."
+msgstr[1] "With less than %(h)s hours to go, cancellation is done directly with the clinic."
+
+#: apps/agenda/models.py templates/agenda/_detail_panel.html
+msgid "Faltou"
+msgstr "No-show"
+
+#: apps/clinic/forms.py
+msgid "Fase (fotos)"
+msgstr "Phase (photos)"
+
+#: templates/clinic/invoice_detail.html templates/clinic/treatment_detail.html templates/patient/invoice.html
+msgid "Fatura"
+msgstr "Invoice"
+
+#: apps/clinic/invoice_pdf.py
+#, python-format
+msgid "Fatura %(n)s"
+msgstr "Invoice %(n)s"
+
+#: apps/clinic/views_dentist.py
+#, python-format
+msgid "Fatura %(n)s criada."
+msgstr "Invoice %(n)s created."
+
+#: apps/clinic/views_dentist.py
+msgid "Fatura atualizada."
+msgstr "Invoice updated."
+
+#: apps/clinic/views_dentist.py
+msgid "Fatura enviada por e-mail."
+msgstr "Invoice sent by e-mail."
+
+#: templates/clinic/exports.html templates/clinic/invoice_detail.html templates/clinic/invoice_list.html templates/clinic/patient_detail.html templates/clinic/treatment_detail.html templates/layouts/dent
+msgid "Faturas"
+msgstr "Invoices"
+
+#: templates/website/home.html
+msgid "Faturas e PIX"
+msgstr "Invoices and PIX"
+
+#: templates/clinic/exports.html
+msgid "Faturas e orçamentos"
+msgstr "Invoices and quotes"
+
+#: templates/website/home.html
+msgid "Faturas em PDF com sua chave PIX. O paciente avisa “Já paguei” e você confirma."
+msgstr "PDF invoices with your PIX key. The patient clicks “I've paid” and you confirm."
+
+#: templates/clinic/dashboard.html templates/patient/dashboard.html
+msgid "Faturas em aberto"
+msgstr "Open invoices"
+
+#: apps/clinic/views_export.py
+msgid "Faturas em aberto (R$)"
+msgstr "Open invoices (R$)"
+
+#: templates/clinic/dashboard.html templates/clinic/onboarding.html
+msgid "Fazer agora"
+msgstr "Do it now"
+
+#: templates/components/messages.html
+msgid "Fechar"
+msgstr "Close"
+
+#: templates/website/home.html
+msgid "Feito para dentistas"
+msgstr "Made for dentists"
+
+#: templates/operator/activity.html templates/operator/dentist_list.html
+msgid "Filtrar"
+msgstr "Filter"
+
+#: apps/clinic/views_export.py templates/agenda/settings.html
+msgid "Fim"
+msgstr "End"
+
+#: apps/agenda/services.py
+msgid "Fora do prazo para cancelar online. Fale com a clínica."
+msgstr "Too late to cancel online. Please contact the clinic."
+
+#: apps/agenda/services.py
+msgid "Fora do prazo para remarcar online. Fale com a clínica."
+msgstr "Too late to reschedule online. Please contact the clinic."
+
+#: apps/operator/forms.py
+msgid "Formato"
+msgstr "Format"
+
+#: apps/clinic/models.py
+msgid "Foto"
+msgstr "Photo"
+
+#: apps/landing/views.py
+msgid "Foto adicionada."
+msgstr "Photo added."
+
+#: templates/components/photo_gallery.html
+msgid "Foto da direita…"
+msgstr "Right photo…"
+
+#: templates/components/photo_gallery.html
+msgid "Foto da esquerda…"
+msgstr "Left photo…"
+
+#: templates/clinic/treatment_detail.html templates/patient/treatment.html
+msgid "Fotos"
+msgstr "Photos"
+
+#: apps/clinic/views_dentist.py
+msgid "Fotos atualizadas."
+msgstr "Photos updated."
+
+#: templates/landing/editor.html
+msgid "Fotos do consultório"
+msgstr "Practice photos"
+
+#: templates/clinic/treatment_detail.html
+msgid "Fotos e documentos"
+msgstr "Photos and documents"
+
+#: templates/website/privacy.html
+msgid "Fotos, exames e anotações de tratamento são dados pessoais sensíveis (LGPD, art. 11). Eles ficam em armazenamento privado, só são exibidos para você e para o seu dentista, e cada acesso é registrado."
+msgstr "Photos, exams and treatment notes are sensitive personal data (LGPD, art. 11). They are kept in private storage, shown only to you and your dentist, and every access is logged."
+
+#: templates/accounts/consent.html
+msgid "Fotos, exames e anotações do tratamento são dados de saúde (LGPD, art. 11). Eles ficam guardados com acesso restrito: só você e o seu dentista podem ver."
+msgstr "Photos, exams and treatment notes are health data (LGPD, art. 11). They are stored with restricted access: only you and your dentist can see them."
+
+#: templates/agenda/blocks.html
+msgid "Férias, cursos, almoço diferente: ninguém consegue agendar nesse período."
+msgstr "Holidays, courses, a different lunch break: nobody can book during this period."
+
+#: apps/clinic/invoice_pdf.py
+msgid "Gerado pelo wbook — www.wbook.com.br"
+msgstr "Generated by wbook — www.wbook.com.br"
+
+#: templates/agenda/sync.html
+msgid "Gerar novo link"
+msgstr "Generate new link"
+
+#: templates/agenda/sync.html
+msgid "Gerar um novo link? O link atual para de funcionar."
+msgstr "Generate a new link? The current link will stop working."
+
+#: templates/website/home.html
+msgid "Google Agenda, Outlook e Apple com um clique. Pacientes adicionam a consulta à agenda deles, até pelo WhatsApp."
+msgstr "Google Calendar, Outlook and Apple in one click. Patients add the appointment to their own calendar, even via WhatsApp."
+
+#: templates/agenda/public_thanks.html
+msgid "Guarde este link: por ele você acompanha, cancela ou remarca com a clínica."
+msgstr "Keep this link: use it to track, cancel or reschedule with the clinic."
+
+#: templates/patient/appointments.html
+msgid "Histórico"
+msgstr "History"
+
+#: templates/agenda/calendar.html templates/clinic/dashboard.html
+msgid "Hoje"
+msgstr "Today"
+
+#: templates/operator/settings.html
+msgid "Hoje recebem"
+msgstr "Currently received by"
+
+#: apps/agenda/views_dentist.py
+msgid "Horário bloqueado."
+msgstr "Time blocked."
+
+#: templates/landing/public.html templates/patient/book.html
+msgid "Horário escolhido"
+msgstr "Chosen time"
+
+#: templates/agenda/settings.html
+msgid "Horários de atendimento"
+msgstr "Opening hours"
+
+#: templates/agenda/settings.html templates/layouts/dentist.html
+msgid "Horários e regras"
+msgstr "Hours and rules"
+
+#: templates/agenda/settings.html
+msgid "Horários e regras de agendamento"
+msgstr "Hours and booking rules"
+
+#: apps/agenda/forms.py
+msgid "Há horários sobrepostos no mesmo dia."
+msgstr "There are overlapping hours on the same day."
+
+#: templates/patient/settings.html
+msgid "Idioma"
+msgstr "Language"
+
+#: apps/landing/views.py
+msgid "Imagem inválida."
+msgstr "Invalid image."
+
+#: templates/operator/data.html
+msgid "Importar"
+msgstr "Import"
+
+#: templates/operator/data_report.html
+msgid "Importação"
+msgstr "Import"
+
+#: apps/operator/views.py
+msgid "Importação cancelada."
+msgstr "Import cancelled."
+
+#: templates/operator/data_report.html
+msgid "Importação concluída."
+msgstr "Import completed."
+
+#: apps/operator/forms.py
+msgid "Incluir arquivos (PDFs, fotos, logos)"
+msgstr "Include files (PDFs, photos, logos)"
+
+#: apps/operator/forms.py
+msgid "Incluir senhas (hash) para manter os logins"
+msgstr "Include passwords (hashed) to keep logins"
+
+#: templates/emails/booking_rejected.html
+msgid "Infelizmente a clínica não conseguiu confirmar o horário que você pediu."
+msgstr "Unfortunately the clinic couldn't confirm the time you requested."
+
+#: templates/accounts/password_reset.html
+msgid "Informe seu e-mail. Enviaremos um link para criar uma nova senha."
+msgstr "Enter your e-mail. We'll send a link to create a new password."
+
+#: apps/core/models.py apps/landing/models.py
+msgid "Instagram"
+msgstr "Instagram"
+
+#: templates/layouts/operator.html templates/operator/platform_leads.html
+msgid "Interessados"
+msgstr "Prospects"
+
+#: templates/operator/dashboard.html
+msgid "Interessados sem contato"
+msgstr "Prospects not yet contacted"
+
+#: templates/agenda/settings.html
+msgid "Intervalo"
+msgstr "Buffer"
+
+#: apps/agenda/forms.py apps/clinic/views_export.py templates/agenda/settings.html templates/clinic/dashboard.html templates/layouts/dentist.html templates/layouts/patient.html templates/patient/dashboar
+msgid "Início"
+msgstr "Home"
+
+#: templates/operator/dentist_delete.html
+#, python-format
+msgid "Isto apaga <strong>%(c)s</strong>, todos os pacientes (inclusive logins), consultas, tratamentos, arquivos e faturas. Não pode ser desfeito. Exporte antes se precisar."
+msgstr "This deletes <strong>%(c)s</strong>, all patients (including logins), appointments, treatments, files and invoices. It cannot be undone. Export first if you need to."
+
+#: templates/quotes/detail.html templates/quotes/form.html
+msgid "Itens"
+msgstr "Items"
+
+#: apps/accounts/forms.py apps/operator/forms.py
+msgid "Já existe uma conta com este e-mail."
+msgstr "There is already an account with this e-mail."
+
+#: templates/patient/invoice.html
+msgid "Já paguei"
+msgstr "I've paid"
+
+#: templates/accounts/register.html
+msgid "Já tem conta?"
+msgstr "Already have an account?"
+
+#: apps/landing/views.py
+msgid "Lead atualizado."
+msgstr "Lead updated."
+
+#: apps/landing/views.py
+msgid "Lead cadastrado."
+msgstr "Lead added."
+
+#: apps/landing/views.py
+msgid "Lead removido."
+msgstr "Lead removed."
+
+#: templates/layouts/dentist.html
+msgid "Leads"
+msgstr "Leads"
+
+#: apps/landing/forms.py
+msgid "Legenda"
+msgstr "Caption"
+
+#: apps/agenda/notify.py
+#, python-format
+msgid "Lembrete da sua consulta: %(w)s"
+msgstr "Reminder of your appointment: %(w)s"
+
+#: apps/accounts/forms.py
+msgid "Li e aceito os termos de uso e a política de privacidade"
+msgstr "I have read and accept the terms of use and the privacy policy"
+
+#: templates/operator/dentist_edit.html
+msgid "Liberar 30 dias"
+msgstr "Grant 30 days"
+
+#: templates/operator/dentist_edit.html
+msgid "Liberar 365 dias"
+msgstr "Grant 365 days"
+
+#: templates/operator/dentist_edit.html
+msgid "Liberar 90 dias"
+msgstr "Grant 90 days"
+
+#: templates/quotes/detail.html
+msgid "Liberar link"
+msgstr "Release link"
+
+#: apps/landing/views.py
+#, python-format
+msgid "Limite de %(n)s fotos na galeria."
+msgstr "Limit of %(n)s photos in the gallery."
+
+#: templates/operator/data.html
+msgid "Linha de comando (backups grandes e agendados)"
+msgstr "Command line (large and scheduled backups)"
+
+#: templates/clinic/_timeline.html
+msgid "Linha do tempo"
+msgstr "Timeline"
+
+#: apps/clinic/invoice_pdf.py
+#, python-format
+msgid "Link de pagamento: %(l)s"
+msgstr "Payment link: %(l)s"
+
+#: templates/accounts/set_password.html templates/accounts/verify_email.html
+msgid "Link expirado ou inválido"
+msgstr "Expired or invalid link"
+
+#: templates/agenda/sync.html
+msgid "Link privado da sua agenda"
+msgstr "Private link to your calendar"
+
+#: templates/agenda/_detail_panel.html
+msgid "Manter"
+msgstr "Keep"
+
+#: templates/agenda/create.html
+msgid "Marcar"
+msgstr "Book"
+
+#: templates/clinic/invoice_detail.html
+msgid "Marcar como paga"
+msgstr "Mark as paid"
+
+#: templates/clinic/patient_detail.html
+msgid "Marcar consulta"
+msgstr "Book appointment"
+
+#: templates/clinic/treatment_detail.html
+msgid "Marcar sessão"
+msgstr "Book session"
+
+#: apps/clinic/forms.py apps/clinic/models.py apps/clinic/views_export.py apps/landing/forms.py templates/agenda/_detail_panel.html templates/operator/activity.html templates/operator/platform_leads.html
+msgid "Mensagem"
+msgstr "Message"
+
+#: apps/agenda/forms.py
+msgid "Mensagem (opcional)"
+msgstr "Message (optional)"
+
+#: apps/landing/views.py
+msgid "Mensagem enviada! A clínica vai responder em breve."
+msgstr "Message sent! The clinic will reply soon."
+
+#: apps/clinic/views_patient.py
+msgid "Mensagem enviada."
+msgstr "Message sent."
+
+#: templates/patient/my_data.html
+msgid "Meus dados"
+msgstr "My data"
+
+#: templates/patient/my_data.html templates/patient/settings.html
+msgid "Meus dados (LGPD)"
+msgstr "My data (LGPD)"
+
+#: templates/clinic/settings.html
+msgid "Meus pacientes recebem…"
+msgstr "My patients receive…"
+
+#: templates/patient/dashboard.html
+msgid "Meus tratamentos"
+msgstr "My treatments"
+
+#: templates/layouts/patient.html templates/patient/settings.html
+msgid "Minha conta"
+msgstr "My account"
+
+#: templates/landing/editor.html templates/layouts/dentist.html
+msgid "Minha página"
+msgstr "My page"
+
+#: templates/patient/appointments.html
+msgid "Minhas consultas"
+msgstr "My appointments"
+
+#: templates/website/privacy.html templates/website/terms.html
+msgid "Modelo — revise com um advogado antes de publicar."
+msgstr "Template — review with a lawyer before publishing."
+
+#: templates/agenda/settings.html
+msgid "Mostrar preço"
+msgstr "Show price"
+
+#: templates/agenda/settings.html
+msgid "Mostrar só 4 horários em dias vazios"
+msgstr "Show only 4 times on empty days"
+
+#: templates/agenda/_detail_panel.html
+msgid "Motivo"
+msgstr "Reason"
+
+#: templates/agenda/_detail_panel.html
+msgid "Motivo (opcional)"
+msgstr "Reason (optional)"
+
+#: apps/landing/views.py apps/website/views.py
+msgid "Muitas mensagens seguidas. Tente de novo mais tarde."
+msgstr "Too many messages in a row. Try again later."
+
+#: apps/agenda/views_public.py apps/clinic/views_patient.py
+msgid "Muitas tentativas. Fale com a clínica pelo telefone."
+msgstr "Too many attempts. Please call the clinic."
+
+#: apps/accounts/views.py
+msgid "Muitas tentativas. Tente de novo em uma hora."
+msgstr "Too many attempts. Try again in an hour."
+
+#: apps/agenda/views_public.py
+msgid "Muitos pedidos seguidos. Tente de novo mais tarde ou fale pelo WhatsApp."
+msgstr "Too many requests in a row. Try again later or message on WhatsApp."
+
+#: templates/operator/activity.html
+msgid "Nada no registro."
+msgstr "Nothing in the log."
+
+#: templates/clinic/dashboard.html
+msgid "Nada pendente."
+msgstr "Nothing pending."
+
+#: templates/clinic/patient_detail.html
+msgid "Nascimento"
+msgstr "Birth date"
+
+#: templates/agenda/blocks.html
+msgid "Nenhum bloqueio."
+msgstr "No blocks."
+
+#: templates/patient/treatment.html
+msgid "Nenhum documento compartilhado."
+msgstr "No shared documents."
+
+#: templates/clinic/treatment_detail.html
+msgid "Nenhum documento."
+msgstr "No documents."
+
+#: templates/landing/lead_list.html
+msgid "Nenhum lead"
+msgstr "No leads"
+
+#: templates/clinic/dashboard.html
+msgid "Nenhum lead novo."
+msgstr "No new leads."
+
+#: templates/quotes/list.html
+msgid "Nenhum orçamento"
+msgstr "No quotes"
+
+#: templates/clinic/patient_list.html
+msgid "Nenhum paciente ainda"
+msgstr "No patients yet"
+
+#: templates/clinic/treatment_list.html
+msgid "Nenhum tratamento"
+msgstr "No treatments"
+
+#: templates/patient/dashboard.html
+msgid "Nenhum tratamento por enquanto."
+msgstr "No treatments for now."
+
+#: templates/clinic/patient_detail.html
+msgid "Nenhum tratamento."
+msgstr "No treatments."
+
+#: templates/clinic/dashboard.html
+msgid "Nenhuma consulta hoje."
+msgstr "No appointments today."
+
+#: templates/patient/appointments.html
+msgid "Nenhuma consulta marcada."
+msgstr "No appointments booked."
+
+#: templates/clinic/patient_detail.html
+msgid "Nenhuma consulta."
+msgstr "No appointments."
+
+#: templates/clinic/invoice_list.html
+msgid "Nenhuma fatura"
+msgstr "No invoices"
+
+#: templates/clinic/dashboard.html
+msgid "Nenhuma fatura em aberto."
+msgstr "No open invoices."
+
+#: templates/components/photo_gallery.html
+msgid "Nenhuma foto ainda."
+msgstr "No photos yet."
+
+#: apps/operator/views.py
+msgid "Nenhuma importação pendente."
+msgstr "No pending import."
+
+#: templates/clinic/treatment_detail.html
+msgid "Nenhuma sessão marcada."
+msgstr "No sessions booked."
+
+#: templates/clinic/dashboard.html
+msgid "Nenhuma visita ainda."
+msgstr "No visits yet."
+
+#: templates/quotes/detail.html
+msgid "Ninguém abriu ainda. Suas próprias visitas não contam."
+msgstr "Nobody has opened it yet. Your own visits don't count."
+
+#: apps/clinic/forms.py apps/clinic/views_export.py apps/landing/forms.py apps/operator/forms.py templates/agenda/settings.html templates/clinic/patient_list.html templates/landing/lead_list.html templat
+msgid "Nome"
+msgstr "Name"
+
+#: apps/agenda/forms.py
+msgid "Nome completo"
+msgstr "Full name"
+
+#: apps/clinic/models.py
+msgid "Nome completo + tipo"
+msgstr "Full name + type"
+
+#: apps/accounts/forms.py
+msgid "Nome do consultório ou clínica"
+msgstr "Practice or clinic name"
+
+#: apps/accounts/forms.py apps/operator/forms.py
+msgid "Nome profissional"
+msgstr "Professional name"
+
+#: templates/clinic/exports.html
+msgid "Nome, contatos, nascimento, entrada no portal, primeira/última/próxima consulta, tratamentos ativos e valor em aberto."
+msgstr "Name, contacts, date of birth, portal sign-up, first/last/next appointment, active treatments and amount outstanding."
+
+#: templates/agenda/calendar.html templates/agenda/create.html templates/clinic/dashboard.html
+msgid "Nova consulta"
+msgstr "New appointment"
+
+#: templates/clinic/invoice_form.html
+msgid "Nova fatura"
+msgstr "New invoice"
+
+#: apps/clinic/views_dentist.py
+#, python-format
+msgid "Nova fatura %(n)s — %(d)s"
+msgstr "New invoice %(n)s — %(d)s"
+
+#: templates/operator/data_report.html
+msgid "Novas"
+msgstr "New"
+
+#: apps/clinic/views_dentist.py
+msgid "Novas fotos foram compartilhadas com você."
+msgstr "New photos were shared with you."
+
+#: templates/emails/patient_treatment_activity.html
+#, python-format
+msgid "Novidade no seu tratamento <strong>%(t)s</strong>:"
+msgstr "Update on your treatment <strong>%(t)s</strong>:"
+
+#: apps/clinic/views_dentist.py
+#, python-format
+msgid "Novidade no seu tratamento: %(t)s"
+msgstr "Update on your treatment: %(t)s"
+
+#: apps/landing/models.py
+msgid "Novo"
+msgstr "New"
+
+#: templates/agenda/blocks.html
+msgid "Novo bloqueio"
+msgstr "New block"
+
+#: apps/landing/views.py
+#, python-format
+msgid "Novo contato pela sua página: %(n)s"
+msgstr "New contact from your page: %(n)s"
+
+#: templates/emails/lead_new_dentist.html
+#, python-format
+msgid "Novo contato pela sua página: <strong>%(n)s</strong>"
+msgstr "New contact from your page: <strong>%(n)s</strong>"
+
+#: templates/operator/dashboard.html templates/operator/dentist_add.html templates/operator/dentist_list.html
+msgid "Novo dentista"
+msgstr "New dentist"
+
+#: apps/accounts/views.py
+#, python-format
+msgid "Novo dentista: %(n)s"
+msgstr "New dentist: %(n)s"
+
+#: apps/website/views.py
+#, python-format
+msgid "Novo interessado no wbook: %(n)s"
+msgstr "New wbook prospect: %(n)s"
+
+#: apps/agenda/forms.py
+msgid "Novo início"
+msgstr "New start"
+
+#: templates/landing/lead_form.html templates/landing/lead_list.html
+msgid "Novo lead"
+msgstr "New lead"
+
+#: apps/agenda/views_dentist.py
+msgid "Novo link gerado. O link antigo parou de funcionar; assine o novo no seu calendário."
+msgstr "New link generated. The old link stopped working; subscribe to the new one in your calendar."
+
+#: templates/quotes/form.html templates/quotes/list.html
+msgid "Novo orçamento"
+msgstr "New quote"
+
+#: templates/clinic/patient_form.html templates/clinic/patient_list.html templates/clinic/treatment_form.html
+msgid "Novo paciente"
+msgstr "New patient"
+
+#: apps/agenda/notify.py
+#, python-format
+msgid "Novo pedido de consulta: %(n)s"
+msgstr "New appointment request: %(n)s"
+
+#: templates/clinic/treatment_form.html templates/clinic/treatment_list.html
+msgid "Novo tratamento"
+msgstr "New treatment"
+
+#: apps/clinic/views_dentist.py
+#, python-format
+msgid "Novo tratamento: %(t)s"
+msgstr "New treatment: %(t)s"
+
+#: apps/clinic/views_dentist.py
+msgid "Novos arquivos foram compartilhados com você."
+msgstr "New files were shared with you."
+
+#: templates/operator/dashboard.html
+msgid "Novos dentistas"
+msgstr "New dentists"
+
+#: templates/clinic/dashboard.html
+msgid "Novos leads"
+msgstr "New leads"
+
+#: templates/accounts/verify_email_sent.html
+msgid "Não chegou? Confira o spam ou peça outro:"
+msgstr "Didn't arrive? Check your spam folder or ask for another:"
+
+#: apps/clinic/photos.py
+msgid "Não foi possível ler esta imagem. Envie JPG, PNG, WEBP ou HEIC."
+msgstr "This image couldn't be read. Upload JPG, PNG, WEBP or HEIC."
+
+#: templates/agenda/public_status.html
+msgid "Não vai poder ir? Cancele para liberar o horário. Para remarcar, cancele e faça um novo pedido, ou fale com a clínica."
+msgstr "Can't make it? Cancel to free the time. To reschedule, cancel and make a new request, or contact the clinic."
+
+#: templates/website/privacy.html
+msgid "Não vendemos dados. Endereços IP são guardados apenas de forma anonimizada (hash). Você pode baixar seus dados no portal e pedir correção ou exclusão ao seu dentista."
+msgstr "We don't sell data. IP addresses are stored only in anonymised (hashed) form. You can download your data in the portal and ask your dentist to correct or delete it."
+
+#: templates/operator/activity.html
+msgid "Nível"
+msgstr "Level"
+
+#: apps/clinic/views_export.py templates/clinic/invoice_list.html
+msgid "Número"
+msgstr "Number"
+
+#: templates/agenda/export.html
+msgid "O .ics pode ser importado no Google Agenda, Outlook ou Apple Calendar. Para manter tudo atualizado sozinho, use “Sincronizar calendário”."
+msgstr "The .ics can be imported into Google Calendar, Outlook or Apple Calendar. To keep everything updated automatically, use “Sync calendar”."
+
+#: apps/core/files.py
+#, python-format
+msgid "O arquivo passa do limite de %(mb)s MB."
+msgstr "The file is over the %(mb)s MB limit."
+
+#: templates/operator/dentist_add.html
+msgid "O dentista recebe um e-mail para definir a senha."
+msgstr "The dentist gets an e-mail to set the password."
+
+#: templates/website/terms.html
+msgid "O dentista se compromete a obter o consentimento dos pacientes para o uso de dados de saúde, a manter os prontuários conforme as normas do CFO e a não usar a plataforma para fins ilícitos."
+msgstr "The dentist undertakes to obtain patients' consent for the use of health data, to keep records according to CFO rules and not to use the platform for unlawful purposes."
+
+#: templates/404.html
+msgid "O endereço pode estar errado ou a página saiu do ar."
+msgstr "The address may be wrong or the page is offline."
+
+#: apps/agenda/models.py
+msgid "O fim precisa ser depois do início."
+msgstr "The end must be after the start."
+
+#: templates/emails/booking_request_dentist.html
+#, python-format
+msgid "O horário fica reservado por %(h)s horas. Aprove ou recuse na agenda."
+msgstr "The time is held for %(h)s hours. Approve or decline it in the calendar."
+
+#: templates/emails/patient_invite.html
+msgid "O link vale por 3 dias. Depois, use “Esqueci minha senha”."
+msgstr "The link is valid for 3 days. After that, use “Forgot my password”."
+
+#: templates/emails/password_reset.html
+msgid "O link vale por 3 dias. Se não foi você, ignore este e-mail."
+msgstr "The link is valid for 3 days. If this wasn't you, ignore this e-mail."
+
+#: templates/clinic/invoice_detail.html
+#, python-format
+msgid "O paciente avisou que pagou em %(w)s. Confira e marque como paga."
+msgstr "The patient said they paid on %(w)s. Check and mark it as paid."
+
+#: templates/agenda/_detail_panel.html
+msgid "O paciente pediu para cancelar"
+msgstr "The patient asked to cancel"
+
+#: templates/clinic/patient_form.html
+msgid "O paciente recebe um e-mail para criar a senha do portal. Ele só vê o que você compartilhar."
+msgstr "The patient gets an e-mail to create a portal password. They only see what you share."
+
+#: templates/emails/late_cancel_dentist.html
+msgid "O paciente também foi direcionado para o seu WhatsApp. Cancele ou mantenha a consulta na agenda."
+msgstr "The patient was also sent to your WhatsApp. Cancel or keep the appointment in the calendar."
+
+#: templates/emails/booking_expired_dentist.html
+#, python-format
+msgid "O pedido de <strong>%(n)s</strong> expirou sem resposta e o horário foi liberado."
+msgstr "The request from <strong>%(n)s</strong> expired without an answer and the time was released."
+
+#: templates/agenda/sync.html
+msgid "O que aparece nos eventos"
+msgstr "What the events show"
+
+#: apps/operator/forms.py
+msgid "O que exportar"
+msgstr "What to export"
+
+#: templates/quotes/public.html
+msgid "O que você decidiu?"
+msgstr "What did you decide?"
+
+#: apps/clinic/forms.py
+msgid "O usuário não pode ter @."
+msgstr "The username can't contain @."
+
+#: templates/website/terms.html
+msgid "O wbook é uma plataforma de agendamento online, portal do paciente, orçamentos e faturas para dentistas. O dentista é o responsável pelos dados de seus pacientes (controlador) e o wbook atua como operador, tratando os dados apenas para prestar o serviço."
+msgstr "wbook is an online booking, patient portal, quotes and invoicing platform for dentists. The dentist is responsible for their patients' data (controller) and wbook acts as processor, handling the data only to provide the service."
+
+#: templates/website/thanks.html
+msgid "Obrigado!"
+msgstr "Thank you!"
+
+#: apps/quotes/views.py
+msgid "Obrigado! A clínica foi avisada."
+msgstr "Thank you! The clinic has been notified."
+
+#: apps/clinic/views_patient.py
+msgid "Obrigado! Avisamos a clínica."
+msgstr "Thank you! We told the clinic."
+
+#: apps/clinic/views_export.py
+msgid "Observações"
+msgstr "Notes"
+
+#: templates/components/photo_gallery.html
+msgid "Ocultar fase"
+msgstr "Hide phase"
+
+#: templates/components/share_toggle.html
+msgid "Oculto do paciente — clique para compartilhar"
+msgstr "Hidden from the patient — click to share"
+
+#: apps/agenda/calendar_links.py
+msgid "Ocupado"
+msgstr "Busy"
+
+#: apps/quotes/views.py
+#, python-format
+msgid "Olá %(n)s! Segue seu orçamento: %(u)s"
+msgstr "Hi %(n)s! Here is your quote: %(u)s"
+
+#: apps/quotes/views.py
+#, python-format
+msgid "Olá! Tenho uma dúvida sobre o orçamento \"%(t)s\"."
+msgstr "Hi! I have a question about the quote \"%(t)s\"."
+
+#: templates/clinic/dashboard.html templates/patient/dashboard.html
+#, python-format
+msgid "Olá, %(n)s"
+msgstr "Hi, %(n)s"
+
+#: templates/emails/booking_changed.html templates/emails/booking_confirmed.html templates/emails/booking_request_received.html templates/emails/lead_confirmation.html templates/emails/patient_invite.htm
+#, python-format
+msgid "Olá, %(n)s!"
+msgstr "Hi, %(n)s!"
+
+#: templates/emails/booking_reminder.html
+#, python-format
+msgid "Olá, %(n)s! Lembrete da sua consulta:"
+msgstr "Hi, %(n)s! Reminder of your appointment:"
+
+#: templates/emails/dentist_welcome_set_password.html
+#, python-format
+msgid "Olá, %(n)s! Sua conta no wbook está pronta."
+msgstr "Hi, %(n)s! Your wbook account is ready."
+
+#: templates/emails/booking_expired.html templates/emails/booking_rejected.html
+#, python-format
+msgid "Olá, %(n)s."
+msgstr "Hi, %(n)s."
+
+#: apps/agenda/services.py
+#, python-format
+msgid "Olá, aqui é %(name)s. Gostaria de cancelar minha consulta de %(type)s em %(weekday)s, %(date)s, às %(time)s."
+msgstr "Hello, this is %(name)s. I would like to cancel my %(type)s appointment on %(weekday)s, %(date)s, at %(time)s."
+
+#: apps/accounts/models.py templates/layouts/operator.html
+msgid "Operador"
+msgstr "Operator"
+
+#: templates/agenda/settings.html
+msgid "Ordem"
+msgstr "Order"
+
+#: apps/clinic/views_export.py templates/landing/lead_list.html
+msgid "Origem"
+msgstr "Source"
+
+#: templates/landing/lead_detail.html templates/quotes/form.html templates/quotes/list.html
+msgid "Orçamento"
+msgstr "Quote"
+
+#: apps/quotes/views.py
+#, python-format
+msgid "Orçamento aceito: %(t)s"
+msgstr "Quote accepted: %(t)s"
+
+#: apps/landing/models.py
+msgid "Orçamento enviado"
+msgstr "Quote sent"
+
+#: apps/quotes/views.py
+#, python-format
+msgid "Orçamento enviado por e-mail para %(e)s."
+msgstr "Quote e-mailed to %(e)s."
+
+#: apps/quotes/views.py
+msgid "Orçamento liberado. Copie o link ou envie pelo WhatsApp."
+msgstr "Quote released. Copy the link or send it on WhatsApp."
+
+#: templates/quotes/public.html
+msgid "Orçamento para"
+msgstr "Quote for"
+
+#: apps/quotes/views.py
+msgid "Orçamento removido."
+msgstr "Quote removed."
+
+#: apps/quotes/views.py
+msgid "Orçamento salvo."
+msgstr "Quote saved."
+
+#: templates/clinic/exports.html templates/clinic/patient_detail.html templates/landing/lead_detail.html templates/layouts/dentist.html templates/patient/dashboard.html templates/quotes/detail.html templ
+msgid "Orçamentos"
+msgstr "Quotes"
+
+#: templates/website/home.html
+msgid "Orçamentos que avisam"
+msgstr "Quotes that report back"
+
+#: apps/clinic/views_dentist.py
+msgid "Os arquivos, mensagens e faturas deste tratamento também serão apagados."
+msgstr "This treatment's files, messages and invoices will also be deleted."
+
+#: templates/accounts/set_password.html
+msgid "Os links valem por 3 dias. Peça um novo em “Esqueci minha senha”."
+msgstr "Links are valid for 3 days. Ask for a new one in “Forgot my password”."
+
+#: apps/landing/views.py
+msgid "Os pedidos de consulta deste lead também serão apagados."
+msgstr "This lead's appointment requests will also be deleted."
+
+#: apps/quotes/models.py
+msgid "PDF anexo"
+msgstr "Attached PDF"
+
+#: apps/accounts/models.py apps/agenda/forms.py apps/agenda/models.py apps/clinic/invoice_pdf.py apps/clinic/views_export.py templates/agenda/_detail_panel.html templates/clinic/invoice_list.html templat
+msgid "Paciente"
+msgstr "Patient"
+
+#: apps/clinic/views_export.py
+msgid "Paciente / lead"
+msgstr "Patient / lead"
+
+#: apps/clinic/views_dentist.py
+msgid "Paciente atualizado."
+msgstr "Patient updated."
+
+#: apps/clinic/views_dentist.py
+msgid "Paciente cadastrado."
+msgstr "Patient registered."
+
+#: apps/clinic/views_dentist.py
+msgid "Paciente removido."
+msgstr "Patient removed."
+
+#: templates/clinic/dashboard.html templates/clinic/exports.html templates/clinic/patient_detail.html templates/clinic/patient_list.html templates/layouts/dentist.html templates/operator/dentist_list.htm
+msgid "Pacientes"
+msgstr "Patients"
+
+#: apps/clinic/models.py
+msgid "Paga"
+msgstr "Paid"
+
+#: templates/operator/dentist_list.html
+msgid "Pagante"
+msgstr "Paying"
+
+#: templates/operator/dashboard.html
+msgid "Pagantes"
+msgstr "Paying"
+
+#: templates/patient/invoice.html
+msgid "Pagar online"
+msgstr "Pay online"
+
+#: apps/clinic/views_export.py
+msgid "Pago em"
+msgstr "Paid on"
+
+#: templates/layouts/operator.html templates/operator/dashboard.html
+msgid "Painel"
+msgstr "Dashboard"
+
+#: templates/operator/dashboard.html
+msgid "Painel do operador"
+msgstr "Operator dashboard"
+
+#: templates/quotes/list.html
+msgid "Para"
+msgstr "To"
+
+#: templates/patient/my_data.html
+#, python-format
+msgid "Para corrigir ou excluir seus dados, fale com %(c)s. Registros clínicos podem precisar ser guardados por exigência legal."
+msgstr "To correct or delete your data, contact %(c)s. Clinical records may have to be kept by law."
+
+#: templates/emails/booking_changed.html
+msgid "Para marcar outro horário, acesse a página da clínica ou o portal."
+msgstr "To book another time, visit the clinic's page or the portal."
+
+#: apps/clinic/models.py
+msgid "Pausado"
+msgstr "On hold"
+
+#: apps/agenda/notify.py
+#, python-format
+msgid "Pedido de cancelamento em cima da hora: %(n)s"
+msgstr "Short-notice cancellation request: %(n)s"
+
+#: templates/agenda/public_thanks.html
+msgid "Pedido enviado!"
+msgstr "Request sent!"
+
+#: apps/clinic/views_patient.py
+msgid "Pedido enviado. A clínica vai confirmar por e-mail."
+msgstr "Request sent. The clinic will confirm by e-mail."
+
+#: apps/agenda/notify.py
+#, python-format
+msgid "Pedido expirou sem resposta: %(n)s"
+msgstr "Request expired without an answer: %(n)s"
+
+#: apps/agenda/views_dentist.py
+msgid "Pedido recusado. O horário foi liberado."
+msgstr "Request declined. The time was released."
+
+#: templates/clinic/dashboard.html
+msgid "Pedidos de cancelamento em cima da hora"
+msgstr "Short-notice cancellation requests"
+
+#: templates/landing/lead_detail.html
+msgid "Pedidos de consulta"
+msgstr "Appointment requests"
+
+#: templates/landing/lead_list.html
+msgid "Pedidos de visitantes na sua página viram leads aqui."
+msgstr "Requests from visitors on your page become leads here."
+
+#: templates/clinic/dashboard.html
+msgid "Pedidos para aprovar"
+msgstr "Requests to approve"
+
+#: templates/clinic/dashboard.html
+msgid "Pedidos pendentes"
+msgstr "Pending requests"
+
+#: templates/components/late_cancel_box.html
+msgid "Pedir cancelamento pelo WhatsApp"
+msgstr "Ask to cancel on WhatsApp"
+
+#: templates/landing/public.html
+msgid "Pedir este horário"
+msgstr "Request this time"
+
+#: templates/accounts/verify_email.html
+msgid "Pedir novo link"
+msgstr "Ask for a new link"
+
+#: apps/landing/models.py
+msgid "Perdido"
+msgstr "Lost"
+
+#: templates/clinic/settings.html
+msgid "Perfil, contato e pagamento"
+msgstr "Profile, contact and payment"
+
+#: templates/operator/activity.html
+msgid "Período"
+msgstr "Period"
+
+#: templates/clinic/exports.html
+msgid "Período / .ics"
+msgstr "Period / .ics"
+
+#: templates/accounts/verify_email.html
+msgid "Peça um novo link de confirmação."
+msgstr "Ask for a new confirmation link."
+
+#: apps/clinic/models.py
+msgid "Planejado"
+msgstr "Planned"
+
+#: templates/layouts/public.html templates/website/home.html templates/website/plans.html
+msgid "Planos"
+msgstr "Plans"
+
+#: templates/website/terms.html
+msgid "Planos, valores e período de teste estão descritos na página de planos. O acesso pode ser suspenso em caso de falta de pagamento; os dados ficam disponíveis para exportação."
+msgstr "Plans, prices and the trial period are described on the plans page. Access may be suspended for non-payment; the data stays available for export."
+
+#: templates/operator/settings.html
+msgid "Plataforma, contato e planos"
+msgstr "Platform, contact and plans"
+
+#: templates/accounts/consent.html templates/website/privacy.html
+msgid "Política de privacidade"
+msgstr "Privacy policy"
+
+#: templates/clinic/patient_delete.html
+msgid "Por padrão, os registros clínicos (tratamentos, arquivos, consultas) são mantidos, como exige a guarda de prontuário. Baixe os dados antes se o paciente pediu."
+msgstr "By default, clinical records (treatments, files, appointments) are kept, as record-keeping rules require. Download the data first if the patient asked for it."
+
+#: templates/clinic/patient_detail.html templates/clinic/patient_list.html
+msgid "Portal"
+msgstr "Portal"
+
+#: apps/agenda/models.py templates/layouts/patient.html templates/website/home.html
+msgid "Portal do paciente"
+msgstr "Patient portal"
+
+#: templates/accounts/login.html
+msgid "Portal do paciente e área do dentista."
+msgstr "Patient portal and dentist area."
+
+#: templates/quotes/public.html
+msgid "Prazo estimado"
+msgstr "Estimated timeline"
+
+#: templates/agenda/settings.html
+msgid "Prazo para remarcar/cancelar"
+msgstr "Reschedule/cancel cutoff"
+
+#: templates/emails/booking_confirmed.html
+#, python-format
+msgid "Precisa remarcar ou cancelar? Faça pelo link acima até %(h)s hora antes."
+msgid_plural "Precisa remarcar ou cancelar? Faça pelo link acima até %(h)s horas antes."
+msgstr[0] "Need to reschedule or cancel? Use the link above up to %(h)s hour before."
+msgstr[1] "Need to reschedule or cancel? Use the link above up to %(h)s hours before."
+
+#: templates/landing/public.html
+msgid "Prefere mandar uma mensagem?"
+msgstr "Prefer to send a message?"
+
+#: templates/agenda/sync.html
+msgid "Prefere um arquivo? Exportar agenda (.ics, Excel, CSV)"
+msgstr "Prefer a file? Export calendar (.ics, Excel, CSV)"
+
+#: apps/agenda/views_dentist.py
+msgid "Preferência salva."
+msgstr "Preference saved."
+
+#: apps/clinic/views_patient.py
+msgid "Preferências salvas."
+msgstr "Preferences saved."
+
+#: templates/patient/treatment.html
+msgid "Previsão"
+msgstr "Expected end"
+
+#: templates/agenda/settings.html
+msgid "Preço"
+msgstr "Price"
+
+#: apps/clinic/views_export.py
+msgid "Primeira consulta"
+msgstr "First appointment"
+
+#: templates/quotes/detail.html
+msgid "Primeiro acesso"
+msgstr "First access"
+
+#: templates/operator/data.html
+msgid "Primeiro mostramos uma prévia (nada é gravado). A importação atualiza o que já existe pela chave, cria o que é novo e nunca apaga nada. Se houver qualquer erro, nada é gravado."
+msgstr "First we show a preview (nothing is saved). The import updates what already exists by key, creates what is new and never deletes anything. If there is any error, nothing is saved."
+
+#: apps/clinic/models.py
+msgid "Primeiro nome do paciente + tipo"
+msgstr "Patient first name + type"
+
+#: templates/clinic/dashboard.html templates/clinic/onboarding.html
+msgid "Primeiros passos"
+msgstr "Getting started"
+
+#: templates/layouts/public.html
+msgid "Privacidade"
+msgstr "Privacy"
+
+#: templates/quotes/public.html
+msgid "Procedimento"
+msgstr "Procedure"
+
+#: templates/clinic/treatment_detail.html templates/clinic/treatment_list.html templates/patient/treatment.html
+msgid "Progresso"
+msgstr "Progress"
+
+#: templates/quotes/detail.html
+msgid "Prévia"
+msgstr "Preview"
+
+#: templates/operator/data_report.html
+msgid "Prévia da importação"
+msgstr "Import preview"
+
+#: templates/quotes/public.html
+msgid "Prévia do dono: esta visita não entra no registro de acessos."
+msgstr "Owner preview: this visit isn't recorded in the access log."
+
+#: templates/landing/public.html
+msgid "Prévia: sua página ainda não está publicada."
+msgstr "Preview: your page isn't published yet."
+
+#: templates/landing/public.html
+msgid "Prévia: você está vendo sua página como dono."
+msgstr "Preview: you are viewing your page as the owner."
+
+#: templates/components/pagination.html
+msgid "Próxima"
+msgstr "Next"
+
+#: apps/clinic/views_export.py templates/patient/dashboard.html
+msgid "Próxima consulta"
+msgstr "Next appointment"
+
+#: templates/components/slot_picker.html
+msgid "Próxima semana"
+msgstr "Next week"
+
+#: templates/patient/appointments.html
+msgid "Próximas"
+msgstr "Upcoming"
+
+#: templates/clinic/dashboard.html
+msgid "Próximos 7 dias"
+msgstr "Next 7 days"
+
+#: templates/agenda/blocks.html
+msgid "Próximos bloqueios"
+msgstr "Upcoming blocks"
+
+#: apps/clinic/views_dentist.py
+msgid "Publique sua página"
+msgstr "Publish your page"
+
+#: templates/components/pagination.html
+#, python-format
+msgid "Página %(n)s de %(t)s"
+msgstr "Page %(n)s of %(t)s"
+
+#: templates/website/home.html
+msgid "Página com agenda online, portal do paciente com tratamentos, fotos de antes e depois, orçamentos com registro de leitura e faturas por PIX."
+msgstr "A page with online booking, a patient portal with treatments and before/after photos, quotes with read tracking, and PIX invoices."
+
+#: templates/404.html
+msgid "Página não encontrada"
+msgstr "Page not found"
+
+#: apps/agenda/models.py
+msgid "Página pública"
+msgstr "Public page"
+
+#: apps/landing/views.py
+msgid "Página salva."
+msgstr "Page saved."
+
+#: templates/agenda/_detail_panel.html templates/operator/activity.html templates/quotes/detail.html
+msgid "Quando"
+msgstr "When"
+
+#: apps/agenda/models.py
+msgid "Quarta"
+msgstr "Wednesday"
+
+#: templates/operator/activity.html
+msgid "Quem"
+msgstr "Who"
+
+#: templates/operator/activity.html
+msgid "Quem (e-mail)"
+msgstr "Who (e-mail)"
+
+#: templates/agenda/sync.html
+msgid "Quem tiver este link vê sua agenda. Não compartilhe. O Google atualiza calendários assinados a cada poucas horas, então mudanças não são instantâneas."
+msgstr "Anyone with this link can see your calendar. Don't share it. Google refreshes subscribed calendars every few hours, so changes aren't instant."
+
+#: templates/clinic/settings.html
+msgid "Quero receber um e-mail quando…"
+msgstr "E-mail me when…"
+
+#: apps/agenda/models.py
+msgid "Quinta"
+msgstr "Thursday"
+
+#: apps/quotes/models.py
+msgid "Rascunho"
+msgstr "Draft"
+
+#: templates/quotes/detail.html
+msgid "Rascunho: só você abre o link. Envie para liberar."
+msgstr "Draft: only you can open the link. Send it to release it."
+
+#: templates/clinic/invoice_detail.html
+msgid "Reabrir"
+msgstr "Reopen"
+
+#: apps/agenda/models.py templates/agenda/_detail_panel.html
+msgid "Realizada"
+msgstr "Done"
+
+#: templates/operator/dentist_edit.html
+msgid "Reativar"
+msgstr "Reactivate"
+
+#: templates/quotes/detail.html
+msgid "Reativar link"
+msgstr "Reactivate link"
+
+#: apps/agenda/notify.py
+msgid "Recebemos seu pedido de consulta"
+msgstr "We received your appointment request"
+
+#: templates/emails/booking_request_received.html
+msgid "Recebemos seu pedido de consulta. A clínica vai confirmar por e-mail."
+msgstr "We received your appointment request. The clinic will confirm by e-mail."
+
+#: templates/website/thanks.html
+msgid "Recebemos sua mensagem e vamos responder em breve."
+msgstr "We received your message and will reply soon."
+
+#: apps/landing/views.py
+#, python-format
+msgid "Recebemos sua mensagem — %(d)s"
+msgstr "We received your message — %(d)s"
+
+#: templates/emails/lead_confirmation.html
+msgid "Recebemos sua mensagem. A clínica vai responder em breve."
+msgstr "We received your message. The clinic will reply soon."
+
+#: templates/emails/password_reset.html
+msgid "Recebemos um pedido para criar uma nova senha."
+msgstr "We received a request to create a new password."
+
+#: templates/layouts/public.html
+msgid "Recursos"
+msgstr "Features"
+
+#: apps/agenda/models.py
+msgid "Recusada"
+msgstr "Declined"
+
+#: apps/quotes/models.py templates/quotes/detail.html
+msgid "Recusado"
+msgstr "Declined"
+
+#: templates/agenda/_detail_panel.html templates/agenda/calendar.html templates/quotes/public.html
+msgid "Recusar"
+msgstr "Decline"
+
+#: templates/accounts/verify_email_sent.html
+msgid "Reenviar"
+msgstr "Resend"
+
+#: templates/clinic/patient_detail.html
+msgid "Reenviar convite"
+msgstr "Resend invitation"
+
+#: templates/quotes/detail.html
+msgid "Registro de acessos"
+msgstr "Access log"
+
+#: templates/operator/activity.html
+msgid "Registro de atividade"
+msgstr "Activity log"
+
+#: templates/agenda/settings.html
+msgid "Regras de agendamento"
+msgstr "Booking rules"
+
+#: apps/agenda/models.py
+msgid "Remarcada"
+msgstr "Rescheduled"
+
+#: templates/agenda/_detail_panel.html
+msgid "Remarcada de"
+msgstr "Rescheduled from"
+
+#: templates/patient/book.html
+#, python-format
+msgid "Remarcando a consulta de <strong>%(w)s</strong>. Escolha o novo horário."
+msgstr "Rescheduling the appointment on <strong>%(w)s</strong>. Choose the new time."
+
+#: templates/agenda/_detail_panel.html templates/patient/appointment.html
+msgid "Remarcar"
+msgstr "Reschedule"
+
+#: templates/patient/book.html
+msgid "Remarcar consulta"
+msgstr "Reschedule appointment"
+
+#: templates/agenda/settings.html templates/clinic/patient_delete.html templates/components/photo_gallery.html templates/confirm_delete.html
+msgid "Remover"
+msgstr "Remove"
+
+#: templates/clinic/patient_delete.html
+#, python-format
+msgid "Remover <strong>%(n)s</strong>? A conta é anonimizada e o acesso ao portal é cortado."
+msgstr "Remove <strong>%(n)s</strong>? The account is anonymised and portal access is cut off."
+
+#: templates/components/photo_gallery.html
+msgid "Remover esta foto?"
+msgstr "Remove this photo?"
+
+#: templates/clinic/treatment_detail.html
+msgid "Remover este arquivo?"
+msgstr "Remove this file?"
+
+#: templates/landing/lead_detail.html
+msgid "Remover lead"
+msgstr "Remove lead"
+
+#: templates/clinic/patient_delete.html templates/clinic/patient_edit.html
+msgid "Remover paciente"
+msgstr "Remove patient"
+
+#: templates/clinic/treatment_detail.html
+msgid "Remover tratamento"
+msgstr "Remove treatment"
+
+#: templates/emails/dentist_treatment_message.html
+msgid "Responder"
+msgstr "Reply"
+
+#: apps/clinic/views_export.py
+msgid "Respondido em"
+msgstr "Answered on"
+
+#: apps/quotes/views.py
+msgid "Resposta enviada. Obrigado!"
+msgstr "Answer sent. Thank you!"
+
+#: templates/operator/data_report.html
+msgid "Resultado da importação"
+msgstr "Import result"
+
+#: templates/clinic/onboarding.html
+msgid "Revisar"
+msgstr "Review"
+
+#: apps/clinic/views_dentist.py
+msgid "Revise as regras de agendamento"
+msgstr "Review the booking rules"
+
+#: templates/quotes/detail.html
+msgid "Rolagem"
+msgstr "Scroll"
+
+#: templates/quotes/detail.html
+msgid "Rolagem máx."
+msgstr "Max scroll"
+
+#: templates/clinic/expired.html templates/layouts/patient.html templates/layouts/portal.html
+msgid "Sair"
+msgstr "Sign out"
+
+#: templates/accounts/change_password.html templates/agenda/sync.html templates/clinic/patient_edit.html templates/clinic/treatment_form.html templates/landing/_lead_follow.html templates/landing/lead_fo
+msgid "Salvar"
+msgstr "Save"
+
+#: templates/clinic/settings.html
+msgid "Salvar alertas"
+msgstr "Save alerts"
+
+#: templates/accounts/set_password.html
+msgid "Salvar e entrar"
+msgstr "Save and sign in"
+
+#: templates/clinic/settings.html
+msgid "Salvar perfil"
+msgstr "Save profile"
+
+#: templates/landing/editor.html
+msgid "Salvar página"
+msgstr "Save page"
+
+#: templates/quotes/form.html
+msgid "Salvar rascunho"
+msgstr "Save draft"
+
+#: templates/agenda/settings.html
+msgid "Salvar tudo"
+msgstr "Save all"
+
+#: templates/emails/booking_expired.html
+msgid "Se ainda quiser a consulta, faça um novo pedido ou fale com a clínica."
+msgstr "If you still want the appointment, make a new request or contact the clinic."
+
+#: templates/accounts/password_reset_done.html
+msgid "Se houver uma conta com este e-mail, você vai receber um link em alguns minutos."
+msgstr "If there is an account with this e-mail, you'll get a link in a few minutes."
+
+#: apps/accounts/views.py
+msgid "Se houver uma conta pendente com este e-mail, enviamos um novo link."
+msgstr "If there is a pending account with this e-mail, we sent a new link."
+
+#: templates/emails/verify_email.html
+msgid "Se você não criou esta conta, ignore este e-mail."
+msgstr "If you didn't create this account, ignore this e-mail."
+
+#: apps/agenda/models.py
+msgid "Segunda"
+msgstr "Monday"
+
+#: templates/website/home.html
+msgid "Sem cartão de crédito. Sua página fica pronta em minutos."
+msgstr "No credit card. Your page is ready in minutes."
+
+#: templates/landing/public.html
+msgid "Sem horários livres nesta semana. Veja a próxima ou fale pelo WhatsApp."
+msgstr "No free times this week. See next week or message on WhatsApp."
+
+#: templates/clinic/_timeline.html
+msgid "Sem mensagens ainda."
+msgstr "No messages yet."
+
+#: templates/agenda/calendar.html
+msgid "Semana"
+msgstr "Week"
+
+#: templates/components/slot_picker.html
+msgid "Semana anterior"
+msgstr "Previous week"
+
+#: templates/components/slot_picker.html
+#, python-format
+msgid "Semana de %(d)s"
+msgstr "Week of %(d)s"
+
+#: apps/accounts/forms.py
+msgid "Senha"
+msgstr "Password"
+
+#: apps/accounts/views.py
+msgid "Senha alterada."
+msgstr "Password changed."
+
+#: apps/accounts/views.py
+msgid "Senha definida."
+msgstr "Password set."
+
+#: apps/agenda/services.py
+#, python-format
+msgid "Sessão realizada: %(t)s em %(d)s"
+msgstr "Session done: %(t)s on %(d)s"
+
+#: templates/clinic/treatment_detail.html templates/patient/treatment.html
+msgid "Sessões"
+msgstr "Sessions"
+
+#: templates/landing/editor.html
+#, python-format
+msgid "Seu endereço: <strong>wbook.com.br/%(s)s</strong>"
+msgstr "Your address: <strong>wbook.com.br/%(s)s</strong>"
+
+#: templates/agenda/public_thanks.html
+#, python-format
+msgid "Seu horário fica reservado por até %(h)s horas enquanto a clínica confirma."
+msgstr "Your time is held for up to %(h)s hours while the clinic confirms."
+
+#: apps/accounts/forms.py apps/clinic/forms.py
+msgid "Seu nome"
+msgstr "Your name"
+
+#: apps/quotes/views.py
+#, python-format
+msgid "Seu orçamento — %(d)s"
+msgstr "Your quote — %(d)s"
+
+#: apps/agenda/notify.py
+msgid "Seu pedido de consulta expirou"
+msgstr "Your appointment request expired"
+
+#: templates/emails/booking_expired.html
+msgid "Seu pedido de consulta expirou sem confirmação, e o horário foi liberado."
+msgstr "Your appointment request expired without confirmation, and the time was released."
+
+#: templates/clinic/expired.html
+msgid "Seu período de acesso terminou"
+msgstr "Your access period has ended"
+
+#: templates/website/home.html
+msgid "Seus pacientes agendam sozinhos. Você cuida do sorriso."
+msgstr "Your patients book on their own. You take care of the smile."
+
+#: apps/agenda/models.py
+msgid "Sexta"
+msgstr "Friday"
+
+#: templates/agenda/calendar.html
+msgid "Sincronizar"
+msgstr "Sync"
+
+#: templates/agenda/sync.html templates/layouts/dentist.html
+msgid "Sincronizar calendário"
+msgstr "Sync calendar"
+
+#: templates/agenda/sync.html
+msgid "Sincronizar com meu calendário"
+msgstr "Sync with my calendar"
+
+#: templates/website/home.html
+msgid "Sincronize seu calendário"
+msgstr "Sync your calendar"
+
+#: apps/agenda/models.py
+msgid "Sistema"
+msgstr "System"
+
+#: apps/clinic/invoice_pdf.py apps/clinic/views_export.py templates/clinic/invoice_list.html templates/clinic/treatment_detail.html templates/clinic/treatment_list.html templates/landing/lead_list.html t
+msgid "Situação"
+msgstr "Status"
+
+#: apps/clinic/views_dentist.py
+msgid "Situação atualizada."
+msgstr "Status updated."
+
+#: apps/clinic/views_dentist.py
+#, python-format
+msgid "Situação: %(a)s → %(b)s"
+msgstr "Status: %(a)s → %(b)s"
+
+#: templates/agenda/export.html
+msgid "Situações"
+msgstr "Statuses"
+
+#: templates/landing/public.html
+msgid "Sobre"
+msgstr "About"
+
+#: apps/agenda/notify.py
+msgid "Sobre seu pedido de consulta"
+msgstr "About your appointment request"
+
+#: templates/accounts/login.html
+msgid "Sou dentista — criar conta"
+msgstr "I'm a dentist — create an account"
+
+#: templates/landing/public.html
+msgid "Sou paciente"
+msgstr "I'm a patient"
+
+#: templates/agenda/public_status.html
+msgid "Sua consulta"
+msgstr "Your appointment"
+
+#: templates/emails/booking_confirmed.html
+msgid "Sua consulta está confirmada."
+msgstr "Your appointment is confirmed."
+
+#: templates/emails/booking_changed.html
+msgid "Sua consulta foi cancelada."
+msgstr "Your appointment was cancelled."
+
+#: templates/emails/booking_changed.html
+msgid "Sua consulta foi remarcada."
+msgstr "Your appointment was rescheduled."
+
+#: templates/accounts/verify_email.html
+msgid "Sua conta já está ativa."
+msgstr "Your account is already active."
+
+#: templates/clinic/expired.html
+msgid "Sua página pública e o agendamento online estão fora do ar. Seus pacientes continuam acessando o portal e os links de orçamento seguem funcionando."
+msgstr "Your public page and online booking are offline. Your patients can still use the portal and quote links keep working."
+
+#: templates/operator/dentist_edit.html
+msgid "Suspender"
+msgstr "Suspend"
+
+#: templates/operator/dentist_list.html
+msgid "Suspenso"
+msgstr "Suspended"
+
+#: apps/agenda/models.py
+msgid "Sábado"
+msgstr "Saturday"
+
+#: apps/clinic/models.py
+msgid "Só \"Ocupado\""
+msgstr "Only \"Busy\""
+
+#: apps/agenda/services.py
+msgid "Só consultas confirmadas podem ser concluídas."
+msgstr "Only confirmed appointments can be completed."
+
+#: templates/landing/editor.html
+msgid "Só fotos do consultório e da equipe. Fotos de pacientes ficam nos tratamentos, nunca aqui."
+msgstr "Only photos of the practice and team. Patient photos go in treatments, never here."
+
+#: apps/operator/forms.py
+msgid "Só os dentistas marcados"
+msgstr "Only the selected dentists"
+
+#: templates/operator/data_report.html
+msgid "Tabela"
+msgstr "Table"
+
+#: templates/layouts/public.html
+msgid "Tecnologia a favor do dentista."
+msgstr "Technology on the dentist's side."
+
+#: apps/clinic/forms.py apps/clinic/views_export.py
+msgid "Telefone"
+msgstr "Phone"
+
+#: apps/agenda/calendar_links.py
+#, python-format
+msgid "Telefone: %(p)s"
+msgstr "Phone: %(p)s"
+
+#: templates/confirm_delete.html
+#, python-format
+msgid "Tem certeza que deseja remover <strong>%(o)s</strong>?"
+msgstr "Are you sure you want to remove <strong>%(o)s</strong>?"
+
+#: templates/quotes/detail.html
+msgid "Tempo"
+msgstr "Time"
+
+#: templates/quotes/detail.html
+msgid "Tempo de leitura"
+msgstr "Reading time"
+
+#: apps/clinic/views_export.py
+msgid "Tempo de leitura (s)"
+msgstr "Reading time (s)"
+
+#: templates/layouts/public.html
+msgid "Termos"
+msgstr "Terms"
+
+#: templates/website/terms.html
+msgid "Termos de uso"
+msgstr "Terms of use"
+
+#: apps/agenda/models.py
+msgid "Terça"
+msgstr "Tuesday"
+
+#: templates/layouts/public.html
+msgid "Teste grátis"
+msgstr "Free trial"
+
+#: templates/website/plans.html
+#, python-format
+msgid "Teste grátis por %(n)s dias. Depois, escolha o plano."
+msgstr "Free trial for %(n)s days. Then choose a plan."
+
+#: templates/accounts/register.html
+msgid "Teste grátis, sem cartão. Sua página de agendamento fica pronta em minutos."
+msgstr "Free trial, no card. Your booking page is ready in minutes."
+
+#: templates/layouts/dentist.html
+#, python-format
+msgid "Teste: %(n)s dia restante"
+msgid_plural "Teste: %(n)s dias restantes"
+msgstr[0] "Trial: %(n)s day left"
+msgstr[1] "Trial: %(n)s days left"
+
+#: templates/operator/activity.html
+msgid "Texto"
+msgstr "Text"
+
+#: apps/agenda/forms.py apps/clinic/views_export.py templates/agenda/_detail_panel.html
+msgid "Tipo"
+msgstr "Type"
+
+#: templates/landing/public.html templates/patient/book.html
+msgid "Tipo de consulta"
+msgstr "Appointment type"
+
+#: apps/agenda/services.py
+msgid "Tipo de consulta inválido."
+msgstr "Invalid appointment type."
+
+#: templates/agenda/settings.html
+msgid "Tipos de consulta"
+msgstr "Appointment types"
+
+#: templates/quotes/public.html
+msgid "Tirar dúvidas pelo WhatsApp"
+msgstr "Ask questions on WhatsApp"
+
+#: templates/clinic/invoice_list.html templates/operator/dentist_list.html
+msgid "Todas"
+msgstr "All"
+
+#: templates/clinic/exports.html
+msgid "Todas as consultas, ou escolha período e situação na exportação da agenda."
+msgstr "All appointments, or choose a period and status in the calendar export."
+
+#: templates/clinic/treatment_list.html
+msgid "Todas as situações"
+msgstr "All statuses"
+
+#: templates/clinic/treatment_form.html
+msgid "Todo tratamento pertence a um paciente."
+msgstr "Every treatment belongs to a patient."
+
+#: templates/landing/lead_list.html
+msgid "Todos"
+msgstr "All"
+
+#: templates/quotes/detail.html templates/quotes/form.html templates/quotes/list.html templates/quotes/public.html
+msgid "Total"
+msgstr "Total"
+
+#: apps/clinic/views_export.py
+msgid "Total (R$)"
+msgstr "Total (R$)"
+
+#: apps/agenda/forms.py apps/clinic/invoice_pdf.py apps/clinic/views_export.py templates/agenda/_detail_panel.html templates/clinic/patient_detail.html templates/clinic/treatment_form.html templates/clin
+msgid "Tratamento"
+msgstr "Treatment"
+
+#: apps/clinic/views_dentist.py
+msgid "Tratamento atualizado."
+msgstr "Treatment updated."
+
+#: apps/clinic/views_dentist.py
+msgid "Tratamento criado"
+msgstr "Treatment created"
+
+#: apps/quotes/views.py
+msgid "Tratamento criado a partir do orçamento aceito"
+msgstr "Treatment created from the accepted quote"
+
+#: apps/clinic/views_dentist.py apps/quotes/views.py
+msgid "Tratamento criado."
+msgstr "Treatment created."
+
+#: apps/clinic/views_dentist.py
+msgid "Tratamento removido."
+msgstr "Treatment removed."
+
+#: templates/clinic/patient_detail.html templates/clinic/treatment_detail.html templates/clinic/treatment_list.html templates/landing/public.html templates/layouts/dentist.html
+msgid "Tratamentos"
+msgstr "Treatments"
+
+#: apps/clinic/views_export.py templates/clinic/patient_list.html
+msgid "Tratamentos ativos"
+msgstr "Active treatments"
+
+#: templates/website/home.html
+msgid "Tratamentos com progresso, sessões, PDFs e fotos de antes, durante e depois — só o que você compartilhar."
+msgstr "Treatments with progress, sessions, PDFs and before, during and after photos — only what you share."
+
+#: apps/operator/forms.py
+msgid "Tudo"
+msgstr "Everything"
+
+#: templates/operator/data_report.html
+msgid "Tudo certo. Nada foi gravado ainda."
+msgstr "All good. Nothing has been saved yet."
+
+#: templates/website/home.html
+msgid "Tudo o que o consultório precisa, sem secretária no meio"
+msgstr "Everything the practice needs, with no receptionist in between"
+
+#: apps/clinic/views_export.py
+msgid "Título"
+msgstr "Title"
+
+#: apps/clinic/forms.py
+msgid "Título / legenda"
+msgstr "Title / caption"
+
+#: apps/accounts/forms.py apps/clinic/forms.py apps/clinic/models.py
+msgid "UF do CRO"
+msgstr "CRO state"
+
+#: templates/clinic/exports.html
+msgid "Um arquivo ZIP com todos os seus dados e arquivos (fotos, PDFs). Guarde em local seguro: contém dados de saúde."
+msgstr "A ZIP file with all your data and files (photos, PDFs). Keep it somewhere safe: it contains health data."
+
+#: apps/clinic/views_dentist.py
+msgid "Um novo arquivo foi compartilhado com você."
+msgstr "A new file was shared with you."
+
+#: apps/agenda/views_dentist.py
+msgid "Um tipo com consultas não pode ser apagado; desative-o."
+msgstr "A type with appointments can't be deleted; deactivate it."
+
+#: apps/core/slugs.py
+msgid "Use de 3 a 50 letras minúsculas, números ou hífens."
+msgstr "Use 3 to 50 lowercase letters, numbers or hyphens."
+
+#: templates/agenda/settings.html
+msgid "Use duas linhas no mesmo dia para separar manhã e tarde (ex.: 08:00–12:00 e 13:30–18:00). Salve para ganhar mais linhas em branco."
+msgstr "Use two rows on the same day to split morning and afternoon (e.g. 08:00–12:00 and 13:30–18:00). Save to get more blank rows."
+
+#: templates/operator/dentist_edit.html
+msgid "Uso"
+msgstr "Usage"
+
+#: apps/clinic/forms.py
+msgid "Usuário (para login)"
+msgstr "Username (for sign-in)"
+
+#: templates/clinic/invoice_list.html templates/clinic/treatment_detail.html templates/clinic/treatment_list.html templates/quotes/public.html
+msgid "Valor"
+msgstr "Amount"
+
+#: apps/clinic/views_export.py
+msgid "Valor (R$)"
+msgstr "Amount (R$)"
+
+#: apps/quotes/views.py
+msgid "Valor do tratamento atualizado com o orçamento."
+msgstr "Treatment value updated from the quote."
+
+#: apps/clinic/invoice_pdf.py apps/clinic/views_export.py templates/clinic/invoice_list.html templates/emails/invoice_new.html templates/patient/invoice.html
+msgid "Vencimento"
+msgstr "Due date"
+
+#: templates/clinic/dashboard.html
+msgid "Ver"
+msgstr "View"
+
+#: templates/emails/invoice_new.html
+msgid "Ver fatura"
+msgstr "View invoice"
+
+#: templates/landing/public.html
+msgid "Ver horários livres"
+msgstr "See free times"
+
+#: templates/emails/booking_changed.html templates/emails/booking_confirmed.html templates/emails/booking_reminder.html
+msgid "Ver minha consulta"
+msgstr "View my appointment"
+
+#: templates/emails/booking_changed_dentist.html templates/emails/booking_new_dentist.html
+msgid "Ver na agenda"
+msgstr "View in calendar"
+
+#: templates/emails/quote_sent.html
+msgid "Ver orçamento"
+msgstr "View quote"
+
+#: templates/landing/lead_detail.html
+msgid "Ver paciente"
+msgstr "View patient"
+
+#: templates/operator/data.html
+msgid "Ver prévia"
+msgstr "Preview"
+
+#: templates/landing/editor.html
+msgid "Ver página"
+msgstr "View page"
+
+#: templates/emails/quote_first_view.html
+msgid "Ver registro de acessos"
+msgstr "View access log"
+
+#: templates/patient/dashboard.html
+msgid "Ver, remarcar ou cancelar"
+msgstr "View, reschedule or cancel"
+
+#: apps/landing/models.py
+msgid "Virou paciente"
+msgstr "Became a patient"
+
+#: templates/agenda/_detail_panel.html
+msgid "Visitante"
+msgstr "Visitor"
+
+#: templates/agenda/settings.html
+msgid "Visitantes"
+msgstr "Visitors"
+
+#: templates/website/home.html
+msgid "Visitantes pedem horário e viram leads; pacientes agendam e já recebem a confirmação. Você define até quando dá para remarcar."
+msgstr "Visitors request a time and become leads; patients book and get confirmed right away. You decide how late they can reschedule."
+
+#: apps/clinic/views_export.py templates/quotes/detail.html templates/quotes/list.html
+msgid "Visitas"
+msgstr "Visits"
+
+#: templates/quotes/detail.html
+msgid "Visitas por dia"
+msgstr "Visits per day"
+
+#: apps/quotes/models.py
+msgid "Visualizado"
+msgstr "Viewed"
+
+#: templates/components/share_toggle.html
+msgid "Visível para o paciente — clique para ocultar"
+msgstr "Visible to the patient — click to hide"
+
+#: templates/quotes/public.html
+msgid "Você aceitou este orçamento. A clínica vai entrar em contato para agendar."
+msgstr "You accepted this quote. The clinic will contact you to schedule."
+
+#: templates/patient/invoice.html
+msgid "Você avisou que pagou. A clínica vai confirmar."
+msgstr "You said you've paid. The clinic will confirm."
+
+#: templates/components/late_cancel_box.html
+#, python-format
+msgid "Você já pediu o cancelamento em %(w)s. A clínica vai responder."
+msgstr "You already asked to cancel on %(w)s. The clinic will reply."
+
+#: apps/agenda/services.py
+#, python-format
+msgid "Você já tem %(n)s consultas marcadas. Remarque ou cancele uma antes de agendar outra."
+msgstr "You already have %(n)s appointments booked. Reschedule or cancel one before booking another."
+
+#: apps/agenda/services.py
+msgid "Você já tem um pedido aguardando confirmação. Aguarde a resposta da clínica."
+msgstr "You already have a request awaiting confirmation. Please wait for the clinic's answer."
+
+#: templates/landing/public.html
+msgid "Você já é paciente: agende pelo portal e sua consulta é confirmada na hora."
+msgstr "You're already a patient: book in the portal and your appointment is confirmed right away."
+
+#: templates/patient/dashboard.html
+msgid "Você não tem consultas marcadas."
+msgstr "You have no appointments booked."
+
+#: templates/accounts/consent.html
+msgid "Você pode baixar ou pedir a exclusão dos seus dados a qualquer momento em “Minha conta”."
+msgstr "You can download your data or ask for it to be deleted at any time in “My account”."
+
+#: templates/emails/booking_rejected.html
+msgid "Você pode escolher outro horário na página da clínica ou falar pelo WhatsApp."
+msgstr "You can choose another time on the clinic's page or message on WhatsApp."
+
+#: templates/agenda/create.html
+msgid "Você pode marcar em qualquer horário livre, inclusive fora do horário de atendimento. O paciente recebe a confirmação por e-mail."
+msgstr "You can book any free time, even outside opening hours. The patient gets the confirmation by e-mail."
+
+#: templates/patient/appointment.html
+#, python-format
+msgid "Você pode remarcar ou cancelar online até %(h)s hora antes."
+msgid_plural "Você pode remarcar ou cancelar online até %(h)s horas antes."
+msgstr[0] "You can reschedule or cancel online up to %(h)s hour before."
+msgstr[1] "You can reschedule or cancel online up to %(h)s hours before."
+
+#: templates/quotes/public.html
+msgid "Você recusou este orçamento."
+msgstr "You declined this quote."
+
+#: templates/emails/invoice_new.html
+#, python-format
+msgid "Você tem uma nova fatura (%(n)s)."
+msgstr "You have a new invoice (%(n)s)."
+
+#: templates/accounts/change_password.html templates/operator/data_report.html templates/website/thanks.html
+msgid "Voltar"
+msgstr "Back"
+
+#: templates/404.html
+msgid "Voltar ao início"
+msgstr "Back to the home page"
+
+#: templates/accounts/password_reset.html templates/accounts/password_reset_done.html
+msgid "Voltar para o login"
+msgstr "Back to sign in"
+
+#: templates/emails/quote_sent.html templates/quotes/public.html
+msgid "Válido até"
+msgstr "Valid until"
+
+#: apps/accounts/forms.py apps/agenda/forms.py apps/clinic/forms.py apps/clinic/models.py apps/clinic/views_export.py apps/landing/forms.py apps/landing/models.py apps/operator/forms.py apps/website/mode
+msgid "WhatsApp"
+msgstr "WhatsApp"
+
+#: apps/core/models.py
+msgid "WhatsApp de contato"
+msgstr "Contact WhatsApp"
+
+#: apps/quotes/models.py
+msgid "WhatsApp do paciente"
+msgstr "Patient WhatsApp"
+
+#: apps/operator/forms.py
+msgid "ZIP (planilhas CSV + arquivos)"
+msgstr "ZIP (CSV spreadsheets + files)"
+
+#: templates/operator/data.html
+msgid "ZIP: uma planilha CSV por tabela + arquivos — bom para backup, mudança de servidor e edição em massa. TOML: um arquivo de texto, sem os arquivos."
+msgstr "ZIP: one CSV spreadsheet per table + files — good for backups, server moves and bulk edits. TOML: one text file, without the files."
+
+#: apps/agenda/calendar_links.py
+msgid "[Pendente] "
+msgstr "[Pending] "
+
+#: apps/agenda/models.py
+msgid "aceitar pedidos de agendamento de visitantes"
+msgstr "accept booking requests from visitors"
+
+#: apps/quotes/models.py
+msgid "aceitou"
+msgstr "accepted"
+
+#: apps/core/models.py
+msgid "acesso de dentista acabando em 3 dias"
+msgstr "dentist access ending in 3 days"
+
+#: apps/agenda/models.py
+msgid "agenda aberta para os próximos (dias)"
+msgstr "calendar open for the next (days)"
+
+#: templates/website/home.html
+msgid "agenda online e portal do paciente para dentistas"
+msgstr "online booking and patient portal for dentists"
+
+#: apps/agenda/models.py
+msgid "anotação interna"
+msgstr "internal note"
+
+#: apps/landing/models.py
+msgid "anotações"
+msgstr "notes"
+
+#: apps/clinic/models.py
+msgid "anotações internas"
+msgstr "internal notes"
+
+#: apps/agenda/models.py
+msgid "antecedência mínima para agendar (horas)"
+msgstr "minimum notice to book (hours)"
+
+#: apps/quotes/models.py
+msgid "apresentação"
+msgstr "introduction"
+
+#: apps/clinic/models.py
+msgid "arquivo do tratamento"
+msgstr "treatment file"
+
+#: apps/clinic/models.py
+msgid "arquivos do tratamento"
+msgstr "treatment files"
+
+#: apps/agenda/models.py templates/clinic/patient_detail.html templates/clinic/patient_list.html
+msgid "ativo"
+msgstr "active"
+
+#: apps/quotes/models.py
+msgid "baixou o PDF"
+msgstr "downloaded the PDF"
+
+#: apps/agenda/models.py
+msgid "bloqueio de agenda"
+msgstr "calendar block"
+
+#: apps/agenda/models.py
+msgid "bloqueios de agenda"
+msgstr "calendar blocks"
+
+#: apps/clinic/models.py
+msgid "chave PIX"
+msgstr "PIX key"
+
+#: apps/clinic/models.py apps/website/models.py
+msgid "cidade"
+msgstr "city"
+
+#: apps/quotes/models.py
+msgid "clicou no WhatsApp"
+msgstr "clicked WhatsApp"
+
+#: templates/components/share_toggle.html
+msgid "compartilhado"
+msgstr "shared"
+
+#: apps/clinic/models.py
+msgid "compartilhado com o paciente"
+msgstr "shared with the patient"
+
+#: apps/quotes/models.py
+msgid "condições de pagamento"
+msgstr "payment terms"
+
+#: apps/core/models.py
+msgid "configurações da plataforma"
+msgstr "platform settings"
+
+#: apps/agenda/models.py
+msgid "confirmar automaticamente agendamentos de pacientes"
+msgstr "automatically confirm patient bookings"
+
+#: apps/agenda/models.py
+msgid "consulta"
+msgstr "appointment"
+
+#: apps/agenda/models.py templates/clinic/dashboard.html
+msgid "consultas"
+msgstr "appointments"
+
+#: apps/agenda/models.py
+msgid "consultas futuras por paciente (máx.)"
+msgstr "future appointments per patient (max.)"
+
+#: apps/website/models.py
+msgid "consultório"
+msgstr "practice"
+
+#: apps/clinic/models.py
+msgid "consultório / clínica"
+msgstr "practice / clinic"
+
+#: apps/website/models.py templates/operator/platform_leads.html
+msgid "contatado"
+msgstr "contacted"
+
+#: templates/clinic/patient_detail.html templates/clinic/patient_list.html
+msgid "convite pendente"
+msgstr "invitation pending"
+
+#: apps/landing/models.py
+msgid "convênios aceitos"
+msgstr "insurance accepted"
+
+#: apps/agenda/models.py
+msgid "cor"
+msgstr "colour"
+
+#: apps/landing/models.py
+msgid "cor de destaque"
+msgstr "accent colour"
+
+#: apps/clinic/models.py
+msgid "data"
+msgstr "date"
+
+#: apps/clinic/models.py
+msgid "data de nascimento"
+msgstr "date of birth"
+
+#: apps/clinic/models.py apps/quotes/models.py
+msgid "dente / região"
+msgstr "tooth / region"
+
+#: apps/clinic/models.py
+msgid "dentista"
+msgstr "dentist"
+
+#: apps/clinic/models.py
+msgid "dentistas"
+msgstr "dentists"
+
+#: templates/agenda/settings.html
+msgid "depois desse prazo o paciente vê os contatos da clínica e um botão de WhatsApp, e você recebe um alerta."
+msgstr "after this window the patient sees the clinic's contacts and a WhatsApp button, and you get an alert."
+
+#: apps/agenda/models.py apps/clinic/models.py
+msgid "descrição"
+msgstr "description"
+
+#: templates/operator/dentist_edit.html
+msgid "desde"
+msgstr "since"
+
+#: apps/clinic/models.py
+msgid "detalhe no calendário sincronizado"
+msgstr "detail in the synced calendar"
+
+#: apps/agenda/models.py
+msgid "dia"
+msgstr "day"
+
+#: apps/agenda/models.py
+msgid "dia inteiro"
+msgstr "all day"
+
+#: templates/operator/activity.html templates/operator/dentist_edit.html
+msgid "dias"
+msgstr "days"
+
+#: apps/clinic/models.py
+msgid "dias de teste"
+msgstr "trial days"
+
+#: apps/core/models.py
+msgid "dias de teste padrão"
+msgstr "default trial days"
+
+#: apps/agenda/models.py
+msgid "duração (min)"
+msgstr "duration (min)"
+
+#: apps/accounts/models.py apps/landing/models.py apps/website/models.py
+msgid "e-mail"
+msgstr "e-mail"
+
+#: apps/core/models.py
+msgid "e-mail de contato"
+msgstr "contact e-mail"
+
+#: apps/quotes/models.py
+msgid "e-mail do paciente"
+msgstr "patient e-mail"
+
+#: apps/core/models.py
+msgid "e-mail principal dos alertas"
+msgstr "primary alert e-mail"
+
+#: apps/agenda/models.py
+msgid "em dias sem nenhum agendamento, mostrar só 4 horários"
+msgstr "on days with no bookings, show only 4 times"
+
+#: apps/clinic/models.py
+msgid "emissão"
+msgstr "issue date"
+
+#: apps/clinic/models.py
+msgid "endereço"
+msgstr "address"
+
+#: apps/clinic/models.py
+msgid "endereço da página"
+msgstr "page address"
+
+#: templates/landing/public.html
+msgid "escolha acima"
+msgstr "choose above"
+
+#: apps/clinic/models.py
+msgid "especialidades (uma por linha)"
+msgstr "specialties (one per line)"
+
+#: apps/clinic/models.py
+msgid "estado"
+msgstr "state"
+
+#: templates/operator/dentist_list.html
+msgid "expirado"
+msgstr "expired"
+
+#: apps/clinic/models.py
+msgid "fase"
+msgstr "phase"
+
+#: apps/clinic/models.py
+msgid "fatura"
+msgstr "invoice"
+
+#: apps/clinic/models.py
+msgid "faturas"
+msgstr "invoices"
+
+#: apps/agenda/models.py
+msgid "fim"
+msgstr "end"
+
+#: templates/landing/editor.html
+msgid "fora do ar"
+msgstr "offline"
+
+#: apps/landing/models.py
+msgid "foto de capa"
+msgstr "cover photo"
+
+#: apps/core/models.py
+msgid "foto de capa da home (URL)"
+msgstr "home page cover photo (URL)"
+
+#: apps/clinic/models.py
+msgid "fuso horário"
+msgstr "time zone"
+
+#: apps/agenda/models.py
+msgid "horário de atendimento"
+msgstr "opening hours"
+
+#: apps/clinic/models.py
+msgid "horário de atendimento (texto)"
+msgstr "opening hours (text)"
+
+#: apps/agenda/models.py
+msgid "horários de atendimento"
+msgstr "opening hours"
+
+#: apps/accounts/models.py
+msgid "idioma"
+msgstr "language"
+
+#: apps/core/models.py
+msgid "importação de dados concluída"
+msgstr "data import completed"
+
+#: apps/website/models.py
+msgid "interessado"
+msgstr "prospect"
+
+#: apps/website/models.py
+msgid "interessados"
+msgstr "prospects"
+
+#: apps/agenda/models.py
+msgid "intervalo depois (min)"
+msgstr "buffer after (min)"
+
+#: apps/agenda/models.py
+msgid "intervalo entre horários (min)"
+msgstr "interval between times (min)"
+
+#: apps/agenda/models.py apps/clinic/models.py
+msgid "início"
+msgstr "start"
+
+#: apps/clinic/models.py
+msgid "início do teste"
+msgstr "trial start"
+
+#: apps/landing/models.py
+msgid "lead"
+msgstr "lead"
+
+#: apps/landing/models.py
+msgid "leads"
+msgstr "leads"
+
+#: apps/clinic/models.py apps/landing/models.py
+msgid "legenda"
+msgstr "caption"
+
+#: apps/clinic/models.py
+msgid "lembrete 24 h antes da consulta"
+msgstr "reminder 24 h before the appointment"
+
+#: apps/quotes/models.py
+msgid "link ativo"
+msgstr "link active"
+
+#: apps/clinic/models.py
+msgid "link de pagamento"
+msgstr "payment link"
+
+#: templates/quotes/list.html
+msgid "link desativado"
+msgstr "link disabled"
+
+#: apps/clinic/models.py
+msgid "link do mapa"
+msgstr "map link"
+
+#: apps/clinic/models.py
+msgid "logo"
+msgstr "logo"
+
+#: templates/operator/platform_leads.html
+msgid "marcar contatado"
+msgstr "mark as contacted"
+
+#: apps/landing/models.py apps/website/models.py
+msgid "mensagem"
+msgstr "message"
+
+#: apps/clinic/models.py
+msgid "mensagem de paciente em um tratamento"
+msgstr "patient message on a treatment"
+
+#: apps/landing/models.py
+msgid "mensagem depois do pedido"
+msgstr "message after the request"
+
+#: apps/agenda/models.py
+msgid "mensagem do paciente"
+msgstr "patient message"
+
+#: apps/landing/models.py
+msgid "mostrar agenda online"
+msgstr "show online booking"
+
+#: apps/landing/models.py
+msgid "mostrar botão de WhatsApp"
+msgstr "show WhatsApp button"
+
+#: apps/agenda/models.py
+msgid "mostrar preço na página"
+msgstr "show price on the page"
+
+#: apps/landing/models.py
+msgid "mostrar preços dos tipos de consulta"
+msgstr "show appointment type prices"
+
+#: apps/agenda/models.py
+msgid "motivo"
+msgstr "reason"
+
+#: templates/quotes/detail.html
+msgid "média"
+msgstr "average"
+
+#: templates/landing/editor.html
+msgid "no ar"
+msgstr "live"
+
+#: apps/accounts/models.py apps/agenda/models.py apps/landing/models.py apps/website/models.py
+msgid "nome"
+msgstr "name"
+
+#: apps/quotes/models.py
+msgid "nome do paciente"
+msgstr "patient name"
+
+#: apps/clinic/models.py
+msgid "nome profissional"
+msgstr "professional name"
+
+#: templates/clinic/treatment_detail.html
+msgid "nova"
+msgstr "new"
+
+#: apps/clinic/models.py
+msgid "nova fatura"
+msgstr "new invoice"
+
+#: apps/clinic/models.py
+msgid "novidades no tratamento (arquivos, mensagens)"
+msgstr "treatment updates (files, messages)"
+
+#: templates/clinic/patient_detail.html
+msgid "novo"
+msgstr "new"
+
+#: apps/clinic/models.py
+msgid "novo contato pela página (sem agendamento)"
+msgstr "new contact from the page (no booking)"
+
+#: apps/core/models.py
+msgid "novo contato pelo site"
+msgstr "new contact from the website"
+
+#: apps/core/models.py
+msgid "novo dentista cadastrado"
+msgstr "new dentist signed up"
+
+#: apps/clinic/models.py
+msgid "novo pedido de agendamento (visitante)"
+msgstr "new booking request (visitor)"
+
+#: templates/agenda/settings.html
+msgid "num dia ainda sem nenhum agendamento, visitantes e pacientes veem no máximo 4 horários livres, espalhados entre manhã e tarde. Quando alguém marca, os demais horários livres do dia aparecem. Na sua agenda você sempre vê tudo."
+msgstr "on a day with no bookings yet, visitors and patients see at most 4 free times, spread across morning and afternoon. When someone books, the day's other free times appear. In your calendar you always see everything."
+
+#: apps/clinic/views_export.py apps/core/templatetags/wb.py
+msgid "não"
+msgstr "no"
+
+#: apps/clinic/models.py
+msgid "não quero receber lembretes"
+msgstr "I don't want reminders"
+
+#: apps/clinic/models.py
+msgid "não quero receber novidades do tratamento"
+msgstr "I don't want treatment updates"
+
+#: apps/clinic/models.py
+msgid "observação de pagamento"
+msgstr "payment note"
+
+#: apps/clinic/models.py
+msgid "observações"
+msgstr "notes"
+
+#: templates/clinic/treatment_list.html templates/components/share_toggle.html
+msgid "oculto"
+msgstr "hidden"
+
+#: templates/clinic/treatment_detail.html
+msgid "oculto do paciente"
+msgstr "hidden from the patient"
+
+#: apps/agenda/models.py
+msgid "ordem"
+msgstr "order"
+
+#: apps/landing/models.py
+msgid "origem"
+msgstr "source"
+
+#: apps/quotes/models.py
+msgid "orçamento"
+msgstr "quote"
+
+#: apps/clinic/models.py
+msgid "orçamento aberto pela primeira vez"
+msgstr "quote opened for the first time"
+
+#: apps/clinic/models.py
+msgid "orçamento aceito ou recusado"
+msgstr "quote accepted or declined"
+
+#: apps/quotes/models.py
+msgid "orçamentos"
+msgstr "quotes"
+
+#: apps/clinic/models.py
+msgid "paciente"
+msgstr "patient"
+
+#: apps/clinic/models.py
+msgid "paciente agendou"
+msgstr "patient booked"
+
+#: templates/clinic/invoice_list.html
+msgid "paciente avisou"
+msgstr "patient notified"
+
+#: apps/clinic/models.py
+msgid "paciente avisou que pagou uma fatura"
+msgstr "patient says they paid an invoice"
+
+#: apps/clinic/models.py
+msgid "paciente remarcou ou cancelou"
+msgstr "patient rescheduled or cancelled"
+
+#: apps/clinic/models.py
+msgid "pacientes"
+msgstr "patients"
+
+#: apps/agenda/models.py
+msgid "pacientes podem remarcar/cancelar até"
+msgstr "patients can reschedule/cancel up to"
+
+#: templates/operator/dentist_list.html
+msgid "pagante"
+msgstr "paying"
+
+#: apps/clinic/models.py
+msgid "pago até"
+msgstr "paid until"
+
+#: apps/accounts/models.py
+msgid "papel"
+msgstr "role"
+
+#: apps/clinic/models.py
+msgid "pedido de cancelamento em cima da hora"
+msgstr "short-notice cancellation request"
+
+#: apps/agenda/models.py
+msgid "pedido de visitante segura o horário por (horas)"
+msgstr "visitor request holds the time for (hours)"
+
+#: apps/clinic/models.py
+msgid "pedido expirou sem resposta"
+msgstr "request expired without an answer"
+
+#: apps/clinic/models.py
+msgid "plano"
+msgstr "plan"
+
+#: apps/core/models.py
+msgid "plano 1 — descrição"
+msgstr "plan 1 — description"
+
+#: apps/core/models.py
+msgid "plano 1 — link de pagamento"
+msgstr "plan 1 — payment link"
+
+#: apps/core/models.py
+msgid "plano 1 — nome"
+msgstr "plan 1 — name"
+
+#: apps/core/models.py
+msgid "plano 1 — preço"
+msgstr "plan 1 — price"
+
+#: apps/core/models.py
+msgid "plano 2 — descrição"
+msgstr "plan 2 — description"
+
+#: apps/core/models.py
+msgid "plano 2 — link de pagamento"
+msgstr "plan 2 — payment link"
+
+#: apps/core/models.py
+msgid "plano 2 — nome"
+msgstr "plan 2 — name"
+
+#: apps/core/models.py
+msgid "plano 2 — preço"
+msgstr "plan 2 — price"
+
+#: apps/core/models.py
+msgid "plano 3 — descrição"
+msgstr "plan 3 — description"
+
+#: apps/core/models.py
+msgid "plano 3 — link de pagamento"
+msgstr "plan 3 — payment link"
+
+#: apps/core/models.py
+msgid "plano 3 — nome"
+msgstr "plan 3 — name"
+
+#: apps/core/models.py
+msgid "plano 3 — preço"
+msgstr "plan 3 — price"
+
+#: templates/layouts/dentist.html
+msgid "planos"
+msgstr "plans"
+
+#: apps/quotes/models.py
+msgid "prazo estimado"
+msgstr "estimated timeline"
+
+#: apps/clinic/models.py
+msgid "previsão de término"
+msgstr "expected end"
+
+#: apps/agenda/models.py
+msgid "preço"
+msgstr "price"
+
+#: apps/quotes/models.py
+msgid "procedimento"
+msgstr "procedure"
+
+#: apps/clinic/models.py
+msgid "progresso (%)"
+msgstr "progress (%)"
+
+#: apps/landing/models.py
+msgid "página publicada"
+msgstr "page published"
+
+#: apps/landing/models.py
+msgid "página pública"
+msgstr "public page"
+
+#: apps/landing/models.py
+msgid "páginas públicas"
+msgstr "public pages"
+
+#: apps/quotes/models.py
+msgid "qtd."
+msgstr "qty"
+
+#: apps/quotes/models.py
+msgid "recusou"
+msgstr "declined"
+
+#: apps/agenda/models.py
+msgid "regras de agendamento"
+msgstr "booking rules"
+
+#: templates/quotes/form.html
+msgid "remover"
+msgstr "remove"
+
+#: templates/quotes/detail.html
+msgid "retorno"
+msgstr "returning"
+
+#: templates/landing/_lead_follow.html
+msgid "salvo"
+msgstr "saved"
+
+#: apps/core/models.py
+msgid "segundo e-mail dos alertas"
+msgstr "second alert e-mail"
+
+#: apps/agenda/models.py
+msgid "sem limite"
+msgstr "no limit"
+
+#: apps/clinic/models.py
+msgid "sessões previstas"
+msgstr "planned sessions"
+
+#: apps/clinic/views_export.py apps/core/templatetags/wb.py
+msgid "sim"
+msgstr "yes"
+
+#: apps/landing/models.py
+msgid "site"
+msgstr "website"
+
+#: apps/agenda/models.py apps/clinic/models.py apps/landing/models.py apps/quotes/models.py
+msgid "situação"
+msgstr "status"
+
+#: apps/landing/models.py
+msgid "sobre"
+msgstr "about"
+
+#: apps/clinic/models.py
+msgid "sua foto"
+msgstr "your photo"
+
+#: apps/landing/models.py
+msgid "subtítulo"
+msgstr "subtitle"
+
+#: apps/clinic/models.py templates/operator/dentist_list.html
+msgid "suspenso"
+msgstr "suspended"
+
+#: apps/accounts/models.py apps/clinic/models.py
+msgid "telefone"
+msgstr "phone"
+
+#: templates/operator/dentist_list.html
+msgid "teste"
+msgstr "trial"
+
+#: apps/agenda/models.py
+msgid "tipo"
+msgstr "type"
+
+#: apps/agenda/models.py
+msgid "tipo de consulta"
+msgstr "appointment type"
+
+#: apps/agenda/models.py
+msgid "tipos de consulta"
+msgstr "appointment types"
+
+#: apps/agenda/models.py apps/clinic/models.py
+msgid "tratamento"
+msgstr "treatment"
+
+#: apps/clinic/models.py
+msgid "tratamentos"
+msgstr "treatments"
+
+#: apps/landing/models.py
+msgid "tratamentos oferecidos (um por linha)"
+msgstr "treatments offered (one per line)"
+
+#: apps/clinic/models.py apps/landing/models.py apps/quotes/models.py
+msgid "título"
+msgstr "title"
+
+#: apps/accounts/models.py
+msgid "usuário"
+msgstr "user"
+
+#: apps/accounts/models.py
+msgid "usuários"
+msgstr "users"
+
+#: apps/clinic/models.py
+msgid "valor"
+msgstr "amount"
+
+#: apps/clinic/models.py
+msgid "valor do tratamento"
+msgstr "treatment value"
+
+#: apps/quotes/models.py
+msgid "valor unitário"
+msgstr "unit price"
+
+#: apps/clinic/models.py
+msgid "vencimento"
+msgstr "due date"
+
+#: templates/operator/dashboard.html
+msgid "ver"
+msgstr "view"
+
+#: templates/clinic/dashboard.html
+msgid "ver agenda"
+msgstr "view calendar"
+
+#: templates/components/contact_clinic.html
+msgid "ver no mapa"
+msgstr "view on map"
+
+#: templates/clinic/dashboard.html
+msgid "ver todas"
+msgstr "view all"
+
+#: templates/clinic/dashboard.html
+msgid "ver todos"
+msgstr "view all"
+
+#: templates/agenda/_detail_panel.html
+msgid "visitante (lead)"
+msgstr "visitor (lead)"
+
+#: apps/agenda/models.py
+msgid "visitantes podem pedir"
+msgstr "visitors can request"
+
+#: apps/clinic/models.py
+msgid "visível para o paciente"
+msgstr "visible to the patient"
+
+#: apps/quotes/models.py
+msgid "viu o PDF"
+msgstr "viewed the PDF"
+
+#: apps/quotes/models.py
+msgid "válido até"
+msgstr "valid until"
+
+#: apps/accounts/forms.py
+msgid "wbook.com.br/seu-endereco — letras minúsculas, números e hífens"
+msgstr "wbook.com.br/your-address — lowercase letters, numbers and hyphens"
+
+#: apps/agenda/services.py
+msgid "É preciso aceitar o uso dos seus dados para enviar o pedido."
+msgstr "You need to accept the use of your data to send the request."
+
+#: apps/clinic/views_export.py
+msgid "Última consulta"
+msgstr "Last appointment"
+
+#: templates/quotes/detail.html templates/quotes/list.html
+msgid "Último acesso"
+msgstr "Last access"
+
+#: templates/quotes/detail.html
+msgid "únicas"
+msgstr "unique"

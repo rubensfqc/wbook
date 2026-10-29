@@ -1,0 +1,8 @@
+[tool.ruff]
+line-length = 140
+target-version = "py313"
+extend-exclude = ["migrations", "node_modules", ".venv", "staticfiles"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "DJ"]
+ignore = ["DJ001", "DJ008", "DJ012", "B904", "B905", "E501"]
