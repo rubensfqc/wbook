@@ -1,0 +1,8 @@
+{% get_current_language as LANG %}
+<form action="{% url 'set_language' %}" method="post" class="inline-flex items-center gap-1 text-xs {{ css }}">{% csrf_token %}
+  <input type="hidden" name="next" value="{{ request.get_full_path }}">
+  {% icon 'globe' 'h-3.5 w-3.5 opacity-70' %}
+  <button name="language" value="pt-br" class="rounded px-1.5 py-0.5 {% if LANG == 'pt-br' %}font-semibold underline{% else %}opacity-70 hover:opacity-100{% endif %}">PT</button>
+  <span class="opacity-40">|</span>
+  <button name="language" value="en" class="rounded px-1.5 py-0.5 {% if LANG == 'en' %}font-semibold underline{% else %}opacity-70 hover:opacity-100{% endif %}">EN</button>
+</form>

@@ -1,0 +1,11 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Remover paciente' %}{% endblock %}
+{% block page_title %}{% translate 'Remover paciente' %}{% endblock %}
+{% block content %}
+<form method="post" class="card max-w-xl">{% csrf_token %}<div class="card-body space-y-4">
+  <p>{% blocktranslate with n=patient.name %}Remover <strong>{{ n }}</strong>? A conta é anonimizada e o acesso ao portal é cortado.{% endblocktranslate %}</p>
+  <p class="text-sm text-slate-600">{% translate 'Por padrão, os registros clínicos (tratamentos, arquivos, consultas) são mantidos, como exige a guarda de prontuário. Baixe os dados antes se o paciente pediu.' %} <a href="{% url 'clinic:patient_data_zip' patient.pk %}">{% translate 'Baixar dados do paciente' %}</a></p>
+  <label class="flex items-start gap-2 text-sm text-red-700"><input type="checkbox" name="delete_records" class="checkbox"> {% translate 'Apagar também os registros clínicos (não pode ser desfeito)' %}</label>
+  <div class="flex gap-2"><button class="btn-danger">{% translate 'Remover' %}</button><a href="{% url 'clinic:patient_detail' patient.pk %}" class="btn-secondary">{% translate 'Cancelar' %}</a></div>
+</div></form>
+{% endblock %}

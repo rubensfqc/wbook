@@ -1,0 +1,20 @@
+{% extends "layouts/operator.html" %}
+{% block page_title_text %}{% translate 'Painel' %}{% endblock %}
+{% block page_title %}{% translate 'Painel do operador' %}{% endblock %}
+{% block page_actions %}<a href="{% url 'operator:dentist_add' %}" class="btn-primary btn-sm">{% icon 'plus' %}{% translate 'Novo dentista' %}</a>{% endblock %}
+{% block content %}
+<div class="space-y-6">
+<div class="grid grid-cols-2 gap-4 lg:grid-cols-5">
+  <div class="kpi"><p class="kpi-label">{% translate 'Dentistas' %}</p><p class="kpi-value">{{ n_dentists }}</p></div>
+  <div class="kpi"><p class="kpi-label">{% translate 'Com acesso' %}</p><p class="kpi-value">{{ n_active }}</p></div>
+  <div class="kpi"><p class="kpi-label">{% translate 'Pagantes' %}</p><p class="kpi-value">{{ n_paying }}</p></div>
+  <div class="kpi"><p class="kpi-label">{% translate 'Em teste' %}</p><p class="kpi-value">{{ n_trial }}</p></div>
+  <div class="kpi"><p class="kpi-label">{% translate 'Agendamentos (7 dias)' %}</p><p class="kpi-value">{{ appts_week }}</p></div>
+</div>
+<div class="grid gap-6 lg:grid-cols-3">
+  <div class="card"><div class="card-header"><p class="card-title">{% translate 'Acesso acabando (7 dias)' %}</p></div>{% if expiring %}<ul class="divide-y divide-slate-100 text-sm">{% for d in expiring %}<li class="flex justify-between px-5 py-2.5"><a href="{% url 'operator:dentist_edit' d.pk %}">{{ d.clinic_name }}</a><span class="text-slate-500">{{ d.access_until|date:"d/m" }}</span></li>{% endfor %}</ul>{% else %}<div class="card-body text-sm text-slate-500">—</div>{% endif %}</div>
+  <div class="card"><div class="card-header"><p class="card-title">{% translate 'Novos dentistas' %}</p></div><ul class="divide-y divide-slate-100 text-sm">{% for d in recent %}<li class="flex justify-between px-5 py-2.5"><a href="{% url 'operator:dentist_edit' d.pk %}">{{ d.clinic_name }}</a><span class="text-slate-500">{{ d.created_at|date:"d/m" }}</span></li>{% empty %}<li class="px-5 py-3 text-slate-500">—</li>{% endfor %}</ul></div>
+  <div class="card"><div class="card-header"><p class="card-title">{% translate 'Interessados sem contato' %}</p><a href="{% url 'operator:platform_leads' %}" class="text-sm">{% translate 'ver' %}</a></div><ul class="divide-y divide-slate-100 text-sm">{% for l in leads %}<li class="px-5 py-2.5">{{ l.name }} <span class="text-slate-400">· {{ l.city }}</span></li>{% empty %}<li class="px-5 py-3 text-slate-500">—</li>{% endfor %}</ul></div>
+</div>
+</div>
+{% endblock %}

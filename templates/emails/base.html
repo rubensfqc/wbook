@@ -1,0 +1,8 @@
+<!doctype html>
+<html><body style="margin:0;background:#f1f5f9;font-family:Inter,Arial,sans-serif;color:#0f172a">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:24px 0"><tr><td align="center">
+<table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;background:#ffffff;border-radius:12px;overflow:hidden">
+<tr><td style="background:#0f766e;padding:18px 24px;color:#ffffff;font-weight:600;font-size:16px">{% if dentist %}{{ dentist.clinic_name }}{% else %}wbook{% endif %}</td></tr>
+<tr><td style="padding:24px;font-size:15px;line-height:1.55">{% block content %}{% endblock %}</td></tr>
+<tr><td style="padding:16px 24px;border-top:1px solid #e2e8f0;font-size:12px;color:#64748b">{% block footer %}{% if dentist %}{{ dentist.name }}{% if dentist.contact_phone %} · {{ dentist.contact_phone }}{% endif %}{% if dentist.full_address %}<br>{{ dentist.full_address }}{% endif %}<br>{% endif %}{% translate 'Enviado pelo wbook' %} — <a href="{{ site_url }}" style="color:#64748b">wbook.com.br</a>{% endblock %}</td></tr>
+</table></td></tr></table></body></html>

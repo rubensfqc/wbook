@@ -1,0 +1,11 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Novo paciente' %}{% endblock %}
+{% block page_title %}{% translate 'Novo paciente' %}{% endblock %}
+{% block content %}
+<form method="post" class="card max-w-3xl">{% csrf_token %}<div class="card-body space-y-4">
+  {% if lead %}<p class="rounded-lg bg-brand-50 p-3 text-sm text-brand-800">{% blocktranslate with n=lead.name %}Convertendo o lead <strong>{{ n }}</strong> em paciente. Os pedidos de consulta dele passam para o portal.{% endblocktranslate %}</p>{% endif %}
+  {% include "components/form_fields.html" %}
+  <p class="help">{% translate 'O paciente recebe um e-mail para criar a senha do portal. Ele só vê o que você compartilhar.' %}</p>
+  <div class="flex gap-2"><button class="btn-primary">{% translate 'Cadastrar' %}</button><a href="{% url 'clinic:patient_list' %}" class="btn-secondary">{% translate 'Cancelar' %}</a></div>
+</div></form>
+{% endblock %}

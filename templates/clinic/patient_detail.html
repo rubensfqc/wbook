@@ -1,0 +1,38 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{{ patient.name }}{% endblock %}
+{% block breadcrumb %}<p class="breadcrumb"><a href="{% url 'clinic:patient_list' %}">{% translate 'Pacientes' %}</a></p>{% endblock %}
+{% block page_title %}{{ patient.name }}{% endblock %}
+{% block page_actions %}
+<a href="{% url 'agenda:create' %}?paciente={{ patient.pk }}" class="btn-secondary btn-sm">{% icon 'calendar' %}{% translate 'Marcar consulta' %}</a>
+<a href="{% url 'clinic:treatment_create' %}?paciente={{ patient.pk }}" class="btn-primary btn-sm">{% icon 'plus' %}{% translate 'Tratamento' %}</a>
+{% endblock %}
+{% block content %}
+<div class="grid gap-6 lg:grid-cols-3">
+  <div class="space-y-6">
+    <div class="card"><div class="card-header"><p class="card-title">{% translate 'Dados' %}</p><a href="{% url 'clinic:patient_edit' patient.pk %}" class="btn-ghost btn-sm">{% icon 'edit' %}{% translate 'Editar' %}</a></div>
+      <dl class="card-body space-y-2 text-sm">
+        <div><dt class="text-xs text-slate-500">{% translate 'E-mail' %}</dt><dd>{{ patient.email }}</dd></div>
+        <div><dt class="text-xs text-slate-500">WhatsApp</dt><dd>{% if patient.contact_whatsapp %}<a href="{{ patient.contact_whatsapp|wa_link }}" target="_blank" rel="noopener">{{ patient.contact_whatsapp }}</a>{% else %}—{% endif %}</dd></div>
+        <div><dt class="text-xs text-slate-500">{% translate 'Nascimento' %}</dt><dd>{{ patient.birth_date|date:"d/m/Y"|default:"—" }}</dd></div>
+        <div><dt class="text-xs text-slate-500">CPF</dt><dd>{{ patient.cpf|mask_cpf|default:"—" }}</dd></div>
+        <div><dt class="text-xs text-slate-500">{% translate 'Portal' %}</dt><dd>{% if patient.has_joined %}<span class="pill-green">{% translate 'ativo' %}</span>{% else %}<span class="pill-amber">{% translate 'convite pendente' %}</span>
+          <form method="post" action="{% url 'clinic:patient_reinvite' patient.pk %}" class="mt-2">{% csrf_token %}<button class="btn-secondary btn-sm">{% icon 'send' %}{% translate 'Reenviar convite' %}</button></form>{% endif %}</dd></div>
+        {% if patient.notes %}<div><dt class="text-xs text-slate-500">{% translate 'Anotações internas' %}</dt><dd class="whitespace-pre-line">{{ patient.notes }}</dd></div>{% endif %}
+      </dl>
+      <div class="border-t border-slate-100 px-5 py-3 text-xs"><a href="{% url 'clinic:patient_data_zip' patient.pk %}">{% icon 'download' 'inline h-3.5 w-3.5' %} {% translate 'Baixar dados do paciente (LGPD)' %}</a></div>
+    </div>
+  </div>
+  <div class="space-y-6 lg:col-span-2">
+    <div class="card"><div class="card-header"><p class="card-title">{% translate 'Tratamentos' %}</p></div>
+      {% if treatments %}<ul class="divide-y divide-slate-100">{% for t in treatments %}<li class="flex items-center gap-3 px-5 py-3 text-sm"><a href="{% url 'clinic:treatment_detail' t.pk %}" class="flex-1 font-medium">{{ t.title }}</a><span class="w-28">{% pct_bar t.progress %}</span><span class="{{ t.status|pill }}">{{ t.get_status_display }}</span></li>{% endfor %}</ul>
+      {% else %}<div class="card-body text-sm text-slate-500">{% translate 'Nenhum tratamento.' %}</div>{% endif %}</div>
+    <div class="card"><div class="card-header"><p class="card-title">{% translate 'Consultas' %}</p></div>
+      {% if appointments %}<ul class="divide-y divide-slate-100">{% for a in appointments %}<li><a href="{% url 'agenda:detail' a.pk %}" class="flex items-center gap-3 px-5 py-2.5 text-sm text-slate-700 no-underline hover:bg-slate-50"><span class="w-40 tabular">{{ a.start|local_dt:request.dentist|truncatechars:40 }}</span><span class="flex-1">{{ a.type.name }}</span><span class="{{ a.status|pill }}">{{ a.get_status_display }}</span></a></li>{% endfor %}</ul>
+      {% else %}<div class="card-body text-sm text-slate-500">{% translate 'Nenhuma consulta.' %}</div>{% endif %}</div>
+    <div class="grid gap-6 sm:grid-cols-2">
+      <div class="card"><div class="card-header"><p class="card-title">{% translate 'Faturas' %}</p></div>{% if invoices %}<ul class="divide-y divide-slate-100 text-sm">{% for i in invoices %}<li class="flex justify-between px-5 py-2.5"><a href="{% url 'clinic:invoice_detail' i.pk %}">{{ i.display_number }}</a><span class="{{ i.status|pill }}">{{ i.amount|brl }}</span></li>{% endfor %}</ul>{% else %}<div class="card-body text-sm text-slate-500">—</div>{% endif %}</div>
+      <div class="card"><div class="card-header"><p class="card-title">{% translate 'Orçamentos' %}</p><a class="text-sm" href="{% url 'quotes:create' %}?paciente={{ patient.pk }}">{% translate 'novo' %}</a></div>{% if quotes %}<ul class="divide-y divide-slate-100 text-sm">{% for q in quotes %}<li class="flex justify-between px-5 py-2.5"><a href="{% url 'quotes:detail' q.pk %}">{{ q.title }}</a><span class="{{ q.status|pill }}">{{ q.get_status_display }}</span></li>{% endfor %}</ul>{% else %}<div class="card-body text-sm text-slate-500">—</div>{% endif %}</div>
+    </div>
+  </div>
+</div>
+{% endblock %}

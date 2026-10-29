@@ -1,0 +1,9 @@
+<div id="timeline" class="card"><div class="card-header"><p class="card-title">{% translate 'Linha do tempo' %}</p></div>
+  <div class="card-body space-y-3">
+    {% for e in entries %}
+      {% if e.kind == 'EVT' %}<p class="text-center text-xs text-slate-400">{{ e.created_at|date:"d/m/Y H:i" }} · {{ e.text }}</p>
+      {% else %}<div class="flex {% if e.author_role == viewer_role %}justify-end{% endif %}"><div class="max-w-[85%] rounded-2xl px-4 py-2 text-sm {% if e.author_role == viewer_role %}bg-brand-700 text-white{% else %}bg-slate-100 text-slate-800{% endif %}"><p class="whitespace-pre-line">{{ e.text }}</p><p class="mt-1 text-[11px] opacity-70">{{ e.author.name|default:e.author.email }} · {{ e.created_at|date:"d/m H:i" }}</p></div></div>{% endif %}
+    {% empty %}<p class="text-sm text-slate-500">{% translate 'Sem mensagens ainda.' %}</p>{% endfor %}
+    <form method="post" action="{{ post_url }}" class="flex items-end gap-2 border-t border-slate-100 pt-3">{% csrf_token %}<div class="flex-1">{{ message_form.text }}</div><button class="btn-primary">{% icon 'send' %}</button></form>
+  </div>
+</div>

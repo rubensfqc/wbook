@@ -1,0 +1,1 @@
+{% extends "emails/base.html" %}{% block content %}<p>O acesso de <strong>{{ dentist.clinic_name }}</strong> ({{ dentist.user.email }}) acaba em {{ dentist.access_until|date:"d/m/Y" }}.</p>{% endblock %}

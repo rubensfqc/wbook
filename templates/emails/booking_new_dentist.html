@@ -1,0 +1,1 @@
+{% extends "emails/base.html" %}{% block content %}<p>{% blocktranslate with n=appt.person_name %}<strong>{{ n }}</strong> agendou uma consulta pelo portal.{% endblocktranslate %}</p>{% include "emails/_appt_box.html" %}{% translate 'Ver na agenda' as l %}{% include "emails/_button.html" with url=agenda_link label=l %}{% endblock %}

@@ -1,0 +1,5 @@
+<div class="overflow-hidden rounded-xl ring-1 ring-slate-200 bg-slate-100" {% if track %}data-track-view="pdf"{% endif %}>
+  <div class="flex items-center justify-between gap-2 bg-white px-4 py-2 text-sm"><span class="truncate font-medium text-slate-700">{% icon 'file' 'inline h-4 w-4 mr-1' %}{{ title }}</span>
+    <span class="flex gap-2"><a class="btn-ghost btn-sm" href="{{ url }}" target="_blank" rel="noopener">{% icon 'external' %}{% translate 'Abrir' %}</a><a class="btn-secondary btn-sm" href="{{ download_url|default:url }}{% if '?' in download_url|default:url %}&amp;{% else %}?{% endif %}download=1" {% if track %}data-track="download"{% endif %}>{% icon 'download' %}{% translate 'Baixar' %}</a></span></div>
+  <iframe src="{{ url }}" title="{{ title }}" class="block w-full bg-white" style="height: {{ height|default:'640px' }}" loading="lazy"></iframe>
+</div>

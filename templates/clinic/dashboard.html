@@ -1,0 +1,69 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Início' %}{% endblock %}
+{% block page_title %}{% blocktranslate with n=request.user.first_name_display %}Olá, {{ n }}{% endblocktranslate %}{% endblock %}
+{% block page_actions %}<a href="{% url 'agenda:create' %}" class="btn-primary btn-sm">{% icon 'plus' %}{% translate 'Nova consulta' %}</a>{% endblock %}
+{% block content %}
+<div class="space-y-6">
+  {% if show_checklist %}
+  <div class="card"><div class="card-header"><p class="card-title">{% translate 'Primeiros passos' %}</p></div>
+    <ul class="divide-y divide-slate-100">{% for title, done, url in checklist %}
+      <li class="flex items-center gap-3 px-5 py-3 text-sm"><span class="flex h-6 w-6 items-center justify-center rounded-full {% if done %}bg-emerald-100 text-emerald-700{% else %}bg-slate-100 text-slate-400{% endif %}">{% icon 'check' 'h-3.5 w-3.5' %}</span><span class="flex-1 {% if done %}text-slate-400 line-through{% endif %}">{{ title }}</span>{% if not done %}<a class="btn-secondary btn-sm" href="{{ url }}">{% translate 'Fazer agora' %}</a>{% endif %}</li>
+    {% endfor %}</ul></div>
+  {% endif %}
+
+  {% if late_cancels %}
+  <div class="rounded-xl bg-red-50 p-4 ring-1 ring-red-200">
+    <p class="flex items-center gap-2 font-semibold text-red-800">{% icon 'alert' 'h-5 w-5' %}{% translate 'Pedidos de cancelamento em cima da hora' %}</p>
+    <ul class="mt-2 space-y-1 text-sm">{% for a in late_cancels %}<li><a href="{% url 'agenda:detail' a.pk %}" class="text-red-800 underline">{{ a.person_name }} — {{ a.start|local_dt:request.dentist }}</a>{% if a.late_cancel_note %} · <span class="text-red-700">“{{ a.late_cancel_note|truncatechars:80 }}”</span>{% endif %}</li>{% endfor %}</ul>
+  </div>
+  {% endif %}
+
+  <div class="grid grid-cols-2 gap-4 lg:grid-cols-4">
+    <div class="kpi"><p class="kpi-label">{% translate 'Próximos 7 dias' %}</p><p class="kpi-value tabular">{{ kpi_week }}</p><p class="text-xs text-slate-500">{% translate 'consultas' %}</p></div>
+    <div class="kpi"><p class="kpi-label">{% translate 'Pedidos pendentes' %}</p><p class="kpi-value tabular {% if pending %}text-amber-600{% endif %}">{{ pending|length }}</p></div>
+    <div class="kpi"><p class="kpi-label">{% translate 'Pacientes' %}</p><p class="kpi-value tabular">{{ kpi_patients }}</p></div>
+    <div class="kpi"><p class="kpi-label">{% translate 'A receber' %}</p><p class="kpi-value tabular">{{ open_total|brl }}</p></div>
+  </div>
+
+  <div class="grid gap-6 lg:grid-cols-3">
+    <div class="card lg:col-span-2"><div class="card-header"><p class="card-title">{% translate 'Hoje' %}</p><a class="text-sm" href="{% url 'agenda:calendar' %}?vista=dia">{% translate 'ver agenda' %}</a></div>
+      {% if today_appts %}<ul class="divide-y divide-slate-100">{% for a in today_appts %}
+        <li><a href="{% url 'agenda:detail' a.pk %}" class="flex items-center gap-3 px-5 py-3 text-sm text-slate-700 no-underline hover:bg-slate-50">
+          <span class="w-12 font-semibold tabular">{{ a.start|local_time:request.dentist }}</span><span class="h-2.5 w-2.5 rounded-full" style="background: {{ a.type.colour }}"></span>
+          <span class="flex-1">{{ a.person_name }} <span class="text-slate-400">· {{ a.type.name }}</span></span><span class="{{ a.status|pill }}">{{ a.get_status_display }}</span></a></li>
+      {% endfor %}</ul>{% else %}<div class="card-body text-sm text-slate-500">{% translate 'Nenhuma consulta hoje.' %}</div>{% endif %}
+    </div>
+    <div class="card"><div class="card-header"><p class="card-title">{% translate 'Pedidos para aprovar' %}</p></div>
+      {% if pending %}<ul class="divide-y divide-slate-100">{% for a in pending|slice:":6" %}
+        <li class="px-5 py-3 text-sm"><p class="font-medium">{{ a.person_name }}</p><p class="text-slate-500">{{ a.type.name }} · {{ a.start|local_dt:request.dentist }}</p>
+          <div class="mt-2 flex gap-2"><form method="post" action="{% url 'agenda:action' a.pk 'aprovar' %}">{% csrf_token %}<input type="hidden" name="next" value="{% url 'clinic:dashboard' %}"><button class="btn-success btn-sm">{% translate 'Aprovar' %}</button></form><a class="btn-secondary btn-sm" href="{% url 'agenda:detail' a.pk %}">{% translate 'Ver' %}</a></div></li>
+      {% endfor %}</ul>{% else %}<div class="card-body text-sm text-slate-500">{% translate 'Nada pendente.' %}</div>{% endif %}
+    </div>
+  </div>
+
+  <div class="grid gap-6 lg:grid-cols-3">
+    <div class="card lg:col-span-2"><div class="card-header"><p class="card-title">{% translate 'Consultas por semana' %}</p></div><div class="card-body"><canvas id="weeks" height="110"></canvas></div></div>
+    <div class="card"><div class="card-header"><p class="card-title">{% translate 'Atividade nos orçamentos' %}</p><a class="text-sm" href="{% url 'quotes:list' %}">{% translate 'ver todos' %}</a></div>
+      {% if quote_visits %}<ul class="divide-y divide-slate-100 text-sm">{% for v in quote_visits %}<li class="px-5 py-2.5"><a href="{% url 'quotes:detail' v.quote.pk %}" class="font-medium">{{ v.quote.recipient_name }}</a><p class="text-xs text-slate-500">{{ v.started_at|date:"d/m H:i" }} · {{ v.duration_s|duration }} · {{ v.device }}</p></li>{% endfor %}</ul>
+      {% else %}<div class="card-body text-sm text-slate-500">{% translate 'Nenhuma visita ainda.' %}</div>{% endif %}</div>
+  </div>
+
+  <div class="grid gap-6 lg:grid-cols-2">
+    <div class="card"><div class="card-header"><p class="card-title">{% translate 'Novos leads' %}</p><a class="text-sm" href="{% url 'landing:lead_list' %}">{% translate 'ver todos' %}</a></div>
+      {% if new_leads %}<ul class="divide-y divide-slate-100 text-sm">{% for l in new_leads %}<li class="px-5 py-2.5"><a href="{% url 'landing:lead_detail' l.pk %}" class="font-medium">{{ l.name }}</a> <span class="text-slate-400">· {{ l.get_source_display }} · {{ l.created_at|date:"d/m" }}</span></li>{% endfor %}</ul>
+      {% else %}<div class="card-body text-sm text-slate-500">{% translate 'Nenhum lead novo.' %}</div>{% endif %}</div>
+    <div class="card"><div class="card-header"><p class="card-title">{% translate 'Faturas em aberto' %}</p><a class="text-sm" href="{% url 'clinic:invoice_list' %}?status=OPEN">{% translate 'ver todas' %}</a></div>
+      {% if open_invoices %}<ul class="divide-y divide-slate-100 text-sm">{% for i in open_invoices %}<li class="flex justify-between px-5 py-2.5"><a href="{% url 'clinic:invoice_detail' i.pk %}">{{ i.display_number }} · {{ i.treatment.patient.name }}</a><span class="tabular">{{ i.amount|brl }}</span></li>{% endfor %}</ul>
+      {% else %}<div class="card-body text-sm text-slate-500">{% translate 'Nenhuma fatura em aberto.' %}</div>{% endif %}</div>
+  </div>
+</div>
+{{ chart|json_script:"weeks-data" }}
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'vendor/chartjs/chart.umd.min.js' %}"></script>
+<script>
+  (function(){ var d = JSON.parse(document.getElementById("weeks-data").textContent);
+  new Chart(document.getElementById("weeks"), {type: "bar", data: {labels: d.labels, datasets: [{data: d.values, backgroundColor: "#0f766e", borderRadius: 6}]},
+    options: {plugins: {legend: {display: false}}, scales: {y: {beginAtZero: true, ticks: {precision: 0}}, x: {grid: {display: false}}}}}); })();
+</script>
+{% endblock %}

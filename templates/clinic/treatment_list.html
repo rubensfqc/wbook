@@ -1,0 +1,12 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Tratamentos' %}{% endblock %}
+{% block page_title %}{% translate 'Tratamentos' %}{% endblock %}
+{% block page_actions %}<a href="{% url 'clinic:treatment_create' %}" class="btn-primary btn-sm">{% icon 'plus' %}{% translate 'Novo tratamento' %}</a>{% endblock %}
+{% block content %}
+<form class="mb-4"><select name="status" class="select max-w-xs" data-autosubmit><option value="">{% translate 'Todas as situações' %}</option>{% for v, l in statuses %}<option value="{{ v }}" {% if v == status %}selected{% endif %}>{{ l }}</option>{% endfor %}</select></form>
+{% if treatments %}
+<div class="card overflow-x-auto"><table class="table"><thead><tr><th>{% translate 'Tratamento' %}</th><th>{% translate 'Paciente' %}</th><th>{% translate 'Progresso' %}</th><th>{% translate 'Situação' %}</th><th class="text-right">{% translate 'Valor' %}</th></tr></thead><tbody>
+{% for t in treatments %}<tr><td><a href="{% url 'clinic:treatment_detail' t.pk %}" class="font-medium">{{ t.title }}</a>{% if t.region %}<br><span class="text-xs text-slate-500">{{ t.region }}</span>{% endif %}</td><td>{{ t.patient.name }}</td><td class="w-40">{% pct_bar t.progress %}<span class="text-xs text-slate-500">{{ t.progress }}%</span></td><td><span class="{{ t.status|pill }}">{{ t.get_status_display }}</span>{% if not t.is_visible_to_patient %} <span class="pill-gray">{% translate 'oculto' %}</span>{% endif %}</td><td class="text-right tabular">{{ t.budget|brl }}</td></tr>{% endfor %}
+</tbody></table></div>
+{% else %}{% translate 'Nenhum tratamento' as t %}{% translate 'Novo tratamento' as c %}{% url 'clinic:treatment_create' as u %}{% include "components/empty.html" with icon="tooth" title=t url=u cta=c %}{% endif %}
+{% endblock %}

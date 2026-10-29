@@ -1,0 +1,23 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Configurações' %}{% endblock %}
+{% block page_title %}{% translate 'Configurações' %}{% endblock %}
+{% block content %}
+<div class="grid gap-6 xl:grid-cols-3">
+  <form method="post" enctype="multipart/form-data" class="card xl:col-span-2">{% csrf_token %}<input type="hidden" name="form" value="profile">
+    <div class="card-header"><p class="card-title">{% translate 'Perfil, contato e pagamento' %}</p></div>
+    <div class="card-body space-y-4">{% with form=profile %}{% include "components/form_fields.html" %}{% endwith %}
+      <div class="flex gap-2"><button class="btn-primary">{% translate 'Salvar perfil' %}</button><a href="{% url 'accounts:change_password' %}" class="btn-secondary">{% icon 'lock' %}{% translate 'Alterar senha' %}</a></div></div>
+  </form>
+  <form method="post" class="card">{% csrf_token %}<input type="hidden" name="form" value="alerts">
+    <div class="card-header"><p class="card-title">{% translate 'Alertas por e-mail' %}</p></div>
+    <div class="card-body space-y-5">
+      <div><p class="mb-2 text-sm font-semibold text-slate-700">{% translate 'Quero receber um e-mail quando…' %}</p>
+        <div class="space-y-2">{% for f in dentist_alerts %}<label class="flex items-start gap-2 text-sm">{{ f }}<span>{{ f.label|capfirst }}</span></label>{% endfor %}</div></div>
+      <div><p class="mb-2 text-sm font-semibold text-slate-700">{% translate 'Meus pacientes recebem…' %}</p>
+        <div class="space-y-2">{% for f in patient_alerts %}<label class="flex items-start gap-2 text-sm">{{ f }}<span>{{ f.label|capfirst }}</span></label>{% endfor %}</div>
+        <p class="help">{% translate 'Confirmações de agendamento, remarcações e cancelamentos são sempre enviadas.' %}</p></div>
+      <button class="btn-primary">{% translate 'Salvar alertas' %}</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

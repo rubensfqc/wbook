@@ -1,0 +1,48 @@
+{# photos: list of TreatmentFile (PHOTO); phases: choices; dentist_mode: show share toggles #}
+{% if photos %}
+<div class="space-y-5">
+  {% for code, label in phases %}
+    {% with group=photos|dictsort:"taken_on" %}
+    <div>
+      <div class="mb-2 flex items-center justify-between gap-2">
+        <h3 class="text-sm font-semibold text-slate-700">{{ label }}</h3>
+        {% if dentist_mode %}
+        <span class="flex gap-1">
+          <form method="post" action="{% url 'clinic:phase_share' t.pk code %}">{% csrf_token %}<input type="hidden" name="share" value="1"><button class="btn-ghost btn-sm">{% icon 'eye' %}{% translate 'Compartilhar fase' %}</button></form>
+          <form method="post" action="{% url 'clinic:phase_share' t.pk code %}">{% csrf_token %}<input type="hidden" name="share" value="0"><button class="btn-ghost btn-sm">{% icon 'eye-off' %}{% translate 'Ocultar fase' %}</button></form>
+        </span>
+        {% endif %}
+      </div>
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        {% for f in group %}{% if f.phase == code %}
+        <figure class="overflow-hidden rounded-xl bg-white ring-1 ring-slate-200">
+          <a href="{% url 'files:photo' f.pk %}" data-lightbox data-caption="{{ f.caption }} {{ f.taken_on|date:'d/m/Y' }}"><img src="{% url 'files:photo' f.pk %}?thumb=1" alt="{{ f.caption }}" class="aspect-[4/3] w-full object-cover" loading="lazy"></a>
+          <figcaption class="flex items-center justify-between gap-2 px-2 py-1.5 text-xs text-slate-600">
+            <span class="truncate">{{ f.caption|default:label }} · {{ f.taken_on|date:"d/m/Y" }}</span>
+            {% if dentist_mode %}<span class="flex items-center gap-1">{% include "components/share_toggle.html" %}
+              <form method="post" action="{% url 'clinic:file_delete' f.pk %}" data-confirm="{% translate 'Remover esta foto?' %}">{% csrf_token %}<button class="text-slate-400 hover:text-red-600" title="{% translate 'Remover' %}">{% icon 'trash' 'h-3.5 w-3.5' %}</button></form></span>{% endif %}
+          </figcaption>
+        </figure>
+        {% endif %}{% endfor %}
+      </div>
+    </div>
+    {% endwith %}
+  {% endfor %}
+
+  <div class="card" data-compare>
+    <div class="card-header"><p class="card-title">{% translate 'Comparar antes e depois' %}</p></div>
+    <div class="card-body space-y-3">
+      <div class="grid gap-3 sm:grid-cols-2">
+        <select class="select" data-compare-select="a"><option value="">{% translate 'Foto da esquerda…' %}</option>{% for f in photos %}<option value="{% url 'files:photo' f.pk %}">{{ f.get_phase_display }} · {{ f.taken_on|date:"d/m/Y" }} {{ f.caption }}</option>{% endfor %}</select>
+        <select class="select" data-compare-select="b"><option value="">{% translate 'Foto da direita…' %}</option>{% for f in photos %}<option value="{% url 'files:photo' f.pk %}">{{ f.get_phase_display }} · {{ f.taken_on|date:"d/m/Y" }} {{ f.caption }}</option>{% endfor %}</select>
+      </div>
+      <div class="grid gap-3 sm:grid-cols-2">
+        <img data-compare-img="a" class="hidden w-full rounded-lg" alt="">
+        <img data-compare-img="b" class="hidden w-full rounded-lg" alt="">
+      </div>
+    </div>
+  </div>
+</div>
+{% else %}
+  {% translate 'Nenhuma foto ainda.' as t %}{% include "components/empty.html" with icon="image" title=t %}
+{% endif %}

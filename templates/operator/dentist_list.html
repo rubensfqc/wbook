@@ -1,0 +1,12 @@
+{% extends "layouts/operator.html" %}
+{% block page_title_text %}{% translate 'Dentistas' %}{% endblock %}
+{% block page_title %}{% translate 'Dentistas' %}{% endblock %}
+{% block page_actions %}<a href="{% url 'operator:dentist_add' %}" class="btn-primary btn-sm">{% icon 'plus' %}{% translate 'Novo dentista' %}</a>{% endblock %}
+{% block content %}
+<form class="mb-4 flex flex-wrap gap-2"><input name="q" value="{{ q }}" class="input max-w-xs" placeholder="{% translate 'Buscar' %}"><select name="situacao" class="select max-w-[12rem]"><option value="">{% translate 'Todas' %}</option>
+<option value="pagante" {% if situacao == 'pagante' %}selected{% endif %}>{% translate 'Pagante' %}</option><option value="teste" {% if situacao == 'teste' %}selected{% endif %}>{% translate 'Em teste' %}</option><option value="expirado" {% if situacao == 'expirado' %}selected{% endif %}>{% translate 'Expirado' %}</option><option value="suspenso" {% if situacao == 'suspenso' %}selected{% endif %}>{% translate 'Suspenso' %}</option></select><button class="btn-secondary">{% translate 'Filtrar' %}</button></form>
+<div class="card overflow-x-auto"><table class="table"><thead><tr><th>{% translate 'Consultório' %}</th><th>{% translate 'E-mail' %}</th><th>{% translate 'Cidade' %}</th><th>{% translate 'Pacientes' %}</th><th>{% translate 'Acesso até' %}</th><th>{% translate 'Situação' %}</th></tr></thead><tbody>
+{% for d in page %}<tr><td><a href="{% url 'operator:dentist_edit' d.pk %}" class="font-medium">{{ d.clinic_name }}</a><br><span class="text-xs text-slate-500">/{{ d.slug }}</span></td><td>{{ d.user.email }}</td><td>{{ d.city }}{% if d.state %}/{{ d.state }}{% endif %}</td><td class="tabular">{{ d.n_patients }}</td><td>{{ d.access_until|date:"d/m/Y" }}</td><td>{% if d.is_suspended %}<span class="pill-red">{% translate 'suspenso' %}</span>{% elif not d.can_access %}<span class="pill-gray">{% translate 'expirado' %}</span>{% elif d.is_paying %}<span class="pill-green">{% translate 'pagante' %}</span>{% else %}<span class="pill-amber">{% translate 'teste' %}</span>{% endif %}</td></tr>{% empty %}<tr><td colspan="6" class="text-slate-500">—</td></tr>{% endfor %}
+</tbody></table></div>
+{% include "components/pagination.html" %}
+{% endblock %}

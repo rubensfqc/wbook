@@ -1,0 +1,3 @@
+<form method="post" action="{% url 'clinic:file_share' f.pk %}" hx-post="{% url 'clinic:file_share' f.pk %}" hx-swap="outerHTML" class="inline">{% csrf_token %}
+  <button class="pill {% if f.shared %}pill-green{% else %}pill-gray{% endif %}" title="{% if f.shared %}{% translate 'Visível para o paciente — clique para ocultar' %}{% else %}{% translate 'Oculto do paciente — clique para compartilhar' %}{% endif %}">{% if f.shared %}{% icon 'eye' 'h-3 w-3' %}{% translate 'compartilhado' %}{% else %}{% icon 'eye-off' 'h-3 w-3' %}{% translate 'oculto' %}{% endif %}</button>
+</form>

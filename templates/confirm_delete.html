@@ -1,0 +1,10 @@
+{% extends request.user.is_operator|yesno:"layouts/operator.html,layouts/dentist.html" %}
+{% block title %}{% translate 'Confirmar remoção' %}{% endblock %}
+{% block page_title %}{% translate 'Confirmar remoção' %}{% endblock %}
+{% block content %}
+<div class="card max-w-xl"><div class="card-body space-y-4">
+  <p>{% blocktranslate with o=object %}Tem certeza que deseja remover <strong>{{ o }}</strong>?{% endblocktranslate %}</p>
+  {% if warning %}<p class="text-sm text-amber-700">{{ warning }}</p>{% endif %}
+  <form method="post" class="flex gap-2">{% csrf_token %}<button class="btn-danger">{% icon 'trash' %}{% translate 'Remover' %}</button><a href="{{ cancel_url }}" class="btn-secondary">{% translate 'Cancelar' %}</a></form>
+</div></div>
+{% endblock %}

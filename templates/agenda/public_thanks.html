@@ -1,0 +1,12 @@
+{% extends "agenda/_public_base.html" %}
+{% block content %}
+<div class="card"><div class="card-body space-y-4 text-center">
+  <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">{% icon 'check' 'h-6 w-6' %}</span>
+  <h1 class="text-xl">{% translate 'Pedido enviado!' %}</h1>
+  <p class="text-slate-600">{{ dentist.landing.thank_you_message|default:_("A clínica vai confirmar seu horário por e-mail.") }}</p>
+  <p class="font-medium">{{ a.type.name }} · {{ a.start|local_dt:dentist }}</p>
+  <p class="text-sm text-slate-500">{% blocktranslate with h=dentist.booking.pending_hold_hours %}Seu horário fica reservado por até {{ h }} horas enquanto a clínica confirma.{% endblocktranslate %}</p>
+  <div class="flex flex-wrap justify-center gap-2">{% include "components/add_to_calendar.html" %}<a class="btn-secondary btn-sm" href="{% url 'booking_public:status' dentist.slug a.public_token %}">{% translate 'Acompanhar meu pedido' %}</a></div>
+  <p class="text-xs text-slate-500">{% translate 'Guarde este link: por ele você acompanha, cancela ou remarca com a clínica.' %}</p>
+</div></div>
+{% endblock %}

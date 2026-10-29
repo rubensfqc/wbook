@@ -1,0 +1,19 @@
+{% extends "agenda/_public_base.html" %}
+{% block content %}
+<div class="card"><div class="card-body space-y-4">
+  <div class="flex items-center justify-between gap-2"><h1 class="text-xl">{% translate 'Sua consulta' %}</h1><span class="{{ a.status|pill }}">{{ a.get_status_display }}</span></div>
+  <p class="text-lg font-medium">{{ a.type.name }} · {{ a.start|local_dt:dentist }}</p>
+  <p class="text-sm text-slate-600">{{ dentist.name }} — {{ dentist.full_address }}</p>
+  {% if a.status == 'REJECTED' and a.reject_reason %}<p class="rounded-lg bg-slate-50 p-3 text-sm">{{ a.reject_reason }}</p>{% endif %}
+  {% if a.is_blocking %}
+    <div class="flex flex-wrap gap-2">{% include "components/add_to_calendar.html" %}</div>
+    {% if a.can_change_online %}
+      <form method="post" action="{% url 'booking_public:cancel' dentist.slug a.public_token %}" data-confirm="{% translate 'Cancelar esta consulta?' %}" class="space-y-2 border-t border-slate-100 pt-4">{% csrf_token %}
+        <p class="text-sm text-slate-600">{% translate 'Não vai poder ir? Cancele para liberar o horário. Para remarcar, cancele e faça um novo pedido, ou fale com a clínica.' %}</p>
+        <button class="btn-secondary">{% translate 'Cancelar consulta' %}</button></form>
+    {% else %}{% url 'booking_public:late_cancel' dentist.slug a.public_token as act %}{% include "components/late_cancel_box.html" with appointment=a action_url=act %}
+    {% endif %}
+  {% endif %}
+  <div class="border-t border-slate-100 pt-4">{% include "components/contact_clinic.html" %}</div>
+</div></div>
+{% endblock %}

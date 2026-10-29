@@ -1,0 +1,1 @@
+{% extends "emails/base.html" %}{% block content %}<p>{% blocktranslate with n=appt.person_first_name %}Olá, {{ n }}! Lembrete da sua consulta:{% endblocktranslate %}</p>{% include "emails/_appt_box.html" %}{% include "emails/_calendar_links.html" %}{% translate 'Ver minha consulta' as l %}{% include "emails/_button.html" with url=page_link label=l %}{% endblock %}

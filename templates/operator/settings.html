@@ -1,0 +1,16 @@
+{% extends "layouts/operator.html" %}
+{% block page_title_text %}{% translate 'Configurações' %}{% endblock %}
+{% block page_title %}{% translate 'Configurações da plataforma' %}{% endblock %}
+{% block content %}
+<form method="post" class="space-y-6">{% csrf_token %}
+  <div class="card"><div class="card-header"><p class="card-title">{% translate 'Alertas por e-mail' %}</p></div><div class="card-body space-y-4">
+    <div class="grid gap-4 sm:grid-cols-2">{% include "components/field.html" with field=form.alert_email %}{% include "components/field.html" with field=form.alert_email_secondary %}</div>
+    <p class="help">{% translate 'Cada alerta vai para o e-mail principal (em branco = e-mail de contato) e, se preenchido, também para o segundo e-mail.' %} {% translate 'Hoje recebem' %}: <strong>{{ recipients|join:", " }}</strong></p>
+    <div class="space-y-2">{% for f in alert_fields %}<label class="flex items-center gap-2 text-sm">{{ f }}{{ f.label|capfirst }}</label>{% endfor %}</div>
+  </div></div>
+  <div class="card"><div class="card-header"><p class="card-title">{% translate 'Plataforma, contato e planos' %}</p></div><div class="card-body grid gap-4 sm:grid-cols-2">
+    {% for f in form %}{% if f.name not in "alert_email alert_email_secondary alert_platform_lead alert_new_dentist alert_dentist_expiring alert_data_import" %}{% include "components/field.html" with field=f %}{% endif %}{% endfor %}
+  </div></div>
+  <button class="btn-primary">{% translate 'Salvar' %}</button>
+</form>
+{% endblock %}

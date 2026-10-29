@@ -1,0 +1,10 @@
+{% extends "layouts/auth.html" %}
+{% block title %}{% translate 'Assinatura' %} · wbook{% endblock %}
+{% block card_width %}max-w-2xl{% endblock %}
+{% block content %}
+<h1 class="text-xl">{% if dentist.is_suspended %}{% translate 'Conta suspensa' %}{% else %}{% translate 'Seu período de acesso terminou' %}{% endif %}</h1>
+<p class="mt-2 text-sm text-slate-600">{% translate 'Sua página pública e o agendamento online estão fora do ar. Seus pacientes continuam acessando o portal e os links de orçamento seguem funcionando.' %}</p>
+<div class="mt-5 grid gap-3 sm:grid-cols-3">{% for p in plans %}<div class="rounded-xl p-4 ring-1 ring-slate-200"><p class="font-semibold">{{ p.name }}</p><p class="text-lg text-brand-700">{{ p.price }}</p><p class="mt-1 text-xs text-slate-500">{{ p.description }}</p>{% if p.link %}<a href="{{ p.link }}" target="_blank" rel="noopener" class="btn-primary btn-sm mt-3 w-full">{% translate 'Assinar' %}</a>{% endif %}</div>{% endfor %}</div>
+<p class="mt-5 text-sm text-slate-500">{% translate 'Depois do pagamento, liberamos o acesso em até um dia útil.' %} <a href="{% url 'clinic:settings' %}">{% translate 'Configurações' %}</a></p>
+<form action="{% url 'accounts:logout' %}" method="post" class="mt-4">{% csrf_token %}<button class="btn-ghost btn-sm">{% translate 'Sair' %}</button></form>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "layouts/patient.html" %}
+{% block page_title_text %}{% translate 'Consulta' %}{% endblock %}
+{% block page_title %}{{ a.type.name }}{% endblock %}
+{% block content %}
+<div class="grid gap-6 lg:grid-cols-3">
+  <div class="card lg:col-span-2"><div class="card-body space-y-4">
+    <div class="flex flex-wrap items-center gap-2"><p class="text-lg font-semibold">{{ a.start|local_dt:a.dentist }} – {{ a.end|local_time:a.dentist }}</p><span class="{{ a.status|pill }}">{{ a.get_status_display }}</span></div>
+    {% if a.status == 'PENDING' %}<p class="text-sm text-amber-700">{% translate 'Aguardando a confirmação da clínica. Você recebe um e-mail quando for confirmado.' %}</p>{% endif %}
+    {% if a.is_blocking %}
+      <div class="flex flex-wrap gap-2">{% include "components/add_to_calendar.html" %}</div>
+      {% if a.can_change_online %}
+        <div class="flex flex-wrap gap-2 border-t border-slate-100 pt-4">
+          <a href="{% url 'patient:book' %}?remarcar={{ a.pk }}" class="btn-secondary">{% icon 'calendar' %}{% translate 'Remarcar' %}</a>
+          <form method="post" action="{% url 'patient:appointment_cancel' a.pk %}" data-confirm="{% translate 'Cancelar esta consulta?' %}">{% csrf_token %}<button class="btn-ghost text-red-600">{% translate 'Cancelar consulta' %}</button></form>
+        </div>
+        <p class="text-xs text-slate-500">{% blocktranslate count h=a.dentist.booking.change_cutoff_hours %}Você pode remarcar ou cancelar online até {{ h }} hora antes.{% plural %}Você pode remarcar ou cancelar online até {{ h }} horas antes.{% endblocktranslate %}</p>
+      {% else %}
+        {% url 'patient:late_cancel' a.pk as act %}{% include "components/late_cancel_box.html" with appointment=a action_url=act %}
+      {% endif %}
+    {% endif %}
+  </div></div>
+  <div class="card"><div class="card-body">{% include "components/contact_clinic.html" with dentist=a.dentist %}</div></div>
+</div>
+{% endblock %}

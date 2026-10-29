@@ -1,0 +1,1 @@
+{% extends "emails/base.html" %}{% block content %}<p>{% blocktranslate with n=appt.person_name %}O pedido de <strong>{{ n }}</strong> expirou sem resposta e o horário foi liberado.{% endblocktranslate %}</p>{% include "emails/_appt_box.html" %}<p>{{ appt.person_email }}{% if appt.person_whatsapp %} · WhatsApp {{ appt.person_whatsapp }}{% endif %}</p>{% endblock %}

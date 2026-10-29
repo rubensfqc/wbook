@@ -1,0 +1,4 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Novo lead' %}{% endblock %}
+{% block page_title %}{% translate 'Novo lead' %}{% endblock %}
+{% block content %}<form method="post" class="card max-w-2xl">{% csrf_token %}<div class="card-body space-y-4">{% include "components/form_fields.html" %}<button class="btn-primary">{% translate 'Salvar' %}</button></div></form>{% endblock %}

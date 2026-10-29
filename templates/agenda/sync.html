@@ -1,0 +1,21 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Sincronizar calendário' %}{% endblock %}
+{% block page_title %}{% translate 'Sincronizar com meu calendário' %}{% endblock %}
+{% block content %}
+<div class="grid gap-6 lg:grid-cols-3">
+  <div class="card lg:col-span-2"><div class="card-body space-y-4">
+    <p class="text-sm text-slate-600">{% translate 'Assine sua agenda do wbook no calendário que você já usa. Novas consultas e mudanças aparecem sozinhas (sentido único: wbook → calendário).' %}</p>
+    <div class="flex flex-wrap gap-2">
+      <a class="btn-primary" href="{{ links.google }}" target="_blank" rel="noopener">Google Agenda</a>
+      <a class="btn-secondary" href="{{ links.outlook }}" target="_blank" rel="noopener">Outlook.com</a>
+      <a class="btn-secondary" href="{{ links.office }}" target="_blank" rel="noopener">Microsoft 365</a>
+      <a class="btn-secondary" href="{{ links.webcal }}">Apple Calendar</a>
+    </div>
+    <div><label class="label">{% translate 'Link privado da sua agenda' %}</label><div class="flex gap-2"><input class="input font-mono text-xs" value="{{ links.url }}" readonly><button type="button" class="btn-secondary" data-copy="{{ links.url }}" data-copied="{% translate 'Copiado!' %}">{% icon 'copy' %}</button></div>
+      <p class="help">{% translate 'Quem tiver este link vê sua agenda. Não compartilhe. O Google atualiza calendários assinados a cada poucas horas, então mudanças não são instantâneas.' %}</p></div>
+    <form method="post" action="{% url 'agenda:sync_rotate' %}" data-confirm="{% translate 'Gerar um novo link? O link atual para de funcionar.' %}">{% csrf_token %}<button class="btn-ghost btn-sm">{% icon 'refresh' %}{% translate 'Gerar novo link' %}</button></form>
+  </div></div>
+  <form method="post" class="card">{% csrf_token %}<div class="card-header"><p class="card-title">{% translate 'O que aparece nos eventos' %}</p></div><div class="card-body space-y-4">{% include "components/form_fields.html" with grid="grid-cols-1" %}<button class="btn-primary btn-sm">{% translate 'Salvar' %}</button></div></form>
+</div>
+<p class="mt-6 text-sm"><a href="{% url 'agenda:export' %}">{% translate 'Prefere um arquivo? Exportar agenda (.ics, Excel, CSV)' %}</a></p>
+{% endblock %}

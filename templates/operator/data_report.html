@@ -1,0 +1,17 @@
+{% extends "layouts/operator.html" %}
+{% block page_title_text %}{% translate 'Importação' %}{% endblock %}
+{% block page_title %}{% if preview %}{% translate 'Prévia da importação' %}{% else %}{% translate 'Resultado da importação' %}{% endif %}{% endblock %}
+{% block content %}
+<div class="space-y-6">
+  <div class="rounded-xl p-4 ring-1 {% if report.ok %}bg-emerald-50 text-emerald-900 ring-emerald-200{% else %}bg-red-50 text-red-800 ring-red-200{% endif %}">
+    {% if report.ok %}{% if preview %}{% translate 'Tudo certo. Nada foi gravado ainda.' %}{% else %}{% translate 'Importação concluída.' %}{% endif %}{% else %}{% blocktranslate count n=report.errors|length %}{{ n }} erro — nada foi gravado.{% plural %}{{ n }} erros — nada foi gravado.{% endblocktranslate %}{% endif %}
+  </div>
+  <div class="card overflow-x-auto"><table class="table"><thead><tr><th>{% translate 'Tabela' %}</th><th>{% translate 'Novas' %}</th><th>{% translate 'Atualizadas' %}</th></tr></thead><tbody>{% for t, c in report.counts.items %}<tr><td>{{ t }}</td><td class="tabular">{{ c.created }}</td><td class="tabular">{{ c.updated }}</td></tr>{% endfor %}</tbody></table></div>
+  {% if report.errors %}<div class="card"><div class="card-header"><p class="card-title">{% translate 'Erros' %}</p></div><ul class="card-body space-y-1 text-sm text-red-700">{% for e in report.errors|slice:":300" %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
+  {% if report.warnings %}<div class="card"><div class="card-header"><p class="card-title">{% translate 'Avisos' %}</p></div><ul class="card-body space-y-1 text-sm text-amber-700">{% for e in report.warnings|slice:":300" %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
+  <div class="flex gap-2">
+    {% if preview and report.ok %}<form method="post" action="{% url 'operator:data_import_confirm' %}">{% csrf_token %}<button class="btn-primary">{% translate 'Confirmar e gravar' %}</button></form>{% endif %}
+    {% if preview %}<form method="post" action="{% url 'operator:data_import_cancel' %}">{% csrf_token %}<button class="btn-secondary">{% translate 'Cancelar' %}</button></form>{% else %}<a href="{% url 'operator:data' %}" class="btn-secondary">{% translate 'Voltar' %}</a>{% endif %}
+  </div>
+</div>
+{% endblock %}

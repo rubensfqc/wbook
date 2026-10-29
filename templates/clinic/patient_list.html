@@ -1,0 +1,13 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Pacientes' %}{% endblock %}
+{% block page_title %}{% translate 'Pacientes' %}{% endblock %}
+{% block page_actions %}<a href="{% url 'clinic:export' 'pacientes' 'xlsx' %}" class="btn-secondary btn-sm">{% icon 'download' %}Excel</a><a href="{% url 'clinic:patient_create' %}" class="btn-primary btn-sm">{% icon 'plus' %}{% translate 'Novo paciente' %}</a>{% endblock %}
+{% block content %}
+<form class="mb-4 flex max-w-md gap-2"><input name="q" value="{{ q }}" class="input" placeholder="{% translate 'Buscar por nome, e-mail ou WhatsApp' %}"><button class="btn-secondary">{% translate 'Buscar' %}</button></form>
+{% if patients %}
+<div class="card overflow-x-auto"><table class="table"><thead><tr><th>{% translate 'Nome' %}</th><th>{% translate 'Contato' %}</th><th>{% translate 'Portal' %}</th><th>{% translate 'Tratamentos ativos' %}</th></tr></thead><tbody>
+{% for p in patients %}<tr><td><a href="{% url 'clinic:patient_detail' p.pk %}" class="font-medium">{{ p.name }}</a></td><td class="text-slate-600">{{ p.email }}<br><span class="text-xs">{{ p.contact_whatsapp }}</span></td>
+<td>{% if p.has_joined %}<span class="pill-green">{% translate 'ativo' %}</span>{% else %}<span class="pill-amber">{% translate 'convite pendente' %}</span>{% endif %}</td><td class="tabular">{{ p.n_treat }}</td></tr>{% endfor %}
+</tbody></table></div>
+{% else %}{% translate 'Nenhum paciente ainda' as t %}{% translate 'Cadastre um paciente ou converta um lead.' as tx %}{% translate 'Novo paciente' as c %}{% url 'clinic:patient_create' as u %}{% include "components/empty.html" with icon="users" title=t text=tx url=u cta=c %}{% endif %}
+{% endblock %}

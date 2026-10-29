@@ -1,0 +1,1 @@
+{% extends "emails/base.html" %}{% block content %}<p>{% blocktranslate with n=q.recipient_name t=q.title %}<strong>{{ n }}</strong> abriu o orçamento “{{ t }}”.{% endblocktranslate %}</p>{% translate 'Ver registro de acessos' as l %}{% include "emails/_button.html" with url=link label=l %}{% endblock %}

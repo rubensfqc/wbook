@@ -1,0 +1,11 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Orçamentos' %}{% endblock %}
+{% block page_title %}{% translate 'Orçamentos' %}{% endblock %}
+{% block page_actions %}<a href="{% url 'quotes:create' %}" class="btn-primary btn-sm">{% icon 'plus' %}{% translate 'Novo orçamento' %}</a>{% endblock %}
+{% block content %}
+{% if quotes %}
+<div class="card overflow-x-auto"><table class="table"><thead><tr><th>{% translate 'Orçamento' %}</th><th>{% translate 'Para' %}</th><th>{% translate 'Situação' %}</th><th>{% translate 'Visitas' %}</th><th>{% translate 'Último acesso' %}</th><th class="text-right">{% translate 'Total' %}</th></tr></thead><tbody>
+{% for q in quotes %}<tr><td><a href="{% url 'quotes:detail' q.pk %}" class="font-medium">{{ q.title }}</a>{% if not q.is_active %} <span class="pill-gray">{% translate 'link desativado' %}</span>{% endif %}</td><td>{{ q.recipient_name }}</td><td><span class="{{ q.status|pill }}">{{ q.get_status_display }}</span></td><td class="tabular">{{ q.n_visits }}</td><td class="text-slate-500">{{ q.last_visit|date:"d/m H:i"|default:"—" }}</td><td class="text-right tabular">{{ q.total|brl }}</td></tr>{% endfor %}
+</tbody></table></div>
+{% else %}{% translate 'Nenhum orçamento' as t %}{% translate 'Envie um orçamento como página web e veja quando o paciente abriu, quanto tempo leu e se viu o PDF.' as tx %}{% translate 'Novo orçamento' as c %}{% url 'quotes:create' as u %}{% include "components/empty.html" with icon="quote" title=t text=tx url=u cta=c %}{% endif %}
+{% endblock %}

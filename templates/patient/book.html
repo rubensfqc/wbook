@@ -1,0 +1,20 @@
+{% extends "layouts/patient.html" %}
+{% block page_title_text %}{% translate 'Agendar' %}{% endblock %}
+{% block page_title %}{% if reschedule_of %}{% translate 'Remarcar consulta' %}{% else %}{% translate 'Agendar consulta' %}{% endif %}{% endblock %}
+{% block body_attrs %}style="--accent: {{ request.dentist.landing.accent_hex }}"{% endblock %}
+{% block content %}
+{% if reschedule_of %}<p class="mb-4 rounded-lg bg-slate-50 p-3 text-sm">{% blocktranslate with w=reschedule_of.start|local_dt:request.dentist %}Remarcando a consulta de <strong>{{ w }}</strong>. Escolha o novo horário.{% endblocktranslate %}</p>{% endif %}
+<div class="card"><div class="card-body space-y-4">
+  {% if not reschedule_of %}
+  <form method="get" class="max-w-sm"><label class="label">{% translate 'Tipo de consulta' %}</label><select name="tipo" class="select" data-autosubmit>{% for t in types %}<option value="{{ t.pk }}" {% if t.pk == appt_type.pk %}selected{% endif %}>{{ t.name }} ({{ t.duration_min }} min){% if request.dentist.landing.show_prices and t.show_price and t.price %} — {{ t.price|brl }}{% endif %}</option>{% endfor %}</select></form>
+  {% endif %}
+  {% include "components/slot_picker.html" %}
+  <form method="post" action="{% url 'patient:book_confirm' %}" data-booking-form class="space-y-3 border-t border-slate-100 pt-4">{% csrf_token %}
+    <input type="hidden" name="type" value="{{ appt_type.pk }}"><input type="hidden" name="start" value="">
+    {% if reschedule_of %}<input type="hidden" name="reschedule_of" value="{{ reschedule_of.pk }}">{% endif %}
+    <p class="text-sm">{% translate 'Horário escolhido' %}: <strong data-slot-label>—</strong></p>
+    {% if not reschedule_of %}<textarea name="note" rows="2" class="input" placeholder="{% translate 'Algo que a clínica deve saber? (opcional)' %}"></textarea>{% endif %}
+    <button class="btn-accent" data-needs-slot disabled>{% if reschedule_of %}{% translate 'Confirmar novo horário' %}{% else %}{% translate 'Confirmar agendamento' %}{% endif %}</button>
+  </form>
+</div></div>
+{% endblock %}

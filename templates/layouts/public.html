@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block body %}
+<header class="sticky top-0 z-30 border-b border-slate-200/70 bg-white/90 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
+    <a href="{% url 'website:home' %}" class="no-underline">{% include "components/logo.html" %}</a>
+    <nav class="ml-auto hidden items-center gap-5 text-sm sm:flex">
+      <a href="{% url 'website:home' %}#recursos" class="text-slate-600 no-underline hover:text-ink">{% translate 'Recursos' %}</a>
+      <a href="{% url 'website:plans' %}" class="text-slate-600 no-underline hover:text-ink">{% translate 'Planos' %}</a>
+      <a href="{% url 'accounts:login' %}" class="text-slate-600 no-underline hover:text-ink">{% translate 'Entrar' %}</a>
+    </nav>
+    <a href="{% url 'accounts:register' %}" class="btn-primary btn-sm ml-auto sm:ml-0">{% translate 'Teste grátis' %}</a>
+  </div>
+</header>
+{% block content %}{% endblock %}
+<footer class="border-t border-slate-200 bg-white">
+  <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 text-sm text-slate-500 sm:flex-row sm:items-center">
+    {% include "components/logo.html" %}
+    <span>{% translate 'Tecnologia a favor do dentista.' %}</span>
+    <span class="flex gap-4 sm:ml-auto"><a class="text-slate-500" href="{% url 'website:terms' %}">{% translate 'Termos' %}</a><a class="text-slate-500" href="{% url 'website:privacy' %}">{% translate 'Privacidade' %}</a>{% include "components/language_switcher.html" %}</span>
+  </div>
+</footer>
+{% endblock %}

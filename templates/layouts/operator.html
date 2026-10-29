@@ -1,0 +1,12 @@
+{% extends "layouts/portal.html" %}
+{% block sidebar_bg %}bg-slate-900{% endblock %}
+{% block home_url %}{% url 'operator:dashboard' %}{% endblock %}
+{% block nav %}
+<a class="nav-link {% active 'operator:dashboard' %}" href="{% url 'operator:dashboard' %}">{% icon 'chart' %}{% translate 'Painel' %}</a>
+<a class="nav-link {% active 'operator:dentist' %}" href="{% url 'operator:dentist_list' %}">{% icon 'tooth' %}{% translate 'Dentistas' %}</a>
+<a class="nav-link {% active 'operator:platform_leads' %}" href="{% url 'operator:platform_leads' %}">{% icon 'inbox' %}{% translate 'Interessados' %}</a>
+<a class="nav-link {% active 'operator:activity' %}" href="{% url 'operator:activity' %}">{% icon 'log' %}{% translate 'Atividade' %}</a>
+<a class="nav-link {% active 'operator:data' %}" href="{% url 'operator:data' %}">{% icon 'database' %}{% translate 'Exportar / importar' %}</a>
+<a class="nav-link {% active 'operator:settings' %}" href="{% url 'operator:settings' %}">{% icon 'settings' %}{% translate 'Configurações' %}</a>
+{% endblock %}
+{% block sidebar_footer %}<p>{% translate 'Operador' %}: {{ request.user.email }}</p>{% endblock %}

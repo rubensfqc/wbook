@@ -1,0 +1,14 @@
+{% extends "layouts/auth.html" %}
+{% block title %}{% translate 'Confirmar e-mail' %} · wbook{% endblock %}
+{% block content %}
+{% if already %}
+  <h1 class="text-xl">{% translate 'E-mail já confirmado' %}</h1><p class="mt-2 text-sm text-slate-600">{% translate 'Sua conta já está ativa.' %}</p>
+  <a href="{% url 'accounts:login' %}" class="btn-primary mt-5 w-full">{% translate 'Entrar' %}</a>
+{% elif valid %}
+  <h1 class="text-xl">{% translate 'Confirmar seu e-mail' %}</h1><p class="mt-2 text-sm text-slate-600">{% translate 'Clique no botão para ativar sua conta e entrar.' %}</p>
+  <form method="post" class="mt-5">{% csrf_token %}<button class="btn-primary w-full">{% translate 'Confirmar e entrar' %}</button></form>
+{% else %}
+  <h1 class="text-xl">{% translate 'Link expirado ou inválido' %}</h1><p class="mt-2 text-sm text-slate-600">{% translate 'Peça um novo link de confirmação.' %}</p>
+  <a href="{% url 'accounts:verify_email_sent' %}" class="btn-secondary mt-5 w-full">{% translate 'Pedir novo link' %}</a>
+{% endif %}
+{% endblock %}

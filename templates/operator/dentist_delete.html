@@ -1,0 +1,10 @@
+{% extends "layouts/operator.html" %}
+{% block page_title_text %}{% translate 'Apagar dentista' %}{% endblock %}
+{% block page_title %}{% translate 'Apagar dentista' %}{% endblock %}
+{% block content %}
+<form method="post" class="card max-w-xl">{% csrf_token %}<div class="card-body space-y-4">
+  <p>{% blocktranslate with c=d.clinic_name %}Isto apaga <strong>{{ c }}</strong>, todos os pacientes (inclusive logins), consultas, tratamentos, arquivos e faturas. Não pode ser desfeito. Exporte antes se precisar.{% endblocktranslate %}</p>
+  <label class="label">{% blocktranslate with s=d.slug %}Digite <code>{{ s }}</code> para confirmar{% endblocktranslate %}</label><input name="confirm" class="input" autocomplete="off">
+  <div class="flex gap-2"><button class="btn-danger">{% translate 'Apagar definitivamente' %}</button><a href="{% url 'operator:dentist_edit' d.pk %}" class="btn-secondary">{% translate 'Cancelar' %}</a></div>
+</div></form>
+{% endblock %}

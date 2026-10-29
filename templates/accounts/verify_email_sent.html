@@ -1,0 +1,11 @@
+{% extends "layouts/auth.html" %}
+{% block title %}{% translate 'Confirme seu e-mail' %} · wbook{% endblock %}
+{% block content %}
+<div class="text-center"><span class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-brand-50 text-brand-700">{% icon 'mail' 'h-6 w-6' %}</span>
+<h1 class="text-xl">{% translate 'Confirme seu e-mail' %}</h1>
+<p class="mt-2 text-sm text-slate-600">{% if email %}{% blocktranslate %}Enviamos um link para <strong>{{ email }}</strong>. Abra o e-mail e clique em “Confirmar”.{% endblocktranslate %}{% else %}{% translate 'Enviamos um link de confirmação para o seu e-mail.' %}{% endif %}</p></div>
+<form method="post" action="{% url 'accounts:resend_verification' %}" class="mt-6 space-y-3 border-t border-slate-100 pt-4">{% csrf_token %}
+  <p class="text-sm text-slate-500">{% translate 'Não chegou? Confira o spam ou peça outro:' %}</p>
+  <div class="flex gap-2"><input type="email" name="email" value="{{ email }}" class="input" required><button class="btn-secondary">{% translate 'Reenviar' %}</button></div>
+</form>
+{% endblock %}

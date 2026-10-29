@@ -1,0 +1,7 @@
+<div class="space-y-2 text-sm">
+  <p class="font-semibold">{{ dentist.clinic_name }}</p>
+  {% if dentist.phone %}<p><a href="tel:{{ dentist.phone }}" class="inline-flex items-center gap-2">{% icon 'phone' %}{{ dentist.phone }}</a></p>{% endif %}
+  {% if dentist.whatsapp %}<p><a href="{{ dentist.whatsapp|wa_link }}" target="_blank" rel="noopener" class="inline-flex items-center gap-2">{% icon 'whatsapp' %}{{ dentist.whatsapp }}</a></p>{% endif %}
+  {% if dentist.full_address %}<p class="inline-flex items-start gap-2">{% icon 'map' 'h-4 w-4 mt-0.5' %}<span>{{ dentist.full_address }}{% if dentist.maps_url %} · <a href="{{ dentist.maps_url }}" target="_blank" rel="noopener">{% translate 'ver no mapa' %}</a>{% endif %}</span></p>{% endif %}
+  {% if dentist.opening_hours_text %}<p class="inline-flex items-center gap-2 text-slate-600">{% icon 'clock' %}{{ dentist.opening_hours_text }}</p>{% endif %}
+</div>

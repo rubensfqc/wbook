@@ -1,0 +1,1 @@
+{% extends "emails/base.html" %}{% block content %}<p>{% blocktranslate with n=lead.name %}Olá, {{ n }}!{% endblocktranslate %}</p><p>{% translate 'Recebemos sua mensagem. A clínica vai responder em breve.' %}</p>{% endblock %}

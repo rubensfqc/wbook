@@ -1,0 +1,12 @@
+{% extends "layouts/public.html" %}
+{% block title %}{% translate 'Política de privacidade' %} · wbook{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-3xl space-y-4 px-4 py-16 text-slate-700">
+  <p class="rounded-lg bg-amber-50 p-3 text-sm text-amber-900">{% translate 'Modelo — revise com um advogado antes de publicar.' %}</p>
+  <h1 class="text-3xl">{% translate 'Política de privacidade' %}</h1>
+  <p>{% translate 'Coletamos os dados que você informa ao pedir uma consulta ou usar o portal: nome, e-mail, WhatsApp, horários de consulta e, no portal, informações do tratamento que o seu dentista registrar.' %}</p>
+  <p>{% translate 'Fotos, exames e anotações de tratamento são dados pessoais sensíveis (LGPD, art. 11). Eles ficam em armazenamento privado, só são exibidos para você e para o seu dentista, e cada acesso é registrado.' %}</p>
+  <p>{% translate 'Não vendemos dados. Endereços IP são guardados apenas de forma anonimizada (hash). Você pode baixar seus dados no portal e pedir correção ou exclusão ao seu dentista.' %}</p>
+  <p>{% translate 'Contato do encarregado:' %} <a href="mailto:wbook@gmail.com">wbook@gmail.com</a></p>
+</section>
+{% endblock %}

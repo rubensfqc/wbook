@@ -1,0 +1,44 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Agenda' %}{% endblock %}
+{% block page_title %}{% translate 'Agenda' %}{% endblock %}
+{% block page_actions %}
+<a href="{% url 'agenda:export' %}" class="btn-ghost btn-sm hidden md:inline-flex">{% icon 'download' %}{% translate 'Exportar' %}</a>
+<a href="{% url 'agenda:sync' %}" class="btn-ghost btn-sm hidden md:inline-flex">{% icon 'refresh' %}{% translate 'Sincronizar' %}</a>
+<a href="{% url 'agenda:blocks' %}" class="btn-secondary btn-sm">{% icon 'lock' %}<span class="hidden sm:inline">{% translate 'Bloquear' %}</span></a>
+<a href="{% url 'agenda:create' %}" class="btn-primary btn-sm">{% icon 'plus' %}<span class="hidden sm:inline">{% translate 'Nova consulta' %}</span></a>
+{% endblock %}
+{% block content %}
+{% if pending %}
+<div class="mb-4 rounded-xl bg-amber-50 p-4 ring-1 ring-amber-200">
+  <p class="font-semibold text-amber-900">{% blocktranslate count n=pending|length %}{{ n }} pedido aguardando sua confirmação{% plural %}{{ n }} pedidos aguardando sua confirmação{% endblocktranslate %}</p>
+  <ul class="mt-2 space-y-2">{% for a in pending %}<li class="flex flex-wrap items-center gap-2 text-sm"><a href="{% url 'agenda:detail' a.pk %}" class="font-medium text-amber-900">{{ a.person_name }}</a><span class="text-amber-800">{{ a.type.name }} · {{ a.start|local_dt:request.dentist }}</span>
+    <form method="post" action="{% url 'agenda:action' a.pk 'aprovar' %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}"><button class="btn-success btn-sm">{% translate 'Aprovar' %}</button></form>
+    <form method="post" action="{% url 'agenda:action' a.pk 'recusar' %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}"><button class="btn-secondary btn-sm">{% translate 'Recusar' %}</button></form></li>{% endfor %}</ul>
+</div>
+{% endif %}
+<div class="mb-3 flex flex-wrap items-center gap-2">
+  <a class="btn-secondary btn-sm" href="?vista={{ view }}&data={{ prev }}">{% icon 'chevron-left' %}</a>
+  <a class="btn-secondary btn-sm" href="?vista={{ view }}&data={{ today }}">{% translate 'Hoje' %}</a>
+  <a class="btn-secondary btn-sm" href="?vista={{ view }}&data={{ next }}">{% icon 'chevron-right' %}</a>
+  <p class="ml-2 font-medium">{% if view == 'dia' %}{{ day|date:"l, d/m/Y" }}{% else %}{{ cols.0.day|date:"d/m" }} – {{ cols.6.day|date:"d/m/Y" }}{% endif %}</p>
+  <div class="ml-auto flex rounded-lg ring-1 ring-slate-300"><a class="px-3 py-1.5 text-sm no-underline {% if view == 'dia' %}bg-slate-100 font-semibold text-ink{% else %}text-slate-600{% endif %}" href="?vista=dia&data={{ day|date:'Y-m-d' }}">{% translate 'Dia' %}</a><a class="px-3 py-1.5 text-sm no-underline {% if view != 'dia' %}bg-slate-100 font-semibold text-ink{% else %}text-slate-600{% endif %}" href="?vista=semana&data={{ day|date:'Y-m-d' }}">{% translate 'Semana' %}</a></div>
+</div>
+<div class="card overflow-x-auto">
+  <div class="grid min-w-[760px]" style="grid-template-columns: 56px repeat({{ cols|length }}, minmax(0, 1fr));">
+    <div class="border-b border-slate-200"></div>
+    {% for c in cols %}<a href="?vista=dia&data={{ c.day|date:'Y-m-d' }}" class="border-b border-l border-slate-200 px-2 py-2 text-center text-xs font-semibold uppercase no-underline {% if c.is_today %}text-brand-700{% else %}text-slate-600{% endif %}">{{ c.day|date:"D d/m" }}</a>{% endfor %}
+    <div class="relative" style="height: {{ grid_height }}px">{% for h, m in rows %}{% if m == 0 %}<div class="absolute right-2 text-[10px] text-slate-400" style="top: {% widthratio forloop.counter0 1 row_height %}px">{{ h }}:00</div>{% endif %}{% endfor %}</div>
+    {% for c in cols %}
+    <div class="relative border-l border-slate-200 {% if not c.open %}bg-slate-50{% endif %}" style="height: {{ grid_height }}px">
+      {% for h, m in rows %}<a href="{% url 'agenda:create' %}?inicio={{ c.day|date:'Y-m-d' }}T{{ h|stringformat:'02d' }}:{{ m|stringformat:'02d' }}" class="absolute left-0 right-0 border-t {% if m == 0 %}border-slate-200{% else %}border-slate-100{% endif %} hover:bg-brand-50" style="top: {% widthratio forloop.counter0 1 row_height %}px; height: {{ row_height }}px" title="{{ h }}:{{ m|stringformat:'02d' }}"></a>{% endfor %}
+      {% for b in c.blocks %}<div class="cal-block" style="top: {{ b.top }}px; height: {{ b.height }}px">{{ b.b.reason }}</div>{% endfor %}
+      {% for it in c.items %}{% with a=it.a %}
+      <a href="{% url 'agenda:detail' a.pk %}" class="cal-event {% if a.status == 'PENDING' %}cal-event-pending{% endif %} {% if a.is_late_cancel_requested %}cal-event-late{% endif %} {% if a.status == 'COMPLETED' or a.status == 'NO_SHOW' %}opacity-60{% endif %}" style="top: {{ it.top }}px; height: {{ it.height }}px; background: {{ a.type.colour }}">
+        <span class="font-semibold">{{ a.start|local_time:request.dentist }}</span> {{ a.person_name }}<br><span class="opacity-80">{{ a.type.name }}</span>{% if a.is_late_cancel_requested %} ⚠{% endif %}</a>
+      {% endwith %}{% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<p class="mt-2 text-xs text-slate-500">{% translate 'Clique num horário vazio para marcar. Tracejado = aguardando confirmação · borda vermelha = paciente pediu cancelamento.' %}</p>
+{% endblock %}

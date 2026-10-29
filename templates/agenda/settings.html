@@ -1,0 +1,32 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Horários e regras' %}{% endblock %}
+{% block page_title %}{% translate 'Horários e regras de agendamento' %}{% endblock %}
+{% block page_actions %}<a href="{% url 'agenda:blocks' %}" class="btn-secondary btn-sm">{% icon 'lock' %}{% translate 'Bloquear horários' %}</a>{% endblock %}
+{% block content %}
+<form method="post" class="space-y-6">{% csrf_token %}
+  <div class="card"><div class="card-header"><p class="card-title">{% translate 'Horários de atendimento' %}</p></div>
+    <div class="card-body">{{ hours.management_form }}{% for e in hours.non_form_errors %}<p class="field-error mb-2">{{ e }}</p>{% endfor %}
+      <div class="overflow-x-auto"><table class="table"><thead><tr><th>{% translate 'Dia' %}</th><th>{% translate 'Início' %}</th><th>{% translate 'Fim' %}</th><th>{% translate 'Remover' %}</th></tr></thead><tbody>
+      {% for f in hours %}<tr>{% for h in f.hidden_fields %}{{ h }}{% endfor %}<td>{{ f.weekday }}</td><td>{{ f.start }}</td><td>{{ f.end }}{% for e in f.non_field_errors %}<p class="field-error">{{ e }}</p>{% endfor %}</td><td>{% if f.instance.pk %}{{ f.DELETE }}{% endif %}</td></tr>{% endfor %}
+      </tbody></table></div>
+      <p class="help">{% translate 'Use duas linhas no mesmo dia para separar manhã e tarde (ex.: 08:00–12:00 e 13:30–18:00). Salve para ganhar mais linhas em branco.' %}</p>
+    </div></div>
+
+  <div class="card"><div class="card-header"><p class="card-title">{% translate 'Tipos de consulta' %}</p></div>
+    <div class="card-body">{{ types.management_form }}
+      <div class="overflow-x-auto"><table class="table"><thead><tr><th>{% translate 'Nome' %}</th><th>{% translate 'Duração' %}</th><th>{% translate 'Intervalo' %}</th><th>{% translate 'Preço' %}</th><th>{% translate 'Mostrar preço' %}</th><th>{% translate 'Visitantes' %}</th><th>{% translate 'Cor' %}</th><th>{% translate 'Ativo' %}</th><th>{% translate 'Ordem' %}</th><th>{% translate 'Remover' %}</th></tr></thead><tbody>
+      {% for f in types %}<tr>{% for h in f.hidden_fields %}{{ h }}{% endfor %}<td class="min-w-[10rem]">{{ f.name }}{% for e in f.name.errors %}<p class="field-error">{{ e }}</p>{% endfor %}</td><td class="w-24">{{ f.duration_min }}</td><td class="w-24">{{ f.buffer_min }}</td><td class="w-28">{{ f.price }}</td><td>{{ f.show_price }}</td><td>{{ f.visitor_bookable }}</td><td>{{ f.colour }}</td><td>{{ f.is_active }}</td><td class="w-20">{{ f.order }}</td><td>{% if f.instance.pk %}{{ f.DELETE }}{% endif %}</td></tr>{% endfor %}
+      </tbody></table></div>
+      <p class="help">{% translate 'Duração e intervalo em minutos. “Visitantes” = pode ser pedido por quem ainda não é paciente. O preço só aparece na página se “Mostrar preços” também estiver ligado em Minha página.' %}</p>
+    </div></div>
+
+  <div class="card"><div class="card-header"><p class="card-title">{% translate 'Regras de agendamento' %}</p></div>
+    <div class="card-body space-y-4">{% with form=sform %}{% include "components/form_fields.html" %}{% endwith %}
+      <div class="rounded-lg bg-slate-50 p-3 text-sm text-slate-600">
+        <p><strong>{% translate 'Mostrar só 4 horários em dias vazios' %}:</strong> {% translate 'num dia ainda sem nenhum agendamento, visitantes e pacientes veem no máximo 4 horários livres, espalhados entre manhã e tarde. Quando alguém marca, os demais horários livres do dia aparecem. Na sua agenda você sempre vê tudo.' %}</p>
+        <p class="mt-2"><strong>{% translate 'Prazo para remarcar/cancelar' %}:</strong> {% translate 'depois desse prazo o paciente vê os contatos da clínica e um botão de WhatsApp, e você recebe um alerta.' %}</p>
+      </div>
+    </div></div>
+  <button class="btn-primary">{% translate 'Salvar tudo' %}</button>
+</form>
+{% endblock %}

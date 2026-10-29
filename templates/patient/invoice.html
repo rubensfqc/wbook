@@ -1,0 +1,19 @@
+{% extends "layouts/patient.html" %}
+{% block page_title_text %}{{ inv.display_number }}{% endblock %}
+{% block page_title %}{% translate 'Fatura' %} {{ inv.display_number }} <span class="{{ inv.status|pill }} align-middle">{{ inv.get_status_display }}</span>{% endblock %}
+{% block content %}
+<div class="grid gap-6 lg:grid-cols-3">
+  <div class="lg:col-span-2">{% url 'files:invoice' inv.pk as pdf %}{% include "components/pdf_viewer.html" with url=pdf title=inv.title height="560px" %}</div>
+  <div class="card"><div class="card-body space-y-3 text-sm">
+    <p class="text-2xl font-semibold">{{ inv.amount|brl }}</p>
+    {% if inv.due_date %}<p>{% translate 'Vencimento' %}: {{ inv.due_date|date:"d/m/Y" }}</p>{% endif %}
+    {% if inv.dentist.pix_key %}<div><p class="text-xs text-slate-500">{% translate 'Chave PIX' %}</p><div class="flex gap-2"><input class="input font-mono text-xs" value="{{ inv.dentist.pix_key }}" readonly><button type="button" class="btn-secondary btn-sm" data-copy="{{ inv.dentist.pix_key }}" data-copied="✓">{% icon 'copy' %}</button></div></div>{% endif %}
+    {% if inv.dentist.payment_link %}<a href="{{ inv.dentist.payment_link }}" target="_blank" rel="noopener" class="btn-primary w-full">{% translate 'Pagar online' %}</a>{% endif %}
+    {% if inv.dentist.payment_note %}<p class="text-slate-500">{{ inv.dentist.payment_note }}</p>{% endif %}
+    {% if inv.status == 'OPEN' %}
+      {% if inv.patient_notified_paid_at %}<p class="rounded-lg bg-sky-50 p-3 text-sky-900">{% translate 'Você avisou que pagou. A clínica vai confirmar.' %}</p>
+      {% else %}<form method="post" action="{% url 'patient:invoice_paid' inv.pk %}">{% csrf_token %}<button class="btn-success w-full">{% icon 'check' %}{% translate 'Já paguei' %}</button></form>{% endif %}
+    {% endif %}
+  </div></div>
+</div>
+{% endblock %}

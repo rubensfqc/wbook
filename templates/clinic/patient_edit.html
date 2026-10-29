@@ -1,0 +1,7 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{{ patient.name }}{% endblock %}
+{% block page_title %}{% translate 'Editar paciente' %}{% endblock %}
+{% block content %}
+<form method="post" class="card max-w-3xl">{% csrf_token %}<div class="card-body space-y-4">{% include "components/form_fields.html" %}
+<div class="flex gap-2"><button class="btn-primary">{% translate 'Salvar' %}</button><a href="{% url 'clinic:patient_detail' patient.pk %}" class="btn-secondary">{% translate 'Cancelar' %}</a><a href="{% url 'clinic:patient_delete' patient.pk %}" class="btn-ghost ml-auto text-red-600">{% translate 'Remover paciente' %}</a></div></div></form>
+{% endblock %}

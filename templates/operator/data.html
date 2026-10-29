@@ -1,0 +1,23 @@
+{% extends "layouts/operator.html" %}
+{% block page_title_text %}{% translate 'Exportar / importar' %}{% endblock %}
+{% block page_title %}{% translate 'Exportar / importar dados' %}{% endblock %}
+{% block content %}
+<div class="grid gap-6 lg:grid-cols-2">
+  <form method="post" class="card">{% csrf_token %}<div class="card-header"><p class="card-title">{% translate 'Exportar' %}</p></div><div class="card-body space-y-4">
+    {% include "components/field.html" with field=form.format %}
+    <div><p class="label">{{ form.scope.label }}</p>{{ form.scope }}</div>
+    <div class="max-h-56 overflow-y-auto rounded-lg p-3 ring-1 ring-slate-200 text-sm">{{ form.dentists }}</div>
+    {% include "components/field.html" with field=form.include_files %}{% include "components/field.html" with field=form.include_passwords %}
+    <p class="help">{% translate 'ZIP: uma planilha CSV por tabela + arquivos — bom para backup, mudança de servidor e edição em massa. TOML: um arquivo de texto, sem os arquivos.' %}</p>
+    <button class="btn-primary">{% icon 'download' %}{% translate 'Baixar exportação' %}</button></div></form>
+  <form method="post" action="{% url 'operator:data_import' %}" enctype="multipart/form-data" class="card">{% csrf_token %}<div class="card-header"><p class="card-title">{% translate 'Importar' %}</p></div><div class="card-body space-y-4">
+    {% include "components/field.html" with field=import_form.file %}
+    <p class="help">{% translate 'Primeiro mostramos uma prévia (nada é gravado). A importação atualiza o que já existe pela chave, cria o que é novo e nunca apaga nada. Se houver qualquer erro, nada é gravado.' %}</p>
+    <button class="btn-secondary">{% icon 'upload' %}{% translate 'Ver prévia' %}</button></div></form>
+</div>
+<div class="card mt-6"><div class="card-body text-sm text-slate-600"><p class="font-semibold">{% translate 'Linha de comando (backups grandes e agendados)' %}</p>
+<pre class="mt-2 overflow-x-auto rounded-lg bg-slate-900 p-3 text-xs text-slate-100">python manage.py export_data -o backup.zip
+python manage.py export_data --dentist clinica-sorriso -o sorriso.zip
+python manage.py import_data backup.zip --dry-run
+python manage.py import_data backup.zip</pre></div></div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block body_class %}bg-gradient-to-b from-brand-50 to-mist{% endblock %}
+{% block body %}
+<div class="flex min-h-screen flex-col items-center justify-center px-4 py-10">
+  <a href="{% url 'website:home' %}" class="mb-6 no-underline">{% block auth_logo %}{% include "components/logo.html" %}{% endblock %}</a>
+  <div class="card w-full {% block card_width %}max-w-md{% endblock %}"><div class="card-body">{% block content %}{% endblock %}</div></div>
+  <div class="mt-6 text-slate-500">{% include "components/language_switcher.html" %}</div>
+</div>
+{% endblock %}

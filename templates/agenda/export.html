@@ -1,0 +1,11 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Exportar agenda' %}{% endblock %}
+{% block page_title %}{% translate 'Exportar agenda' %}{% endblock %}
+{% block content %}
+<form method="get" class="card max-w-2xl"><div class="card-body space-y-4">
+  <div class="grid gap-4 sm:grid-cols-2"><div><label class="label">{% translate 'De' %}</label><input type="date" name="de" value="{{ default_from|date:'Y-m-d' }}" class="input"></div><div><label class="label">{% translate 'Até' %}</label><input type="date" name="ate" value="{{ default_to|date:'Y-m-d' }}" class="input"></div></div>
+  <div><p class="label">{% translate 'Situações' %}</p><div class="grid gap-1 sm:grid-cols-2">{% for v, l in statuses %}<label class="flex items-center gap-2 text-sm"><input type="checkbox" name="status" value="{{ v }}" class="checkbox" {% if v == 'CONFIRMED' or v == 'PENDING' or v == 'COMPLETED' %}checked{% endif %}>{{ l }}</label>{% endfor %}</div></div>
+  <div class="flex flex-wrap gap-2"><button name="formato" value="ics" class="btn-primary">{% icon 'calendar' %}{% translate 'Arquivo de calendário (.ics)' %}</button><button name="formato" value="xlsx" class="btn-secondary">Excel</button><button name="formato" value="csv" class="btn-secondary">CSV</button></div>
+  <p class="help">{% translate 'O .ics pode ser importado no Google Agenda, Outlook ou Apple Calendar. Para manter tudo atualizado sozinho, use “Sincronizar calendário”.' %}</p>
+</div></form>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "layouts/public.html" %}
+{% block title %}wbook — {% translate 'agenda online e portal do paciente para dentistas' %}{% endblock %}
+{% block content %}
+<section class="bg-gradient-to-b from-brand-50 to-mist">
+  <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-2">
+    <div>
+      <p class="pill-brand">{% translate 'Feito para dentistas' %}</p>
+      <h1 class="mt-4 text-4xl leading-tight sm:text-5xl">{% translate 'Seus pacientes agendam sozinhos. Você cuida do sorriso.' %}</h1>
+      <p class="mt-4 text-lg text-slate-600">{% translate 'Página com agenda online, portal do paciente com tratamentos, fotos de antes e depois, orçamentos com registro de leitura e faturas por PIX.' %}</p>
+      <div class="mt-6 flex flex-wrap gap-3"><a href="{% url 'accounts:register' %}" class="btn-primary">{% translate 'Começar teste grátis' %}</a><a href="#contato" class="btn-secondary">{% translate 'Falar com a gente' %}</a></div>
+      <p class="mt-3 text-sm text-slate-500">{% translate 'Sem cartão de crédito. Sua página fica pronta em minutos.' %}</p>
+    </div>
+    <div class="card overflow-hidden">{% if ps.home_hero_image_url %}<img src="{{ ps.home_hero_image_url }}" alt="" class="h-80 w-full object-cover">{% else %}
+      <div class="space-y-3 p-6"><p class="text-sm font-semibold text-slate-500">{% translate 'Agende sua consulta' %}</p>
+        <div class="grid grid-cols-4 gap-2">{% for d in "STQQ" %}<div class="rounded-lg bg-white p-2 ring-1 ring-slate-200"><p class="text-center text-xs font-semibold text-slate-500">{{ d }}</p><p class="slot-btn mt-1 text-xs">09:00</p><p class="slot-btn mt-1 text-xs">11:00</p><p class="slot-btn mt-1 text-xs">14:30</p></div>{% endfor %}</div>
+        <p class="rounded-lg bg-emerald-50 p-3 text-sm text-emerald-800">✓ {% translate 'Consulta confirmada — adicionada à sua agenda' %}</p></div>{% endif %}</div>
+  </div>
+</section>
+<section id="recursos" class="mx-auto max-w-6xl px-4 py-16">
+  <h2 class="text-center text-3xl">{% translate 'Tudo o que o consultório precisa, sem secretária no meio' %}</h2>
+  <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {% translate 'Agenda online' as a1 %}{% translate 'Visitantes pedem horário e viram leads; pacientes agendam e já recebem a confirmação. Você define até quando dá para remarcar.' as b1 %}
+    {% translate 'Agenda que não parece vazia' as a2 %}{% translate 'Em dias sem agendamento, mostre só 4 horários espalhados. Você vê tudo; o paciente vê o essencial.' as b2 %}
+    {% translate 'Portal do paciente' as a3 %}{% translate 'Tratamentos com progresso, sessões, PDFs e fotos de antes, durante e depois — só o que você compartilhar.' as b3 %}
+    {% translate 'Orçamentos que avisam' as a4 %}{% translate 'Envie o orçamento como página. Saiba quando abriu, quanto tempo leu, se viu o PDF — e receba o aceite online.' as b4 %}
+    {% translate 'Sincronize seu calendário' as a5 %}{% translate 'Google Agenda, Outlook e Apple com um clique. Pacientes adicionam a consulta à agenda deles, até pelo WhatsApp.' as b5 %}
+    {% translate 'Faturas e PIX' as a6 %}{% translate 'Faturas em PDF com sua chave PIX. O paciente avisa “Já paguei” e você confirma.' as b6 %}
+    <div class="card"><div class="card-body"><p class="font-semibold">{{ a1 }}</p><p class="mt-2 text-sm text-slate-600">{{ b1 }}</p></div></div>
+    <div class="card"><div class="card-body"><p class="font-semibold">{{ a2 }}</p><p class="mt-2 text-sm text-slate-600">{{ b2 }}</p></div></div>
+    <div class="card"><div class="card-body"><p class="font-semibold">{{ a3 }}</p><p class="mt-2 text-sm text-slate-600">{{ b3 }}</p></div></div>
+    <div class="card"><div class="card-body"><p class="font-semibold">{{ a4 }}</p><p class="mt-2 text-sm text-slate-600">{{ b4 }}</p></div></div>
+    <div class="card"><div class="card-body"><p class="font-semibold">{{ a5 }}</p><p class="mt-2 text-sm text-slate-600">{{ b5 }}</p></div></div>
+    <div class="card"><div class="card-body"><p class="font-semibold">{{ a6 }}</p><p class="mt-2 text-sm text-slate-600">{{ b6 }}</p></div></div>
+  </div>
+</section>
+<section class="bg-white"><div class="mx-auto max-w-6xl px-4 py-16"><h2 class="text-center text-3xl">{% translate 'Planos' %}</h2>
+  <div class="mt-8 grid gap-6 md:grid-cols-3">{% for p in plans %}<div class="card"><div class="card-body"><p class="font-semibold">{{ p.name }}</p><p class="mt-1 text-2xl text-brand-700">{{ p.price }}</p><p class="mt-2 text-sm text-slate-600">{{ p.description }}</p><a href="{% url 'accounts:register' %}" class="btn-secondary mt-4 w-full">{% translate 'Começar teste grátis' %}</a></div></div>{% endfor %}</div></div></section>
+<section id="contato" class="mx-auto max-w-3xl px-4 py-16">
+  <h2 class="text-center text-3xl">{% translate 'Fale com a gente' %}</h2>
+  <form method="post" action="{% url 'website:contact' %}" class="card mt-8">{% csrf_token %}<div class="card-body space-y-4"><div class="hidden" aria-hidden="true">{{ form.company }}</div>
+    <div class="grid gap-4 sm:grid-cols-2">{% for f in form.visible_fields %}{% if f.name != 'company' %}{% include "components/field.html" with field=f %}{% endif %}{% endfor %}</div>
+    <button class="btn-primary">{% translate 'Enviar' %}</button></div></form>
+</section>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}{% block page_title_text %}{% endblock %} · {{ request.dentist.clinic_name }}{% endblock %}
+{% block body %}
+{% with d=request.dentist %}
+<header class="border-b border-slate-200 bg-white">
+  <div class="mx-auto flex max-w-5xl items-center gap-3 px-4 py-3">
+    <a href="{% url 'patient:dashboard' %}" class="flex min-w-0 items-center gap-3 no-underline">
+      {% if d.logo %}<img src="{{ d.logo.url }}" alt="" class="h-10 w-10 rounded-full object-cover">{% endif %}
+      <span class="min-w-0"><span class="block truncate font-semibold text-ink">{{ d.clinic_name }}</span><span class="block truncate text-xs text-slate-500">{{ d.name }}</span></span>
+    </a>
+    <div class="ml-auto flex items-center gap-2">
+      {% if d.whatsapp %}<a class="btn-whatsapp btn-sm" href="{{ d.whatsapp|wa_link }}" target="_blank" rel="noopener">{% icon 'whatsapp' %}<span class="hidden sm:inline">WhatsApp</span></a>{% endif %}
+      {% if d.phone %}<a class="btn-secondary btn-sm" href="tel:{{ d.phone }}">{% icon 'phone' %}<span class="hidden sm:inline">{{ d.phone }}</span></a>{% endif %}
+    </div>
+  </div>
+  <nav class="mx-auto flex max-w-5xl gap-1 overflow-x-auto px-4 pb-2">
+    <a class="cnav-link {% active 'patient:dashboard' %}" href="{% url 'patient:dashboard' %}">{% translate 'Início' %}</a>
+    <a class="cnav-link {% active 'patient:book' %}" href="{% url 'patient:book' %}">{% translate 'Agendar' %}</a>
+    <a class="cnav-link {% active 'patient:appointment' %}" href="{% url 'patient:appointments' %}">{% translate 'Consultas' %}</a>
+    <a class="cnav-link {% active 'patient:settings' %}{% active 'patient:my_data' %}" href="{% url 'patient:settings' %}">{% translate 'Minha conta' %}</a>
+  </nav>
+</header>
+<main class="mx-auto max-w-5xl px-4 py-6">
+  <h1 class="mb-4 text-xl">{% block page_title %}{% endblock %}</h1>
+  {% block content %}{% endblock %}
+</main>
+<footer class="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-8 text-xs text-slate-500">
+  <span>{% translate 'Portal do paciente' %} · <a href="{% url 'website:home' %}" class="text-slate-500">wbook</a></span>
+  <span class="flex items-center gap-3">{% include "components/language_switcher.html" %}
+  <form action="{% url 'accounts:logout' %}" method="post">{% csrf_token %}<button class="hover:text-slate-800">{% translate 'Sair' %}</button></form></span>
+</footer>
+{% endwith %}
+{% endblock %}

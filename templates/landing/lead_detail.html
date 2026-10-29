@@ -1,0 +1,23 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{{ lead.name }}{% endblock %}
+{% block breadcrumb %}<p class="breadcrumb"><a href="{% url 'landing:lead_list' %}">Leads</a></p>{% endblock %}
+{% block page_title %}{{ lead.name }} <span class="{{ lead.status|pill }} align-middle">{{ lead.get_status_display }}</span>{% endblock %}
+{% block page_actions %}
+{% if not lead.converted_patient %}<a href="{% url 'clinic:patient_create' %}?lead={{ lead.pk }}" class="btn-primary btn-sm">{% icon 'user' %}{% translate 'Cadastrar como paciente' %}</a>{% else %}<a href="{% url 'clinic:patient_detail' lead.converted_patient.pk %}" class="btn-secondary btn-sm">{% translate 'Ver paciente' %}</a>{% endif %}
+<a href="{% url 'quotes:create' %}?lead={{ lead.pk }}" class="btn-secondary btn-sm">{% icon 'quote' %}{% translate 'Orçamento' %}</a>
+{% endblock %}
+{% block content %}
+<div class="grid gap-6 lg:grid-cols-3">
+  <div class="space-y-6 lg:col-span-2">
+    <div class="card"><div class="card-body space-y-2 text-sm">
+      <p>{{ lead.email }}{% if lead.whatsapp %} · <a href="{{ lead.whatsapp|wa_link }}" target="_blank" rel="noopener">WhatsApp {{ lead.whatsapp }}</a>{% endif %}</p>
+      <p class="text-slate-500">{{ lead.get_source_display }} · {{ lead.created_at|date:"d/m/Y H:i" }}</p>
+      {% if lead.message %}<p class="whitespace-pre-line rounded-lg bg-slate-50 p-3">{{ lead.message }}</p>{% endif %}
+    </div></div>
+    <div class="card"><div class="card-header"><p class="card-title">{% translate 'Pedidos de consulta' %}</p></div>
+      {% if appointments %}<ul class="divide-y divide-slate-100 text-sm">{% for a in appointments %}<li><a href="{% url 'agenda:detail' a.pk %}" class="flex justify-between px-5 py-2.5 no-underline"><span>{{ a.start|local_dt:request.dentist }} · {{ a.type.name }}</span><span class="{{ a.status|pill }}">{{ a.get_status_display }}</span></a></li>{% endfor %}</ul>{% else %}<div class="card-body text-sm text-slate-500">—</div>{% endif %}</div>
+    {% if quotes %}<div class="card"><div class="card-header"><p class="card-title">{% translate 'Orçamentos' %}</p></div><ul class="divide-y divide-slate-100 text-sm">{% for q in quotes %}<li><a class="flex justify-between px-5 py-2.5 no-underline" href="{% url 'quotes:detail' q.pk %}"><span>{{ q.title }}</span><span class="{{ q.status|pill }}">{{ q.get_status_display }}</span></a></li>{% endfor %}</ul></div>{% endif %}
+  </div>
+  <div class="space-y-4">{% include "landing/_lead_follow.html" %}<a href="{% url 'landing:lead_delete' lead.pk %}" class="btn-ghost btn-sm text-red-600">{% icon 'trash' %}{% translate 'Remover lead' %}</a></div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "layouts/operator.html" %}
+{% block page_title_text %}{{ d.clinic_name }}{% endblock %}
+{% block breadcrumb %}<p class="breadcrumb"><a href="{% url 'operator:dentist_list' %}">{% translate 'Dentistas' %}</a></p>{% endblock %}
+{% block page_title %}{{ d.clinic_name }}{% endblock %}
+{% block page_actions %}<a href="{% url 'landing_public:page' d.slug %}" target="_blank" class="btn-ghost btn-sm">{% icon 'external' %}/{{ d.slug }}</a>{% endblock %}
+{% block content %}
+<div class="grid gap-6 xl:grid-cols-3">
+  <form method="post" class="card xl:col-span-2">{% csrf_token %}<div class="card-body space-y-4">{% include "components/form_fields.html" %}<button class="btn-primary">{% translate 'Salvar' %}</button></div></form>
+  <div class="space-y-6">
+    <div class="card"><div class="card-header"><p class="card-title">{% translate 'Acesso' %}</p></div><div class="card-body space-y-3 text-sm">
+      <p>{% translate 'Acesso até' %}: <strong>{{ d.access_until|date:"d/m/Y" }}</strong> ({{ d.days_remaining }} {% translate 'dias' %})</p>
+      <div class="flex flex-wrap gap-2">
+        <form method="post" action="{% url 'operator:dentist_extend' d.pk %}">{% csrf_token %}<input type="hidden" name="days" value="30"><button class="btn-success btn-sm">{% translate 'Liberar 30 dias' %}</button></form>
+        <form method="post" action="{% url 'operator:dentist_extend' d.pk %}">{% csrf_token %}<input type="hidden" name="days" value="90"><button class="btn-success btn-sm">{% translate 'Liberar 90 dias' %}</button></form>
+        <form method="post" action="{% url 'operator:dentist_extend' d.pk %}">{% csrf_token %}<input type="hidden" name="days" value="365"><button class="btn-success btn-sm">{% translate 'Liberar 365 dias' %}</button></form></div>
+      <form method="post" action="{% url 'operator:dentist_suspend' d.pk %}">{% csrf_token %}<button class="btn-secondary btn-sm">{% if d.is_suspended %}{% translate 'Reativar' %}{% else %}{% translate 'Suspender' %}{% endif %}</button></form>
+    </div></div>
+    <div class="card"><div class="card-header"><p class="card-title">{% translate 'Uso' %}</p></div><dl class="card-body grid grid-cols-2 gap-2 text-sm">{% for k, v in stats.items %}<dt class="text-slate-500">{{ k }}</dt><dd class="text-right tabular">{{ v }}</dd>{% endfor %}</dl></div>
+    <p class="text-sm">{{ d.user.email }} · {% translate 'desde' %} {{ d.created_at|date:"d/m/Y" }}</p>
+    <a href="{% url 'operator:dentist_delete' d.pk %}" class="btn-ghost btn-sm text-red-600">{% icon 'trash' %}{% translate 'Apagar dentista' %}</a>
+  </div>
+</div>
+{% endblock %}

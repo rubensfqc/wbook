@@ -1,0 +1,4 @@
+<form method="post" hx-post="{% url 'landing:lead_detail' lead.pk %}" hx-swap="outerHTML" class="card">{% csrf_token %}
+  <div class="card-header"><p class="card-title">{% translate 'Acompanhamento' %}</p>{% if saved %}<span class="pill-green">{% translate 'salvo' %}</span>{% endif %}</div>
+  <div class="card-body space-y-4">{% include "components/form_fields.html" with grid="grid-cols-1" %}<button class="btn-primary btn-sm">{% translate 'Salvar' %}</button></div>
+</form>

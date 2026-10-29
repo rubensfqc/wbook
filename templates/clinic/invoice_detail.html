@@ -1,0 +1,15 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{{ inv.display_number }}{% endblock %}
+{% block breadcrumb %}<p class="breadcrumb"><a href="{% url 'clinic:invoice_list' %}">{% translate 'Faturas' %}</a> / <a href="{% url 'clinic:treatment_detail' inv.treatment.pk %}">{{ inv.treatment.title }}</a></p>{% endblock %}
+{% block page_title %}{% translate 'Fatura' %} {{ inv.display_number }} <span class="{{ inv.status|pill }} align-middle">{{ inv.get_status_display }}</span>{% endblock %}
+{% block page_actions %}
+{% if inv.status == 'OPEN' %}
+<form method="post" action="{% url 'clinic:invoice_action' inv.pk 'enviar' %}">{% csrf_token %}<button class="btn-secondary btn-sm">{% icon 'mail' %}{% translate 'Enviar' %}</button></form>
+<form method="post" action="{% url 'clinic:invoice_action' inv.pk 'pago' %}">{% csrf_token %}<button class="btn-success btn-sm">{% icon 'check' %}{% translate 'Marcar como paga' %}</button></form>
+<form method="post" action="{% url 'clinic:invoice_action' inv.pk 'cancelar' %}" data-confirm="{% translate 'Cancelar esta fatura?' %}">{% csrf_token %}<button class="btn-ghost btn-sm">{% translate 'Cancelar' %}</button></form>
+{% else %}<form method="post" action="{% url 'clinic:invoice_action' inv.pk 'reabrir' %}">{% csrf_token %}<button class="btn-secondary btn-sm">{% translate 'Reabrir' %}</button></form>{% endif %}
+{% endblock %}
+{% block content %}
+{% if inv.patient_notified_paid_at and inv.status == 'OPEN' %}<div class="mb-4 rounded-xl bg-sky-50 p-4 text-sm text-sky-900 ring-1 ring-sky-200">{% blocktranslate with w=inv.patient_notified_paid_at|date:"d/m/Y H:i" %}O paciente avisou que pagou em {{ w }}. Confira e marque como paga.{% endblocktranslate %}</div>{% endif %}
+{% url 'files:invoice' inv.pk as pdf %}{% include "components/pdf_viewer.html" with url=pdf title=inv.title %}
+{% endblock %}

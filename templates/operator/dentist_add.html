@@ -1,0 +1,4 @@
+{% extends "layouts/operator.html" %}
+{% block page_title_text %}{% translate 'Novo dentista' %}{% endblock %}
+{% block page_title %}{% translate 'Novo dentista' %}{% endblock %}
+{% block content %}<form method="post" class="card max-w-3xl">{% csrf_token %}<div class="card-body space-y-4">{% include "components/form_fields.html" %}<p class="help">{% translate 'O dentista recebe um e-mail para definir a senha.' %}</p><button class="btn-primary">{% translate 'Criar' %}</button></div></form>{% endblock %}

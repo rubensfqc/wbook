@@ -1,0 +1,3 @@
+{% extends "emails/base.html" %}{% block content %}<p>{% blocktranslate with n=appt.person_first_name %}Olá, {{ n }}!{% endblocktranslate %}</p>
+{% if cancelled %}<p><strong>{% translate 'Sua consulta foi cancelada.' %}</strong></p>{% include "emails/_appt_box.html" %}<p>{% translate 'Para marcar outro horário, acesse a página da clínica ou o portal.' %}</p>
+{% else %}<p><strong>{% translate 'Sua consulta foi remarcada.' %}</strong></p>{% if old_when %}<p style="color:#64748b"><s>{{ old_when }}</s></p>{% endif %}{% include "emails/_appt_box.html" %}{% include "emails/_calendar_links.html" %}{% translate 'Ver minha consulta' as l %}{% include "emails/_button.html" with url=page_link label=l %}{% endif %}{% endblock %}

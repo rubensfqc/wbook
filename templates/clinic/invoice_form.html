@@ -1,0 +1,9 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Nova fatura' %}{% endblock %}
+{% block breadcrumb %}<p class="breadcrumb"><a href="{% url 'clinic:treatment_detail' t.pk %}">{{ t.title }}</a></p>{% endblock %}
+{% block page_title %}{% translate 'Nova fatura' %}{% endblock %}
+{% block content %}
+<form method="post" class="card max-w-2xl">{% csrf_token %}<div class="card-body space-y-4">{% include "components/form_fields.html" %}
+{% if not request.dentist.pix_key and not request.dentist.payment_link %}<p class="text-sm text-amber-700">{% translate 'Dica: cadastre sua chave PIX ou link de pagamento em Configurações para aparecer na fatura.' %}</p>{% endif %}
+<div class="flex gap-2"><button class="btn-primary">{% translate 'Criar fatura' %}</button><a href="{% url 'clinic:treatment_detail' t.pk %}" class="btn-secondary">{% translate 'Cancelar' %}</a></div></div></form>
+{% endblock %}

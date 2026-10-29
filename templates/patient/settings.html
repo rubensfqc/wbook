@@ -1,0 +1,14 @@
+{% extends "layouts/patient.html" %}
+{% block page_title_text %}{% translate 'Minha conta' %}{% endblock %}
+{% block page_title %}{% translate 'Minha conta' %}{% endblock %}
+{% block content %}
+<div class="grid gap-6 md:grid-cols-2">
+  <form method="post" class="card">{% csrf_token %}<div class="card-header"><p class="card-title">{% translate 'E-mails' %}</p></div><div class="card-body space-y-4">{% include "components/form_fields.html" with grid="grid-cols-1" %}<p class="help">{% translate 'Confirmações e mudanças de consulta são sempre enviadas.' %}</p><button class="btn-primary btn-sm">{% translate 'Salvar' %}</button></div></form>
+  <div class="card"><div class="card-header"><p class="card-title">{% translate 'Conta' %}</p></div><div class="card-body space-y-3 text-sm">
+    <p>{{ request.user.email }}</p>
+    <p class="flex items-center gap-2">{% translate 'Idioma' %}: {% include "components/language_switcher.html" %}</p>
+    <a href="{% url 'accounts:change_password' %}" class="btn-secondary btn-sm">{% icon 'lock' %}{% translate 'Alterar senha' %}</a>
+    <a href="{% url 'patient:my_data' %}" class="btn-secondary btn-sm">{% icon 'download' %}{% translate 'Meus dados (LGPD)' %}</a>
+  </div></div>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Bloqueios' %}{% endblock %}
+{% block page_title %}{% translate 'Bloquear horários' %}{% endblock %}
+{% block content %}
+<div class="grid gap-6 lg:grid-cols-2">
+  <form method="post" class="card">{% csrf_token %}<div class="card-header"><p class="card-title">{% translate 'Novo bloqueio' %}</p></div><div class="card-body space-y-4">{% include "components/form_fields.html" with grid="grid-cols-1" %}<p class="help">{% translate 'Férias, cursos, almoço diferente: ninguém consegue agendar nesse período.' %}</p><button class="btn-primary">{% translate 'Bloquear' %}</button></div></form>
+  <div class="card"><div class="card-header"><p class="card-title">{% translate 'Próximos bloqueios' %}</p></div>
+    {% if blocks %}<ul class="divide-y divide-slate-100 text-sm">{% for b in blocks %}<li class="flex items-center justify-between gap-2 px-5 py-3"><span>{{ b.start|date:"d/m/Y H:i" }} – {{ b.end|date:"d/m/Y H:i" }}{% if b.reason %}<br><span class="text-xs text-slate-500">{{ b.reason }}</span>{% endif %}</span><form method="post" action="{% url 'agenda:block_delete' b.pk %}">{% csrf_token %}<button class="btn-ghost btn-sm">{% icon 'trash' %}</button></form></li>{% endfor %}</ul>
+    {% else %}<div class="card-body text-sm text-slate-500">{% translate 'Nenhum bloqueio.' %}</div>{% endif %}</div>
+</div>
+{% endblock %}

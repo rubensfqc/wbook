@@ -1,0 +1,13 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}Leads{% endblock %}
+{% block page_title %}Leads{% endblock %}
+{% block page_actions %}<a href="{% url 'landing:lead_export' %}" class="btn-secondary btn-sm">{% icon 'download' %}CSV</a><a href="{% url 'landing:lead_create' %}" class="btn-primary btn-sm">{% icon 'plus' %}{% translate 'Novo lead' %}</a>{% endblock %}
+{% block content %}
+<div class="mb-4 flex flex-wrap gap-2 text-sm"><a href="?" class="pill {% if not status %}pill-brand{% else %}pill-gray{% endif %}">{% translate 'Todos' %}</a>{% for v, l in statuses %}<a href="?status={{ v }}" class="{% if status == v %}pill-brand{% else %}pill-gray{% endif %}">{{ l }} · {{ counts|get_item:v }}</a>{% endfor %}</div>
+<form class="mb-4 flex max-w-md gap-2"><input type="hidden" name="status" value="{{ status }}"><input name="q" value="{{ q }}" class="input" placeholder="{% translate 'Buscar' %}"><button class="btn-secondary">{% translate 'Buscar' %}</button></form>
+{% if leads %}
+<div class="card overflow-x-auto"><table class="table"><thead><tr><th>{% translate 'Nome' %}</th><th>{% translate 'Origem' %}</th><th>{% translate 'Situação' %}</th><th>{% translate 'Data' %}</th></tr></thead><tbody>
+{% for l in leads %}<tr><td><a href="{% url 'landing:lead_detail' l.pk %}" class="font-medium">{{ l.name }}</a><br><span class="text-xs text-slate-500">{{ l.email }} · {{ l.whatsapp }}</span></td><td>{{ l.get_source_display }}</td><td><span class="{{ l.status|pill }}">{{ l.get_status_display }}</span></td><td class="text-slate-500">{{ l.created_at|date:"d/m/Y" }}</td></tr>{% endfor %}
+</tbody></table></div>
+{% else %}{% translate 'Nenhum lead' as t %}{% translate 'Pedidos de visitantes na sua página viram leads aqui.' as tx %}{% include "components/empty.html" with title=t text=tx %}{% endif %}
+{% endblock %}

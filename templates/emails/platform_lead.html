@@ -1,0 +1,1 @@
+{% extends "emails/base.html" %}{% block content %}<p>Novo interessado no wbook:</p><p><strong>{{ lead.name }}</strong> — {{ lead.clinic_name }} ({{ lead.city }})<br>{{ lead.email }} · {{ lead.whatsapp }}</p><p style="white-space:pre-line">{{ lead.message }}</p>{% endblock %}

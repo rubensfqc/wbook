@@ -1,0 +1,1 @@
+{% extends "emails/base.html" %}{% block content %}<p>Novo dentista em teste: <strong>{{ dentist.clinic_name }}</strong> ({{ dentist.user.email }}), {{ dentist.city }}/{{ dentist.state }} — /{{ dentist.slug }}</p>{% endblock %}

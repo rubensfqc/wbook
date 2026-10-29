@@ -1,0 +1,11 @@
+{% extends "layouts/public.html" %}
+{% block title %}{% translate 'Termos de uso' %} · wbook{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-3xl space-y-4 px-4 py-16 text-slate-700">
+  <p class="rounded-lg bg-amber-50 p-3 text-sm text-amber-900">{% translate 'Modelo — revise com um advogado antes de publicar.' %}</p>
+  <h1 class="text-3xl">{% translate 'Termos de uso' %}</h1>
+  <p>{% translate 'O wbook é uma plataforma de agendamento online, portal do paciente, orçamentos e faturas para dentistas. O dentista é o responsável pelos dados de seus pacientes (controlador) e o wbook atua como operador, tratando os dados apenas para prestar o serviço.' %}</p>
+  <p>{% translate 'O dentista se compromete a obter o consentimento dos pacientes para o uso de dados de saúde, a manter os prontuários conforme as normas do CFO e a não usar a plataforma para fins ilícitos.' %}</p>
+  <p>{% translate 'Planos, valores e período de teste estão descritos na página de planos. O acesso pode ser suspenso em caso de falta de pagamento; os dados ficam disponíveis para exportação.' %}</p>
+</section>
+{% endblock %}

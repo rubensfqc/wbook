@@ -1,0 +1,16 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Orçamento' %}{% endblock %}
+{% block page_title %}{% if quote %}{% translate 'Editar orçamento' %}{% else %}{% translate 'Novo orçamento' %}{% endif %}{% endblock %}
+{% block content %}
+<form method="post" enctype="multipart/form-data" class="space-y-6">{% csrf_token %}
+  <div class="card"><div class="card-body space-y-4">{% include "components/form_fields.html" %}</div></div>
+  <div class="card" data-formset="items"><div class="card-header"><p class="card-title">{% translate 'Itens' %}</p><p class="text-sm">{% translate 'Total' %}: <strong data-formset-total class="tabular">R$ 0,00</strong></p></div>
+    <div class="card-body space-y-3">{{ items.management_form }}{% for e in items.non_form_errors %}<p class="field-error">{{ e }}</p>{% endfor %}
+      <div data-formset-list class="space-y-2">{% for f in items %}<div class="grid items-end gap-2 sm:grid-cols-12">{% for h in f.hidden_fields %}{{ h }}{% endfor %}
+        <div class="sm:col-span-5">{% include "components/field.html" with field=f.description %}</div><div class="sm:col-span-2">{% include "components/field.html" with field=f.region %}</div><div class="sm:col-span-1">{% include "components/field.html" with field=f.quantity %}</div><div class="sm:col-span-3">{% include "components/field.html" with field=f.unit_amount %}</div><div class="sm:col-span-1 pb-2">{% if f.instance.pk %}<label class="text-xs text-slate-500">{{ f.DELETE }} {% translate 'remover' %}</label>{% endif %}</div></div>{% endfor %}</div>
+      <template>{% with f=items.empty_form %}<div class="grid items-end gap-2 sm:grid-cols-12">{% for h in f.hidden_fields %}{{ h }}{% endfor %}<div class="sm:col-span-5">{% include "components/field.html" with field=f.description %}</div><div class="sm:col-span-2">{% include "components/field.html" with field=f.region %}</div><div class="sm:col-span-1">{% include "components/field.html" with field=f.quantity %}</div><div class="sm:col-span-3">{% include "components/field.html" with field=f.unit_amount %}</div></div>{% endwith %}</template>
+      <button type="button" class="btn-secondary btn-sm" data-formset-add>{% icon 'plus' %}{% translate 'Adicionar item' %}</button>
+    </div></div>
+  <div class="flex gap-2"><button class="btn-primary">{% translate 'Salvar rascunho' %}</button><a href="{% if quote %}{% url 'quotes:detail' quote.pk %}{% else %}{% url 'quotes:list' %}{% endif %}" class="btn-secondary">{% translate 'Cancelar' %}</a></div>
+</form>
+{% endblock %}

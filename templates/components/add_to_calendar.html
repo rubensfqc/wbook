@@ -1,0 +1,10 @@
+<div class="relative inline-block text-left">
+  <button type="button" data-dropdown class="btn-secondary btn-sm">{% icon 'calendar' %}{% translate 'Adicionar à agenda' %}</button>
+  <div data-dropdown-menu class="absolute z-20 mt-1 hidden w-60 rounded-xl bg-white p-1 text-sm shadow-lg ring-1 ring-slate-200">
+    <a class="block rounded-lg px-3 py-2 text-slate-700 no-underline hover:bg-slate-50" href="{{ links.google }}" target="_blank" rel="noopener">Google Agenda</a>
+    <a class="block rounded-lg px-3 py-2 text-slate-700 no-underline hover:bg-slate-50" href="{{ links.outlook }}" target="_blank" rel="noopener">Outlook.com</a>
+    <a class="block rounded-lg px-3 py-2 text-slate-700 no-underline hover:bg-slate-50" href="{{ links.office }}" target="_blank" rel="noopener">Microsoft 365</a>
+    <a class="block rounded-lg px-3 py-2 text-slate-700 no-underline hover:bg-slate-50" href="{{ links.ics }}">{% translate 'Apple / outros (.ics)' %}</a>
+    <a class="block rounded-lg px-3 py-2 text-slate-700 no-underline hover:bg-slate-50" href="{{ links.whatsapp }}" target="_blank" rel="noopener">{% translate 'Enviar pelo WhatsApp' %}</a>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+{% if messages %}
+<div class="fixed right-4 top-4 z-50 flex w-full max-w-sm flex-col gap-2">
+  {% for m in messages %}
+  <div data-toast class="flex items-start gap-3 rounded-xl bg-white p-4 text-sm shadow-lg ring-1 transition-opacity duration-300 {% if m.tags == 'error' %}ring-red-200{% elif m.tags == 'success' %}ring-emerald-200{% else %}ring-slate-200{% endif %}" role="status">
+    <span class="mt-0.5 {% if m.tags == 'error' %}text-red-600{% elif m.tags == 'success' %}text-emerald-600{% else %}text-brand-700{% endif %}">{% if m.tags == 'error' %}{% icon 'alert' 'h-5 w-5' %}{% else %}{% icon 'check' 'h-5 w-5' %}{% endif %}</span>
+    <p class="flex-1 text-slate-700">{{ m }}</p>
+    <button type="button" data-toast-close class="text-slate-400 hover:text-slate-600" aria-label="{% translate 'Fechar' %}">{% icon 'x' 'h-4 w-4' %}</button>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}

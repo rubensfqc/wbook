@@ -1,0 +1,25 @@
+{% extends "layouts/portal.html" %}
+{% block home_url %}{% url 'clinic:dashboard' %}{% endblock %}
+{% block nav %}
+{% with d=request.user.dentist_profile %}
+<a class="nav-link {% active 'clinic:dashboard' %}" href="{% url 'clinic:dashboard' %}">{% icon 'home' %}{% translate 'Início' %}</a>
+<a class="nav-link {% active 'agenda:calendar' %}{% active 'agenda:detail' %}{% active 'agenda:create' %}" href="{% url 'agenda:calendar' %}">{% icon 'calendar' %}{% translate 'Agenda' %}</a>
+<a class="nav-link {% active 'clinic:patient' %}" href="{% url 'clinic:patient_list' %}">{% icon 'users' %}{% translate 'Pacientes' %}</a>
+<a class="nav-link {% active 'clinic:treatment' %}" href="{% url 'clinic:treatment_list' %}">{% icon 'tooth' %}{% translate 'Tratamentos' %}</a>
+<a class="nav-link {% active 'quotes:' %}" href="{% url 'quotes:list' %}">{% icon 'quote' %}{% translate 'Orçamentos' %}</a>
+<a class="nav-link {% active 'clinic:invoice' %}" href="{% url 'clinic:invoice_list' %}">{% icon 'receipt' %}{% translate 'Faturas' %}</a>
+<a class="nav-link {% active 'landing:lead' %}" href="{% url 'landing:lead_list' %}">{% icon 'inbox' %}{% translate 'Leads' %}</a>
+<p class="nav-section">{% translate 'Configurar' %}</p>
+<a class="nav-link {% active 'landing:editor' %}" href="{% url 'landing:editor' %}">{% icon 'globe' %}{% translate 'Minha página' %}</a>
+<a class="nav-link {% active 'agenda:settings' %}{% active 'agenda:blocks' %}" href="{% url 'agenda:settings' %}">{% icon 'clock' %}{% translate 'Horários e regras' %}</a>
+<a class="nav-link {% active 'agenda:sync' %}{% active 'agenda:export' %}" href="{% url 'agenda:sync' %}">{% icon 'refresh' %}{% translate 'Sincronizar calendário' %}</a>
+<a class="nav-link {% active 'clinic:export' %}" href="{% url 'clinic:exports' %}">{% icon 'download' %}{% translate 'Exportar dados' %}</a>
+<a class="nav-link {% active 'clinic:settings' %}" href="{% url 'clinic:settings' %}">{% icon 'settings' %}{% translate 'Configurações' %}</a>
+{% endwith %}
+{% endblock %}
+{% block sidebar_footer %}
+{% with d=request.user.dentist_profile %}
+<a href="{% url 'landing_public:page' d.slug %}" target="_blank" class="flex items-center gap-1 text-brand-100 hover:text-white no-underline">{% icon 'external' 'h-3.5 w-3.5' %}wbook.com.br/{{ d.slug }}</a>
+{% if not d.is_paying %}<p class="mt-2 rounded-lg bg-white/10 p-2">{% blocktranslate count n=d.days_remaining %}Teste: {{ n }} dia restante{% plural %}Teste: {{ n }} dias restantes{% endblocktranslate %} · <a class="text-white underline" href="{% url 'website:plans' %}">{% translate 'planos' %}</a></p>{% endif %}
+{% endwith %}
+{% endblock %}

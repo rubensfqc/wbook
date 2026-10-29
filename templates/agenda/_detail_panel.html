@@ -1,0 +1,33 @@
+<div class="space-y-4">
+  <div class="flex flex-wrap items-center gap-2"><span class="{{ a.status|pill }}">{{ a.get_status_display }}</span><span class="pill-gray">{{ a.get_source_display }}</span>{% if a.lead %}<span class="pill-sky">{% translate 'visitante (lead)' %}</span>{% endif %}</div>
+  {% if a.is_late_cancel_requested %}<div class="rounded-xl bg-red-50 p-4 text-sm text-red-800 ring-1 ring-red-200"><p class="font-semibold">{% translate 'O paciente pediu para cancelar' %} ({{ a.late_cancel_requested_at|date:"d/m H:i" }})</p>{% if a.late_cancel_note %}<p class="mt-1">“{{ a.late_cancel_note }}”</p>{% endif %}
+    <div class="mt-3 flex gap-2"><form method="post" action="{% url 'agenda:action' a.pk 'cancelar' %}">{% csrf_token %}<button class="btn-danger btn-sm">{% translate 'Cancelar consulta' %}</button></form><form method="post" action="{% url 'agenda:action' a.pk 'manter' %}">{% csrf_token %}<button class="btn-secondary btn-sm">{% translate 'Manter' %}</button></form></div></div>{% endif %}
+  <dl class="grid gap-3 text-sm sm:grid-cols-2">
+    <div><dt class="text-xs text-slate-500">{% translate 'Quando' %}</dt><dd class="font-medium">{{ a.start|local_dt:a.dentist }} – {{ a.end|local_time:a.dentist }}</dd></div>
+    <div><dt class="text-xs text-slate-500">{% translate 'Tipo' %}</dt><dd>{{ a.type.name }}</dd></div>
+    <div><dt class="text-xs text-slate-500">{% if a.patient %}{% translate 'Paciente' %}{% else %}{% translate 'Visitante' %}{% endif %}</dt><dd>{% if a.patient %}<a href="{% url 'clinic:patient_detail' a.patient.pk %}">{{ a.person_name }}</a>{% else %}<a href="{% url 'landing:lead_detail' a.lead.pk %}">{{ a.person_name }}</a>{% endif %}<br><span class="text-xs text-slate-500">{{ a.person_email }}</span>{% if a.person_whatsapp %} · <a class="text-xs" href="{{ a.person_whatsapp|wa_link }}" target="_blank" rel="noopener">WhatsApp</a>{% endif %}</dd></div>
+    {% if a.treatment %}<div><dt class="text-xs text-slate-500">{% translate 'Tratamento' %}</dt><dd><a href="{% url 'clinic:treatment_detail' a.treatment.pk %}">{{ a.treatment.title }}</a></dd></div>{% endif %}
+    {% if a.patient_note %}<div class="sm:col-span-2"><dt class="text-xs text-slate-500">{% translate 'Mensagem' %}</dt><dd class="whitespace-pre-line">{{ a.patient_note }}</dd></div>{% endif %}
+    {% if a.reject_reason %}<div class="sm:col-span-2"><dt class="text-xs text-slate-500">{% translate 'Motivo' %}</dt><dd>{{ a.reject_reason }}</dd></div>{% endif %}
+    {% if a.rescheduled_from %}<div class="sm:col-span-2 text-xs text-slate-500">{% translate 'Remarcada de' %} {{ a.rescheduled_from.start|local_dt:a.dentist }}</div>{% endif %}
+  </dl>
+  <div class="flex flex-wrap gap-2 border-t border-slate-100 pt-4">
+    {% if a.status == 'PENDING' %}
+      <form method="post" action="{% url 'agenda:action' a.pk 'aprovar' %}">{% csrf_token %}<button class="btn-success btn-sm">{% icon 'check' %}{% translate 'Aprovar' %}</button></form>
+      <form method="post" action="{% url 'agenda:action' a.pk 'recusar' %}" class="flex gap-2">{% csrf_token %}<input name="reason" class="input py-1 text-xs" placeholder="{% translate 'Motivo (opcional)' %}"><button class="btn-secondary btn-sm">{% translate 'Recusar' %}</button></form>
+    {% endif %}
+    {% if a.status == 'CONFIRMED' %}
+      <form method="post" action="{% url 'agenda:action' a.pk 'concluir' %}">{% csrf_token %}<button class="btn-success btn-sm">{% translate 'Realizada' %}</button></form>
+      <form method="post" action="{% url 'agenda:action' a.pk 'faltou' %}">{% csrf_token %}<button class="btn-secondary btn-sm">{% translate 'Faltou' %}</button></form>
+    {% endif %}
+    {% if a.is_blocking %}
+      <form method="post" action="{% url 'agenda:action' a.pk 'cancelar' %}" data-confirm="{% translate 'Cancelar esta consulta? O paciente será avisado.' %}">{% csrf_token %}<button class="btn-ghost btn-sm text-red-600">{% translate 'Cancelar consulta' %}</button></form>
+    {% endif %}
+    {% include "components/add_to_calendar.html" %}
+  </div>
+  {% if a.is_blocking %}
+  <form method="post" action="{% url 'agenda:reschedule' a.pk %}" class="flex flex-wrap items-end gap-2 border-t border-slate-100 pt-4">{% csrf_token %}
+    <div>{% include "components/field.html" with field=reschedule_form.start %}</div><button class="btn-secondary btn-sm">{% translate 'Remarcar' %}</button></form>
+  {% endif %}
+  {% if a.lead and not a.lead.converted_patient %}<a href="{% url 'clinic:patient_create' %}?lead={{ a.lead.pk }}" class="btn-primary btn-sm">{% icon 'user' %}{% translate 'Cadastrar como paciente' %}</a>{% endif %}
+</div>

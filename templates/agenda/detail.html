@@ -1,0 +1,5 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Consulta' %}{% endblock %}
+{% block breadcrumb %}<p class="breadcrumb"><a href="{% url 'agenda:calendar' %}?data={{ a.start|date:'Y-m-d' }}">{% translate 'Agenda' %}</a></p>{% endblock %}
+{% block page_title %}{{ a.person_name }} · {{ a.type.name }}{% endblock %}
+{% block content %}<div class="card max-w-3xl"><div class="card-body">{% include "agenda/_detail_panel.html" %}</div></div>{% endblock %}

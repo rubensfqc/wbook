@@ -1,0 +1,10 @@
+{% extends "layouts/patient.html" %}
+{% block page_title_text %}{% translate 'Meus dados' %}{% endblock %}
+{% block page_title %}{% translate 'Meus dados (LGPD)' %}{% endblock %}
+{% block content %}
+<div class="card max-w-2xl"><div class="card-body space-y-3 text-sm text-slate-600">
+  <p>{% translate 'Baixe uma cópia dos seus dados: cadastro, consultas, tratamentos, mensagens, faturas e os arquivos que a clínica compartilhou com você.' %}</p>
+  <form method="post">{% csrf_token %}<button class="btn-primary">{% icon 'download' %}{% translate 'Baixar meus dados (.zip)' %}</button></form>
+  <p>{% blocktranslate with c=request.dentist.clinic_name %}Para corrigir ou excluir seus dados, fale com {{ c }}. Registros clínicos podem precisar ser guardados por exigência legal.{% endblocktranslate %}</p>
+</div></div>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Primeiros passos' %}{% endblock %}
+{% block page_title %}{% translate 'Primeiros passos' %}{% endblock %}
+{% block content %}
+<div class="card max-w-2xl"><ul class="divide-y divide-slate-100">{% for title, done, url in checklist %}
+  <li class="flex items-center gap-3 px-5 py-4"><span class="flex h-7 w-7 items-center justify-center rounded-full {% if done %}bg-emerald-100 text-emerald-700{% else %}bg-slate-100 text-slate-400{% endif %}">{% icon 'check' 'h-4 w-4' %}</span><span class="flex-1">{{ title }}</span><a class="btn-secondary btn-sm" href="{{ url }}">{% if done %}{% translate 'Revisar' %}{% else %}{% translate 'Fazer agora' %}{% endif %}</a></li>
+{% endfor %}</ul></div>
+{% endblock %}

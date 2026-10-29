@@ -1,0 +1,15 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Exportar dados' %}{% endblock %}
+{% block page_title %}{% translate 'Exportar dados' %}{% endblock %}
+{% block content %}
+<div class="grid gap-4 md:grid-cols-2">
+  <div class="card"><div class="card-body"><p class="font-semibold">{% translate 'Pacientes' %}</p><p class="mt-1 text-sm text-slate-500">{% translate 'Nome, contatos, nascimento, entrada no portal, primeira/última/próxima consulta, tratamentos ativos e valor em aberto.' %}</p>
+    <div class="mt-3 flex flex-wrap gap-2"><a class="btn-primary btn-sm" href="{% url 'clinic:export' 'pacientes' 'xlsx' %}">Excel</a><a class="btn-secondary btn-sm" href="{% url 'clinic:export' 'pacientes' 'csv' %}">CSV</a><a class="btn-ghost btn-sm" href="{% url 'clinic:export' 'pacientes' 'xlsx' %}?cpf=1">{% translate 'Excel com CPF completo' %}</a></div></div></div>
+  <div class="card"><div class="card-body"><p class="font-semibold">{% translate 'Consultas' %}</p><p class="mt-1 text-sm text-slate-500">{% translate 'Todas as consultas, ou escolha período e situação na exportação da agenda.' %}</p>
+    <div class="mt-3 flex flex-wrap gap-2"><a class="btn-primary btn-sm" href="{% url 'clinic:export' 'consultas' 'xlsx' %}">Excel</a><a class="btn-secondary btn-sm" href="{% url 'clinic:export' 'consultas' 'csv' %}">CSV</a><a class="btn-ghost btn-sm" href="{% url 'agenda:export' %}">{% translate 'Período / .ics' %}</a></div></div></div>
+  <div class="card"><div class="card-body"><p class="font-semibold">{% translate 'Faturas e orçamentos' %}</p>
+    <div class="mt-3 flex flex-wrap gap-2"><a class="btn-secondary btn-sm" href="{% url 'clinic:export' 'faturas' 'xlsx' %}">{% translate 'Faturas' %} (Excel)</a><a class="btn-secondary btn-sm" href="{% url 'clinic:export' 'orcamentos' 'xlsx' %}">{% translate 'Orçamentos' %} (Excel)</a><a class="btn-secondary btn-sm" href="{% url 'clinic:export' 'leads' 'csv' %}">Leads (CSV)</a></div></div></div>
+  <div class="card"><div class="card-body"><p class="font-semibold">{% translate 'Backup completo da clínica' %}</p><p class="mt-1 text-sm text-slate-500">{% translate 'Um arquivo ZIP com todos os seus dados e arquivos (fotos, PDFs). Guarde em local seguro: contém dados de saúde.' %}</p>
+    <form method="post" action="{% url 'clinic:export_backup' %}" class="mt-3">{% csrf_token %}<button class="btn-primary btn-sm">{% icon 'download' %}{% translate 'Baixar backup (.zip)' %}</button></form></div></div>
+</div>
+{% endblock %}

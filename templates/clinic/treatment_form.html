@@ -1,0 +1,15 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Tratamento' %}{% endblock %}
+{% block page_title %}{% if t %}{% translate 'Editar tratamento' %}{% else %}{% translate 'Novo tratamento' %}{% endif %}{% endblock %}
+{% block content %}
+{% if no_patients %}
+  {% translate 'Cadastre um paciente primeiro' as tt %}{% translate 'Todo tratamento pertence a um paciente.' as tx %}{% translate 'Novo paciente' as c %}{% url 'clinic:patient_create' as u %}
+  {% include "components/guard.html" with title=tt text=tx url=u cta=c %}
+{% else %}
+<form method="post" class="card max-w-3xl">{% csrf_token %}<div class="card-body space-y-4">
+  {% if quote %}<p class="rounded-lg bg-brand-50 p-3 text-sm text-brand-800">{% blocktranslate with q=quote.title %}Criando a partir do orçamento <strong>{{ q }}</strong>.{% endblocktranslate %}</p>{% endif %}
+  {% include "components/form_fields.html" %}
+  <div class="flex gap-2"><button class="btn-primary">{% translate 'Salvar' %}</button><a href="{% if t %}{% url 'clinic:treatment_detail' t.pk %}{% else %}{% url 'clinic:treatment_list' %}{% endif %}" class="btn-secondary">{% translate 'Cancelar' %}</a></div>
+</div></form>
+{% endif %}
+{% endblock %}

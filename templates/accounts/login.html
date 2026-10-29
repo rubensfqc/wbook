@@ -1,0 +1,13 @@
+{% extends "layouts/auth.html" %}
+{% block title %}{% translate 'Entrar' %} · {% if dentist %}{{ dentist.clinic_name }}{% else %}wbook{% endif %}{% endblock %}
+{% block auth_logo %}{% if dentist %}<span class="flex flex-col items-center gap-2">{% if dentist.logo %}<img src="{{ dentist.logo.url }}" class="h-16 w-16 rounded-full object-cover" alt="">{% endif %}<span class="text-lg font-semibold text-ink">{{ dentist.clinic_name }}</span></span>{% else %}{% include "components/logo.html" %}{% endif %}{% endblock %}
+{% block content %}
+<h1 class="text-xl">{% translate 'Entrar' %}</h1>
+<p class="mt-1 text-sm text-slate-500">{% if dentist %}{% translate 'Portal do paciente e área do dentista.' %}{% else %}{% translate 'Dentistas e pacientes entram por aqui.' %}{% endif %}</p>
+<form method="post" class="mt-5 space-y-4">{% csrf_token %}
+  {% include "components/form_fields.html" with grid="grid-cols-1" %}
+  <input type="hidden" name="next" value="{{ next }}">
+  <button class="btn-primary w-full">{% translate 'Entrar' %}</button>
+</form>
+<div class="mt-4 flex justify-between text-sm"><a href="{% url 'accounts:password_reset' %}">{% translate 'Esqueci minha senha' %}</a>{% if not dentist %}<a href="{% url 'accounts:register' %}">{% translate 'Sou dentista — criar conta' %}</a>{% endif %}</div>
+{% endblock %}

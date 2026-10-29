@@ -1,0 +1,7 @@
+{% for e in form.non_field_errors %}<div class="mb-3 rounded-lg bg-red-50 p-3 text-sm text-red-700">{{ e }}</div>{% endfor %}
+{% for h in form.hidden_fields %}{{ h }}{% endfor %}
+<div class="grid gap-4 {{ grid|default:'sm:grid-cols-2' }}">
+  {% for field in form.visible_fields %}
+    {% include "components/field.html" with field=field wrapper_class=field.field.widget.attrs.wrapper|default:"" %}
+  {% endfor %}
+</div>

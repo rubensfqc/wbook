@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}{{ dentist.clinic_name }} — {{ dentist.name }}{% endblock %}
+{% block meta_description %}{{ landing.subheadline|default:landing.headline }}{% endblock %}
+{% block body_attrs %}style="--accent: {{ landing.accent_hex }}"{% endblock %}
+{% block body %}
+{% if is_owner %}<div class="bg-amber-100 px-4 py-2 text-center text-sm text-amber-900">{% if landing.is_live %}{% translate 'Prévia: você está vendo sua página como dono.' %}{% else %}{% translate 'Prévia: sua página ainda não está publicada.' %}{% endif %} <a href="{% url 'landing:editor' %}" class="font-semibold text-amber-900 underline">{% translate 'Editar página' %}</a></div>{% endif %}
+<header class="border-b border-slate-200 bg-white/95">
+  <div class="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
+    {% if dentist.logo %}<img src="{{ dentist.logo.url }}" class="h-11 w-11 rounded-full object-cover" alt="">{% endif %}
+    <span class="min-w-0"><span class="block truncate font-semibold">{{ dentist.clinic_name }}</span><span class="block truncate text-xs text-slate-500">{{ dentist.name }}{% if dentist.cro_number %} · CRO {{ dentist.cro_number }}/{{ dentist.cro_state }}{% endif %}</span></span>
+    <nav class="ml-auto flex items-center gap-2">
+      {% include "components/language_switcher.html" with css="hidden sm:inline-flex text-slate-500" %}
+      <a href="{% url 'landing_public:login' dentist.slug %}" class="btn-ghost btn-sm">{% translate 'Sou paciente' %}</a>
+      {% if landing.show_calendar and types %}<a href="#agendar" class="btn-accent btn-sm">{% translate 'Agendar' %}</a>{% endif %}
+    </nav>
+  </div>
+</header>
+
+<section class="relative overflow-hidden">
+  {% if landing.hero_image %}<img src="{{ landing.hero_image.url }}" alt="" class="absolute inset-0 h-full w-full object-cover opacity-25">{% endif %}
+  <div class="relative mx-auto grid max-w-6xl items-center gap-8 px-4 py-14 md:grid-cols-5">
+    <div class="md:col-span-3">
+      <h1 class="text-3xl leading-tight sm:text-4xl" style="color: var(--accent)">{{ landing.headline|default:dentist.clinic_name }}</h1>
+      {% if landing.subheadline %}<p class="mt-3 text-lg text-slate-600">{{ landing.subheadline }}</p>{% endif %}
+      <div class="mt-6 flex flex-wrap gap-3">
+        {% if landing.show_calendar and types %}<a href="#agendar" class="btn-accent">{% icon 'calendar' %}{% translate 'Ver horários livres' %}</a>{% endif %}
+        {% if landing.show_whatsapp_button and dentist.whatsapp %}<a href="{{ dentist.whatsapp|wa_link }}" target="_blank" rel="noopener" class="btn-whatsapp">{% icon 'whatsapp' %}WhatsApp</a>{% endif %}
+      </div>
+      {% if landing.insurance_note %}<p class="mt-4 text-sm text-slate-500">{{ landing.insurance_note }}</p>{% endif %}
+    </div>
+    {% if dentist.photo %}<div class="md:col-span-2"><img src="{{ dentist.photo.url }}" alt="{{ dentist.name }}" class="mx-auto aspect-square w-64 rounded-3xl object-cover shadow-lg"></div>{% endif %}
+  </div>
+</section>
+
+{% if is_my_patient %}<div class="mx-auto max-w-6xl px-4"><div class="rounded-xl bg-white p-4 text-sm ring-1 ring-slate-200">{% translate 'Você já é paciente: agende pelo portal e sua consulta é confirmada na hora.' %} <a href="{% url 'patient:book' %}" class="font-semibold">{% translate 'Agendar pelo portal' %}</a></div></div>{% endif %}
+
+{% if landing.show_calendar and types %}
+<section id="agendar" class="mx-auto max-w-6xl px-4 py-10 pub">
+  <h2 class="text-2xl">{% translate 'Agende sua consulta' %}</h2>
+  <p class="mt-1 text-slate-600">{% translate 'Escolha o tipo e um horário livre. A clínica confirma por e-mail.' %}</p>
+  <div class="card mt-5"><div class="card-body space-y-5">
+    <form method="get" action="#agendar" class="max-w-md"><label class="label" for="tipo">{% translate 'Tipo de consulta' %}</label>
+      <select id="tipo" name="tipo" class="select" data-autosubmit>{% for t in types %}<option value="{{ t.pk }}" {% if t.pk == appt_type.pk %}selected{% endif %}>{{ t.name }} · {{ t.duration_min }} min{% if landing.show_prices and t.show_price and t.price %} · {{ t.price|brl }}{% endif %}</option>{% endfor %}</select></form>
+    {% include "components/slot_picker.html" %}
+    {% if not any_time %}<p class="text-sm text-slate-500">{% translate 'Sem horários livres nesta semana. Veja a próxima ou fale pelo WhatsApp.' %}</p>{% endif %}
+    <form method="post" action="{% url 'booking_public:request' dentist.slug %}" data-booking-form data-scroll class="space-y-4 border-t border-slate-100 pt-5">{% csrf_token %}
+      <input type="hidden" name="type" value="{{ appt_type.pk }}"><input type="hidden" name="start" value="">
+      <p class="text-sm">{% translate 'Horário escolhido' %}: <strong data-slot-label>{% translate 'escolha acima' %}</strong></p>
+      <div class="hidden" aria-hidden="true">{{ form.company }}</div>
+      <div class="grid gap-4 sm:grid-cols-3">{% include "components/field.html" with field=form.name %}{% include "components/field.html" with field=form.email %}{% include "components/field.html" with field=form.whatsapp %}</div>
+      {% include "components/field.html" with field=form.message %}
+      {% include "components/field.html" with field=form.consent %}
+      <button class="btn-accent" data-needs-slot disabled>{% icon 'send' %}{% translate 'Pedir este horário' %}</button>
+    </form>
+  </div></div>
+</section>
+{% endif %}
+
+<section class="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-2">
+  <div>
+    <h2 class="text-2xl">{% translate 'Sobre' %}</h2>
+    {% if landing.about %}<p class="mt-3 whitespace-pre-line text-slate-600">{{ landing.about }}</p>{% endif %}
+    {% if dentist.specialties %}<div class="mt-4 flex flex-wrap gap-2">{% for s in dentist.specialties|lines %}<span class="pill-gray">{{ s }}</span>{% endfor %}</div>{% endif %}
+  </div>
+  {% if landing.services %}<div><h2 class="text-2xl">{% translate 'Tratamentos' %}</h2><ul class="mt-3 grid gap-2 sm:grid-cols-2">{% for s in landing.services|lines %}<li class="flex items-center gap-2 rounded-lg bg-white px-3 py-2 text-sm ring-1 ring-slate-200"><span style="color: var(--accent)">{% icon 'check' %}</span>{{ s }}</li>{% endfor %}</ul></div>{% endif %}
+</section>
+
+{% if gallery %}<section class="mx-auto max-w-6xl px-4 py-6"><div class="grid grid-cols-2 gap-3 sm:grid-cols-4">{% for g in gallery %}<figure><img src="{{ g.image.url }}" alt="{{ g.caption }}" class="aspect-square w-full rounded-xl object-cover" loading="lazy">{% if g.caption %}<figcaption class="mt-1 text-xs text-slate-500">{{ g.caption }}</figcaption>{% endif %}</figure>{% endfor %}</div></section>{% endif %}
+
+<section id="contato" class="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-2">
+  <div class="card"><div class="card-body">{% include "components/contact_clinic.html" %}</div></div>
+  <form method="post" action="{% url 'landing_public:contact' dentist.slug %}" class="card pub">{% csrf_token %}<div class="card-body space-y-3">
+    <p class="font-semibold">{% translate 'Prefere mandar uma mensagem?' %}</p>
+    <div class="hidden" aria-hidden="true">{{ contact_form.company }}</div>
+    <div class="grid gap-3 sm:grid-cols-2">{% include "components/field.html" with field=contact_form.name %}{% include "components/field.html" with field=contact_form.email %}</div>
+    {% include "components/field.html" with field=contact_form.whatsapp %}{% include "components/field.html" with field=contact_form.message %}{% include "components/field.html" with field=contact_form.consent %}
+    <button class="btn-outline-accent">{% translate 'Enviar mensagem' %}</button>
+  </div></form>
+</section>
+<footer class="py-8 text-center text-xs text-slate-400">{% translate 'Agenda online por' %} <a href="{% url 'website:home' %}" class="text-slate-500">wbook</a></footer>
+{% endblock %}

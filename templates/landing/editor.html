@@ -1,0 +1,16 @@
+{% extends "layouts/dentist.html" %}
+{% block page_title_text %}{% translate 'Minha página' %}{% endblock %}
+{% block page_title %}{% translate 'Minha página' %}{% endblock %}
+{% block page_actions %}<a href="{% url 'landing_public:page' request.dentist.slug %}" target="_blank" class="btn-secondary btn-sm">{% icon 'external' %}{% translate 'Ver página' %}</a>{% endblock %}
+{% block content %}
+<div class="grid gap-6 xl:grid-cols-3">
+  <form method="post" enctype="multipart/form-data" class="card xl:col-span-2">{% csrf_token %}<div class="card-body space-y-4">
+    <p class="text-sm text-slate-600">{% blocktranslate with s=request.dentist.slug %}Seu endereço: <strong>wbook.com.br/{{ s }}</strong>{% endblocktranslate %} {% if landing.is_live %}<span class="pill-green">{% translate 'no ar' %}</span>{% else %}<span class="pill-gray">{% translate 'fora do ar' %}</span>{% endif %}</p>
+    {% include "components/form_fields.html" %}<button class="btn-primary">{% translate 'Salvar página' %}</button></div></form>
+  <div id="galeria" class="card"><div class="card-header"><p class="card-title">{% translate 'Fotos do consultório' %}</p></div><div class="card-body space-y-4">
+    <form method="post" action="{% url 'landing:gallery_add' %}" enctype="multipart/form-data" class="space-y-2">{% csrf_token %}<input type="file" name="image" accept="image/*" class="file-input" required>{{ gallery_form.caption }}<button class="btn-secondary btn-sm">{% icon 'upload' %}{% translate 'Adicionar' %}</button></form>
+    <p class="help">{% translate 'Só fotos do consultório e da equipe. Fotos de pacientes ficam nos tratamentos, nunca aqui.' %}</p>
+    <div class="grid grid-cols-3 gap-2">{% for g in gallery %}<div class="relative"><img src="{{ g.image.url }}" class="aspect-square w-full rounded-lg object-cover" alt=""><form method="post" action="{% url 'landing:gallery_delete' g.pk %}" class="absolute right-1 top-1">{% csrf_token %}<button class="rounded-full bg-white/90 p-1 text-slate-600 hover:text-red-600">{% icon 'x' 'h-3 w-3' %}</button></form></div>{% endfor %}</div>
+  </div></div>
+</div>
+{% endblock %}

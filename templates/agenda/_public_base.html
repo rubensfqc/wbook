@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ dentist.clinic_name }}{% endblock %}
+{% block body_attrs %}style="--accent: {{ dentist.landing.accent_hex }}"{% endblock %}
+{% block body %}
+<header class="border-b border-slate-200 bg-white"><div class="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3">
+  <a href="{% url 'landing_public:page' dentist.slug %}" class="flex items-center gap-3 no-underline">{% if dentist.logo %}<img src="{{ dentist.logo.url }}" class="h-10 w-10 rounded-full object-cover" alt="">{% endif %}<span class="font-semibold text-ink">{{ dentist.clinic_name }}</span></a>
+  <span class="ml-auto">{% include "components/language_switcher.html" %}</span></div></header>
+<main class="mx-auto max-w-3xl px-4 py-8">{% block content %}{% endblock %}</main>
+{% endblock %}
