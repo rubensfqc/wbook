@@ -33,7 +33,7 @@ Scoped managers: `for_dentist(d)` on PatientProfile, Treatment, TreatmentFile, T
 ## agenda
 | Model | Key fields / notes |
 |---|---|
-| `BookingSettings` | 1:1 Dentist (`dentist.booking`, created by `create_dentist`). `patient_auto_confirm` (True), `visitor_booking_enabled` (True), `change_cutoff_hours` (24; choices 0/12/24/48/72), `min_lead_hours` (2), `booking_horizon_days` (60), `slot_step_min` (15), `pending_hold_hours` (48), `max_active_per_patient` (2), `limit_empty_days` (True). |
+| `BookingSettings` | 1:1 Dentist (`dentist.booking`, created by `create_dentist`). `patient_auto_confirm` (True), `visitor_booking_enabled` (True), `change_cutoff_hours` (24; choices 0/12/24/48/72), `min_lead_hours` (2), `booking_horizon_days` (60), `slot_step_min` (15), `pending_hold_hours` (48), `max_active_per_patient` (2), `max_visible_slots` (4; 0 = show all, max 50). |
 | `WorkingHours` | `dentist`, `weekday` (0 = Monday … 6), `start`, `end` (local times). Several rows per day; validated non-overlapping. |
 | `TimeBlock` | `dentist`, `start`, `end` (aware datetimes), `reason`, `all_day`. |
 | `AppointmentType` | `dentist`, `name`, `description`, `duration_min`, `buffer_min` (default 0), `colour`, `price` (nullable), `show_price` (False), `visitor_bookable` (True), `is_active`, `order`. Seeded on `create_dentist`: Avaliação (30), Limpeza (45), Urgência (30). |

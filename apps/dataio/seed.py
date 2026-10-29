@@ -155,7 +155,7 @@ class Seeder:
             t.save()
         b = d.booking
         b.ref = R("booking", k)
-        b.limit_empty_days = c["limit"]
+        b.max_visible_slots = c["visible_slots"]
         b.save()
         lp = d.landing
         lp.ref = R("landing", k)

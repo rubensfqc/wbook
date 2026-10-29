@@ -18,26 +18,26 @@ to visitors or patients (the dentist ignores it).
 
 ## 2. Visible times (`slots.visible_times(dentist, type, day, viewer)`)
 
-The limit hides most of an **empty** day so the agenda never looks empty.
+The limit shows only a few free times per day so the agenda never looks empty.
 
-- A day is **empty** when it has no appointment in `BLOCKING_STATUSES`.
-- If `BookingSettings.limit_empty_days` is on and the day is empty, show at most `EMPTY_DAY_VISIBLE_SLOTS = 4` times
-  (a module constant, not a setting), chosen by **spread**. Otherwise show all free times.
+- `BookingSettings.max_visible_slots` (default 4, set by the dentist in *Horários e regras*, 0–50): on **every** day, booked or
+  not, show at most that many free times, chosen by **spread**. `0` = show all free times.
+- When a visible time is booked, spread runs again over the remaining free times, so the day keeps showing up to the limit.
 - `viewer` is `"public"` or `"patient"`: the limit applies to both. The dentist never goes through `visible_times`.
 
 **Spread** (deterministic):
 1. Work on the day's **full grid** — free times computed *without* the bookable window — so the chosen times do not shift during the day.
 2. Split the grid by working range (e.g. morning, afternoon). Give each range `k` picks proportional to its number of times
-   (largest remainder), with at least one per range while picks remain; total = min(4, grid size).
+   (largest remainder), with at least one per range while picks remain; total = min(max_visible_slots, grid size).
 3. In a range with `n` times and `k` picks, take indexes `floor((2i + 1) · n / (2k))` for `i = 0 … k-1`.
 4. Finally remove picks outside the bookable window (past or too soon). Do **not** replace them.
 
 Example (`slot_step_min = 30`, 30-min type, Tuesday 08:00–12:00 and 13:30–18:00): the grid has 8 morning and 9 afternoon times
-→ 2 + 2 picks → **09:00, 11:00, 14:30, 16:30**. When anyone books (or requests) any time that Tuesday, the day is no longer empty
-and all its free times appear.
+→ 2 + 2 picks → **09:00, 11:00, 14:30, 16:30**. After someone books 11:00 the day still shows 4 free times (re-spread).
+(Before Oct 2026 the limit applied only to days with no appointment, so a single booking revealed every free time — fixed.)
 
 Tests (`tests/test_slots.py`): grid and overlap rules, buffers, blocks, the example above, stability (same output on repeated calls
-and across the day), empty vs booked day, limit off, a hidden time POSTed by hand is refused, two concurrent bookings of the same
+and across the day), limit still applied on a booked day, custom limit, 0 = all, a hidden time POSTed by hand is refused, two concurrent bookings of the same
 time → one wins.
 
 ## 3. Booking services (`apps/agenda/services.py`)

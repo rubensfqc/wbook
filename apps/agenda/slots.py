@@ -4,7 +4,7 @@ from datetime import date, datetime, time, timedelta
 
 from django.utils import timezone
 
-EMPTY_DAY_VISIBLE_SLOTS = 4
+DEFAULT_VISIBLE_SLOTS = 4  # default of BookingSettings.max_visible_slots; 0 there means "show all"
 
 
 def _aware(dentist, day, t):
@@ -75,16 +75,6 @@ def free_times(dentist, appt_type, day, now=None, exclude=None):
     return [t for rng in grid(dentist, appt_type, day, exclude) for t in rng if _in_window(t, window)]
 
 
-def is_empty_day(dentist, day, exclude=None):
-    from .models import Appointment
-
-    ds, de = day_bounds(dentist, day)
-    qs = Appointment.objects.filter(dentist=dentist, status__in=Appointment.BLOCKING_STATUSES, start__gte=ds, start__lt=de)
-    if exclude is not None:
-        qs = qs.exclude(pk=exclude.pk)
-    return not qs.exists()
-
-
 def allocate(counts, total):
     """Picks per range: at least one per non-empty range while picks remain, then largest remainder."""
     k = [0] * len(counts)
@@ -109,7 +99,7 @@ def allocate(counts, total):
     return k
 
 
-def spread(per_range, limit=EMPTY_DAY_VISIBLE_SLOTS):
+def spread(per_range, limit=DEFAULT_VISIBLE_SLOTS):
     counts = [len(r) for r in per_range]
     total = min(limit, sum(counts))
     picks = []
@@ -121,11 +111,12 @@ def spread(per_range, limit=EMPTY_DAY_VISIBLE_SLOTS):
 
 
 def visible_times(dentist, appt_type, day, now=None, exclude=None):
-    """Times shown to visitors and patients."""
+    """Times shown to visitors and patients: at most `max_visible_slots` per day (0 = all), spread over the day."""
     window = bookable_window(dentist, now)
     per_range = grid(dentist, appt_type, day, exclude)
-    if dentist.booking.limit_empty_days and is_empty_day(dentist, day, exclude):
-        chosen = spread(per_range)
+    limit = dentist.booking.max_visible_slots
+    if limit:
+        chosen = spread(per_range, limit)
     else:
         chosen = [t for rng in per_range for t in rng]
     return [t for t in chosen if _in_window(t, window)]

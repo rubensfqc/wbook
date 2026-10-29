@@ -12,7 +12,7 @@ class BookingSettingsForm(StyledModelForm):
     class Meta:
         model = BookingSettings
         fields = ["patient_auto_confirm", "visitor_booking_enabled", "change_cutoff_hours", "min_lead_hours",
-                  "booking_horizon_days", "slot_step_min", "pending_hold_hours", "max_active_per_patient", "limit_empty_days"]
+                  "booking_horizon_days", "slot_step_min", "pending_hold_hours", "max_active_per_patient", "max_visible_slots"]
 
 
 class WorkingHoursForm(StyledModelForm):

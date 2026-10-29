@@ -369,7 +369,7 @@ booking_horizon_days = "60"
 slot_step_min = "15"
 pending_hold_hours = "48"
 max_active_per_patient = "2"
-limit_empty_days = "sim"
+max_visible_slots = "4"
 
 [[booking_settings]]
 ref = "9f3443a2-5572-58fd-a892-3b3c41c986a8"
@@ -382,7 +382,7 @@ booking_horizon_days = "60"
 slot_step_min = "15"
 pending_hold_hours = "48"
 max_active_per_patient = "2"
-limit_empty_days = "não"
+max_visible_slots = "0"
 
 [[booking_settings]]
 ref = "aa0073a1-fbdd-5c17-986c-76ee72e385c1"
@@ -395,7 +395,7 @@ booking_horizon_days = "60"
 slot_step_min = "15"
 pending_hold_hours = "48"
 max_active_per_patient = "2"
-limit_empty_days = "sim"
+max_visible_slots = "4"
 
 [[working_hours]]
 ref = "f303404d-bd1e-53b7-9f24-45b3f3e88437"

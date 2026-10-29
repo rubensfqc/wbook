@@ -39,7 +39,7 @@ class BookingFlowTests(TestCase):
         self.assertEqual(a.status, "PENDING")
 
     def test_max_active_per_patient(self):
-        self.d.booking.limit_empty_days = False
+        self.d.booking.max_visible_slots = 0
         self.d.booking.save()
         services.book(self.p, self.t, at(self.d, self.tue, 9))
         services.book(self.p, self.t, at(self.d, self.tue, 10))
@@ -62,7 +62,7 @@ class BookingFlowTests(TestCase):
         self.assertEqual(a.ics_sequence, 1)
 
     def test_one_open_request_per_email(self):
-        self.d.booking.limit_empty_days = False
+        self.d.booking.max_visible_slots = 0
         self.d.booking.save()
         services.request_booking(self.d, self.t, at(self.d, self.tue, 9), name="Vi", email="vi@example.com", consent=True)
         with self.assertRaises(ValidationError):

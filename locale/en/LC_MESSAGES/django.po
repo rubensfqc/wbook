@@ -1609,6 +1609,10 @@ msgstr "Hours and rules"
 msgid "Horários e regras de agendamento"
 msgstr "Hours and booking rules"
 
+#: templates/agenda/settings.html
+msgid "Horários visíveis por dia"
+msgstr "Visible times per day"
+
 #: apps/agenda/forms.py
 msgid "Há horários sobrepostos no mesmo dia."
 msgstr "There are overlapping hours on the same day."
@@ -1840,10 +1844,6 @@ msgstr "Template — review with a lawyer before publishing."
 #: templates/agenda/settings.html
 msgid "Mostrar preço"
 msgstr "Show price"
-
-#: templates/agenda/settings.html
-msgid "Mostrar só 4 horários em dias vazios"
-msgstr "Show only 4 times on empty days"
 
 #: templates/agenda/_detail_panel.html
 msgid "Motivo"
@@ -2658,6 +2658,10 @@ msgstr "Page saved."
 #: templates/agenda/_detail_panel.html templates/operator/activity.html templates/quotes/detail.html
 msgid "Quando"
 msgstr "When"
+
+#: apps/agenda/models.py
+msgid "Quantos horários livres visitantes e pacientes veem em cada dia. 0 = mostrar todos."
+msgstr "How many free times visitors and patients see on each day. 0 = show all."
 
 #: apps/agenda/models.py
 msgid "Quarta"
@@ -3700,10 +3704,6 @@ msgstr "patient e-mail"
 msgid "e-mail principal dos alertas"
 msgstr "primary alert e-mail"
 
-#: apps/agenda/models.py
-msgid "em dias sem nenhum agendamento, mostrar só 4 horários"
-msgstr "on days with no bookings, show only 4 times"
-
 #: apps/clinic/models.py
 msgid "emissão"
 msgstr "issue date"
@@ -3775,6 +3775,10 @@ msgstr "opening hours (text)"
 #: apps/agenda/models.py
 msgid "horários de atendimento"
 msgstr "opening hours"
+
+#: apps/agenda/models.py
+msgid "horários visíveis por dia para pacientes"
+msgstr "visible times per day for patients"
 
 #: apps/accounts/models.py
 msgid "idioma"
@@ -3935,10 +3939,6 @@ msgstr "new dentist signed up"
 #: apps/clinic/models.py
 msgid "novo pedido de agendamento (visitante)"
 msgstr "new booking request (visitor)"
-
-#: templates/agenda/settings.html
-msgid "num dia ainda sem nenhum agendamento, visitantes e pacientes veem no máximo 4 horários livres, espalhados entre manhã e tarde. Quando alguém marca, os demais horários livres do dia aparecem. Na sua agenda você sempre vê tudo."
-msgstr "on a day with no bookings yet, visitors and patients see at most 4 free times, spread across morning and afternoon. When someone books, the day's other free times appear. In your calendar you always see everything."
 
 #: apps/clinic/views_export.py apps/core/templatetags/wb.py
 msgid "não"
@@ -4279,6 +4279,10 @@ msgstr "view all"
 #: templates/agenda/_detail_panel.html
 msgid "visitante (lead)"
 msgstr "visitor (lead)"
+
+#: templates/agenda/settings.html
+msgid "visitantes e pacientes veem no máximo esse número de horários livres em cada dia, espalhados entre manhã e tarde (padrão: 4). Quando um deles é marcado, outro horário livre aparece no lugar. Use 0 para mostrar todos. Na sua agenda você sempre vê tudo."
+msgstr "visitors and patients see at most this many free times on each day, spread across morning and afternoon (default: 4). When one is booked, another free time takes its place. Use 0 to show all. In your own agenda you always see everything."
 
 #: apps/agenda/models.py
 msgid "visitantes podem pedir"

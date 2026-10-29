@@ -27,6 +27,9 @@ class SlotTests(TestCase):
         per_range = slots.grid(self.d, self.type, self.tue)
         self.assertEqual([len(r) for r in per_range], [8, 9])
 
+    def test_default_is_four(self):
+        self.assertEqual(self.d.booking.max_visible_slots, 4)
+
     def test_empty_day_shows_spread_four(self):
         self.assertEqual(self.hm(slots.visible_times(self.d, self.type, self.tue)), ["09:00", "11:00", "14:30", "16:30"])
 
@@ -35,21 +38,35 @@ class SlotTests(TestCase):
         b = slots.visible_times(self.d, self.type, self.tue)
         self.assertEqual(a, b)
 
-    def test_limit_off_shows_all(self):
-        self.d.booking.limit_empty_days = False
+    def test_zero_shows_all(self):
+        self.d.booking.max_visible_slots = 0
         self.d.booking.save()
         self.assertEqual(len(slots.visible_times(self.d, self.type, self.tue)), 17)
 
-    def test_booked_day_shows_all_free(self):
+    def test_dentist_chooses_how_many(self):
+        self.d.booking.max_visible_slots = 6
+        self.d.booking.save()
+        self.assertEqual(len(slots.visible_times(self.d, self.type, self.tue)), 6)
+        self.d.booking.max_visible_slots = 2
+        self.d.booking.save()
+        self.assertEqual(self.hm(slots.visible_times(self.d, self.type, self.tue)), ["10:00", "15:30"])
+
+    def test_booked_day_still_limited(self):
         p = make_patient(self.d)
         services.book(p, self.type, at(self.d, self.tue, 11))
         times = self.hm(slots.visible_times(self.d, self.type, self.tue))
-        self.assertEqual(len(times), 16)
+        self.assertEqual(len(times), 4)
         self.assertNotIn("11:00", times)
+
+    def test_week_never_exceeds_limit(self):
+        p = make_patient(self.d)
+        services.book(p, self.type, at(self.d, self.tue, 9))
+        for _day, times in slots.week_visible(self.d, self.type, self.tue):
+            self.assertLessEqual(len(times), 4)
 
     def test_blocks_and_buffer(self):
         TimeBlock.objects.create(dentist=self.d, start=at(self.d, self.tue, 8), end=at(self.d, self.tue, 12))
-        self.d.booking.limit_empty_days = False
+        self.d.booking.max_visible_slots = 0
         self.d.booking.save()
         self.assertEqual(len(slots.visible_times(self.d, self.type, self.tue)), 9)
         long = self.d.appointment_types.get(name="Limpeza")  # 45 min
@@ -61,7 +78,7 @@ class SlotTests(TestCase):
     def test_hidden_time_cannot_be_booked(self):
         p = make_patient(self.d)
         with self.assertRaises(ValidationError):
-            services.book(p, self.type, at(self.d, self.tue, 9, 30))  # free but hidden by the empty-day limit
+            services.book(p, self.type, at(self.d, self.tue, 9, 30))  # free but hidden by the visible-times limit
         services.book(p, self.type, at(self.d, self.tue, 9))
 
     def test_same_time_twice(self):

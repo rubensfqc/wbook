@@ -23,7 +23,7 @@
   <div class="card"><div class="card-header"><p class="card-title">{% translate 'Regras de agendamento' %}</p></div>
     <div class="card-body space-y-4">{% with form=sform %}{% include "components/form_fields.html" %}{% endwith %}
       <div class="rounded-lg bg-slate-50 p-3 text-sm text-slate-600">
-        <p><strong>{% translate 'Mostrar só 4 horários em dias vazios' %}:</strong> {% translate 'num dia ainda sem nenhum agendamento, visitantes e pacientes veem no máximo 4 horários livres, espalhados entre manhã e tarde. Quando alguém marca, os demais horários livres do dia aparecem. Na sua agenda você sempre vê tudo.' %}</p>
+        <p><strong>{% translate 'Horários visíveis por dia' %}:</strong> {% translate 'visitantes e pacientes veem no máximo esse número de horários livres em cada dia, espalhados entre manhã e tarde (padrão: 4). Quando um deles é marcado, outro horário livre aparece no lugar. Use 0 para mostrar todos. Na sua agenda você sempre vê tudo.' %}</p>
         <p class="mt-2"><strong>{% translate 'Prazo para remarcar/cancelar' %}:</strong> {% translate 'depois desse prazo o paciente vê os contatos da clínica e um botão de WhatsApp, e você recebe um alerta.' %}</p>
       </div>
     </div></div>

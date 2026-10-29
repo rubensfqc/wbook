@@ -89,7 +89,7 @@ class OperatorTests(TestCase):
         from .helpers import at, next_weekday
 
         d = make_dentist("apagar")
-        d.booking.limit_empty_days = False
+        d.booking.max_visible_slots = 0
         d.booking.save()
         p = make_patient(d, "p@example.com")
         services.book(p, d.appointment_types.first(), at(d, next_weekday(1), 9))

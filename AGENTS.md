@@ -100,7 +100,7 @@ copy .env.example .env                               # then edit SECRET_KEY etc.
 python manage.py migrate
 python manage.py seed_demo --password 'Demo!2026x'   # DEBUG only: 3 clinics, patients, agenda, treatments, quotes
 python manage.py runserver
-python manage.py test                                # 61 tests; in-memory storage, locmem e-mail
+python manage.py test                                # 64 tests; in-memory storage, locmem e-mail
 python manage.py agenda_tick                         # reminders + expiry of PENDING requests (scheduled task)
 python scripts/makemessages_py.py                    # extract strings → locale/en/.../django.po (no gettext needed)
 python scripts/compile_messages.py                    # .po → .mo (commit both)

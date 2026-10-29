@@ -1,6 +1,7 @@
 import uuid
 
 from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
@@ -35,8 +36,9 @@ class BookingSettings(models.Model):
     )
     pending_hold_hours = models.PositiveSmallIntegerField(_("pedido de visitante segura o horário por (horas)"), default=48)
     max_active_per_patient = models.PositiveSmallIntegerField(_("consultas futuras por paciente (máx.)"), default=2)
-    limit_empty_days = models.BooleanField(
-        _("em dias sem nenhum agendamento, mostrar só 4 horários"), default=True
+    max_visible_slots = models.PositiveSmallIntegerField(
+        _("horários visíveis por dia para pacientes"), default=4, validators=[MaxValueValidator(50)],
+        help_text=_("Quantos horários livres visitantes e pacientes veem em cada dia. 0 = mostrar todos."),
     )
 
     objects = DentistQuerySet.as_manager()

@@ -84,7 +84,7 @@ python manage.py import_data backup.zip
 ## Demo seed
 - Content: `apps/dataio/seed_data.py` (plain data; dates as day offsets from today, times as local wall-clock). Builder: `apps/dataio/seed.py`
   (`Seeder`), command `seed_demo` (DEBUG only unless `--allow-non-debug`).
-- Three clinics: `clinica-sorriso` (Dra. Ana Lima, paying, limit on), `odonto-ipe` (Dr. Paulo Reis, trial, limit off),
+- Three clinics: `clinica-sorriso` (Dra. Ana Lima, paying, 4 visible times/day), `odonto-ipe` (Dr. Paulo Reis, trial, all times visible),
   `sorria-mais` (expired → landing offline). Each with working hours, types, ~8 patients, 2 leads, appointments in every status over
   the past 30 and next 21 days (some PENDING, one late-cancel flag), 2–3 treatments with PDFs and generated illustration photos per phase
   (Pillow drawings — **never real patient photos**), invoices, and quotes with visits. Operators: `carla@wbook.example`, `rui@wbook.example`.

@@ -14,8 +14,8 @@ Password for every login: `Demo!2026x`.
 | Login | Role | Notes |
 |---|---|---|
 | `carla@wbook.example`, `rui@wbook.example` | operator | `/operador/` |
-| `ana@sorriso.example` | dentist — Clínica Sorriso (`/clinica-sorriso/`) | paying, empty-day limit on, prices shown, 8 patients, 3 treatments with PDFs and illustration photos, 2 quotes (one with an access log), a late-cancel request, pending visitor requests |
-| `paulo@odontoipe.example` | dentist — Odonto Ipê (`/odonto-ipe/`) | on trial, empty-day limit off |
+| `ana@sorriso.example` | dentist — Clínica Sorriso (`/clinica-sorriso/`) | paying, 4 visible times per day, prices shown, 8 patients, 3 treatments with PDFs and illustration photos, 2 quotes (one with an access log), a late-cancel request, pending visitor requests |
+| `paulo@odontoipe.example` | dentist — Odonto Ipê (`/odonto-ipe/`) | on trial, all free times visible (limit 0) |
 | `lia@sorriamais.example` | dentist — Sorria Mais (`/sorria-mais/`) | expired → page offline, portal still works |
 | `maria@paciente.example` | patient of Clínica Sorriso | aligners treatment, open invoice, late-cancel flag |
 | `joao@paciente.example` … `thiago@paciente.example` | patients of Clínica Sorriso | |
