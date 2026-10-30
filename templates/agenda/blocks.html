@@ -1,11 +1,34 @@
 {% extends "layouts/dentist.html" %}
-{% block page_title_text %}{% translate 'Bloqueios' %}{% endblock %}
-{% block page_title %}{% translate 'Bloquear horários' %}{% endblock %}
+{% block page_title_text %}{% translate 'Ausências' %}{% endblock %}
+{% block page_title %}{% translate 'Ausências e bloqueios' %}{% endblock %}
 {% block content %}
 <div class="grid gap-6 lg:grid-cols-2">
-  <form method="post" class="card">{% csrf_token %}<div class="card-header"><p class="card-title">{% translate 'Novo bloqueio' %}</p></div><div class="card-body space-y-4">{% include "components/form_fields.html" with grid="grid-cols-1" %}<p class="help">{% translate 'Férias, cursos, almoço diferente: ninguém consegue agendar nesse período.' %}</p><button class="btn-primary">{% translate 'Bloquear' %}</button></div></form>
-  <div class="card"><div class="card-header"><p class="card-title">{% translate 'Próximos bloqueios' %}</p></div>
-    {% if blocks %}<ul class="divide-y divide-slate-100 text-sm">{% for b in blocks %}<li class="flex items-center justify-between gap-2 px-5 py-3"><span>{{ b.start|date:"d/m/Y H:i" }} – {{ b.end|date:"d/m/Y H:i" }}{% if b.reason %}<br><span class="text-xs text-slate-500">{{ b.reason }}</span>{% endif %}</span><form method="post" action="{% url 'agenda:block_delete' b.pk %}">{% csrf_token %}<button class="btn-ghost btn-sm">{% icon 'trash' %}</button></form></li>{% endfor %}</ul>
-    {% else %}<div class="card-body text-sm text-slate-500">{% translate 'Nenhum bloqueio.' %}</div>{% endif %}</div>
+  <form method="post" class="card">{% csrf_token %}<div class="card-header"><p class="card-title">{% translate 'Nova ausência' %}</p></div><div class="card-body space-y-4">
+    {% include "components/form_fields.html" %}
+    <p class="help">{% translate 'Férias, congresso, curso ou uma tarde livre: nesse período ninguém consegue agendar — nem pela sua página, nem pelo portal do paciente, nem você pela agenda. Consultas já marcadas não são canceladas automaticamente.' %}</p>
+    <button class="btn-primary">{% icon 'lock' %}{% translate 'Bloquear agenda' %}</button>
+  </div></form>
+  <div class="card"><div class="card-header"><p class="card-title">{% translate 'Próximas ausências' %}</p></div>
+    {% if blocks %}<ul class="divide-y divide-slate-100 text-sm">{% for b in blocks %}
+      <li class="px-5 py-3">
+        <div class="flex items-center justify-between gap-2">
+          <span>
+            {% if b.all_day %}
+              <strong>{{ b.start|local_date:dentist }}{% if not b.same_day %} – {{ b.last_day|local_date }}{% endif %}</strong> <span class="text-xs text-slate-500">· {% translate 'dia inteiro' %}</span>
+            {% else %}
+              <strong>{{ b.start|local_date:dentist }} {{ b.start|local_time:dentist }} – {% if b.same_day %}{{ b.end|local_time:dentist }}{% else %}{{ b.end|local_date:dentist }} {{ b.end|local_time:dentist }}{% endif %}</strong>
+            {% endif %}
+            {% if b.reason %}<br><span class="text-xs text-slate-500">{{ b.reason }}</span>{% endif %}
+          </span>
+          <form method="post" action="{% url 'agenda:block_delete' b.pk %}" data-confirm="{% translate 'Remover esta ausência? Os horários voltam a ficar livres.' %}">{% csrf_token %}<button class="btn-ghost btn-sm" aria-label="{% translate 'Remover' %}">{% icon 'trash' %}</button></form>
+        </div>
+        {% if b.clashes %}
+        <div class="mt-2 rounded-lg bg-amber-50 p-2 text-xs text-amber-900">
+          <p class="font-semibold">{% blocktranslate count n=b.clashes|length %}{{ n }} consulta marcada neste período:{% plural %}{{ n }} consultas marcadas neste período:{% endblocktranslate %}</p>
+          <ul class="mt-1 space-y-0.5">{% for a in b.clashes %}<li><a href="{% url 'agenda:detail' a.pk %}" class="underline">{{ a.start|local_date:dentist }} {{ a.start|local_time:dentist }} · {{ a.person_name }} · {{ a.type }}</a></li>{% endfor %}</ul>
+        </div>
+        {% endif %}
+      </li>{% endfor %}</ul>
+    {% else %}<div class="card-body text-sm text-slate-500">{% translate 'Nenhuma ausência marcada.' %}</div>{% endif %}</div>
 </div>
 {% endblock %}

@@ -4,7 +4,7 @@
 {% block page_actions %}
 <a href="{% url 'agenda:export' %}" class="btn-ghost btn-sm hidden md:inline-flex">{% icon 'download' %}{% translate 'Exportar' %}</a>
 <a href="{% url 'agenda:sync' %}" class="btn-ghost btn-sm hidden md:inline-flex">{% icon 'refresh' %}{% translate 'Sincronizar' %}</a>
-<a href="{% url 'agenda:blocks' %}" class="btn-secondary btn-sm">{% icon 'lock' %}<span class="hidden sm:inline">{% translate 'Bloquear' %}</span></a>
+<a href="{% url 'agenda:blocks' %}" class="btn-secondary btn-sm">{% icon 'lock' %}<span class="hidden sm:inline">{% translate 'Ausência' %}</span></a>
 <a href="{% url 'agenda:create' %}" class="btn-primary btn-sm">{% icon 'plus' %}<span class="hidden sm:inline">{% translate 'Nova consulta' %}</span></a>
 {% endblock %}
 {% block content %}

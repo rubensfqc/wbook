@@ -11,7 +11,8 @@
 <a class="nav-link {% active 'landing:lead' %}" href="{% url 'landing:lead_list' %}">{% icon 'inbox' %}{% translate 'Leads' %}</a>
 <p class="nav-section">{% translate 'Configurar' %}</p>
 <a class="nav-link {% active 'landing:editor' %}" href="{% url 'landing:editor' %}">{% icon 'globe' %}{% translate 'Minha página' %}</a>
-<a class="nav-link {% active 'agenda:settings' %}{% active 'agenda:blocks' %}" href="{% url 'agenda:settings' %}">{% icon 'clock' %}{% translate 'Horários e regras' %}</a>
+<a class="nav-link {% active 'agenda:settings' %}" href="{% url 'agenda:settings' %}">{% icon 'clock' %}{% translate 'Horários e regras' %}</a>
+<a class="nav-link {% active 'agenda:blocks' %}" href="{% url 'agenda:blocks' %}">{% icon 'lock' %}{% translate 'Ausências' %}</a>
 <a class="nav-link {% active 'agenda:sync' %}{% active 'agenda:export' %}" href="{% url 'agenda:sync' %}">{% icon 'refresh' %}{% translate 'Sincronizar calendário' %}</a>
 <a class="nav-link {% active 'clinic:export' %}" href="{% url 'clinic:exports' %}">{% icon 'download' %}{% translate 'Exportar dados' %}</a>
 <a class="nav-link {% active 'clinic:settings' %}" href="{% url 'clinic:settings' %}">{% icon 'settings' %}{% translate 'Configurações' %}</a>

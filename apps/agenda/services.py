@@ -103,6 +103,8 @@ def request_booking(dentist, appt_type, start, *, name, email, whatsapp="", mess
 @transaction.atomic
 def create_by_dentist(dentist, appt_type, start, *, patient=None, lead=None, treatment=None, note="", actor=None):
     dentist = _lock(dentist)
+    if slots.in_absence(dentist, appt_type, start):
+        raise ValidationError(_("Você marcou ausência neste horário. Remova a ausência para agendar."))
     if not slots.is_free_for_dentist(dentist, appt_type, start):
         raise ValidationError(_("Este horário já está ocupado."))
     appt = Appointment.objects.create(
@@ -173,6 +175,8 @@ def reschedule(appt, new_start, by="PATIENT", actor=None):
         if appt.in_cutoff:
             raise ValidationError(_("Fora do prazo para remarcar online. Fale com a clínica."))
         _check_visible(dentist, appt.type, new_start, exclude=appt)
+    elif slots.in_absence(dentist, appt.type, new_start):
+        raise ValidationError(_("Você marcou ausência neste horário. Remova a ausência para agendar."))
     elif not slots.is_free_for_dentist(dentist, appt.type, new_start, exclude=appt):
         raise ValidationError(_("Este horário já está ocupado."))
     was_pending = appt.status == Status.PENDING

@@ -1,7 +1,7 @@
 {% extends "layouts/dentist.html" %}
 {% block page_title_text %}{% translate 'Horários e regras' %}{% endblock %}
 {% block page_title %}{% translate 'Horários e regras de agendamento' %}{% endblock %}
-{% block page_actions %}<a href="{% url 'agenda:blocks' %}" class="btn-secondary btn-sm">{% icon 'lock' %}{% translate 'Bloquear horários' %}</a>{% endblock %}
+{% block page_actions %}<a href="{% url 'agenda:blocks' %}" class="btn-secondary btn-sm">{% icon 'lock' %}{% translate 'Ausências' %}</a>{% endblock %}
 {% block content %}
 <form method="post" class="space-y-6">{% csrf_token %}
   <div class="card"><div class="card-header"><p class="card-title">{% translate 'Horários de atendimento' %}</p></div>

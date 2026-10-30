@@ -16,7 +16,7 @@ from apps.core.activity import log_action
 from apps.core.permissions import dentist_required
 
 from . import calendar_links, services, slots
-from .forms import BookingSettingsForm, DentistAppointmentForm, FeedForm, HoursFormSet, RescheduleForm, TimeBlockForm, TypeFormSet
+from .forms import AbsenceForm, BookingSettingsForm, DentistAppointmentForm, FeedForm, HoursFormSet, RescheduleForm, TypeFormSet
 from .models import Appointment, TimeBlock
 
 GRID_START, GRID_END = 7, 21
@@ -179,20 +179,37 @@ def reschedule(request, pk):
     return redirect("agenda:detail", pk=a.pk)
 
 
+def _clashes(d, block):
+    """Active appointments that fall inside an absence — they are kept; the dentist decides what to do with them."""
+    return list(Appointment.objects.for_dentist(d).blocking().filter(start__lt=block.end, end__gt=block.start,
+                                                                     start__gte=timezone.now())
+                .select_related("type", "patient__user", "lead").order_by("start"))
+
+
 @dentist_required
 def blocks(request):
+    """Absences (vacation, congress, a free afternoon): no one can book inside them, dentist included."""
     d = request.dentist
-    form = TimeBlockForm(request.POST or None)
+    form = AbsenceForm(request.POST or None, dentist=d)
     if request.method == "POST" and form.is_valid():
-        b = form.save(commit=False)
-        b.dentist = d
-        b.save()
-        log_action(request, "agenda", "Bloqueio criado %(s)s – %(e)s", s=f"{timezone.localtime(b.start):%d/%m %H:%M}",
-                   e=f"{timezone.localtime(b.end):%d/%m %H:%M}")
-        messages.success(request, _("Horário bloqueado."))
+        b = form.save()
+        fmt = "%d/%m/%Y" if b.all_day else "%d/%m/%Y %H:%M"
+        last = b.end - timedelta(days=1) if b.all_day else b.end
+        log_action(request, "agenda", "Ausência criada %(s)s – %(e)s", s=timezone.localtime(b.start, d.tzinfo).strftime(fmt),
+                   e=timezone.localtime(last, d.tzinfo).strftime(fmt))
+        n = len(_clashes(d, b))
+        if n:
+            messages.warning(request, _("Ausência salva. Atenção: %(n)s consulta(s) já marcada(s) nesse período continuam ativas — "
+                                        "remarque ou cancele abaixo.") % {"n": n})
+        else:
+            messages.success(request, _("Ausência salva. A agenda está bloqueada nesse período."))
         return redirect("agenda:blocks")
-    upcoming = TimeBlock.objects.for_dentist(d).filter(end__gte=timezone.now())
-    return render(request, "agenda/blocks.html", {"form": form, "blocks": upcoming})
+    upcoming = list(TimeBlock.objects.for_dentist(d).filter(end__gte=timezone.now()).order_by("start"))
+    for b in upcoming:
+        b.last_day = timezone.localtime(b.end - timedelta(microseconds=1), d.tzinfo)
+        b.same_day = timezone.localtime(b.start, d.tzinfo).date() == b.last_day.date()
+        b.clashes = _clashes(d, b)
+    return render(request, "agenda/blocks.html", {"form": form, "blocks": upcoming, "dentist": d})
 
 
 @dentist_required
@@ -200,8 +217,8 @@ def blocks(request):
 def block_delete(request, pk):
     b = get_object_or_404(TimeBlock.objects.for_dentist(request.dentist), pk=pk)
     b.delete()
-    log_action(request, "agenda", "Bloqueio removido", level=30)
-    messages.success(request, _("Bloqueio removido."))
+    log_action(request, "agenda", "Ausência removida", level=30)
+    messages.success(request, _("Ausência removida. Os horários voltaram a ficar livres."))
     return redirect("agenda:blocks")
 
 

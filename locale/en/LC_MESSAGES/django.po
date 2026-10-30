@@ -49,6 +49,13 @@ msgstr "%(n)s file(s) uploaded."
 msgid "%(n)s cancelou a consulta"
 msgstr "%(n)s cancelled the appointment"
 
+#: templates/agenda/blocks.html
+#, python-format
+msgid "%(n)s consulta marcada neste período:"
+msgid_plural "%(n)s consultas marcadas neste período:"
+msgstr[0] "%(n)s appointment booked in this period:"
+msgstr[1] "%(n)s appointments booked in this period:"
+
 #: templates/operator/data_report.html
 #, python-format
 msgid "%(n)s erro — nada foi gravado."
@@ -178,6 +185,10 @@ msgstr "Online booking isn't open yet. Please contact the clinic."
 #: templates/agenda/public_thanks.html
 msgid "A clínica vai confirmar seu horário por e-mail."
 msgstr "The clinic will confirm your time by e-mail."
+
+#: apps/agenda/forms.py
+msgid "A data final precisa ser igual ou depois da inicial."
+msgstr "The end date must be the same as or after the start date."
 
 #: apps/clinic/photos.py
 #, python-format
@@ -449,6 +460,35 @@ msgid "Até"
 msgstr "To"
 
 #: apps/agenda/forms.py
+msgid "Até (inclusive)"
+msgstr "Until (inclusive)"
+
+#: templates/agenda/calendar.html
+msgid "Ausência"
+msgstr "Absence"
+
+#: apps/agenda/views_dentist.py
+msgid "Ausência removida. Os horários voltaram a ficar livres."
+msgstr "Absence removed. Those times are free again."
+
+#: apps/agenda/views_dentist.py
+msgid "Ausência salva. A agenda está bloqueada nesse período."
+msgstr "Absence saved. Your agenda is blocked for that period."
+
+#: apps/agenda/views_dentist.py
+#, python-format
+msgid "Ausência salva. Atenção: %(n)s consulta(s) já marcada(s) nesse período continuam ativas — remarque ou cancele abaixo."
+msgstr "Absence saved. Note: %(n)s appointment(s) already booked in this period are still active — reschedule or cancel them below."
+
+#: templates/agenda/blocks.html templates/agenda/settings.html templates/layouts/dentist.html
+msgid "Ausências"
+msgstr "Absences"
+
+#: templates/agenda/blocks.html
+msgid "Ausências e bloqueios"
+msgstr "Absences and blocked time"
+
+#: apps/agenda/forms.py
 msgid "Autorizo o consultório a usar estes dados para entrar em contato e agendar minha consulta."
 msgstr "I allow the practice to use this information to contact me and book my appointment."
 
@@ -524,21 +564,9 @@ msgstr "Welcome to your portal"
 msgid "Bem-vindo ao wbook — defina sua senha"
 msgstr "Welcome to wbook — set your password"
 
-#: templates/agenda/blocks.html templates/agenda/calendar.html
-msgid "Bloquear"
-msgstr "Block"
-
-#: templates/agenda/blocks.html templates/agenda/settings.html
-msgid "Bloquear horários"
-msgstr "Block times"
-
-#: apps/agenda/views_dentist.py
-msgid "Bloqueio removido."
-msgstr "Block removed."
-
 #: templates/agenda/blocks.html
-msgid "Bloqueios"
-msgstr "Blocks"
+msgid "Bloquear agenda"
+msgstr "Block agenda"
 
 #: templates/clinic/patient_list.html templates/landing/lead_list.html templates/operator/dentist_list.html templates/operator/platform_leads.html
 msgid "Buscar"
@@ -974,7 +1002,7 @@ msgstr "Date"
 msgid "Data de nascimento"
 msgstr "Date of birth"
 
-#: templates/agenda/export.html
+#: apps/agenda/forms.py templates/agenda/export.html
 msgid "De"
 msgstr "From"
 
@@ -1069,6 +1097,10 @@ msgstr "Day"
 #: apps/operator/forms.py
 msgid "Dias de teste"
 msgstr "Trial days"
+
+#: apps/agenda/forms.py
+msgid "Dias inteiros"
+msgstr "Whole days"
 
 #: templates/clinic/invoice_form.html
 msgid "Dica: cadastre sua chave PIX ou link de pagamento em Configurações para aparecer na fatura."
@@ -1554,8 +1586,12 @@ msgid "Fotos, exames e anotações do tratamento são dados de saúde (LGPD, art
 msgstr "Photos, exams and treatment notes are health data (LGPD, art. 11). They are stored with restricted access: only you and your dentist can see them."
 
 #: templates/agenda/blocks.html
-msgid "Férias, cursos, almoço diferente: ninguém consegue agendar nesse período."
-msgstr "Holidays, courses, a different lunch break: nobody can book during this period."
+msgid "Férias, congresso, curso ou uma tarde livre: nesse período ninguém consegue agendar — nem pela sua página, nem pelo portal do paciente, nem você pela agenda. Consultas já marcadas não são canceladas automaticamente."
+msgstr "Vacation, a congress, a course or a free afternoon: no one can book in this period — not on your page, not in the patient portal, not you in the agenda. Appointments already booked are not cancelled automatically."
+
+#: apps/agenda/forms.py
+msgid "Férias, congresso, curso…"
+msgstr "Vacation, congress, course…"
 
 #: apps/clinic/invoice_pdf.py
 msgid "Gerado pelo wbook — www.wbook.com.br"
@@ -1589,9 +1625,13 @@ msgstr "Today"
 msgid "Hoje recebem"
 msgstr "Currently received by"
 
-#: apps/agenda/views_dentist.py
-msgid "Horário bloqueado."
-msgstr "Time blocked."
+#: apps/agenda/forms.py
+msgid "Hora de fim"
+msgstr "End time"
+
+#: apps/agenda/forms.py
+msgid "Hora de início"
+msgstr "Start time"
 
 #: templates/landing/public.html templates/patient/book.html
 msgid "Horário escolhido"
@@ -1652,6 +1692,10 @@ msgstr "Include passwords (hashed) to keep logins"
 #: templates/emails/booking_rejected.html
 msgid "Infelizmente a clínica não conseguiu confirmar o horário que você pediu."
 msgstr "Unfortunately the clinic couldn't confirm the time you requested."
+
+#: apps/agenda/forms.py
+msgid "Informe a hora de início e de fim, ou marque “Dias inteiros”."
+msgstr "Enter the start and end time, or tick “Whole days”."
 
 #: templates/accounts/password_reset.html
 msgid "Informe seu e-mail. Enviaremos um link para criar uma nova senha."
@@ -1853,6 +1897,10 @@ msgstr "Reason"
 msgid "Motivo (opcional)"
 msgstr "Reason (optional)"
 
+#: apps/agenda/forms.py
+msgid "Motivo (só você vê)"
+msgstr "Reason (only you see it)"
+
 #: apps/landing/views.py apps/website/views.py
 msgid "Muitas mensagens seguidas. Tente de novo mais tarde."
 msgstr "Too many messages in a row. Try again later."
@@ -1880,10 +1928,6 @@ msgstr "Nothing pending."
 #: templates/clinic/patient_detail.html
 msgid "Nascimento"
 msgstr "Birth date"
-
-#: templates/agenda/blocks.html
-msgid "Nenhum bloqueio."
-msgstr "No blocks."
 
 #: templates/patient/treatment.html
 msgid "Nenhum documento compartilhado."
@@ -1920,6 +1964,10 @@ msgstr "No treatments for now."
 #: templates/clinic/patient_detail.html
 msgid "Nenhum tratamento."
 msgstr "No treatments."
+
+#: templates/agenda/blocks.html
+msgid "Nenhuma ausência marcada."
+msgstr "No absences scheduled."
 
 #: templates/clinic/dashboard.html
 msgid "Nenhuma consulta hoje."
@@ -1985,6 +2033,10 @@ msgstr "Professional name"
 msgid "Nome, contatos, nascimento, entrada no portal, primeira/última/próxima consulta, tratamentos ativos e valor em aberto."
 msgstr "Name, contacts, date of birth, portal sign-up, first/last/next appointment, active treatments and amount outstanding."
 
+#: templates/agenda/blocks.html
+msgid "Nova ausência"
+msgstr "New absence"
+
 #: templates/agenda/calendar.html templates/agenda/create.html templates/clinic/dashboard.html
 msgid "Nova consulta"
 msgstr "New appointment"
@@ -2019,10 +2071,6 @@ msgstr "Update on your treatment: %(t)s"
 #: apps/landing/models.py
 msgid "Novo"
 msgstr "New"
-
-#: templates/agenda/blocks.html
-msgid "Novo bloqueio"
-msgstr "New block"
 
 #: apps/landing/views.py
 #, python-format
@@ -2139,7 +2187,7 @@ msgstr "The dentist undertakes to obtain patients' consent for the use of health
 msgid "O endereço pode estar errado ou a página saiu do ar."
 msgstr "The address may be wrong or the page is offline."
 
-#: apps/agenda/models.py
+#: apps/agenda/forms.py apps/agenda/models.py
 msgid "O fim precisa ser depois do início."
 msgstr "The end must be after the start."
 
@@ -2622,13 +2670,13 @@ msgstr "Next week"
 msgid "Próximas"
 msgstr "Upcoming"
 
+#: templates/agenda/blocks.html
+msgid "Próximas ausências"
+msgstr "Upcoming absences"
+
 #: templates/clinic/dashboard.html
 msgid "Próximos 7 dias"
 msgstr "Next 7 days"
-
-#: templates/agenda/blocks.html
-msgid "Próximos bloqueios"
-msgstr "Upcoming blocks"
 
 #: apps/clinic/views_dentist.py
 msgid "Publique sua página"
@@ -2793,7 +2841,7 @@ msgstr "Reschedule"
 msgid "Remarcar consulta"
 msgstr "Reschedule appointment"
 
-#: templates/agenda/settings.html templates/clinic/patient_delete.html templates/components/photo_gallery.html templates/confirm_delete.html
+#: templates/agenda/blocks.html templates/agenda/settings.html templates/clinic/patient_delete.html templates/components/photo_gallery.html templates/confirm_delete.html
 msgid "Remover"
 msgstr "Remove"
 
@@ -2801,6 +2849,10 @@ msgstr "Remove"
 #, python-format
 msgid "Remover <strong>%(n)s</strong>? A conta é anonimizada e o acesso ao portal é cortado."
 msgstr "Remove <strong>%(n)s</strong>? The account is anonymised and portal access is cut off."
+
+#: templates/agenda/blocks.html
+msgid "Remover esta ausência? Os horários voltam a ficar livres."
+msgstr "Remove this absence? Those times become free again."
 
 #: templates/components/photo_gallery.html
 msgid "Remover esta foto?"
@@ -3420,6 +3472,10 @@ msgstr "You already have a request awaiting confirmation. Please wait for the cl
 msgid "Você já é paciente: agende pelo portal e sua consulta é confirmada na hora."
 msgstr "You're already a patient: book in the portal and your appointment is confirmed right away."
 
+#: apps/agenda/services.py
+msgid "Você marcou ausência neste horário. Remova a ausência para agendar."
+msgstr "You marked an absence at this time. Remove the absence to book it."
+
 #: templates/patient/dashboard.html
 msgid "Você não tem consultas marcadas."
 msgstr "You have no appointments booked."
@@ -3668,7 +3724,7 @@ msgstr "detail in the synced calendar"
 msgid "dia"
 msgstr "day"
 
-#: apps/agenda/models.py
+#: apps/agenda/models.py templates/agenda/blocks.html
 msgid "dia inteiro"
 msgstr "all day"
 

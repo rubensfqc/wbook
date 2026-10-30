@@ -114,6 +114,19 @@
     });
   }
 
+  // Absence form: hide the hour fields when "whole days" is ticked
+  function absence(root) {
+    (root || document).querySelectorAll("[data-absence-allday]").forEach(function (box) {
+      var form = box.form;
+      function sync() {
+        form.querySelectorAll(".absence-time").forEach(function (w) { w.classList.toggle("hidden", box.checked); });
+      }
+      if (!box._wb) { box._wb = true; box.addEventListener("change", sync); }
+      sync();
+    });
+  }
+  document.addEventListener("DOMContentLoaded", function () { absence(); });
+
   // Slot picker: keep hidden start input in sync
   document.addEventListener("click", function (e) {
     var s = e.target.closest("[data-slot]");

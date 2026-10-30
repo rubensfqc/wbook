@@ -127,6 +127,12 @@ def is_visible(dentist, appt_type, start, now=None, exclude=None):
     return start in visible_times(dentist, appt_type, day, now=now, exclude=exclude)
 
 
+def in_absence(dentist, appt_type, start):
+    """True when the appointment would overlap one of the dentist's absences (TimeBlock)."""
+    end = start + timedelta(minutes=appt_type.duration_min)
+    return dentist.time_blocks.filter(start__lt=end, end__gt=start).exists()
+
+
 def is_free_for_dentist(dentist, appt_type, start, exclude=None):
     end = start + timedelta(minutes=appt_type.duration_min + appt_type.buffer_min)
     return not _overlaps(start, end, busy_intervals(dentist, start - timedelta(days=1), end + timedelta(days=1), exclude))

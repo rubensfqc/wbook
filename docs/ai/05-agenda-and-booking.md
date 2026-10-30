@@ -40,6 +40,17 @@ Tests (`tests/test_slots.py`): grid and overlap rules, buffers, blocks, the exam
 and across the day), limit still applied on a booked day, custom limit, 0 = all, a hidden time POSTed by hand is refused, two concurrent bookings of the same
 time → one wins.
 
+## 2b. Absences (`/app/agenda/bloqueios/`, menu **Ausências**)
+
+A `TimeBlock` is a period the dentist is away. `AbsenceForm` creates it in two modes:
+- **Dias inteiros** (`all_day=True`): `start_date 00:00` → `end_date + 1 day 00:00` in the dentist's time zone (end date inclusive).
+- **Hours**: `start_date start_time` → `end_date end_time`.
+
+Effects: the time leaves `grid()`, so it is hidden from the public page and the patient portal; `book`/`request_booking` refuse it via
+`visible_times`; `create_by_dentist` and the dentist's `reschedule` refuse it via `slots.in_absence()` with a specific message.
+Appointments already booked inside a new absence are **not** cancelled: the save message counts them and the absences list shows
+them with links, so the dentist reschedules or cancels each one. Deleting an absence frees the times. Tests: `tests/test_absences.py`.
+
 ## 3. Booking services (`apps/agenda/services.py`)
 
 All run inside `transaction.atomic()`, lock the dentist row (`Dentist.objects.select_for_update().get(pk=...)`), re-check the time
