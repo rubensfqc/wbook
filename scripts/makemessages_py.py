@@ -131,12 +131,15 @@ def main():
             missing += not t
             lines.append(f'msgstr "{esc(t)}"')
         lines.append("")
-    PO.parent.mkdir(parents=True, exist_ok=True)
-    PO.write_text("\n".join(lines), encoding="utf-8")
+    if "--check" not in sys.argv:  # --check only reports, never rewrites the catalog
+        PO.parent.mkdir(parents=True, exist_ok=True)
+        PO.write_text("\n".join(lines), encoding="utf-8", newline="\n")  # LF on Windows too
     print(f"{len(found)} strings, {missing} untranslated → {PO.relative_to(ROOT)}")
     return missing
 
 
 if __name__ == "__main__":
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")  # Windows consoles/pipes default to cp1252, which has no "→"
     missing = main()
     sys.exit(1 if missing and "--check" in sys.argv else 0)

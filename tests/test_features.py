@@ -156,9 +156,9 @@ class I18nTests(TestCase):
         from pathlib import Path
 
         root = Path(__file__).resolve().parent.parent
-        out = subprocess.run([sys.executable, str(root / "scripts" / "makemessages_py.py"), "--check"], capture_output=True, text=True,
-                             cwd=root)
-        self.assertIn(" 0 untranslated", out.stdout)
+        out = subprocess.run([sys.executable, str(root / "scripts" / "makemessages_py.py"), "--check"], capture_output=True,
+                             text=True, encoding="utf-8", cwd=root)
+        self.assertIn(" 0 untranslated", out.stdout, out.stderr)
 
     def test_pages_in_english(self):
         d = make_dentist()
