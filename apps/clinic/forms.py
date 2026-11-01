@@ -9,7 +9,7 @@ from .models import Dentist, Invoice, PatientProfile, Treatment, TreatmentFile
 
 class DentistProfileForm(StyledModelForm):
     name = forms.CharField(label=_("Seu nome"), max_length=120)
-    username = forms.CharField(label=_("Usuário (para login)"), max_length=60, required=False)
+    username = forms.CharField(label=_("Nome de usuário (para login)"), max_length=40, required=False)
     cro_state = forms.ChoiceField(label=_("UF do CRO"), choices=[("", "—")] + UF_CHOICES, required=False)
     state = forms.ChoiceField(label=_("Estado"), choices=[("", "—")] + UF_CHOICES, required=False)
 
@@ -27,14 +27,9 @@ class DentistProfileForm(StyledModelForm):
         self.fields["username"].initial = self.instance.user.username
 
     def clean_username(self):
-        from apps.accounts.models import User
+        from apps.accounts.forms import clean_username_value
 
-        u = (self.cleaned_data.get("username") or "").strip().lower()
-        if u and User.objects.filter(username=u).exclude(pk=self.instance.user_id).exists():
-            raise forms.ValidationError(_("Este usuário já está em uso."))
-        if "@" in u:
-            raise forms.ValidationError(_("O usuário não pode ter @."))
-        return u
+        return clean_username_value(self.cleaned_data.get("username"), exclude_pk=self.instance.user_id)
 
     def save(self, commit=True):
         dentist = super().save(commit)

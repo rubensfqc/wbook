@@ -19,13 +19,19 @@ DEFAULT_TYPES = [
 
 
 @transaction.atomic
-def create_dentist(*, email, name, clinic_name, slug, password=None, display_name="", cro_number="", cro_state="",
-                   whatsapp="", phone="", city="", state="", active=True, language="pt-br", trial_days=None):
+def create_dentist(*, email, name, clinic_name="", slug="", password=None, display_name="", cro_number="", cro_state="",
+                   whatsapp="", phone="", city="", state="", active=True, language="pt-br", trial_days=None, username=None):
+    """Creates the dentist login, profile and sensible defaults. Only e-mail and name are required:
+    clinic name defaults to the dentist's name and the public address (slug) is generated from it."""
     from apps.agenda.models import AppointmentType, BookingSettings, WorkingHours
     from apps.core.models import PlatformSettings
+    from apps.core.slugs import unique_public_slug
     from apps.landing.models import LandingPage
 
+    clinic_name = (clinic_name or "").strip() or name
+    slug = slug or unique_public_slug(clinic_name, lambda s: Dentist.objects.filter(slug=s).exists())
     user = User.objects.create_user(email=email, password=password, name=name, phone=phone, role=User.Role.DENTIST,
+                                    username=username or None,
                                     is_active=active, language=language if language in ("pt-br", "en") else "pt-br")
     dentist = Dentist.objects.create(
         user=user, clinic_name=clinic_name, slug=slug, display_name=display_name or name, cro_number=cro_number,

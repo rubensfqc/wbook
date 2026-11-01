@@ -200,8 +200,11 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {"plain": {"format": "%(message)s"}},
+    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
     "handlers": {
         "console": {"class": "logging.StreamHandler"},
+        # 500 errors are e-mailed to ADMINS (only with DEBUG=False)
+        "mail_admins": {"class": "django.utils.log.AdminEmailHandler", "level": "ERROR", "filters": ["require_debug_false"]},
         "activity": (
             {"class": "logging.NullHandler"}
             if TESTING
@@ -211,11 +214,13 @@ LOGGING = {
                 "maxBytes": 5 * 1024 * 1024,
                 "backupCount": 5,
                 "encoding": "utf-8",
+                "delay": True,
                 "formatter": "plain",
             }
         ),
     },
     "loggers": {
+        "django.request": {"handlers": ["console", "mail_admins"], "level": "ERROR", "propagate": False},
         "wbook.activity": {"handlers": ["activity"], "level": "INFO", "propagate": False},
         "wbook": {"handlers": ["console"], "level": "INFO"},
     },

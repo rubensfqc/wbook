@@ -120,6 +120,10 @@ msgstr "12 hours"
 msgid "24 horas"
 msgstr "24 hours"
 
+#: apps/accounts/forms.py
+msgid "3 a 40 caracteres: letras minúsculas, números, ponto, hífen ou _. Você poderá entrar com ele ou com o e-mail."
+msgstr "3 to 40 characters: lowercase letters, numbers, dot, hyphen or _. You can log in with it or with your e-mail."
+
 #: apps/agenda/models.py
 msgid "48 horas"
 msgstr "48 hours"
@@ -580,7 +584,7 @@ msgstr "Search by name, e-mail or WhatsApp"
 msgid "CPF"
 msgstr "CPF"
 
-#: apps/accounts/forms.py apps/clinic/models.py
+#: apps/clinic/models.py
 msgid "CRO"
 msgstr "CRO"
 
@@ -653,7 +657,7 @@ msgstr "PIX key"
 msgid "Chave PIX: %(k)s"
 msgstr "PIX key: %(k)s"
 
-#: apps/accounts/forms.py apps/operator/forms.py templates/operator/dentist_list.html
+#: apps/operator/forms.py templates/operator/dentist_list.html
 msgid "Cidade"
 msgstr "City"
 
@@ -698,8 +702,8 @@ msgid "Compartilhar fase"
 msgstr "Share phase"
 
 #: apps/clinic/views_dentist.py
-msgid "Complete seu perfil e envie o logo"
-msgstr "Complete your profile and upload your logo"
+msgid "Complete seu perfil: consultório, CRO, endereço e logo"
+msgstr "Complete your profile: clinic, CRO, address and logo"
 
 #: apps/clinic/models.py
 msgid "Concluído"
@@ -1164,7 +1168,7 @@ msgid "E-mail já confirmado"
 msgstr "E-mail already confirmed"
 
 #: apps/accounts/forms.py
-msgid "E-mail ou usuário"
+msgid "E-mail ou nome de usuário"
 msgstr "E-mail or username"
 
 #: apps/accounts/forms.py
@@ -1218,10 +1222,6 @@ msgstr "Issued"
 #: apps/operator/forms.py
 msgid "Endereço da página"
 msgstr "Page address"
-
-#: apps/accounts/forms.py
-msgid "Endereço da sua página"
-msgstr "Your page address"
 
 #: templates/accounts/login.html templates/accounts/register.html templates/accounts/verify_email.html templates/layouts/public.html
 msgid "Entrar"
@@ -1336,7 +1336,7 @@ msgstr "This account hasn't been activated yet. Check your e-mail."
 msgid "Esta conta não pertence a este consultório. Use a página de login geral."
 msgstr "This account doesn't belong to this practice. Use the general sign-in page."
 
-#: apps/accounts/forms.py apps/clinic/forms.py apps/operator/forms.py
+#: apps/clinic/forms.py apps/operator/forms.py
 msgid "Estado"
 msgstr "State"
 
@@ -1352,7 +1352,7 @@ msgstr "This practice isn't accepting online requests right now."
 msgid "Este e-mail já tem uma conta no wbook."
 msgstr "This e-mail already has a wbook account."
 
-#: apps/accounts/forms.py apps/operator/forms.py
+#: apps/operator/forms.py
 msgid "Este endereço já está em uso."
 msgstr "This address is already in use."
 
@@ -1367,6 +1367,10 @@ msgstr "This time is already taken."
 #: apps/agenda/services.py
 msgid "Este horário não está mais disponível. Escolha outro."
 msgstr "This time is no longer available. Choose another one."
+
+#: apps/accounts/forms.py
+msgid "Este nome de usuário já está em uso."
+msgstr "This username is already taken."
 
 #: templates/quotes/public.html
 msgid "Este orçamento expirou. Fale com a clínica para atualizar os valores."
@@ -1383,10 +1387,6 @@ msgstr "This quote can no longer be answered. Contact the clinic."
 #: apps/agenda/services.py
 msgid "Este pedido não está mais pendente."
 msgstr "This request is no longer pending."
-
-#: apps/clinic/forms.py
-msgid "Este usuário já está em uso."
-msgstr "This username is already in use."
 
 #: apps/clinic/models.py
 msgid "Evento"
@@ -1696,6 +1696,10 @@ msgstr "Unfortunately the clinic couldn't confirm the time you requested."
 #: apps/agenda/forms.py
 msgid "Informe a hora de início e de fim, ou marque “Dias inteiros”."
 msgstr "Enter the start and end time, or tick “Whole days”."
+
+#: apps/accounts/forms.py
+msgid "Informe o WhatsApp com DDD."
+msgstr "Enter the WhatsApp number with area code."
 
 #: templates/accounts/password_reset.html
 msgid "Informe seu e-mail. Enviaremos um link para criar uma nova senha."
@@ -2022,10 +2026,14 @@ msgid "Nome completo + tipo"
 msgstr "Full name + type"
 
 #: apps/accounts/forms.py
-msgid "Nome do consultório ou clínica"
-msgstr "Practice or clinic name"
+msgid "Nome de usuário (opcional)"
+msgstr "Username (optional)"
 
-#: apps/accounts/forms.py apps/operator/forms.py
+#: apps/clinic/forms.py
+msgid "Nome de usuário (para login)"
+msgstr "Username (for login)"
+
+#: apps/operator/forms.py
 msgid "Nome profissional"
 msgstr "Professional name"
 
@@ -2237,10 +2245,6 @@ msgstr "What to export"
 #: templates/quotes/public.html
 msgid "O que você decidiu?"
 msgstr "What did you decide?"
-
-#: apps/clinic/forms.py
-msgid "O usuário não pode ter @."
-msgstr "The username can't contain @."
 
 #: templates/website/terms.html
 msgid "O wbook é uma plataforma de agendamento online, portal do paciente, orçamentos e faturas para dentistas. O dentista é o responsável pelos dados de seus pacientes (controlador) e o wbook atua como operador, tratando os dados apenas para prestar o serviço."
@@ -2542,6 +2546,10 @@ msgstr "Plans, prices and the trial period are described on the plans page. Acce
 #: templates/operator/settings.html
 msgid "Plataforma, contato e planos"
 msgstr "Platform, contact and plans"
+
+#: apps/accounts/models.py
+msgid "Pode ser usado no lugar do e-mail para entrar."
+msgstr "Can be used instead of the e-mail to log in."
 
 #: templates/accounts/consent.html templates/website/privacy.html
 msgid "Política de privacidade"
@@ -3204,8 +3212,8 @@ msgid "Teste grátis por %(n)s dias. Depois, escolha o plano."
 msgstr "Free trial for %(n)s days. Then choose a plan."
 
 #: templates/accounts/register.html
-msgid "Teste grátis, sem cartão. Sua página de agendamento fica pronta em minutos."
-msgstr "Free trial, no card. Your booking page is ready in minutes."
+msgid "Teste grátis, sem cartão. Só precisamos do seu nome, e-mail e WhatsApp — os dados do consultório (CRO, endereço, logo) você completa depois."
+msgstr "Free trial, no card. We only need your name, e-mail and WhatsApp — you can add your clinic details (CRO, address, logo) later."
 
 #: templates/layouts/dentist.html
 #, python-format
@@ -3322,7 +3330,7 @@ msgstr "Title"
 msgid "Título / legenda"
 msgstr "Title / caption"
 
-#: apps/accounts/forms.py apps/clinic/forms.py apps/clinic/models.py
+#: apps/clinic/forms.py apps/clinic/models.py
 msgid "UF do CRO"
 msgstr "CRO state"
 
@@ -3338,6 +3346,10 @@ msgstr "A new file was shared with you."
 msgid "Um tipo com consultas não pode ser apagado; desative-o."
 msgstr "A type with appointments can't be deleted; deactivate it."
 
+#: apps/accounts/models.py
+msgid "Use 3 a 40 letras minúsculas, números, ponto, hífen ou _ (sem espaços)."
+msgstr "Use 3 to 40 lowercase letters, numbers, dot, hyphen or _ (no spaces)."
+
 #: apps/core/slugs.py
 msgid "Use de 3 a 50 letras minúsculas, números ou hífens."
 msgstr "Use 3 to 50 lowercase letters, numbers or hyphens."
@@ -3349,10 +3361,6 @@ msgstr "Use two rows on the same day to split morning and afternoon (e.g. 08:00�
 #: templates/operator/dentist_edit.html
 msgid "Uso"
 msgstr "Usage"
-
-#: apps/clinic/forms.py
-msgid "Usuário (para login)"
-msgstr "Username (for sign-in)"
 
 #: templates/clinic/invoice_list.html templates/clinic/treatment_detail.html templates/clinic/treatment_list.html templates/quotes/public.html
 msgid "Valor"
@@ -3956,6 +3964,10 @@ msgstr "live"
 msgid "nome"
 msgstr "name"
 
+#: apps/accounts/models.py
+msgid "nome de usuário"
+msgstr "username"
+
 #: apps/quotes/models.py
 msgid "nome do paciente"
 msgstr "patient name"
@@ -4355,10 +4367,6 @@ msgstr "viewed the PDF"
 #: apps/quotes/models.py
 msgid "válido até"
 msgstr "valid until"
-
-#: apps/accounts/forms.py
-msgid "wbook.com.br/seu-endereco — letras minúsculas, números e hífens"
-msgstr "wbook.com.br/your-address — lowercase letters, numbers and hyphens"
 
 #: apps/agenda/services.py
 msgid "É preciso aceitar o uso dos seus dados para enviar o pedido."

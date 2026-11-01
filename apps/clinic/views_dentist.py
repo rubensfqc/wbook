@@ -37,7 +37,8 @@ from .models import Invoice, PatientProfile, Treatment, TreatmentEntry, Treatmen
 # ---------------------------------------------------------------- dashboard / settings
 def _checklist(d):
     return [
-        (_("Complete seu perfil e envie o logo"), bool(d.logo and d.address), reverse("clinic:settings")),
+        (_("Complete seu perfil: consultório, CRO, endereço e logo"), bool(d.cro_number and d.address and d.logo),
+         reverse("clinic:settings")),
         (_("Defina seus horários e tipos de consulta"), d.working_hours.exists() and d.appointment_types.exists(),
          reverse("agenda:settings")),
         (_("Revise as regras de agendamento"), d.onboarding_done, reverse("agenda:settings")),

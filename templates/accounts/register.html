@@ -1,11 +1,11 @@
 {% extends "layouts/auth.html" %}
 {% block title %}{% translate 'Criar conta de dentista' %} · wbook{% endblock %}
-{% block card_width %}max-w-2xl{% endblock %}
+{% block card_width %}max-w-lg{% endblock %}
 {% block content %}
 <h1 class="text-xl">{% translate 'Crie sua conta' %}</h1>
-<p class="mt-1 text-sm text-slate-500">{% translate 'Teste grátis, sem cartão. Sua página de agendamento fica pronta em minutos.' %}</p>
+<p class="mt-1 text-sm text-slate-500">{% translate 'Teste grátis, sem cartão. Só precisamos do seu nome, e-mail e WhatsApp — os dados do consultório (CRO, endereço, logo) você completa depois.' %}</p>
 <form method="post" class="mt-5 space-y-5">{% csrf_token %}
-  {% include "components/form_fields.html" %}
+  {% include "components/form_fields.html" with grid="grid-cols-1" %}
   <button class="btn-primary w-full">{% translate 'Criar conta' %}</button>
 </form>
 <p class="mt-4 text-center text-sm">{% translate 'Já tem conta?' %} <a href="{% url 'accounts:login' %}">{% translate 'Entrar' %}</a></p>

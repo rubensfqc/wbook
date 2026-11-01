@@ -9,6 +9,8 @@ from django.template.loader import render_to_string
 from django.utils import translation
 from django.utils.html import strip_tags
 
+from .activity import log_action
+
 log = logging.getLogger("wbook")
 
 
@@ -56,10 +58,15 @@ def send_templated(to, subject, template, ctx=None, reply_to=None, attachments=N
         msg.attach_alternative(html, "text/html")
         for name, content, mimetype in attachments or []:
             msg.attach(name, content, mimetype)
-        msg.send()
         if settings.DEBUG and ctx.get("link"):
-            log.info("[DEV] link do e-mail %s: %s", template, ctx["link"])
+            # The console backend prints quoted-printable bodies: long links get "=" soft breaks and copying them
+            # from the terminal breaks the token. Log the clean link for developers.
+            log.warning("[DEV] link do e-mail '%s' para %s:\n%s", template, ", ".join(to), ctx["link"])
+        msg.send()
         return True
-    except Exception:  # noqa: BLE001
+    except Exception as e:  # noqa: BLE001
         log.exception("Falha ao enviar e-mail %s para %s", template, to)
+        # Also in the activity log, so the operator sees it at /operador/atividade/ without opening the server log.
+        log_action(None, "email", "Falha ao enviar e-mail '%(tpl)s' para %(to)s — %(err)s",
+                   tpl=template, to=", ".join(to), err=f"{type(e).__name__}: {e}"[:200], level=logging.WARNING)
         return False

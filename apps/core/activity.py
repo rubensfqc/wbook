@@ -7,7 +7,7 @@ logger = logging.getLogger("wbook.activity")
 
 CATEGORIES = [
     "auth", "agenda", "booking", "patient", "treatment", "file", "quote", "invoice",
-    "lead", "export", "alert", "settings", "operator",
+    "lead", "export", "alert", "email", "settings", "operator",
 ]
 _CLEAN = re.compile(r"[\r\n|]+")
 
@@ -24,13 +24,17 @@ def _who(actor):
 
 
 def log_action(actor, category, message, level=logging.INFO, **values):
+    """Never raises: logging must not break the action being logged."""
     from django.utils import timezone
 
-    if values:
-        message = message % {k: _clean(v) for k, v in values.items()}
-    stamp = timezone.localtime().strftime("%Y-%m-%d %H:%M:%S")
-    level_name = logging.getLevelName(level)
-    logger.log(level, "%s | %s | %s | %s | %s", stamp, level_name, _clean(category), _clean(_who(actor)), _clean(message))
+    try:
+        if values:
+            message = message % {k: _clean(v) for k, v in values.items()}
+        stamp = timezone.localtime().strftime("%Y-%m-%d %H:%M:%S")
+        level_name = logging.getLevelName(level)
+        logger.log(level, "%s | %s | %s | %s | %s", stamp, level_name, _clean(category), _clean(_who(actor)), _clean(message))
+    except Exception:  # noqa: BLE001
+        logging.getLogger("wbook").exception("activity log failed")
 
 
 def read_lines(path, limit=5000):

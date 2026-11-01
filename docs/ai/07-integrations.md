@@ -18,7 +18,9 @@
 ## E-mail
 `apps.core.emails.send_templated(to, subject, template, ctx, reply_to=None, attachments=None, language=None)` renders
 `templates/emails/<template>.html` (extends `emails/base.html`) inside `translation.override(language or recipient.language)`, builds the
-text part with links kept, sends from `DEFAULT_FROM_EMAIL`, logs failures instead of raising. `attachments` = list of
+text part with links kept, sends from `DEFAULT_FROM_EMAIL`, logs failures instead of raising — to the server log **and** to the activity log
+(`email` category, WARNING) so the operator sees them at `/operador/atividade/`. 500 errors are e-mailed to `ADMINS` (`mail_admins`
+handler on `django.request`, only with DEBUG=False). `attachments` = list of
 `(filename, bytes, mimetype)` — used for `.ics` files. Gmail SMTP with an app password (`wbook@gmail.com`). With DEBUG, the clean `link` is
 logged as `[DEV] link do e-mail …` (the console backend breaks long links).
 
@@ -65,7 +67,7 @@ As wiserarch: `apps.core.activity.log_action(request_or_user_or_None, "categoria
 `wbook.activity` logger → `RotatingFileHandler` at `ACTIVITY_LOG_FILE` (default `var/logs/activity.log`, 5 MB × 5).
 Line: `YYYY-MM-DD HH:MM:SS | LEVEL | categoria | email (ROLE) | mensagem`; values sanitised (no new lines or `|`).
 Categories (`activity.CATEGORIES`): `auth`, `agenda`, `booking`, `patient`, `treatment`, `file`, `quote`, `invoice`, `lead`, `export`, `alert`,
-`settings`, `operator`. WARNING for deletions, suspensions, late-cancel requests, patient-data exports, imports and failures.
+`email`, `settings`, `operator`. Refused logins are logged (`auth`, WARNING) with the identifier typed. `log_action` never raises. WARNING for deletions, suspensions, late-cancel requests, patient-data exports, imports and failures.
 Operator UI `/operador/atividade/` (current file + `.1`) with filters and raw download. Messages are pt-BR (log language, not UI language).
 
 ## LGPD and clinical data
@@ -80,7 +82,10 @@ Operator UI `/operador/atividade/` (current file + `.1`) with filters and raw do
   templates marked "revise com um advogado".
 
 ## Login and tokens
-As wiserarch: `EmailOrUsernameBackend`; e-mail verification GET shows a button, POST activates (security scanners open links with GET);
+As wiserarch: `EmailOrUsernameBackend` (e-mail or username, case-insensitive; the login field says "E-mail ou nome de usuário").
+Dentist sign-up (`RegisterForm`) asks only **name, e-mail, WhatsApp, password** (+ optional username, terms, honeypot). `create_dentist()`
+sets clinic name = name and generates the page address with `apps.core.slugs.unique_public_slug()`; CRO, clinic, address and logo are
+completed later in `/app/configuracoes/` (first item of the onboarding checklist). E-mail verification GET shows a button, POST activates (security scanners open links with GET);
 first password / reset via `default_token_generator` (`PASSWORD_RESET_TIMEOUT` 3 days); `InclusivePasswordResetForm` also reaches invited
 patients without a password. Public tokens (`Appointment.public_token`, `Quote.uuid`, `Dentist.calendar_feed_token`) are UUID4.
 

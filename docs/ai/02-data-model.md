@@ -6,7 +6,8 @@ Deleting a row, or replacing its file, deletes the stored file (`apps/core/signa
 Choices use `models.TextChoices` with pt-BR labels wrapped in `gettext_lazy`.
 
 ## accounts.User (AUTH_USER_MODEL)
-`email` (unique, `USERNAME_FIELD`, lowercased), `username` (optional, generated from the e-mail when empty — login accepts either),
+`email` (unique, `USERNAME_FIELD`, lowercased), `username` (optional, `^[a-z0-9][a-z0-9._-]{2,39}$`, unique case-insensitively, generated from the e-mail when empty —
+login accepts either; validated by `apps.accounts.forms.clean_username_value` at sign-up and in the dentist settings),
 `name`, `phone`, `role` (DENTIST / PATIENT / OPERATOR), `language` (`pt-br` / `en`, default `pt-br`; set by the switcher when
 logged in, used for e-mails). No `first_name`/`last_name`. `createsuperuser` creates an OPERATOR. Helpers: `is_dentist`, `is_patient`, `is_operator`.
 

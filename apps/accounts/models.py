@@ -1,19 +1,25 @@
 import re
 
 from django.contrib.auth.models import AbstractUser, UserManager
+from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+USERNAME_RE = r"^[a-z0-9][a-z0-9._-]{2,39}$"
 
-def unique_username(email, exclude_pk=None):
-    base = re.sub(r"[^a-z0-9._-]", "", (email or "user").split("@")[0].lower())[:30] or "user"
-    candidate, n = base, 1
+
+def unique_username(base, exclude_pk=None):
+    """'Ana.Lima+x@…' -> 'ana.lima-x', made unique with -2, -3… Always matches USERNAME_RE."""
+    root = re.sub(r"[^a-z0-9._-]+", "-", (base or "").split("@")[0].lower()).strip("._-")[:34] or "usuario"
+    if len(root) < 3:
+        root = (root + "-usr")[:3] if root else "usr"
     qs = User.objects.all()
     if exclude_pk:
         qs = qs.exclude(pk=exclude_pk)
-    while qs.filter(username=candidate).exists():
+    candidate, n = root, 2
+    while qs.filter(username__iexact=candidate).exists():
+        candidate = f"{root}-{n}"
         n += 1
-        candidate = f"{base}{n}"
     return candidate
 
 
@@ -46,7 +52,11 @@ class User(AbstractUser):
 
     first_name = None
     last_name = None
-    username = models.CharField(_("usuário"), max_length=60, unique=True, null=True, blank=True)
+    username = models.CharField(
+        _("nome de usuário"), max_length=60, unique=True, null=True, blank=True,
+        validators=[RegexValidator(USERNAME_RE, _("Use 3 a 40 letras minúsculas, números, ponto, hífen ou _ (sem espaços)."))],
+        help_text=_("Pode ser usado no lugar do e-mail para entrar."),
+    )
     email = models.EmailField(_("e-mail"), unique=True)
     name = models.CharField(_("nome"), max_length=120, blank=True)
     phone = models.CharField(_("telefone"), max_length=30, blank=True)

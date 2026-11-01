@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth import views as auth_views
@@ -52,6 +54,12 @@ class LoginView(auth_views.LoginView):
         log_action(user, "auth", "Login")
         return response
 
+    def form_invalid(self, form):
+        if self.request.method == "POST":
+            log_action(None, "auth", "Login recusado para '%(u)s'", u=(self.request.POST.get("username") or "")[:80],
+                       level=logging.WARNING)
+        return super().form_invalid(form)
+
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx["dentist"] = self.dentist
@@ -77,18 +85,19 @@ def register(request):
             messages.error(request, _("Muitas tentativas. Tente de novo em uma hora."))
         elif form.is_valid():
             d = form.cleaned_data
+            if d.get("website"):  # honeypot filled → bot; pretend it worked
+                return redirect("accounts:verify_email_sent")
             dentist = create_dentist(
-                email=d["email"], name=d["name"], password=d["password"], clinic_name=d["clinic_name"], slug=d["slug"],
-                display_name=d["display_name"], cro_number=d["cro_number"], cro_state=d["cro_state"],
-                whatsapp=d["whatsapp"], city=d["city"], state=d["state"], active=False,
-                language=request.LANGUAGE_CODE,
+                email=d["email"], name=d["name"], password=d["password"], whatsapp=d["whatsapp"],
+                username=d["username"] or None, active=False, language=request.LANGUAGE_CODE,
             )
             _send_verification(dentist.user)
             from apps.core.notifications import notify_operator
 
-            notify_operator("alert_new_dentist", _("Novo dentista: %(n)s") % {"n": dentist.clinic_name},
-                            "operator_new_dentist", {"dentist": dentist})
-            log_action(dentist.user, "auth", "Cadastro de dentista %(s)s", s=dentist.slug)
+            notify_operator("alert_new_dentist", _("Novo dentista: %(n)s") % {"n": dentist.user.name},
+                            "operator_new_dentist", {"dentist": dentist}, reply_to=dentist.user.email)
+            log_action(dentist.user, "auth", "Cadastro de dentista %(n)s <%(e)s> /%(s)s/",
+                       n=dentist.user.name, e=dentist.user.email, s=dentist.slug)
             request.session["verify_email"] = dentist.user.email
             return redirect("accounts:verify_email_sent")
     return render(request, "accounts/register.html", {"form": form})

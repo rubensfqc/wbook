@@ -16,3 +16,20 @@ def validate_public_slug(value):
         raise ValidationError(_("Use de 3 a 50 letras minúsculas, números ou hífens."))
     if value in RESERVED_SLUGS:
         raise ValidationError(_("Este endereço é reservado. Escolha outro."))
+
+
+def unique_public_slug(text, taken):
+    """A valid, non-reserved slug from `text` ("Dra. Ana Lima" -> "dra-ana-lima"), made unique with -2, -3….
+    `taken(slug) -> bool` says whether a slug is already used."""
+    from django.utils.text import slugify
+
+    root = slugify(text or "")[:44].strip("-")
+    if len(root) < 3:
+        root = f"{root}-dentista".strip("-") if root else "dentista"
+    if root in RESERVED_SLUGS:
+        root = f"{root}-dentista"
+    candidate, n = root, 2
+    while taken(candidate) or not SLUG_RE.match(candidate):
+        candidate = f"{root}-{n}"
+        n += 1
+    return candidate
