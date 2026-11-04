@@ -152,3 +152,19 @@ class PublicPageLinksTests(TestCase):
         r = self.client.get(f"/{d.slug}/")
         self.assertContains(r, 'href="https://www.instagram.com/dra.ana/"')
         self.assertContains(r, 'href="https://www.clinica.com.br"')
+
+
+class DashboardAccentTests(TestCase):
+    """The dentist dashboard sidebar follows the 'Cor de destaque' chosen in Minha página."""
+
+    def test_sidebar_uses_landing_accent(self):
+        from apps.landing.models import ACCENTS
+
+        d = make_dentist()
+        self.client.force_login(d.user)
+        d.landing.accent = "plum"
+        d.landing.save()
+        r = self.client.get("/app/leads/minha-pagina/")
+        self.assertEqual(r.status_code, 200)
+        self.assertContains(r, f'--accent: {ACCENTS["plum"]}')
+        self.assertContains(r, "sidebar-accent")

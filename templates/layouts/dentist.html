@@ -1,4 +1,18 @@
 {% extends "layouts/portal.html" %}
+{% block body_attrs %}style="--accent: {{ request.user.dentist_profile.landing.accent_hex|default:'#0f766e' }}"{% endblock %}
+{% block head %}
+<style>
+  /* Sidebar follows the dentist's "Cor de destaque" (Minha página). Darkened so white text keeps its contrast. */
+  [data-sidebar].sidebar-accent { background-color: color-mix(in srgb, var(--accent) 62%, #000); }
+  [data-sidebar].sidebar-accent .nav-link { color: rgb(255 255 255 / .78); }
+  [data-sidebar].sidebar-accent .nav-link:hover,
+  [data-sidebar].sidebar-accent .nav-link.active { color: #fff; }
+  [data-sidebar].sidebar-accent .nav-section { color: rgb(255 255 255 / .5); }
+  [data-sidebar].sidebar-accent > div:last-child,
+  [data-sidebar].sidebar-accent > div:last-child a:not(.underline) { color: rgb(255 255 255 / .75); }
+</style>
+{% endblock %}
+{% block sidebar_bg %}bg-brand-900 sidebar-accent{% endblock %}
 {% block home_url %}{% url 'clinic:dashboard' %}{% endblock %}
 {% block nav %}
 {% with d=request.user.dentist_profile %}
