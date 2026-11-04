@@ -139,3 +139,16 @@ class TypeFormsetTests(TestCase):
         self.assertEqual(r.status_code, 302)
         self.assertTrue(self.d.appointment_types.filter(pk=t.pk).exists())
         self.assertFalse(self.d.appointment_types.filter(name="Renomeado").exists())
+
+
+class PublicPageLinksTests(TestCase):
+    def test_links_only_when_filled(self):
+        d = make_dentist()
+        r = self.client.get(f"/{d.slug}/")
+        self.assertNotContains(r, "instagram.com")
+        d.landing.instagram = "https://www.instagram.com/dra.ana/"
+        d.landing.website = "https://www.clinica.com.br"
+        d.landing.save()
+        r = self.client.get(f"/{d.slug}/")
+        self.assertContains(r, 'href="https://www.instagram.com/dra.ana/"')
+        self.assertContains(r, 'href="https://www.clinica.com.br"')

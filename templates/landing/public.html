@@ -25,6 +25,8 @@
       <div class="mt-6 flex flex-wrap gap-3">
         {% if landing.show_calendar and types %}<a href="#agendar" class="btn-accent">{% icon 'calendar' %}{% translate 'Ver horários livres' %}</a>{% endif %}
         {% if landing.show_whatsapp_button and dentist.whatsapp %}<a href="{{ dentist.whatsapp|wa_link }}" target="_blank" rel="noopener" class="btn-whatsapp">{% icon 'whatsapp' %}WhatsApp</a>{% endif %}
+        {% if landing.instagram %}<a href="{{ landing.instagram }}" target="_blank" rel="noopener" class="btn-secondary">{% icon 'camera' %}Instagram</a>{% endif %}
+        {% if landing.website %}<a href="{{ landing.website }}" target="_blank" rel="noopener" class="btn-secondary">{% icon 'globe' %}{% translate 'Site' %}</a>{% endif %}
       </div>
       {% if landing.insurance_note %}<p class="mt-4 text-sm text-slate-500">{{ landing.insurance_note }}</p>{% endif %}
     </div>
