@@ -281,6 +281,10 @@ msgstr "Add"
 msgid "Adicionar item"
 msgstr "Add item"
 
+#: templates/agenda/settings.html
+msgid "Adicionar tipo"
+msgstr "Add type"
+
 #: templates/components/add_to_calendar.html templates/emails/_calendar_links.html
 msgid "Adicionar à agenda"
 msgstr "Add to calendar"
@@ -603,6 +607,10 @@ msgstr "Register as patient"
 #: apps/quotes/views.py
 msgid "Cadastre o paciente primeiro."
 msgstr "Register the patient first."
+
+#: apps/agenda/forms.py
+msgid "Cadastre pelo menos um tipo de consulta."
+msgstr "Add at least one appointment type."
 
 #: templates/clinic/patient_list.html
 msgid "Cadastre um paciente ou converta um lead."
@@ -1151,10 +1159,6 @@ msgstr "During"
 msgid "Duração"
 msgstr "Duration"
 
-#: templates/agenda/settings.html
-msgid "Duração e intervalo em minutos. “Visitantes” = pode ser pedido por quem ainda não é paciente. O preço só aparece na página se “Mostrar preços” também estiver ligado em Minha página."
-msgstr "Duration and buffer in minutes. “Visitors” = can be requested by people who aren't patients yet. The price only shows on the page if “Show prices” is also on in My page."
-
 #: apps/accounts/forms.py apps/agenda/forms.py apps/clinic/forms.py apps/clinic/views_export.py apps/landing/forms.py apps/operator/forms.py templates/clinic/patient_detail.html templates/operator/dentis
 msgid "E-mail"
 msgstr "E-mail"
@@ -1399,6 +1403,10 @@ msgstr "E.g. \"Dr. Ana Lima\""
 #: templates/components/late_cancel_box.html
 msgid "Ex.: surgiu um imprevisto no trabalho"
 msgstr "E.g. something came up at work"
+
+#: apps/landing/forms.py
+msgid "Ex.: www.seuconsultorio.com.br — o https:// é adicionado sozinho."
+msgstr "E.g. www.yourpractice.com — https:// is added automatically."
 
 #: templates/clinic/exports.html
 msgid "Excel com CPF completo"
@@ -1705,7 +1713,7 @@ msgstr "Enter the WhatsApp number with area code."
 msgid "Informe seu e-mail. Enviaremos um link para criar uma nova senha."
 msgstr "Enter your e-mail. We'll send a link to create a new password."
 
-#: apps/core/models.py apps/landing/models.py
+#: apps/core/models.py apps/landing/forms.py apps/landing/models.py
 msgid "Instagram"
 msgstr "Instagram"
 
@@ -1820,6 +1828,10 @@ msgstr "Expired or invalid link"
 #: templates/agenda/sync.html
 msgid "Link privado da sua agenda"
 msgstr "Private link to your calendar"
+
+#: apps/agenda/forms.py
+msgid "Mantenha pelo menos um tipo de consulta ativo."
+msgstr "Keep at least one appointment type active."
 
 #: templates/agenda/_detail_panel.html
 msgid "Manter"
@@ -2511,6 +2523,10 @@ msgstr "Request this time"
 msgid "Pedir novo link"
 msgstr "Ask for a new link"
 
+#: templates/agenda/settings.html
+msgid "Pelo menos um tipo precisa ficar ativo. Duração e intervalo em minutos. “Visitantes” = pode ser pedido por quem ainda não é paciente. O preço só aparece na página se “Mostrar preços” também estiver ligado em Minha página. Um tipo que já tem consultas não pode ser removido; desative-o."
+msgstr "At least one type must stay active. Duration and buffer in minutes. “Visitors” = can be requested by people who aren't patients yet. The price only shows on the page if “Show prices” is also on in My page. A type that already has appointments can't be removed; deactivate it instead."
+
 #: apps/landing/models.py
 msgid "Perdido"
 msgstr "Lost"
@@ -2849,7 +2865,7 @@ msgstr "Reschedule"
 msgid "Remarcar consulta"
 msgstr "Reschedule appointment"
 
-#: templates/agenda/blocks.html templates/agenda/settings.html templates/clinic/patient_delete.html templates/components/photo_gallery.html templates/confirm_delete.html
+#: templates/agenda/_type_row.html templates/agenda/blocks.html templates/agenda/settings.html templates/clinic/patient_delete.html templates/components/photo_gallery.html templates/confirm_delete.html
 msgid "Remover"
 msgstr "Remove"
 
@@ -3012,6 +3028,10 @@ msgstr "Session done: %(t)s on %(d)s"
 msgid "Sessões"
 msgstr "Sessions"
 
+#: apps/landing/forms.py
+msgid "Seu @perfil ou o link completo."
+msgstr "Your @handle or the full link."
+
 #: templates/landing/editor.html
 #, python-format
 msgid "Seu endereço: <strong>wbook.com.br/%(s)s</strong>"
@@ -3070,6 +3090,10 @@ msgstr "Sync your calendar"
 #: apps/agenda/models.py
 msgid "Sistema"
 msgstr "System"
+
+#: apps/landing/forms.py
+msgid "Site"
+msgstr "Website"
 
 #: apps/clinic/invoice_pdf.py apps/clinic/views_export.py templates/clinic/invoice_list.html templates/clinic/treatment_detail.html templates/clinic/treatment_list.html templates/landing/lead_list.html t
 msgid "Situação"

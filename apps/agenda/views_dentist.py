@@ -4,6 +4,8 @@ from datetime import date, datetime, time, timedelta
 
 from django.contrib import messages
 from django.core.exceptions import ValidationError
+from django.db import transaction
+from django.db.models import ProtectedError, RestrictedError
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -30,11 +32,12 @@ def agenda_settings(request):
     types = TypeFormSet(request.POST or None, instance=d, prefix="t")
     if request.method == "POST":
         if sform.is_valid() and hours.is_valid() and types.is_valid():
-            sform.save()
-            hours.save()
             try:
-                types.save()
-            except Exception:  # noqa: BLE001 — protected FK (type in use)
+                with transaction.atomic():
+                    sform.save()
+                    hours.save()
+                    types.save()
+            except (RestrictedError, ProtectedError):  # a type that already has appointments
                 messages.error(request, _("Um tipo com consultas não pode ser apagado; desative-o."))
                 return redirect("agenda:settings")
             if not d.onboarding_done:

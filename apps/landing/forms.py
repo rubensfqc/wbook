@@ -1,12 +1,17 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from apps.core.forms import StyledForm, StyledModelForm
+from apps.core.forms import InstagramURLField, LenientURLField, StyledForm, StyledModelForm
 
 from .models import LandingPage, Lead
 
 
 class LandingPageForm(StyledModelForm):
+    instagram = InstagramURLField(label=_("Instagram"), required=False, max_length=200,
+                                  help_text=_("Seu @perfil ou o link completo."))
+    website = LenientURLField(label=_("Site"), required=False, max_length=200,
+                              help_text=_("Ex.: www.seuconsultorio.com.br — o https:// é adicionado sozinho."))
+
     class Meta:
         model = LandingPage
         fields = ["is_published", "headline", "subheadline", "about", "services", "hero_image", "accent", "instagram", "website",

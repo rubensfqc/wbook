@@ -47,8 +47,26 @@ class _HoursBase(forms.BaseInlineFormSet):
                 raise forms.ValidationError(_("Há horários sobrepostos no mesmo dia."))
 
 
+class _TypesBase(forms.BaseInlineFormSet):
+    """At least one active appointment type; more are added/removed with the buttons on the page."""
+
+    default_error_messages = {"too_few_forms": _("Cadastre pelo menos um tipo de consulta.")}
+
+    def clean(self):
+        super().clean()
+        active = 0
+        for f in self.forms:
+            if not hasattr(f, "cleaned_data") or not f.cleaned_data or self._should_delete_form(f):
+                continue
+            if f.cleaned_data.get("is_active"):
+                active += 1
+        if not any(self.errors) and active == 0:
+            raise forms.ValidationError(_("Mantenha pelo menos um tipo de consulta ativo."))
+
+
 HoursFormSet = inlineformset_factory(Dentist, WorkingHours, form=WorkingHoursForm, formset=_HoursBase, extra=2, can_delete=True)
-TypeFormSet = inlineformset_factory(Dentist, AppointmentType, form=AppointmentTypeForm, extra=1, can_delete=True)
+TypeFormSet = inlineformset_factory(Dentist, AppointmentType, form=AppointmentTypeForm, formset=_TypesBase, extra=0,
+                                    min_num=1, validate_min=True, can_delete=True)
 
 
 class AbsenceForm(StyledForm):

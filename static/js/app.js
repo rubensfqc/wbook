@@ -77,7 +77,36 @@
         sum(box);
       });
       box.addEventListener("input", function () { sum(box); });
+      // Remove a row: tick its hidden DELETE box and hide it. The last visible row can't be removed.
+      box.addEventListener("click", function (e) {
+        var b = e.target.closest("[data-formset-remove]");
+        if (!b) return;
+        e.preventDefault();
+        var row = b.closest("[data-formset-row]");
+        var del = row && row.querySelector("input[name$='-DELETE']");
+        if (!del) return;
+        del.checked = true;
+        row.classList.add("hidden");
+        row.querySelectorAll("[required]").forEach(function (el) { el.removeAttribute("required"); });
+        removable(box);
+        sum(box);
+      });
+      if (add) add.addEventListener("click", function () { removable(box); });
+      box.querySelectorAll("[data-formset-row]").forEach(function (row) {
+        var del = row.querySelector("input[name$='-DELETE']");
+        if (del && del.checked) row.classList.add("hidden");
+      });
+      removable(box);
       sum(box);
+    });
+  }
+  function removable(box) {
+    var rows = Array.prototype.filter.call(box.querySelectorAll("[data-formset-row]"), function (r) {
+      return !r.classList.contains("hidden");
+    });
+    rows.forEach(function (r) {
+      var b = r.querySelector("[data-formset-remove]");
+      if (b) b.disabled = rows.length <= 1;
     });
   }
   function sum(box) {

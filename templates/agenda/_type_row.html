@@ -1,0 +1,11 @@
+<tr data-formset-row>{% for h in f.hidden_fields %}{{ h }}{% endfor %}
+  <td class="min-w-[10rem]">{{ f.name }}{% for e in f.non_field_errors %}<p class="field-error">{{ e }}</p>{% endfor %}{% for e in f.name.errors %}<p class="field-error">{{ e }}</p>{% endfor %}</td>
+  <td class="w-24">{{ f.duration_min }}{% for e in f.duration_min.errors %}<p class="field-error">{{ e }}</p>{% endfor %}</td>
+  <td class="w-24">{{ f.buffer_min }}{% for e in f.buffer_min.errors %}<p class="field-error">{{ e }}</p>{% endfor %}</td>
+  <td class="w-28">{{ f.price }}{% for e in f.price.errors %}<p class="field-error">{{ e }}</p>{% endfor %}</td>
+  <td>{{ f.show_price }}</td><td>{{ f.visitor_bookable }}</td>
+  <td>{{ f.colour }}{% for e in f.colour.errors %}<p class="field-error">{{ e }}</p>{% endfor %}</td>
+  <td>{{ f.is_active }}</td>
+  <td class="w-20">{{ f.order }}{% for e in f.order.errors %}<p class="field-error">{{ e }}</p>{% endfor %}</td>
+  <td><span class="hidden">{{ f.DELETE }}</span><button type="button" class="btn-ghost btn-sm" data-formset-remove title="{% translate 'Remover' %}" aria-label="{% translate 'Remover' %}">{% icon 'trash' %}</button></td>
+</tr>

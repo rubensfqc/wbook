@@ -43,6 +43,35 @@ class DentistScopedForm(StyledModelForm):
                 self.fields[name].queryset = qs(dentist)
 
 
+class LenientURLField(forms.URLField):
+    """URL typed without a scheme ("www.clinica.com.br") is accepted and saved as https://….
+
+    Uses a text input (inputmode=url) because the browser's own type="url" check rejects
+    anything without "https://" before the form is even sent.
+    """
+
+    def __init__(self, **kwargs):
+        kwargs.setdefault("assume_scheme", "https")
+        kwargs.setdefault("widget", forms.TextInput(attrs={"inputmode": "url", "autocapitalize": "off", "spellcheck": "false"}))
+        super().__init__(**kwargs)
+
+    def to_python(self, value):
+        value = (value or "").strip()
+        if value and "://" not in value:
+            value = "https://" + value.lstrip("/")
+        return super().to_python(value)
+
+
+class InstagramURLField(LenientURLField):
+    """Accepts a full link, "instagram.com/perfil", "@perfil" or just "perfil"."""
+
+    def to_python(self, value):
+        value = (value or "").strip()
+        if value and "://" not in value and "instagram.com" not in value.lower() and "/" not in value:
+            value = "https://www.instagram.com/{}/".format(value.lstrip("@"))
+        return super().to_python(value)
+
+
 class DateInput(forms.DateInput):
     input_type = "date"
 

@@ -12,12 +12,14 @@
       <p class="help">{% translate 'Use duas linhas no mesmo dia para separar manhã e tarde (ex.: 08:00–12:00 e 13:30–18:00). Salve para ganhar mais linhas em branco.' %}</p>
     </div></div>
 
-  <div class="card"><div class="card-header"><p class="card-title">{% translate 'Tipos de consulta' %}</p></div>
-    <div class="card-body">{{ types.management_form }}
-      <div class="overflow-x-auto"><table class="table"><thead><tr><th>{% translate 'Nome' %}</th><th>{% translate 'Duração' %}</th><th>{% translate 'Intervalo' %}</th><th>{% translate 'Preço' %}</th><th>{% translate 'Mostrar preço' %}</th><th>{% translate 'Visitantes' %}</th><th>{% translate 'Cor' %}</th><th>{% translate 'Ativo' %}</th><th>{% translate 'Ordem' %}</th><th>{% translate 'Remover' %}</th></tr></thead><tbody>
-      {% for f in types %}<tr>{% for h in f.hidden_fields %}{{ h }}{% endfor %}<td class="min-w-[10rem]">{{ f.name }}{% for e in f.name.errors %}<p class="field-error">{{ e }}</p>{% endfor %}</td><td class="w-24">{{ f.duration_min }}</td><td class="w-24">{{ f.buffer_min }}</td><td class="w-28">{{ f.price }}</td><td>{{ f.show_price }}</td><td>{{ f.visitor_bookable }}</td><td>{{ f.colour }}</td><td>{{ f.is_active }}</td><td class="w-20">{{ f.order }}</td><td>{% if f.instance.pk %}{{ f.DELETE }}{% endif %}</td></tr>{% endfor %}
+  <div class="card" data-formset="t"><div class="card-header flex items-center justify-between gap-2"><p class="card-title">{% translate 'Tipos de consulta' %}</p>
+      <button type="button" class="btn-secondary btn-sm" data-formset-add>{% icon 'plus' %}{% translate 'Adicionar tipo' %}</button></div>
+    <div class="card-body">{{ types.management_form }}{% for e in types.non_form_errors %}<p class="field-error mb-2">{{ e }}</p>{% endfor %}
+      <div class="overflow-x-auto"><table class="table"><thead><tr><th>{% translate 'Nome' %}</th><th>{% translate 'Duração' %}</th><th>{% translate 'Intervalo' %}</th><th>{% translate 'Preço' %}</th><th>{% translate 'Mostrar preço' %}</th><th>{% translate 'Visitantes' %}</th><th>{% translate 'Cor' %}</th><th>{% translate 'Ativo' %}</th><th>{% translate 'Ordem' %}</th><th></th></tr></thead><tbody data-formset-list>
+      {% for f in types %}{% include "agenda/_type_row.html" %}{% endfor %}
       </tbody></table></div>
-      <p class="help">{% translate 'Duração e intervalo em minutos. “Visitantes” = pode ser pedido por quem ainda não é paciente. O preço só aparece na página se “Mostrar preços” também estiver ligado em Minha página.' %}</p>
+      <template>{% with f=types.empty_form %}{% include "agenda/_type_row.html" %}{% endwith %}</template>
+      <p class="help">{% translate 'Pelo menos um tipo precisa ficar ativo. Duração e intervalo em minutos. “Visitantes” = pode ser pedido por quem ainda não é paciente. O preço só aparece na página se “Mostrar preços” também estiver ligado em Minha página. Um tipo que já tem consultas não pode ser removido; desative-o.' %}</p>
     </div></div>
 
   <div class="card"><div class="card-header"><p class="card-title">{% translate 'Regras de agendamento' %}</p></div>
